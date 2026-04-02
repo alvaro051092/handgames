@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>Piedra Papel Tijeras — 2 Jugadores en el mismo dispositivo</title>
+  <meta name="description" content="Juega piedra papel tijeras con un amigo en el mismo dispositivo. Turnos alternados, mejor de 3, sin necesidad de conexión adicional." />
+  <!-- Canonical + hreflang -->
+  <link rel="canonical"      href="https://handgames.app/rps/local.html" />
+  <link rel="alternate" hreflang="es"        href="https://handgames.app/rps/local.html" />
+  <link rel="alternate" hreflang="en"        href="https://handgames.app/rps/en/local.html" />
+  <link rel="alternate" hreflang="pt"        href="https://handgames.app/rps/pt/local.html" />
+  <link rel="alternate" hreflang="x-default" href="https://handgames.app/rps/local.html" />
+  <!-- Open Graph -->
+  <meta property="og:type"             content="website" />
+  <meta property="og:url"              content="https://handgames.app/rps/local.html" />
+  <meta property="og:title"            content="Piedra Papel Tijeras — 2 Jugadores en el mismo dispositivo" />
+  <meta property="og:description"      content="Juega piedra papel tijeras con un amigo en el mismo dispositivo. Turnos alternados, mejor de 3." />
+  <meta property="og:image"            content="https://handgames.app/assets/og-image.png" />
+  <meta property="og:locale"           content="es_ES" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:locale:alternate" content="pt_BR" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Piedra Papel Tijeras — 2 Jugadores en el mismo dispositivo" />
+  <meta name="twitter:description" content="Juega piedra papel tijeras con un amigo en el mismo dispositivo. Turnos alternados, mejor de 3." />
+  <meta name="twitter:image"       content="https://handgames.app/assets/og-image.png" />
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Piedra Papel Tijeras — 2 Jugadores",
+    "alternateName": ["Rock Paper Scissors 2 Players", "Pedra Papel Tesoura 2 Jogadores"],
+    "url": "https://handgames.app/rps/local.html",
+    "description": "Modo 2 jugadores en el mismo dispositivo. Turnos alternados, mejor de 3.",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "inLanguage": ["es", "en", "pt"],
+    "genre": "Casual game"
+  }
+  </script>
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon"  href="/assets/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
+  <link rel="apple-touch-icon"          href="/assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/css/tokens.css?v=3" />
+  <link rel="stylesheet" href="/css/layout.css?v=3" />
+  <link rel="stylesheet" href="/css/components.css?v=3" />
+  <link rel="stylesheet" href="/css/animations.css?v=3" />
+  <style>
+    .back-hub-link {
+      display: block;
+      text-align: center;
+      margin-top: var(--sp-4);
+      font-size: var(--text-sm);
+      color: var(--clr-text-subtle);
+      text-decoration: none;
+      transition: color var(--dur-fast);
+    }
+    .back-hub-link:hover { color: var(--clr-text-muted); }
+  </style>
+</head>
+<body>
+
+  <!-- Fixed overlays -->
+  <div id="curtain" aria-hidden="true"></div>
+  <div id="confetti-container" aria-hidden="true"></div>
+  <button id="btn-mute" class="btn-mute" aria-label="Silenciar audio" title="Silenciar audio">🔊</button>
+
+  <div id="app">
+
+    <!-- ══════════════════ SETUP ══════════════════ -->
+    <section id="screen-setup" class="screen active" aria-label="Configuración">
+      <header class="screen-header">
+        <h1 class="game-title"><span class="title-emoji">✂️</span> Piedra · Papel · Tijeras</h1>
+        <p class="game-subtitle">Dos jugadores · Un ganador</p>
+      </header>
+
+      <div class="card">
+        <div class="players-row">
+          <div class="field">
+            <label for="name-p1">Jugador 1</label>
+            <input id="name-p1" type="text" maxlength="20" placeholder="Jugador 1"
+                   autocomplete="off" spellcheck="false" />
+          </div>
+          <div class="vs-badge">VS</div>
+          <div class="field">
+            <label for="name-p2">Jugador 2</label>
+            <input id="name-p2" type="text" maxlength="20" placeholder="Jugador 2"
+                   autocomplete="off" spellcheck="false" />
+          </div>
+        </div>
+
+        <fieldset class="mode-group">
+          <legend>Modo de juego</legend>
+          <label class="mode-option">
+            <input type="radio" name="mode" value="best-of-3" checked />
+            <span class="mode-label">
+              <span class="mode-icon">🏆</span>
+              <span class="mode-text">
+                <strong>Mejor de 3</strong>
+                <small>Primera en ganar 2 rondas</small>
+              </span>
+            </span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="mode" value="single" />
+            <span class="mode-label">
+              <span class="mode-icon">⚡</span>
+              <span class="mode-text">
+                <strong>Intento único</strong>
+                <small>Todo en una sola ronda</small>
+              </span>
+            </span>
+          </label>
+        </fieldset>
+
+        <button id="btn-start" class="btn btn-primary btn-lg">Comenzar partida</button>
+      </div>
+
+      <a href="/rps/" class="back-hub-link">← Cambiar modo</a>
+    </section>
+
+    <!-- ══════════════════ PICK ══════════════════ -->
+    <section id="screen-pick" class="screen" aria-label="Selección de jugada">
+      <div class="scoreboard">
+        <div class="score-block" id="sb-p1-block">
+          <span class="score-name" id="sb-name-p1">J1</span>
+          <div class="score-roll" id="roll-p1"><span class="score-digit">0</span></div>
+        </div>
+        <div class="scoreboard-center">
+          <span class="round-badge" id="pick-round-badge">Ronda 1</span>
+        </div>
+        <div class="score-block" id="sb-p2-block">
+          <span class="score-name" id="sb-name-p2">J2</span>
+          <div class="score-roll" id="roll-p2"><span class="score-digit">0</span></div>
+        </div>
+      </div>
+
+      <div class="card pick-card">
+        <div class="turn-indicator" id="turn-indicator">
+          <span class="turn-avatar" id="turn-avatar">J1</span>
+          <p class="turn-text">Turno de <strong id="turn-name">Jugador 1</strong></p>
+        </div>
+        <p class="pick-hint">Elige tu jugada</p>
+        <div class="pick-buttons" id="pick-buttons">
+          <button class="btn btn-pick" data-pick="rock" aria-label="Elegir Piedra">
+            <span class="pick-emoji">🪨</span>
+            <span class="pick-label">Piedra</span>
+          </button>
+          <button class="btn btn-pick" data-pick="paper" aria-label="Elegir Papel">
+            <span class="pick-emoji">📄</span>
+            <span class="pick-label">Papel</span>
+          </button>
+          <button class="btn btn-pick" data-pick="scissors" aria-label="Elegir Tijeras">
+            <span class="pick-emoji">✂️</span>
+            <span class="pick-label">Tijeras</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ HANDOFF ══════════════════ -->
+    <section id="screen-handoff" class="screen" aria-label="Pasar dispositivo">
+      <div class="card handoff-card">
+        <div class="handoff-icon">🤫</div>
+        <h2 class="handoff-title">¡Jugada guardada!</h2>
+        <p class="handoff-msg">Pasa el dispositivo a <strong id="handoff-player">—</strong></p>
+        <p class="handoff-sub">No mires la pantalla hasta que sea tu turno.</p>
+        <button id="btn-handoff-ready" class="btn btn-primary btn-lg">
+          Listo, soy <span id="handoff-ready-name">—</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ══════════════════ RESULT ══════════════════ -->
+    <section id="screen-result" class="screen" aria-label="Resultado de ronda">
+      <div class="scoreboard">
+        <div class="score-block">
+          <span class="score-name" id="res-name-p1">J1</span>
+          <div class="score-roll" id="res-roll-p1"><span class="score-digit">0</span></div>
+        </div>
+        <div class="scoreboard-center">
+          <span class="round-badge" id="res-round-badge"></span>
+        </div>
+        <div class="score-block">
+          <span class="score-name" id="res-name-p2">J2</span>
+          <div class="score-roll" id="res-roll-p2"><span class="score-digit">0</span></div>
+        </div>
+      </div>
+
+      <div class="card result-card">
+        <div class="result-arena">
+          <div class="result-pick-block" id="res-p1-block">
+            <span class="res-pname" id="res-p1-name"></span>
+            <span class="res-emoji" id="res-p1-emoji"></span>
+            <span class="res-pick-label" id="res-p1-label"></span>
+          </div>
+          <div class="result-vs">VS</div>
+          <div class="result-pick-block" id="res-p2-block">
+            <span class="res-pname" id="res-p2-name"></span>
+            <span class="res-emoji" id="res-p2-emoji"></span>
+            <span class="res-pick-label" id="res-p2-label"></span>
+          </div>
+        </div>
+
+        <div id="result-banner" class="result-banner" role="status" aria-live="polite"></div>
+
+        <div class="result-actions">
+          <button id="btn-next-round" class="btn btn-primary btn-lg">Siguiente ronda →</button>
+          <button id="btn-revenge" class="btn btn-secondary">🔄 Revancha</button>
+          <button id="btn-new-game-result" class="btn btn-ghost">Nueva partida</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ GAME OVER ══════════════════ -->
+    <section id="screen-gameover" class="screen" aria-label="Fin de partida">
+      <div class="card gameover-card">
+        <div class="gameover-trophy" id="go-trophy">🏆</div>
+        <h2 class="gameover-title">
+          <span id="go-winner-name" class="go-winner-name"></span>
+          <span id="go-title-suffix"></span>
+        </h2>
+        <p class="gameover-subtitle" id="go-subtitle"></p>
+
+        <div class="gameover-score">
+          <div class="go-score-block">
+            <span class="score-name" id="go-name-p1"></span>
+            <span class="go-score-val" id="go-val-p1">0</span>
+          </div>
+          <span class="go-dash">—</span>
+          <div class="go-score-block">
+            <span class="score-name" id="go-name-p2"></span>
+            <span class="go-score-val" id="go-val-p2">0</span>
+          </div>
+        </div>
+
+        <div class="gameover-actions">
+          <button id="btn-revenge-go" class="btn btn-primary btn-lg">🔄 Revancha</button>
+          <button id="btn-new-game-go" class="btn btn-ghost">Nueva partida</button>
+          <a href="/rps/" class="btn btn-ghost">Cambiar modo</a>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- #app -->
+
+  <script src="/js/game-local.js?v=2"></script>
+  <script src="/js/audio.js?v=2"></script>
+  <script src="/js/ui-local.js?v=2"></script>
+</body>
+</html>
