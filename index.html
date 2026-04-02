@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>Hand Games — Juegos de mano gratis online</title>
+  <meta name="description" content="Juegos de mano gratis: Piedra Papel Tijeras, Morra, Palillos y más. Sin registro, sin descargas. Juega en cualquier dispositivo." />
+  <!-- Canonical + hreflang -->
+  <link rel="canonical"      href="https://handgames.app/" />
+  <link rel="alternate" hreflang="es"        href="https://handgames.app/" />
+  <link rel="alternate" hreflang="en"        href="https://handgames.app/en/" />
+  <link rel="alternate" hreflang="pt"        href="https://handgames.app/pt/" />
+  <link rel="alternate" hreflang="x-default" href="https://handgames.app/" />
+  <!-- Open Graph -->
+  <meta property="og:type"             content="website" />
+  <meta property="og:url"              content="https://handgames.app/" />
+  <meta property="og:title"            content="Hand Games — Juegos de mano gratis online" />
+  <meta property="og:description"      content="Juegos de mano gratis: Piedra Papel Tijeras, Morra, Palillos y más. Sin registro, sin descargas." />
+  <meta property="og:image"            content="https://handgames.app/assets/og-image.png" />
+  <meta property="og:locale"           content="es_ES" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:locale:alternate" content="pt_BR" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Hand Games — Juegos de mano gratis online" />
+  <meta name="twitter:description" content="Juegos de mano gratis: Piedra Papel Tijeras, Morra, Palillos y más. Sin registro, sin descargas." />
+  <meta name="twitter:image"       content="https://handgames.app/assets/og-image.png" />
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Hand Games",
+    "url": "https://handgames.app/",
+    "description": "Plataforma de juegos de mano online. Piedra Papel Tijeras, Morra, Palillos y más.",
+    "inLanguage": ["es", "en", "pt"],
+    "potentialAction": {
+      "@type": "PlayAction",
+      "target": "https://handgames.app/rps/"
+    }
+  }
+  </script>
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon"  href="/assets/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
+  <link rel="apple-touch-icon"          href="/assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/css/tokens.css?v=3" />
+  <link rel="stylesheet" href="/css/layout.css?v=3" />
+  <link rel="stylesheet" href="/css/animations.css?v=3" />
+  <style>
+    .hub-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--sp-8) var(--sp-4);
+    }
+
+    .lang-nav {
+      position: fixed;
+      top: var(--sp-4);
+      right: var(--sp-4);
+      display: flex;
+      gap: var(--sp-2);
+      z-index: 10;
+    }
+
+    .lang-link {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      color: var(--clr-text-subtle);
+      text-decoration: none;
+      padding: var(--sp-1) var(--sp-2);
+      border-radius: var(--radius-sm);
+      transition: color var(--dur-fast), background var(--dur-fast);
+    }
+
+    .lang-link:hover { color: var(--clr-text); background: var(--clr-surface-2); }
+    .lang-link.active { color: var(--clr-primary-light); }
+
+    .hub-header {
+      text-align: center;
+      margin-bottom: var(--sp-10);
+    }
+
+    .hub-logo {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: var(--sp-3);
+      animation: float 3s var(--ease-in-out) infinite;
+    }
+
+    .hub-title {
+      font-size: clamp(var(--text-2xl), 6vw, var(--text-4xl));
+      font-weight: 900;
+      letter-spacing: -1px;
+      line-height: 1.1;
+    }
+
+    .hub-subtitle {
+      margin-top: var(--sp-2);
+      font-size: var(--text-base);
+      color: var(--clr-text-muted);
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-4);
+      width: 100%;
+      max-width: 700px;
+    }
+
+    .game-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--clr-surface);
+      border: 2px solid var(--clr-border);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-6);
+      text-decoration: none;
+      color: var(--clr-text);
+      box-shadow: var(--shadow);
+      transition:
+        border-color var(--dur-fast) var(--ease-out),
+        background   var(--dur-fast) var(--ease-out),
+        transform    var(--dur-fast) var(--ease-out),
+        box-shadow   var(--dur-fast) var(--ease-out);
+    }
+
+    .game-card:not(.coming-soon):hover {
+      border-color: var(--clr-primary);
+      background: var(--clr-surface-2);
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-primary);
+    }
+
+    .game-card:focus-visible {
+      outline: 3px solid var(--clr-primary-light);
+      outline-offset: 3px;
+    }
+
+    .game-card.coming-soon {
+      opacity: 0.5;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .game-card-icon {
+      font-size: 2.8rem;
+      margin-bottom: var(--sp-3);
+      display: block;
+      animation: float 3s var(--ease-in-out) infinite;
+    }
+
+    .game-card:nth-child(2) .game-card-icon { animation-delay: 0.4s; }
+    .game-card:nth-child(3) .game-card-icon { animation-delay: 0.8s; }
+    .game-card:nth-child(4) .game-card-icon { animation-delay: 1.2s; }
+
+    .game-card-title {
+      font-size: var(--text-xl);
+      font-weight: 800;
+      margin-bottom: var(--sp-2);
+      color: var(--clr-primary-light);
+    }
+
+    .game-card-desc {
+      font-size: var(--text-sm);
+      color: var(--clr-text-muted);
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    .game-card-cta {
+      display: inline-block;
+      margin-top: var(--sp-4);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--clr-primary-light);
+      letter-spacing: .3px;
+      transition: letter-spacing var(--dur-fast);
+    }
+
+    .game-card:hover .game-card-cta {
+      letter-spacing: 1px;
+    }
+
+    .badge-soon {
+      display: inline-block;
+      margin-top: var(--sp-4);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      color: var(--clr-text-subtle);
+      letter-spacing: .5px;
+      text-transform: uppercase;
+    }
+
+    .hub-footer {
+      margin-top: var(--sp-10);
+      font-size: var(--text-xs);
+      color: var(--clr-text-subtle);
+      text-align: center;
+    }
+
+    @media (max-width: 560px) {
+      .games-grid { grid-template-columns: 1fr; max-width: 380px; }
+    }
+  </style>
+</head>
+<body class="hub-page">
+
+  <nav class="lang-nav" aria-label="Idioma">
+    <span class="lang-link active">ES</span>
+    <a href="/en/" class="lang-link">EN</a>
+    <a href="/pt/" class="lang-link">PT</a>
+  </nav>
+
+  <header class="hub-header">
+    <span class="hub-logo" aria-hidden="true">✋</span>
+    <h1 class="hub-title">Hand Games</h1>
+    <p class="hub-subtitle">Juegos de mano rápidos · Sin registro · Gratis</p>
+  </header>
+
+  <main>
+    <nav class="games-grid" aria-label="Juegos disponibles">
+
+      <a href="/rps/" class="game-card">
+        <span class="game-card-icon" aria-hidden="true">✊</span>
+        <span class="game-card-title">Piedra Papel Tijeras</span>
+        <p class="game-card-desc">
+          El clásico. 2 jugadores, vs CPU o modo Batalla
+          donde la suerte lo decide todo.
+        </p>
+        <span class="game-card-cta" aria-hidden="true">Jugar →</span>
+      </a>
+
+      <div class="game-card coming-soon" aria-hidden="true">
+        <span class="game-card-icon">🤌</span>
+        <span class="game-card-title">Morra</span>
+        <p class="game-card-desc">
+          Adivina cuántos dedos levantará tu oponente.
+          El juego de mano más antiguo del mundo.
+        </p>
+        <span class="badge-soon">Próximamente</span>
+      </div>
+
+      <div class="game-card coming-soon" aria-hidden="true">
+        <span class="game-card-icon">🖖</span>
+        <span class="game-card-title">Palillos</span>
+        <p class="game-card-desc">
+          Acumula dedos en las manos de tu oponente
+          para eliminarlo. Estrategia pura.
+        </p>
+        <span class="badge-soon">Próximamente</span>
+      </div>
+
+      <div class="game-card coming-soon" aria-hidden="true">
+        <span class="game-card-icon">🎲</span>
+        <span class="game-card-title">Par o Impar</span>
+        <p class="game-card-desc">
+          Adivina si la suma de dedos será par o impar.
+          Rápido, simple y emocionante.
+        </p>
+        <span class="badge-soon">Próximamente</span>
+      </div>
+
+    </nav>
+  </main>
+
+  <footer class="hub-footer">
+    handgames.app &mdash; Juegos de mano gratis
+  </footer>
+
+</body>
+</html>

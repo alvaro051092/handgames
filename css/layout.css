@@ -1,0 +1,215 @@
+/* ═══════════════════════════ RESET & BASE ═══════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  /* Subtle radial bg glow */
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(124,58,237,.18) 0%, transparent 60%);
+}
+
+/* ═══════════════════════════ APP CONTAINER ═══════════════════════════ */
+#app {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* ═══════════════════════════ SCREEN SYSTEM ═══════════════════════════ */
+.screen {
+  position: absolute;
+  inset: 0;
+  min-height: 100vh;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-5);
+  padding: var(--sp-8) var(--sp-4);
+  padding-top: var(--sp-10);
+}
+
+.screen.active,
+.screen.s-exiting,
+.screen.s-entering {
+  display: flex;
+}
+
+/* ── Transition classes (added/removed by ui.js) ── */
+.screen.s-exiting.dir-fwd  { animation: slideOutLeft  var(--dur-normal) var(--ease-in)  forwards; }
+.screen.s-exiting.dir-back { animation: slideOutRight var(--dur-normal) var(--ease-in)  forwards; }
+.screen.s-entering.dir-fwd  { animation: slideInRight  var(--dur-normal) var(--ease-out) forwards; }
+.screen.s-entering.dir-back { animation: slideInLeft   var(--dur-normal) var(--ease-out) forwards; }
+
+/* ═══════════════════════════ FIXED OVERLAYS ═══════════════════════════ */
+#curtain {
+  position: fixed;
+  inset: 0;
+  background: var(--clr-bg);
+  z-index: 500;
+  pointer-events: none;
+  transform: translateY(-100%);
+  will-change: transform;
+}
+#curtain.drop { animation: curtainDrop var(--dur-slow) var(--ease-in)  forwards; }
+#curtain.rise { animation: curtainRise var(--dur-slow) var(--ease-out) forwards; }
+
+#confetti-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 400;
+  overflow: hidden;
+}
+
+.btn-mute {
+  position: fixed;
+  top: var(--sp-4);
+  right: var(--sp-4);
+  z-index: 600;
+  background: var(--clr-surface-2);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-full);
+  width: 44px;
+  height: 44px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--dur-fast), transform var(--dur-fast);
+}
+.btn-mute:hover  { background: var(--clr-surface-3); transform: scale(1.08); }
+.btn-mute:active { transform: scale(0.94); }
+
+/* ═══════════════════════════ CARD ═══════════════════════════ */
+.card {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-8);
+  width: 100%;
+  max-width: 500px;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+
+/* ═══════════════════════════ SCREEN HEADER ═══════════════════════════ */
+.screen-header {
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+}
+
+.game-title {
+  font-size: clamp(var(--text-2xl), 5vw, var(--text-4xl));
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+
+.title-emoji {
+  display: inline-block;
+  animation: spin 8s linear infinite;
+}
+
+.game-subtitle {
+  margin-top: var(--sp-2);
+  color: var(--clr-text-muted);
+  font-size: var(--text-sm);
+  letter-spacing: 0.5px;
+}
+
+/* ═══════════════════════════ SCOREBOARD ═══════════════════════════ */
+.scoreboard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 500px;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius);
+  padding: var(--sp-4) var(--sp-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.score-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-1);
+}
+
+.score-name {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--clr-text-muted);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  max-width: 110px;
+  text-align: center;
+  word-break: break-word;
+}
+
+.score-roll {
+  position: relative;
+  overflow: hidden;
+  height: 2.8rem;
+  width: 2.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-digit {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-3xl);
+  font-weight: 900;
+}
+
+.score-digit.roll-out { animation: rollOut var(--dur-normal) var(--ease-in)  forwards; }
+.score-digit.roll-in  { animation: rollIn  var(--dur-normal) var(--ease-out) forwards; }
+
+.score-roll.pulse { animation: scorePulse var(--dur-slow) var(--ease-spring); }
+
+.scoreboard-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 var(--sp-3);
+}
+
+.round-badge {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--clr-text-subtle);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  white-space: nowrap;
+}
+
+/* ── Active player highlight ── */
+.score-block.active-turn .score-name {
+  color: var(--clr-primary-light);
+  animation: pulsingHighlight 1.6s var(--ease-in-out) infinite;
+}
+
+/* ═══════════════════════════ RESPONSIVE ═══════════════════════════ */
+@media (max-width: 400px) {
+  .card { padding: var(--sp-5); }
+  .scoreboard { padding: var(--sp-3) var(--sp-4); }
+}
