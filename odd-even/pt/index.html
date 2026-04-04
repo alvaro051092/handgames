@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>Par ou Ímpar Online — Jogue Grátis</title>
+  <meta name="description" content="Jogue par ou ímpar online grátis. Escolha entre modo 2 jogadores, vs CPU ou modo Batalha. Sem cadastro, sem downloads." />
+  <link rel="canonical"      href="https://handgames.app/odd-even/pt/" />
+  <link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/" />
+  <link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/" />
+  <link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/" />
+  <link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/" />
+  <meta property="og:type"             content="website" />
+  <meta property="og:url"              content="https://handgames.app/odd-even/pt/" />
+  <meta property="og:title"            content="Par ou Ímpar Online — Jogue Grátis" />
+  <meta property="og:description"      content="Jogue par ou ímpar online grátis. Escolha entre modo 2 jogadores, vs CPU ou modo Batalha. Sem cadastro." />
+  <meta property="og:image"            content="https://handgames.app/assets/og-image.png" />
+  <meta property="og:locale"           content="pt_BR" />
+  <meta property="og:locale:alternate" content="es_ES" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Par ou Ímpar Online — Jogue Grátis" />
+  <meta name="twitter:description" content="Jogue par ou ímpar online grátis. Sem cadastro." />
+  <meta name="twitter:image"       content="https://handgames.app/assets/og-image.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Par ou Ímpar",
+    "alternateName": ["Par o Impar", "Odd or Even"],
+    "url": "https://handgames.app/odd-even/pt/",
+    "description": "Jogo online de par ou ímpar. Três modos: 2 jogadores, vs CPU e Batalha.",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "inLanguage": ["pt", "es", "en"],
+    "genre": "Casual game"
+  }
+  </script>
+  <link rel="icon" type="image/x-icon"  href="/assets/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
+  <link rel="apple-touch-icon"          href="/assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/css/tokens.css?v=3" />
+  <link rel="stylesheet" href="/css/layout.css?v=3" />
+  <link rel="stylesheet" href="/css/animations.css?v=3" />
+  <style>
+    .hub-page { min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:var(--sp-8) var(--sp-4); }
+    .hub-header { text-align:center;margin-bottom:var(--sp-8); }
+    .hub-title { font-size:clamp(var(--text-2xl),5vw,var(--text-4xl));font-weight:900;letter-spacing:-1px;line-height:1.1; }
+    .hub-title .title-emoji { display:inline-block;animation:float 2.5s var(--ease-in-out) infinite; }
+    .hub-subtitle { margin-top:var(--sp-2);font-size:var(--text-base);color:var(--clr-text-muted);letter-spacing:.3px; }
+    .hub-cards { display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-4);width:100%;max-width:860px; }
+    .mode-card { flex:1;display:flex;flex-direction:column;background:var(--clr-surface);border:2px solid var(--clr-border);border-radius:var(--radius-lg);padding:var(--sp-6);text-decoration:none;color:var(--clr-text);box-shadow:var(--shadow);transition:border-color var(--dur-fast) var(--ease-out),background var(--dur-fast) var(--ease-out),transform var(--dur-fast) var(--ease-out),box-shadow var(--dur-fast) var(--ease-out); }
+    .mode-card:hover { border-color:var(--clr-primary);background:var(--clr-surface-2);transform:translateY(-6px);box-shadow:var(--shadow-primary); }
+    .mode-card:focus-visible { outline:3px solid var(--clr-primary-light);outline-offset:3px;border-color:var(--clr-primary); }
+    .mode-card-icon { font-size:3rem;margin-bottom:var(--sp-4);display:block;animation:float 2.5s var(--ease-in-out) infinite; }
+    .mode-card:nth-child(2) .mode-card-icon { animation-delay:.3s; }
+    .mode-card:nth-child(3) .mode-card-icon { animation-delay:.6s; }
+    .mode-card-title { font-size:var(--text-xl);font-weight:800;margin-bottom:var(--sp-2);color:var(--clr-primary-light); }
+    .mode-card-desc { font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.55;flex:1; }
+    .mode-card-cta { display:inline-block;margin-top:var(--sp-5);font-size:var(--text-sm);font-weight:700;color:var(--clr-primary-light);letter-spacing:.3px;transition:letter-spacing var(--dur-fast); }
+    .mode-card:hover .mode-card-cta { letter-spacing:1px; }
+    .hub-footer { margin-top:var(--sp-8);font-size:var(--text-xs);color:var(--clr-text-subtle);text-align:center; }
+    @media (max-width:720px) { .hub-cards { grid-template-columns:1fr;max-width:380px; } }
+    @media (min-width:721px) and (max-width:960px) { .hub-cards { grid-template-columns:repeat(2,1fr);max-width:580px; } }
+    .top-nav { position:fixed;top:var(--sp-4);left:var(--sp-4);right:var(--sp-4);display:flex;justify-content:space-between;align-items:center;z-index:10; }
+    .back-platform { font-size:var(--text-xs);color:var(--clr-text-subtle);text-decoration:none;transition:color var(--dur-fast); }
+    .back-platform:hover { color:var(--clr-text-muted); }
+    .lang-nav { display:flex;gap:var(--sp-2); }
+    .lang-link { font-size:var(--text-xs);font-weight:700;color:var(--clr-text-subtle);text-decoration:none;padding:var(--sp-1) var(--sp-2);border-radius:var(--radius-sm);transition:color var(--dur-fast),background var(--dur-fast); }
+    .lang-link:hover { color:var(--clr-text);background:var(--clr-surface-2); }
+    .lang-link.active { color:var(--clr-primary-light); }
+  </style>
+</head>
+<body class="hub-page">
+  <div class="top-nav">
+    <a href="/pt/" class="back-platform">← Hand Games</a>
+    <nav class="lang-nav" aria-label="Idioma">
+      <a href="/odd-even/" class="lang-link">ES</a>
+      <a href="/odd-even/en/" class="lang-link">EN</a>
+      <span class="lang-link active">PT</span>
+    </nav>
+  </div>
+  <header class="hub-header">
+    <h1 class="hub-title"><span class="title-emoji">🎲</span> Par ou Ímpar</h1>
+    <p class="hub-subtitle">Escolha seu modo de jogo</p>
+  </header>
+  <main>
+    <nav class="hub-cards" aria-label="Modos de jogo">
+      <a href="/odd-even/pt/local.html" class="mode-card">
+        <span class="mode-card-icon" aria-hidden="true">👥</span>
+        <span class="mode-card-title">2 Jogadores</span>
+        <p class="mode-card-desc">Dois jogadores, um dispositivo. J1 aposta par ou ímpar e escolhe dedos; J2 escolhe os seus.</p>
+        <span class="mode-card-cta" aria-hidden="true">Jogar →</span>
+      </a>
+      <a href="/odd-even/pt/vs-cpu.html" class="mode-card">
+        <span class="mode-card-icon" aria-hidden="true">🤖</span>
+        <span class="mode-card-title">vs CPU</span>
+        <p class="mode-card-desc">Você aposta par ou ímpar e escolhe seus dedos. A CPU revela os dela na hora. Consegue adivinhar a soma?</p>
+        <span class="mode-card-cta" aria-hidden="true">Jogar →</span>
+      </a>
+      <a href="/odd-even/pt/battle.html" class="mode-card">
+        <span class="mode-card-icon" aria-hidden="true">⚔️</span>
+        <span class="mode-card-title">Batalha</span>
+        <p class="mode-card-desc">A CPU escolhe os dedos e define a aposta pelos dois jogadores. Digite os nomes e deixe a sorte decidir.</p>
+        <span class="mode-card-cta" aria-hidden="true">Jogar →</span>
+      </a>
+    </nav>
+  </main>
+  <footer class="hub-footer">Par ou Ímpar &mdash; Hand Games</footer>
+</body>
+</html>

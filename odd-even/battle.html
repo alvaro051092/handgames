@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>Batalla Par o Impar — La CPU apuesta y elige por ti</title>
+  <meta name="description" content="Modo Batalla: el CPU asigna la apuesta y elige los dedos de ambos jugadores simultáneamente. Reveal dramático, mejor de 3." />
+  <!-- Canonical + hreflang -->
+  <link rel="canonical"      href="https://handgames.app/odd-even/battle.html" />
+  <link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/battle.html" />
+  <link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/battle.html" />
+  <link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/battle.html" />
+  <link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/battle.html" />
+  <!-- Open Graph -->
+  <meta property="og:type"             content="website" />
+  <meta property="og:url"              content="https://handgames.app/odd-even/battle.html" />
+  <meta property="og:title"            content="Batalla Par o Impar — La CPU apuesta y elige por ti" />
+  <meta property="og:description"      content="Modo Batalla: el CPU asigna la apuesta y elige los dedos por ambos. Reveal dramático, mejor de 3." />
+  <meta property="og:image"            content="https://handgames.app/assets/og-image.png" />
+  <meta property="og:locale"           content="es_ES" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:locale:alternate" content="pt_BR" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Batalla Par o Impar — La CPU apuesta y elige por ti" />
+  <meta name="twitter:description" content="Modo Batalla: el CPU asigna la apuesta y elige los dedos por ambos. Reveal dramático, mejor de 3." />
+  <meta name="twitter:image"       content="https://handgames.app/assets/og-image.png" />
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Batalla Par o Impar",
+    "alternateName": ["Odd or Even Battle Mode", "Batalha Par ou Ímpar"],
+    "url": "https://handgames.app/odd-even/battle.html",
+    "description": "Modo Batalla: la CPU asigna apuesta y elige dedos por ambos jugadores. Reveal dramático, mejor de 3.",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "inLanguage": ["es", "en", "pt"],
+    "genre": "Casual game"
+  }
+  </script>
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon"  href="/assets/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
+  <link rel="apple-touch-icon"          href="/assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/css/tokens.css?v=3" />
+  <link rel="stylesheet" href="/css/layout.css?v=3" />
+  <link rel="stylesheet" href="/css/components.css?v=3" />
+  <link rel="stylesheet" href="/css/animations.css?v=3" />
+  <style>
+    /* ── Battle-specific animations ── */
+    @keyframes cpuFlipOut {
+      from { transform: rotateY(0deg) scale(1); }
+      to   { transform: rotateY(90deg) scale(0.8); }
+    }
+    @keyframes cpuFlipIn {
+      from { transform: rotateY(-90deg) scale(0.8); }
+      to   { transform: rotateY(0deg) scale(1); }
+    }
+    @keyframes countdownPop {
+      0%   { transform: scale(0.4); opacity: 0; }
+      60%  { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(1);   opacity: 1; }
+    }
+    @keyframes fistPulse {
+      0%   { transform: scale(1); }
+      40%  { transform: scale(1.3) translateY(-4px); }
+      100% { transform: scale(1); }
+    }
+    .cpu-flip-out  { animation: cpuFlipOut  150ms ease-in  forwards; }
+    .cpu-flip-in   { animation: cpuFlipIn   150ms ease-out forwards; }
+    .countdown-pop { animation: countdownPop 180ms var(--ease-spring) forwards; }
+    .fist-pulse    { animation: fistPulse   200ms var(--ease-out); }
+
+    /* ── Battle arena ── */
+    .battle-arena {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      gap: var(--sp-3);
+      padding: var(--sp-4) 0 var(--sp-2);
+      overflow: hidden;
+    }
+    .battle-pick-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-2);
+      flex: 1;
+      will-change: transform, opacity;
+    }
+    .battle-pick-block.loser { animation: loserFade var(--dur-slow) var(--ease-out) forwards; }
+
+    /* ── Mystery number ── */
+    .battle-num {
+      font-size: 4rem;
+      font-weight: 900;
+      line-height: 1;
+      color: var(--clr-primary-light);
+      display: block;
+      min-width: 1.2ch;
+      text-align: center;
+      cursor: default;
+      user-select: none;
+    }
+    .battle-pick-label {
+      font-size: var(--text-xs);
+      color: var(--clr-text-muted);
+      min-height: 1.1em;
+    }
+
+    /* ── Center column ── */
+    .battle-center-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-1);
+    }
+    .battle-countdown {
+      font-size: var(--text-2xl);
+      font-weight: 900;
+      color: var(--clr-primary-light);
+      min-height: 2.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── Bet display (revealed during animation) ── */
+    .battle-bet-display {
+      font-size: var(--text-base);
+      font-weight: 800;
+      text-align: center;
+      padding: var(--sp-2) var(--sp-4);
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--sp-3);
+      min-height: 2rem;
+      opacity: 0;
+    }
+    .battle-bet-display.bet-par   { background: rgba(14,165,233,.18); color: #38bdf8; }
+    .battle-bet-display.bet-impar { background: rgba(168,85,247,.18); color: #c084fc; }
+
+    /* ── Sum display ── */
+    .battle-sum {
+      text-align: center;
+      margin-top: var(--sp-2);
+      min-height: 2.5rem;
+    }
+    .battle-sum-value {
+      font-size: var(--text-lg);
+      font-weight: 800;
+      color: var(--clr-text);
+    }
+    .res-sum-parity {
+      display: inline-block;
+      margin-left: var(--sp-2);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      padding: 2px var(--sp-2);
+      border-radius: var(--radius-full);
+    }
+    .res-sum-parity.par   { background: rgba(14,165,233,.18); color: #38bdf8; }
+    .res-sum-parity.impar { background: rgba(168,85,247,.18); color: #c084fc; }
+
+    /* ── Reveal button ── */
+    .btn-reveal-main {
+      background: linear-gradient(135deg, var(--clr-primary), #9333ea);
+      color: #fff;
+      font-size: var(--text-lg);
+      font-weight: 800;
+      border-radius: var(--radius-sm);
+      padding: var(--sp-4) var(--sp-6);
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+      transition:
+        filter     var(--dur-fast) var(--ease-out),
+        transform  var(--dur-fast) var(--ease-out),
+        box-shadow var(--dur-fast) var(--ease-out);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-reveal-main::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,.18) 50%, transparent 60%);
+      transform: translateX(-100%);
+    }
+    .btn-reveal-main:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(124,58,237,.5);
+    }
+    .btn-reveal-main:hover::after {
+      animation: shimmer var(--dur-dramatic) var(--ease-in-out);
+    }
+    .btn-reveal-main:active { transform: translateY(1px); box-shadow: none; }
+
+    /* ── Back hub link ── */
+    .back-hub-link {
+      display: block;
+      text-align: center;
+      margin-top: var(--sp-4);
+      font-size: var(--text-sm);
+      color: var(--clr-text-subtle);
+      text-decoration: none;
+      transition: color var(--dur-fast);
+    }
+    .back-hub-link:hover { color: var(--clr-text-muted); }
+  </style>
+</head>
+<body>
+
+  <!-- Fixed overlays -->
+  <div id="curtain" aria-hidden="true"></div>
+  <div id="confetti-container" aria-hidden="true"></div>
+  <button id="btn-mute" class="btn-mute" aria-label="Silenciar audio" title="Silenciar audio">🔊</button>
+
+  <div id="app">
+
+    <!-- ══════════════════ SETUP ══════════════════ -->
+    <section id="screen-setup" class="screen active" aria-label="Configuración">
+      <header class="screen-header">
+        <h1 class="game-title"><span class="title-emoji">⚔️</span> Batalla</h1>
+        <p class="game-subtitle">El CPU apuesta y elige por los dos · ¡Que gane el más afortunado!</p>
+      </header>
+
+      <div class="card">
+        <div class="players-row">
+          <div class="field">
+            <label for="name-p1">Jugador 1</label>
+            <input id="name-p1" type="text" maxlength="20" placeholder="Jugador 1"
+                   autocomplete="off" spellcheck="false" />
+          </div>
+          <div class="vs-badge">VS</div>
+          <div class="field">
+            <label for="name-p2">Jugador 2</label>
+            <input id="name-p2" type="text" maxlength="20" placeholder="Jugador 2"
+                   autocomplete="off" spellcheck="false" />
+          </div>
+        </div>
+
+        <fieldset class="mode-group">
+          <legend>Modo de juego</legend>
+          <label class="mode-option">
+            <input type="radio" name="mode" value="best-of-3" checked />
+            <span class="mode-label">
+              <span class="mode-icon">🏆</span>
+              <span class="mode-text">
+                <strong>Mejor de 3</strong>
+                <small>Primero en ganar 2 rondas</small>
+              </span>
+            </span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="mode" value="single" />
+            <span class="mode-label">
+              <span class="mode-icon">⚡</span>
+              <span class="mode-text">
+                <strong>Intento único</strong>
+                <small>Todo en una sola ronda</small>
+              </span>
+            </span>
+          </label>
+        </fieldset>
+
+        <button id="btn-start" class="btn btn-primary btn-lg">¡Comenzar batalla!</button>
+      </div>
+
+      <a href="/odd-even/" class="back-hub-link">← Cambiar modo</a>
+    </section>
+
+    <!-- ══════════════════ BATTLE ══════════════════ -->
+    <section id="screen-battle" class="screen" aria-label="Batalla">
+      <div class="scoreboard">
+        <div class="score-block">
+          <span class="score-name" id="battle-name-p1">J1</span>
+          <div class="score-roll" id="battle-roll-p1"><span class="score-digit">0</span></div>
+        </div>
+        <div class="scoreboard-center">
+          <span class="round-badge" id="battle-round-badge">Ronda 1</span>
+        </div>
+        <div class="score-block">
+          <span class="score-name" id="battle-name-p2">J2</span>
+          <div class="score-roll" id="battle-roll-p2"><span class="score-digit">0</span></div>
+        </div>
+      </div>
+
+      <div class="card" style="text-align:center; overflow:visible;">
+
+        <!-- Bet announcement (appears during animation) -->
+        <div id="battle-bet-display" class="battle-bet-display" aria-live="polite"></div>
+
+        <div class="battle-arena">
+          <div class="battle-pick-block" id="battle-p1-block">
+            <span class="battle-num" id="battle-p1-num">?</span>
+            <span class="battle-pick-label" id="battle-p1-label"></span>
+          </div>
+          <div class="battle-center-col">
+            <span class="result-vs">+</span>
+            <div id="battle-countdown" class="battle-countdown" aria-live="polite"></div>
+          </div>
+          <div class="battle-pick-block" id="battle-p2-block">
+            <span class="battle-num" id="battle-p2-num">?</span>
+            <span class="battle-pick-label" id="battle-p2-label"></span>
+          </div>
+        </div>
+
+        <!-- Sum display (appears after reveal) -->
+        <div id="battle-sum" class="battle-sum" style="opacity:0">
+          <span class="battle-sum-value" id="battle-sum-value"></span>
+          <span class="res-sum-parity" id="battle-sum-parity"></span>
+        </div>
+
+        <div id="battle-banner" class="result-banner" role="status" aria-live="polite"></div>
+
+        <div class="result-actions" style="margin-top: var(--sp-5);">
+          <button id="btn-reveal" class="btn-reveal-main">
+            ⚔️&nbsp; ¡Revelar jugada!
+          </button>
+          <button id="btn-next-round" class="btn btn-primary btn-lg" style="display:none">
+            Siguiente ronda →
+          </button>
+          <button id="btn-revenge" class="btn btn-secondary" style="display:none">
+            🔄 Revancha
+          </button>
+          <button id="btn-new-game-battle" class="btn btn-ghost" style="display:none">
+            Nueva partida
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ GAME OVER ══════════════════ -->
+    <section id="screen-gameover" class="screen" aria-label="Fin de partida">
+      <div class="card gameover-card">
+        <div class="gameover-trophy" id="go-trophy">🏆</div>
+        <h2 class="gameover-title">
+          <span id="go-winner-name" class="go-winner-name"></span>
+          <span id="go-title-suffix"></span>
+        </h2>
+        <p class="gameover-subtitle" id="go-subtitle"></p>
+
+        <div class="gameover-score">
+          <div class="go-score-block">
+            <span class="score-name" id="go-name-p1"></span>
+            <span class="go-score-val" id="go-val-p1">0</span>
+          </div>
+          <span class="go-dash">—</span>
+          <div class="go-score-block">
+            <span class="score-name" id="go-name-p2"></span>
+            <span class="go-score-val" id="go-val-p2">0</span>
+          </div>
+        </div>
+
+        <div class="gameover-actions">
+          <button id="btn-revenge-go" class="btn btn-primary btn-lg">🔄 Revancha</button>
+          <button id="btn-new-game-go" class="btn btn-ghost">Nueva partida</button>
+          <a href="/odd-even/" class="btn btn-ghost">Cambiar modo</a>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- #app -->
+
+  <script src="/js/game-ooe-battle.js?v=1"></script>
+  <script src="/js/audio.js?v=2"></script>
+  <script src="/js/ui-ooe-battle.js?v=1"></script>
+</body>
+</html>

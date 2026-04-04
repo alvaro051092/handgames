@@ -147,4 +147,121 @@
     <priority>0.7</priority>
   </url>
 
+
+  <!-- Odd or Even Hub (ES/EN/PT) -->
+  <url>
+    <loc>https://handgames.app/odd-even/</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/odd-even/en/</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/odd-even/pt/</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Odd or Even vs-cpu (ES/EN/PT) -->
+  <url>
+    <loc>https://handgames.app/odd-even/vs-cpu.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/vs-cpu.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/odd-even/en/vs-cpu.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/vs-cpu.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/odd-even/pt/vs-cpu.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/vs-cpu.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Odd or Even local (ES/EN/PT) -->
+  <url>
+    <loc>https://handgames.app/odd-even/local.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/local.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/local.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/local.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/local.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/odd-even/en/local.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/local.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/local.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/local.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/local.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/odd-even/pt/local.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/local.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/local.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/local.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/local.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Odd or Even battle (ES/EN/PT) -->
+  <url>
+    <loc>https://handgames.app/odd-even/battle.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/battle.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/battle.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/battle.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/battle.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/odd-even/en/battle.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/battle.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/battle.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/battle.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/battle.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/odd-even/pt/battle.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/battle.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/battle.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/battle.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/battle.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
