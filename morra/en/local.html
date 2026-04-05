@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>Morra — 2 Players on the Same Device</title>
+  <meta name="description" content="Play Morra with a friend on the same device. Each player secretly picks fingers and guesses the total. Best of 3." />
+  <link rel="canonical"      href="https://handgames.app/morra/en/local.html" />
+  <link rel="alternate" hreflang="es"        href="https://handgames.app/morra/local.html" />
+  <link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/local.html" />
+  <link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/local.html" />
+  <link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/local.html" />
+  <meta property="og:type"  content="website" />
+  <meta property="og:url"   content="https://handgames.app/morra/en/local.html" />
+  <meta property="og:title" content="Morra — 2 Players on the Same Device" />
+  <meta property="og:description" content="Play Morra with a friend. Each player secretly picks fingers and guesses the total." />
+  <meta property="og:image" content="https://handgames.app/assets/og-image.png" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card"  content="summary_large_image" />
+  <meta name="twitter:title" content="Morra — 2 Players on the Same Device" />
+  <meta name="twitter:description" content="Play Morra with a friend. Each player secretly picks fingers and guesses the total." />
+  <meta name="twitter:image" content="https://handgames.app/assets/og-image.png" />
+  <link rel="icon" type="image/x-icon"  href="/assets/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/css/tokens.css?v=3" />
+  <link rel="stylesheet" href="/css/layout.css?v=3" />
+  <link rel="stylesheet" href="/css/components.css?v=3" />
+  <link rel="stylesheet" href="/css/animations.css?v=3" />
+  <style>
+    .pick-section-label{font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--clr-text-muted);margin-bottom:var(--sp-2);text-align:center;}
+    .finger-buttons{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--sp-2);margin-bottom:var(--sp-5);}
+    .btn-finger{aspect-ratio:1;border:2px solid var(--clr-border);border-radius:var(--radius-sm);background:var(--clr-surface-2);color:var(--clr-text);font-family:var(--font);font-size:var(--text-xl);font-weight:900;cursor:pointer;transition:border-color var(--dur-fast),background var(--dur-fast),transform var(--dur-fast);}
+    .btn-finger:hover{border-color:var(--clr-primary);transform:translateY(-2px);}
+    .btn-finger.selected{border-color:var(--clr-primary);background:var(--clr-primary);color:#fff;}
+    .guess-buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-2);margin-bottom:var(--sp-5);}
+    .btn-guess{padding:var(--sp-2) var(--sp-1);border:2px solid var(--clr-border);border-radius:var(--radius-sm);background:var(--clr-surface-2);color:var(--clr-text);font-family:var(--font);font-size:var(--text-lg);font-weight:800;cursor:pointer;transition:border-color var(--dur-fast),background var(--dur-fast),transform var(--dur-fast);}
+    .btn-guess:hover{border-color:var(--clr-primary);transform:translateY(-2px);}
+    .btn-guess.selected{border-color:var(--clr-primary);background:var(--clr-primary);color:#fff;}
+    .res-finger-num{font-size:3.5rem;font-weight:900;line-height:1;color:var(--clr-primary-light);display:block;margin:var(--sp-2) 0;min-width:2ch;text-align:center;}
+    .res-guess-badge{font-size:var(--text-xs);font-weight:800;text-transform:uppercase;letter-spacing:.8px;padding:var(--sp-1) var(--sp-3);border-radius:var(--radius-full);display:inline-block;margin-top:var(--sp-1);border:1.5px solid var(--clr-primary);color:var(--clr-primary-light);}
+    .res-total{text-align:center;margin:var(--sp-3) 0 var(--sp-1);}
+    .res-total-value{font-size:var(--text-xl);font-weight:800;color:var(--clr-text);}
+    .result-banner.banner-draw{background:rgba(148,163,184,.12);color:var(--clr-text-muted);}
+    .back-hub-link{display:block;text-align:center;margin-top:var(--sp-4);font-size:var(--text-sm);color:var(--clr-text-subtle);text-decoration:none;transition:color var(--dur-fast);}
+    .back-hub-link:hover{color:var(--clr-text-muted);}
+  </style>
+</head>
+<body>
+  <div id="curtain" aria-hidden="true"></div>
+  <div id="confetti-container" aria-hidden="true"></div>
+  <button id="btn-mute" class="btn-mute" aria-label="Mute audio" title="Mute audio">🔊</button>
+  <div id="app">
+
+    <section id="screen-setup" class="screen active" aria-label="Setup">
+      <header class="screen-header">
+        <h1 class="game-title"><span class="title-emoji">🤌</span> Morra</h1>
+        <p class="game-subtitle">2 Players · Same device</p>
+      </header>
+      <div class="card">
+        <div class="players-row">
+          <div class="field"><label for="name-p1">Player 1</label><input id="name-p1" type="text" maxlength="20" placeholder="Player 1" autocomplete="off" spellcheck="false" /></div>
+          <div class="vs-badge">VS</div>
+          <div class="field"><label for="name-p2">Player 2</label><input id="name-p2" type="text" maxlength="20" placeholder="Player 2" autocomplete="off" spellcheck="false" /></div>
+        </div>
+        <fieldset class="mode-group">
+          <legend>Game mode</legend>
+          <label class="mode-option"><input type="radio" name="mode" value="best-of-3" checked /><span class="mode-label"><span class="mode-icon">🏆</span><span class="mode-text"><strong>Best of 3</strong><small>First to win 2 rounds</small></span></span></label>
+          <label class="mode-option"><input type="radio" name="mode" value="single" /><span class="mode-label"><span class="mode-icon">⚡</span><span class="mode-text"><strong>Single round</strong><small>Everything on one round</small></span></span></label>
+        </fieldset>
+        <button id="btn-start" class="btn btn-primary btn-lg">Play!</button>
+      </div>
+      <a href="/morra/en/" class="back-hub-link">← Change mode</a>
+    </section>
+
+    <section id="screen-pick" class="screen" aria-label="Pick your move">
+      <div class="scoreboard">
+        <div class="score-block"><span class="score-name" id="sb-name-p1">P1</span><div class="score-roll" id="roll-p1"><span class="score-digit">0</span></div></div>
+        <div class="scoreboard-center"><span class="round-badge" id="pick-round-badge">Round 1</span></div>
+        <div class="score-block"><span class="score-name" id="sb-name-p2">P2</span><div class="score-roll" id="roll-p2"><span class="score-digit">0</span></div></div>
+      </div>
+      <div class="turn-indicator"><span class="turn-avatar">🤌</span><span class="turn-text">Turn: <strong id="pick-turn-name">Player 1</strong></span></div>
+      <div class="card pick-card">
+        <p class="pick-section-label">Your bet — what will the sum be? (2-10)</p>
+        <div class="guess-buttons" id="guess-buttons">
+          <button class="btn-guess" data-g="2">2</button><button class="btn-guess" data-g="3">3</button><button class="btn-guess" data-g="4">4</button>
+          <button class="btn-guess" data-g="5">5</button><button class="btn-guess" data-g="6">6</button><button class="btn-guess" data-g="7">7</button>
+          <button class="btn-guess" data-g="8">8</button><button class="btn-guess" data-g="9">9</button><button class="btn-guess" data-g="10">10</button>
+        </div>
+        <p class="pick-section-label">Your fingers (1-5)</p>
+        <div class="finger-buttons" id="finger-buttons">
+          <button class="btn-finger" data-f="1">1</button><button class="btn-finger" data-f="2">2</button><button class="btn-finger" data-f="3">3</button>
+          <button class="btn-finger" data-f="4">4</button><button class="btn-finger" data-f="5">5</button>
+        </div>
+        <button id="btn-confirm" class="btn btn-primary btn-lg" disabled>Confirm move</button>
+      </div>
+    </section>
+
+    <section id="screen-handoff" class="screen" aria-label="Pass the device">
+      <div class="card handoff-card">
+        <div class="handoff-icon">🤫</div>
+        <h2 class="handoff-title">Move saved!</h2>
+        <p class="handoff-subtitle">Pass the device to <strong id="handoff-next-name">Player 2</strong></p>
+        <button id="btn-handoff-ready" class="btn btn-primary btn-lg">I'm ready →</button>
+      </div>
+    </section>
+
+    <section id="screen-result" class="screen" aria-label="Round result">
+      <div class="scoreboard">
+        <div class="score-block"><span class="score-name" id="res-name-p1">P1</span><div class="score-roll" id="res-roll-p1"><span class="score-digit">0</span></div></div>
+        <div class="scoreboard-center"><span class="round-badge" id="res-round-badge"></span></div>
+        <div class="score-block"><span class="score-name" id="res-name-p2">P2</span><div class="score-roll" id="res-roll-p2"><span class="score-digit">0</span></div></div>
+      </div>
+      <div class="card result-card">
+        <div class="result-arena">
+          <div class="result-pick-block" id="res-p1-block">
+            <span class="res-pname" id="res-p1-name"></span>
+            <span class="res-finger-num" id="res-p1-num">0</span>
+            <span class="res-guess-badge" id="res-p1-guess"></span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:var(--sp-2)">
+            <div style="font-size:var(--text-2xl);font-weight:900;color:var(--clr-text-muted)">+</div>
+            <div class="res-total"><span class="res-total-value" id="res-total-value"></span></div>
+          </div>
+          <div class="result-pick-block" id="res-p2-block">
+            <span class="res-pname" id="res-p2-name"></span>
+            <span class="res-finger-num" id="res-p2-num">0</span>
+            <span class="res-guess-badge" id="res-p2-guess"></span>
+          </div>
+        </div>
+        <div id="result-banner" class="result-banner" role="status" aria-live="polite"></div>
+        <div class="result-actions">
+          <button id="btn-next-round"      class="btn btn-primary btn-lg">Next round →</button>
+          <button id="btn-retry-round"     class="btn btn-secondary">↩ Retry round</button>
+          <button id="btn-revenge"         class="btn btn-secondary">🔄 Rematch</button>
+          <button id="btn-new-game-result" class="btn btn-ghost">New game</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-gameover" class="screen" aria-label="Game over">
+      <div class="card gameover-card">
+        <div class="gameover-trophy" id="go-trophy">🏆</div>
+        <h2 class="gameover-title"><span id="go-winner-name" class="go-winner-name"></span><span id="go-title-suffix"></span></h2>
+        <p class="gameover-subtitle" id="go-subtitle"></p>
+        <div class="gameover-score">
+          <div class="go-score-block"><span class="score-name" id="go-name-p1"></span><span class="go-score-val" id="go-val-p1">0</span></div>
+          <span class="go-dash">—</span>
+          <div class="go-score-block"><span class="score-name" id="go-name-p2"></span><span class="go-score-val" id="go-val-p2">0</span></div>
+        </div>
+        <div class="gameover-actions">
+          <button id="btn-revenge-go"  class="btn btn-primary btn-lg">🔄 Rematch</button>
+          <button id="btn-new-game-go" class="btn btn-ghost">New game</button>
+          <a href="/morra/en/" class="btn btn-ghost">Change mode</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  <script src="/js/game-morra-local.js?v=1"></script>
+  <script src="/js/audio.js?v=2"></script>
+  <script src="/js/ui-morra-local.js?v=1"></script>
+</body>
+</html>

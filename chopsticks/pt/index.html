@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>Pauzinhos — Escolha o modo de jogo</title>
+  <meta name="description" content="Jogue Pauzinhos (Chopsticks): vs CPU, 2 jogadores ou modo Batalha. Acumule dedos nas mãos do oponente para eliminá-lo." />
+  <link rel="canonical"      href="https://handgames.app/chopsticks/pt/" />
+  <link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/" />
+  <link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/" />
+  <link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/" />
+  <link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/" />
+  <meta property="og:type"   content="website" />
+  <meta property="og:url"    content="https://handgames.app/chopsticks/pt/" />
+  <meta property="og:title"  content="Pauzinhos — Escolha o modo de jogo" />
+  <meta property="og:description" content="Escolha como jogar Pauzinhos: vs CPU, 2 jogadores ou modo Batalha." />
+  <meta property="og:image"  content="https://handgames.app/assets/og-image.png" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta name="twitter:card"  content="summary_large_image" />
+  <meta name="twitter:title" content="Pauzinhos — Escolha o modo de jogo" />
+  <meta name="twitter:description" content="Acumule dedos nas mãos do oponente para eliminá-lo. Estratégia pura." />
+  <meta name="twitter:image" content="https://handgames.app/assets/og-image.png" />
+  <link rel="icon" type="image/x-icon"  href="/assets/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/css/tokens.css?v=3" />
+  <link rel="stylesheet" href="/css/layout.css?v=3" />
+  <link rel="stylesheet" href="/css/animations.css?v=3" />
+  <style>
+    .mode-hub{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:var(--sp-8) var(--sp-4);}
+    .top-nav{position:fixed;top:var(--sp-4);left:var(--sp-4);right:var(--sp-4);display:flex;justify-content:space-between;align-items:center;z-index:10;}
+    .back-link{font-size:var(--text-sm);font-weight:700;color:var(--clr-text-subtle);text-decoration:none;transition:color var(--dur-fast);}
+    .back-link:hover{color:var(--clr-text);}
+    .lang-nav{display:flex;gap:var(--sp-2);}
+    .lang-link{font-size:var(--text-xs);font-weight:700;color:var(--clr-text-subtle);text-decoration:none;padding:var(--sp-1) var(--sp-2);border-radius:var(--radius-sm);transition:color var(--dur-fast),background var(--dur-fast);}
+    .lang-link:hover{color:var(--clr-text);background:var(--clr-surface-2);}
+    .lang-link.active{color:var(--clr-primary-light);}
+    .mode-header{text-align:center;margin-bottom:var(--sp-10);}
+    .mode-logo{font-size:3rem;display:block;margin-bottom:var(--sp-3);animation:float 3s var(--ease-in-out) infinite;}
+    .mode-title{font-size:clamp(var(--text-2xl),6vw,var(--text-4xl));font-weight:900;letter-spacing:-1px;line-height:1.1;}
+    .mode-subtitle{margin-top:var(--sp-2);font-size:var(--text-base);color:var(--clr-text-muted);}
+    .modes-grid{display:grid;grid-template-columns:1fr;gap:var(--sp-4);width:100%;max-width:420px;}
+    .mode-card{display:flex;align-items:center;gap:var(--sp-4);background:var(--clr-surface);border:2px solid var(--clr-border);border-radius:var(--radius-lg);padding:var(--sp-5) var(--sp-6);text-decoration:none;color:var(--clr-text);box-shadow:var(--shadow);transition:border-color var(--dur-fast),background var(--dur-fast),transform var(--dur-fast),box-shadow var(--dur-fast);}
+    .mode-card:hover{border-color:var(--clr-primary);background:var(--clr-surface-2);transform:translateY(-4px);box-shadow:var(--shadow-primary);}
+    .mode-card:focus-visible{outline:3px solid var(--clr-primary-light);outline-offset:3px;}
+    .mode-card-icon{font-size:2.4rem;flex-shrink:0;animation:float 3s var(--ease-in-out) infinite;}
+    .mode-card:nth-child(2) .mode-card-icon{animation-delay:.4s;}
+    .mode-card:nth-child(3) .mode-card-icon{animation-delay:.8s;}
+    .mode-card-body{flex:1;}
+    .mode-card-title{font-size:var(--text-lg);font-weight:800;color:var(--clr-primary-light);margin-bottom:var(--sp-1);}
+    .mode-card-desc{font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.5;}
+    .mode-cta{font-size:var(--text-sm);font-weight:700;color:var(--clr-primary-light);flex-shrink:0;}
+    .hub-footer{margin-top:var(--sp-10);font-size:var(--text-xs);color:var(--clr-text-subtle);text-align:center;}
+  </style>
+</head>
+<body class="mode-hub">
+
+  <nav class="top-nav">
+    <a href="/pt/" class="back-link">← Hand Games</a>
+    <div class="lang-nav">
+      <a href="/chopsticks/" class="lang-link">ES</a>
+      <a href="/chopsticks/en/" class="lang-link">EN</a>
+      <span class="lang-link active">PT</span>
+    </div>
+  </nav>
+
+  <header class="mode-header">
+    <span class="mode-logo" aria-hidden="true">🖖</span>
+    <h1 class="mode-title">Pauzinhos</h1>
+    <p class="mode-subtitle">Acumule dedos · Elimine mãos · Estratégia pura</p>
+  </header>
+
+  <main>
+    <nav class="modes-grid" aria-label="Modos de jogo">
+
+      <a href="/chopsticks/pt/vs-cpu.html" class="mode-card">
+        <span class="mode-card-icon" aria-hidden="true">🤖</span>
+        <div class="mode-card-body">
+          <span class="mode-card-title">vs CPU</span>
+          <p class="mode-card-desc">Jogue sozinho contra a inteligência artificial. Melhor de 3 ou partida única.</p>
+        </div>
+        <span class="mode-cta" aria-hidden="true">→</span>
+      </a>
+
+      <a href="/chopsticks/pt/local.html" class="mode-card">
+        <span class="mode-card-icon" aria-hidden="true">👥</span>
+        <div class="mode-card-body">
+          <span class="mode-card-title">2 Jogadores</span>
+          <p class="mode-card-desc">Turnos alternados no mesmo dispositivo. Passe o celular para o rival.</p>
+        </div>
+        <span class="mode-cta" aria-hidden="true">→</span>
+      </a>
+
+      <a href="/chopsticks/pt/battle.html" class="mode-card">
+        <span class="mode-card-icon" aria-hidden="true">⚔️</span>
+        <div class="mode-card-body">
+          <span class="mode-card-title">Batalha</span>
+          <p class="mode-card-desc">A CPU joga dos dois lados. Avance movimento a movimento ou ative o modo automático.</p>
+        </div>
+        <span class="mode-cta" aria-hidden="true">→</span>
+      </a>
+
+    </nav>
+  </main>
+
+  <footer class="hub-footer">
+    handgames.app &mdash; Pauzinhos grátis
+  </footer>
+
+</body>
+</html>

@@ -264,4 +264,237 @@
     <priority>0.7</priority>
   </url>
 
+
+  <!-- Morra Hub (ES/EN/PT) -->
+  <url>
+    <loc>https://handgames.app/morra/</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/morra/en/</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/morra/pt/</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Morra vs-cpu (ES/EN/PT) -->
+  <url>
+    <loc>https://handgames.app/morra/vs-cpu.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/vs-cpu.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/morra/en/vs-cpu.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/vs-cpu.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/morra/pt/vs-cpu.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/vs-cpu.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Morra local (ES/EN/PT) -->
+  <url>
+    <loc>https://handgames.app/morra/local.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/local.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/local.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/local.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/local.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/morra/en/local.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/local.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/local.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/local.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/local.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/morra/pt/local.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/local.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/local.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/local.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/local.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Morra battle (ES/EN/PT) -->
+  <url>
+    <loc>https://handgames.app/morra/battle.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/battle.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/battle.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/battle.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/battle.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/morra/en/battle.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/battle.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/battle.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/battle.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/battle.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/morra/pt/battle.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/battle.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/battle.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/battle.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/battle.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Chopsticks / Palillos / Pauzinhos — hub -->
+  <url>
+    <loc>https://handgames.app/chopsticks/</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/chopsticks/en/</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/chopsticks/pt/</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Chopsticks — vs CPU -->
+  <url>
+    <loc>https://handgames.app/chopsticks/vs-cpu.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/vs-cpu.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/chopsticks/en/vs-cpu.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/vs-cpu.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/chopsticks/pt/vs-cpu.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/vs-cpu.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/vs-cpu.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Chopsticks — local 2-player -->
+  <url>
+    <loc>https://handgames.app/chopsticks/local.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/local.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/local.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/local.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/local.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/chopsticks/en/local.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/local.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/local.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/local.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/local.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/chopsticks/pt/local.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/local.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/local.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/local.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/local.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Chopsticks — battle -->
+  <url>
+    <loc>https://handgames.app/chopsticks/battle.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/battle.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/battle.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/battle.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/battle.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/chopsticks/en/battle.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/battle.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/battle.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/battle.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/battle.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/chopsticks/pt/battle.html</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/battle.html" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/battle.html" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/battle.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/battle.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>

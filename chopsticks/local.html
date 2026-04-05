@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>Palillos 2 Jugadores — En el mismo dispositivo</title>
+  <meta name="description" content="Juega Palillos con un amigo en el mismo dispositivo. Turno a turno, pasa el móvil a tu rival." />
+  <link rel="canonical"      href="https://handgames.app/chopsticks/local.html" />
+  <link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/local.html" />
+  <link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/local.html" />
+  <link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/local.html" />
+  <link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/local.html" />
+  <meta property="og:type"   content="website" />
+  <meta property="og:url"    content="https://handgames.app/chopsticks/local.html" />
+  <meta property="og:title"  content="Palillos 2 Jugadores — En el mismo dispositivo" />
+  <meta property="og:description" content="Turno a turno en el mismo dispositivo. Pasa el móvil a tu rival." />
+  <meta property="og:image"  content="https://handgames.app/assets/og-image.png" />
+  <meta property="og:locale" content="es_ES" />
+  <meta name="twitter:card"  content="summary_large_image" />
+  <meta name="twitter:title" content="Palillos 2 Jugadores — En el mismo dispositivo" />
+  <meta name="twitter:description" content="Turno a turno en el mismo dispositivo. Pasa el móvil a tu rival." />
+  <meta name="twitter:image" content="https://handgames.app/assets/og-image.png" />
+  <link rel="icon" type="image/x-icon"  href="/assets/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/css/tokens.css?v=3" />
+  <link rel="stylesheet" href="/css/layout.css?v=3" />
+  <link rel="stylesheet" href="/css/components.css?v=3" />
+  <link rel="stylesheet" href="/css/animations.css?v=3" />
+  <style>
+    .chop-board{display:flex;flex-direction:column;align-items:center;gap:var(--sp-5);width:100%;max-width:360px;margin:0 auto;padding:var(--sp-2);}
+    .chop-section{display:flex;flex-direction:column;align-items:center;gap:var(--sp-3);}
+    .chop-section-label{font-size:var(--text-sm);font-weight:700;color:var(--clr-text-muted);letter-spacing:.5px;text-transform:uppercase;}
+    .chop-hands{display:flex;gap:var(--sp-5);}
+    .chop-hand{width:120px;min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:2.5px solid var(--clr-border);border-radius:var(--radius-lg);background:var(--clr-surface);cursor:default;transition:border-color var(--dur-fast),background var(--dur-fast),transform var(--dur-fast),box-shadow var(--dur-fast),opacity var(--dur-fast);user-select:none;-webkit-user-select:none;padding:var(--sp-3);}
+    .chop-hand .h-emoji{font-size:2.4rem;line-height:1;}
+    .chop-hand .h-count{font-size:var(--text-2xl);font-weight:900;color:var(--clr-primary-light);line-height:1;}
+    .chop-hand .h-label{font-size:var(--text-xs);color:var(--clr-text-subtle);font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
+    .chop-hand.elim{opacity:.3;border-style:dashed;cursor:not-allowed;}
+    .chop-hand.selectable{border-color:var(--clr-primary);cursor:pointer;}
+    .chop-hand.selectable:hover{background:var(--clr-surface-2);transform:translateY(-4px);box-shadow:var(--shadow-primary);}
+    .chop-hand.selected{border-color:var(--clr-primary-light);background:var(--clr-surface-2);transform:translateY(-4px);box-shadow:var(--shadow-primary);cursor:pointer;}
+    @keyframes chop-pulse{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.4);}50%{box-shadow:0 0 0 8px rgba(239,68,68,0);}}
+    .chop-hand.targetable{border-color:#ef4444;cursor:pointer;animation:chop-pulse 1s ease-in-out infinite;}
+    .chop-hand.targetable:hover{background:rgba(239,68,68,.08);transform:translateY(-4px);}
+    @keyframes chop-hit{0%{transform:scale(1) rotate(0);}25%{transform:scale(1.35) rotate(8deg);}60%{transform:scale(.9) rotate(-3deg);}100%{transform:scale(1) rotate(0);}}
+    .chop-hit{animation:chop-hit .35s var(--ease-spring) forwards!important;}
+    .chop-divider{width:100%;max-width:280px;display:flex;align-items:center;justify-content:center;min-height:1.4em;}
+    .last-move-text{font-size:var(--text-xs);color:var(--clr-text-subtle);text-align:center;}
+    .hint-text{font-size:var(--text-sm);color:var(--clr-text-muted);text-align:center;min-height:1.5em;padding:0 var(--sp-4);}
+    .back-hub-link{display:block;text-align:center;margin-top:var(--sp-4);font-size:var(--text-sm);color:var(--clr-text-subtle);text-decoration:none;transition:color var(--dur-fast);}
+    .back-hub-link:hover{color:var(--clr-text-muted);}
+    .round-over-card{text-align:center;padding:var(--sp-8) var(--sp-6);display:flex;flex-direction:column;align-items:center;gap:var(--sp-4);}
+    .ro-trophy{font-size:4rem;}
+    .ro-title{font-size:var(--text-xl);font-weight:800;color:var(--clr-primary-light);margin:0;}
+  </style>
+</head>
+<body>
+  <div id="curtain" aria-hidden="true"></div>
+  <div id="confetti-container" aria-hidden="true"></div>
+  <button id="btn-mute" class="btn-mute" aria-label="Silenciar audio" title="Silenciar audio">🔊</button>
+  <div id="app">
+
+    <!-- SETUP -->
+    <section id="screen-setup" class="screen active" aria-label="Configuración">
+      <header class="screen-header">
+        <h1 class="game-title"><span class="title-emoji">🖖</span> Palillos 2 Jugadores</h1>
+        <p class="game-subtitle">Turno a turno en el mismo dispositivo</p>
+      </header>
+      <div class="card">
+        <div class="players-row">
+          <div class="field"><label for="name-p1">Jugador 1</label><input id="name-p1" type="text" maxlength="20" placeholder="Jugador 1" autocomplete="off" spellcheck="false" /></div>
+          <div class="vs-badge">VS</div>
+          <div class="field"><label for="name-p2">Jugador 2</label><input id="name-p2" type="text" maxlength="20" placeholder="Jugador 2" autocomplete="off" spellcheck="false" /></div>
+        </div>
+        <fieldset class="mode-group">
+          <legend>Modo de juego</legend>
+          <label class="mode-option"><input type="radio" name="mode" value="best-of-3" checked /><span class="mode-label"><span class="mode-icon">🏆</span><span class="mode-text"><strong>Mejor de 3</strong><small>Primero en ganar 2 partidas</small></span></span></label>
+          <label class="mode-option"><input type="radio" name="mode" value="single" /><span class="mode-label"><span class="mode-icon">⚡</span><span class="mode-text"><strong>Partida única</strong><small>Una sola partida</small></span></span></label>
+        </fieldset>
+        <button id="btn-start" class="btn btn-primary btn-lg">¡Jugar!</button>
+      </div>
+      <a href="/chopsticks/" class="back-hub-link">← Cambiar modo</a>
+    </section>
+
+    <!-- GAME -->
+    <section id="screen-game" class="screen" aria-label="Partida">
+      <div class="scoreboard">
+        <div class="score-block">
+          <span class="score-name" id="sb-name-p1">J1</span>
+          <div class="score-roll" id="roll-p1"><span class="score-digit">0</span></div>
+        </div>
+        <div class="scoreboard-center">
+          <span class="round-badge" id="turn-badge">Turno de J1</span>
+        </div>
+        <div class="score-block">
+          <span class="score-name" id="sb-name-p2">J2</span>
+          <div class="score-roll" id="roll-p2"><span class="score-digit">0</span></div>
+        </div>
+      </div>
+
+      <div class="chop-board">
+        <!-- P2 at top -->
+        <div class="chop-section">
+          <span class="chop-section-label" id="label-p2">Jugador 2</span>
+          <div class="chop-hands">
+            <button class="chop-hand" id="hand-p2-left" data-who="p2" data-side="left" aria-label="Mano izquierda J2">
+              <span class="h-emoji" id="emoji-p2-left">☝️</span>
+              <span class="h-count" id="count-p2-left">1</span>
+              <span class="h-label" id="h-label-p2-left">Izq</span>
+            </button>
+            <button class="chop-hand" id="hand-p2-right" data-who="p2" data-side="right" aria-label="Mano derecha J2">
+              <span class="h-emoji" id="emoji-p2-right">☝️</span>
+              <span class="h-count" id="count-p2-right">1</span>
+              <span class="h-label" id="h-label-p2-right">Der</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="chop-divider">
+          <span class="last-move-text" id="last-move-text"></span>
+        </div>
+
+        <!-- P1 at bottom -->
+        <div class="chop-section">
+          <div class="chop-hands">
+            <button class="chop-hand" id="hand-p1-left" data-who="p1" data-side="left" aria-label="Mano izquierda J1">
+              <span class="h-emoji" id="emoji-p1-left">☝️</span>
+              <span class="h-count" id="count-p1-left">1</span>
+              <span class="h-label" id="h-label-p1-left">Izq</span>
+            </button>
+            <button class="chop-hand" id="hand-p1-right" data-who="p1" data-side="right" aria-label="Mano derecha J1">
+              <span class="h-emoji" id="emoji-p1-right">☝️</span>
+              <span class="h-count" id="count-p1-right">1</span>
+              <span class="h-label" id="h-label-p1-right">Der</span>
+            </button>
+          </div>
+          <span class="chop-section-label" id="label-p1">Jugador 1</span>
+        </div>
+      </div>
+
+      <p class="hint-text" id="hint-text">Selecciona tu mano para atacar</p>
+      <a href="/chopsticks/" class="back-hub-link">← Cambiar modo</a>
+    </section>
+
+    <!-- ROUND OVER -->
+    <section id="screen-round-over" class="screen" aria-label="Partida terminada">
+      <div class="card round-over-card">
+        <span class="ro-trophy" id="ro-trophy">🏆</span>
+        <h2 class="ro-title" id="ro-title">¡Ganaste esta partida!</h2>
+        <div class="result-actions">
+          <button id="btn-next-game" class="btn btn-primary btn-lg">Siguiente partida →</button>
+          <button id="btn-new-series" class="btn btn-ghost">Nueva serie</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- GAME OVER -->
+    <section id="screen-gameover" class="screen" aria-label="Fin de juego">
+      <div class="card gameover-card">
+        <div class="gameover-trophy" id="go-trophy">🏆</div>
+        <h2 class="gameover-title">
+          <span id="go-winner-name" class="go-winner-name"></span>
+          <span id="go-title-suffix"></span>
+        </h2>
+        <p class="gameover-subtitle" id="go-subtitle"></p>
+        <div class="gameover-score">
+          <div class="go-score-block"><span class="score-name" id="go-name-p1"></span><span class="go-score-val" id="go-val-p1">0</span></div>
+          <span class="go-dash">—</span>
+          <div class="go-score-block"><span class="score-name" id="go-name-p2"></span><span class="go-score-val" id="go-val-p2">0</span></div>
+        </div>
+        <div class="gameover-actions">
+          <button id="btn-revenge-go"  class="btn btn-primary btn-lg">🔄 Revancha</button>
+          <button id="btn-new-game-go" class="btn btn-ghost">Nueva partida</button>
+          <a href="/chopsticks/" class="btn btn-ghost">Cambiar modo</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  <script src="/js/game-chopsticks-local.js?v=1"></script>
+  <script src="/js/audio.js?v=2"></script>
+  <script src="/js/ui-chopsticks-local.js?v=1"></script>
+</body>
+</html>

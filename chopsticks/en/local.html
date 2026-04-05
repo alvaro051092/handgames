@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>Chopsticks 2 Players — Same device</title>
+  <meta name="description" content="Play Chopsticks with a friend on the same device. Take turns and pass the phone to your rival." />
+  <link rel="canonical"      href="https://handgames.app/chopsticks/en/local.html" />
+  <link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/local.html" />
+  <link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/local.html" />
+  <link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/local.html" />
+  <link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/local.html" />
+  <meta property="og:type"   content="website" />
+  <meta property="og:url"    content="https://handgames.app/chopsticks/en/local.html" />
+  <meta property="og:title"  content="Chopsticks 2 Players — Same device" />
+  <meta property="og:description" content="Take turns on the same device. Pass the phone to your rival." />
+  <meta property="og:image"  content="https://handgames.app/assets/og-image.png" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card"  content="summary_large_image" />
+  <meta name="twitter:title" content="Chopsticks 2 Players — Same device" />
+  <meta name="twitter:description" content="Take turns on the same device. Pass the phone to your rival." />
+  <meta name="twitter:image" content="https://handgames.app/assets/og-image.png" />
+  <link rel="icon" type="image/x-icon"  href="/assets/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/css/tokens.css?v=3" />
+  <link rel="stylesheet" href="/css/layout.css?v=3" />
+  <link rel="stylesheet" href="/css/components.css?v=3" />
+  <link rel="stylesheet" href="/css/animations.css?v=3" />
+  <style>
+    .chop-board{display:flex;flex-direction:column;align-items:center;gap:var(--sp-5);width:100%;max-width:360px;margin:0 auto;padding:var(--sp-2);}
+    .chop-section{display:flex;flex-direction:column;align-items:center;gap:var(--sp-3);}
+    .chop-section-label{font-size:var(--text-sm);font-weight:700;color:var(--clr-text-muted);letter-spacing:.5px;text-transform:uppercase;}
+    .chop-hands{display:flex;gap:var(--sp-5);}
+    .chop-hand{width:120px;min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:2.5px solid var(--clr-border);border-radius:var(--radius-lg);background:var(--clr-surface);cursor:default;transition:border-color var(--dur-fast),background var(--dur-fast),transform var(--dur-fast),box-shadow var(--dur-fast),opacity var(--dur-fast);user-select:none;-webkit-user-select:none;padding:var(--sp-3);}
+    .chop-hand .h-emoji{font-size:2.4rem;line-height:1;}
+    .chop-hand .h-count{font-size:var(--text-2xl);font-weight:900;color:var(--clr-primary-light);line-height:1;}
+    .chop-hand .h-label{font-size:var(--text-xs);color:var(--clr-text-subtle);font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
+    .chop-hand.elim{opacity:.3;border-style:dashed;cursor:not-allowed;}
+    .chop-hand.selectable{border-color:var(--clr-primary);cursor:pointer;}
+    .chop-hand.selectable:hover{background:var(--clr-surface-2);transform:translateY(-4px);box-shadow:var(--shadow-primary);}
+    .chop-hand.selected{border-color:var(--clr-primary-light);background:var(--clr-surface-2);transform:translateY(-4px);box-shadow:var(--shadow-primary);cursor:pointer;}
+    @keyframes chop-pulse{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.4);}50%{box-shadow:0 0 0 8px rgba(239,68,68,0);}}
+    .chop-hand.targetable{border-color:#ef4444;cursor:pointer;animation:chop-pulse 1s ease-in-out infinite;}
+    .chop-hand.targetable:hover{background:rgba(239,68,68,.08);transform:translateY(-4px);}
+    @keyframes chop-hit{0%{transform:scale(1) rotate(0);}25%{transform:scale(1.35) rotate(8deg);}60%{transform:scale(.9) rotate(-3deg);}100%{transform:scale(1) rotate(0);}}
+    .chop-hit{animation:chop-hit .35s var(--ease-spring) forwards!important;}
+    .chop-divider{width:100%;max-width:280px;display:flex;align-items:center;justify-content:center;min-height:1.4em;}
+    .last-move-text{font-size:var(--text-xs);color:var(--clr-text-subtle);text-align:center;}
+    .hint-text{font-size:var(--text-sm);color:var(--clr-text-muted);text-align:center;min-height:1.5em;padding:0 var(--sp-4);}
+    .back-hub-link{display:block;text-align:center;margin-top:var(--sp-4);font-size:var(--text-sm);color:var(--clr-text-subtle);text-decoration:none;transition:color var(--dur-fast);}
+    .back-hub-link:hover{color:var(--clr-text-muted);}
+    .round-over-card{text-align:center;padding:var(--sp-8) var(--sp-6);display:flex;flex-direction:column;align-items:center;gap:var(--sp-4);}
+    .ro-trophy{font-size:4rem;}
+    .ro-title{font-size:var(--text-xl);font-weight:800;color:var(--clr-primary-light);margin:0;}
+  </style>
+</head>
+<body>
+  <div id="curtain" aria-hidden="true"></div>
+  <div id="confetti-container" aria-hidden="true"></div>
+  <button id="btn-mute" class="btn-mute" aria-label="Mute audio" title="Mute audio">🔊</button>
+  <div id="app">
+
+    <section id="screen-setup" class="screen active" aria-label="Setup">
+      <header class="screen-header">
+        <h1 class="game-title"><span class="title-emoji">🖖</span> Chopsticks 2 Players</h1>
+        <p class="game-subtitle">Take turns on the same device</p>
+      </header>
+      <div class="card">
+        <div class="players-row">
+          <div class="field"><label for="name-p1">Player 1</label><input id="name-p1" type="text" maxlength="20" placeholder="Player 1" autocomplete="off" spellcheck="false" /></div>
+          <div class="vs-badge">VS</div>
+          <div class="field"><label for="name-p2">Player 2</label><input id="name-p2" type="text" maxlength="20" placeholder="Player 2" autocomplete="off" spellcheck="false" /></div>
+        </div>
+        <fieldset class="mode-group">
+          <legend>Game mode</legend>
+          <label class="mode-option"><input type="radio" name="mode" value="best-of-3" checked /><span class="mode-label"><span class="mode-icon">🏆</span><span class="mode-text"><strong>Best of 3</strong><small>First to win 2 games</small></span></span></label>
+          <label class="mode-option"><input type="radio" name="mode" value="single" /><span class="mode-label"><span class="mode-icon">⚡</span><span class="mode-text"><strong>Single game</strong><small>One game only</small></span></span></label>
+        </fieldset>
+        <button id="btn-start" class="btn btn-primary btn-lg">Play!</button>
+      </div>
+      <a href="/chopsticks/en/" class="back-hub-link">← Change mode</a>
+    </section>
+
+    <section id="screen-game" class="screen" aria-label="Game">
+      <div class="scoreboard">
+        <div class="score-block"><span class="score-name" id="sb-name-p1">P1</span><div class="score-roll" id="roll-p1"><span class="score-digit">0</span></div></div>
+        <div class="scoreboard-center"><span class="round-badge" id="turn-badge">P1's turn</span></div>
+        <div class="score-block"><span class="score-name" id="sb-name-p2">P2</span><div class="score-roll" id="roll-p2"><span class="score-digit">0</span></div></div>
+      </div>
+      <div class="chop-board">
+        <div class="chop-section">
+          <span class="chop-section-label" id="label-p2">Player 2</span>
+          <div class="chop-hands">
+            <button class="chop-hand" id="hand-p2-left" data-who="p2" data-side="left" aria-label="P2 left hand">
+              <span class="h-emoji" id="emoji-p2-left">☝️</span><span class="h-count" id="count-p2-left">1</span><span class="h-label" id="h-label-p2-left">L</span>
+            </button>
+            <button class="chop-hand" id="hand-p2-right" data-who="p2" data-side="right" aria-label="P2 right hand">
+              <span class="h-emoji" id="emoji-p2-right">☝️</span><span class="h-count" id="count-p2-right">1</span><span class="h-label" id="h-label-p2-right">R</span>
+            </button>
+          </div>
+        </div>
+        <div class="chop-divider"><span class="last-move-text" id="last-move-text"></span></div>
+        <div class="chop-section">
+          <div class="chop-hands">
+            <button class="chop-hand" id="hand-p1-left" data-who="p1" data-side="left" aria-label="P1 left hand">
+              <span class="h-emoji" id="emoji-p1-left">☝️</span><span class="h-count" id="count-p1-left">1</span><span class="h-label" id="h-label-p1-left">L</span>
+            </button>
+            <button class="chop-hand" id="hand-p1-right" data-who="p1" data-side="right" aria-label="P1 right hand">
+              <span class="h-emoji" id="emoji-p1-right">☝️</span><span class="h-count" id="count-p1-right">1</span><span class="h-label" id="h-label-p1-right">R</span>
+            </button>
+          </div>
+          <span class="chop-section-label" id="label-p1">Player 1</span>
+        </div>
+      </div>
+      <p class="hint-text" id="hint-text">Select your hand to attack</p>
+      <a href="/chopsticks/en/" class="back-hub-link">← Change mode</a>
+    </section>
+
+    <section id="screen-round-over" class="screen" aria-label="Game over">
+      <div class="card round-over-card">
+        <span class="ro-trophy" id="ro-trophy">🏆</span>
+        <h2 class="ro-title" id="ro-title">You won this game!</h2>
+        <div class="result-actions">
+          <button id="btn-next-game" class="btn btn-primary btn-lg">Next game →</button>
+          <button id="btn-new-series" class="btn btn-ghost">New series</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-gameover" class="screen" aria-label="Match over">
+      <div class="card gameover-card">
+        <div class="gameover-trophy" id="go-trophy">🏆</div>
+        <h2 class="gameover-title"><span id="go-winner-name" class="go-winner-name"></span><span id="go-title-suffix"></span></h2>
+        <p class="gameover-subtitle" id="go-subtitle"></p>
+        <div class="gameover-score">
+          <div class="go-score-block"><span class="score-name" id="go-name-p1"></span><span class="go-score-val" id="go-val-p1">0</span></div>
+          <span class="go-dash">—</span>
+          <div class="go-score-block"><span class="score-name" id="go-name-p2"></span><span class="go-score-val" id="go-val-p2">0</span></div>
+        </div>
+        <div class="gameover-actions">
+          <button id="btn-revenge-go"  class="btn btn-primary btn-lg">🔄 Rematch</button>
+          <button id="btn-new-game-go" class="btn btn-ghost">New game</button>
+          <a href="/chopsticks/en/" class="btn btn-ghost">Change mode</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  <script src="/js/game-chopsticks-local.js?v=1"></script>
+  <script src="/js/audio.js?v=2"></script>
+  <script src="/js/ui-chopsticks-local.js?v=1"></script>
+</body>
+</html>
