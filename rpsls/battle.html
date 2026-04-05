@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>Batalla Piedra Papel Tijeras Lagarto Spock — La CPU elige por ti</title>
+  <meta name="description" content="Modo Batalla RPSLS: dos jugadores ponen su nombre y la CPU elige por ambos. Reveal dramático con fists. Mejor de 3." />
+  <link rel="canonical"      href="https://handgames.app/rpsls/battle.html" />
+  <link rel="alternate" hreflang="es"        href="https://handgames.app/rpsls/battle.html" />
+  <link rel="alternate" hreflang="en"        href="https://handgames.app/rpsls/en/battle.html" />
+  <link rel="alternate" hreflang="pt"        href="https://handgames.app/rpsls/pt/battle.html" />
+  <link rel="alternate" hreflang="x-default" href="https://handgames.app/rpsls/battle.html" />
+  <meta property="og:type"             content="website" />
+  <meta property="og:url"              content="https://handgames.app/rpsls/battle.html" />
+  <meta property="og:title"            content="Batalla RPSLS — La CPU elige por los dos" />
+  <meta property="og:description"      content="La CPU elige por ambos jugadores. Reveal dramático, mejor de 3. Pura suerte." />
+  <meta property="og:image"            content="https://handgames.app/assets/og-image.png" />
+  <meta property="og:locale"           content="es_ES" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:locale:alternate" content="pt_BR" />
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Batalla RPSLS — La CPU elige por los dos" />
+  <meta name="twitter:description" content="5 gestos, 10 relaciones. La CPU decide. ¡Pura suerte!" />
+  <meta name="twitter:image"       content="https://handgames.app/assets/og-image.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Batalla Piedra Papel Tijeras Lagarto Spock",
+    "alternateName": ["Rock Paper Scissors Lizard Spock Battle", "Batalha Pedra Papel Tesoura Lagarto Spock"],
+    "url": "https://handgames.app/rpsls/battle.html",
+    "description": "Modo Batalla: la CPU elige por ambos jugadores simultáneamente. Reveal dramático, mejor de 3.",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "inLanguage": ["es", "en", "pt"],
+    "genre": "Casual game"
+  }
+  </script>
+  <link rel="icon" type="image/x-icon"  href="/assets/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
+  <link rel="apple-touch-icon"          href="/assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/css/tokens.css?v=3" />
+  <link rel="stylesheet" href="/css/layout.css?v=3" />
+  <link rel="stylesheet" href="/css/components.css?v=3" />
+  <link rel="stylesheet" href="/css/animations.css?v=3" />
+  <style>
+    @keyframes fistOpen {
+      0%   { transform: scale(1) rotate(-5deg); }
+      50%  { transform: scale(1.4) rotate(5deg); }
+      100% { transform: scale(1.2) rotate(0deg); }
+    }
+    .fist-open { animation: fistOpen 300ms var(--ease-spring) forwards; }
+
+    /* ── Battle arena ── */
+    .battle-arena {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: var(--sp-6) var(--sp-4);
+      gap: var(--sp-4);
+    }
+    .battle-player {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-2);
+    }
+    .battle-player-name {
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--clr-text-muted);
+      text-align: center;
+    }
+    .battle-fist {
+      font-size: 4rem;
+      line-height: 1;
+      display: block;
+      cursor: default;
+      user-select: none;
+    }
+    .battle-vs {
+      font-size: var(--text-2xl);
+      font-weight: 900;
+      color: var(--clr-text-subtle);
+    }
+
+    /* ── Reveal button ── */
+    .btn-reveal-main {
+      background: linear-gradient(135deg, var(--clr-primary), #9333ea);
+      color: #fff;
+      font-size: var(--text-lg);
+      font-weight: 800;
+      border-radius: var(--radius-sm);
+      padding: var(--sp-4) var(--sp-6);
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+      transition: filter var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+    }
+    .btn-reveal-main:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(124,58,237,.5);
+    }
+    .btn-reveal-main:active { transform: translateY(1px); box-shadow: none; }
+    .btn-reveal-main:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+    /* ── Back to hub link ── */
+    .back-hub-link {
+      display: block;
+      text-align: center;
+      margin-top: var(--sp-4);
+      font-size: var(--text-sm);
+      color: var(--clr-text-subtle);
+      text-decoration: none;
+      transition: color var(--dur-fast);
+    }
+    .back-hub-link:hover { color: var(--clr-text-muted); }
+  </style>
+</head>
+<body>
+
+  <div id="curtain" aria-hidden="true"></div>
+  <div id="confetti-container" aria-hidden="true"></div>
+  <button id="btn-mute" class="btn-mute" aria-label="Silenciar audio" title="Silenciar audio">🔊</button>
+
+  <div id="app">
+
+    <!-- ══════════════════ SETUP ══════════════════ -->
+    <section id="screen-setup" class="screen active" aria-label="Configuración">
+      <header class="screen-header">
+        <h1 class="game-title"><span class="title-emoji">⚔️</span> Batalla RPSLS</h1>
+        <p class="game-subtitle">La CPU elige por los dos · ¡Que gane el más afortunado!</p>
+      </header>
+
+      <div class="card">
+        <div class="players-row">
+          <div class="field">
+            <label for="name-p1">Jugador 1</label>
+            <input id="name-p1" type="text" maxlength="20" placeholder="Jugador 1"
+                   autocomplete="off" spellcheck="false" />
+          </div>
+          <div class="vs-badge">VS</div>
+          <div class="field">
+            <label for="name-p2">Jugador 2</label>
+            <input id="name-p2" type="text" maxlength="20" placeholder="Jugador 2"
+                   autocomplete="off" spellcheck="false" />
+          </div>
+        </div>
+
+        <fieldset class="mode-group">
+          <legend>Modo de juego</legend>
+          <label class="mode-option">
+            <input type="radio" name="mode" value="best-of-3" checked />
+            <span class="mode-label">
+              <span class="mode-icon">🏆</span>
+              <span class="mode-text">
+                <strong>Mejor de 3</strong>
+                <small>Primero en ganar 2 rondas</small>
+              </span>
+            </span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="mode" value="single" />
+            <span class="mode-label">
+              <span class="mode-icon">⚡</span>
+              <span class="mode-text">
+                <strong>Intento único</strong>
+                <small>Todo en una sola ronda</small>
+              </span>
+            </span>
+          </label>
+        </fieldset>
+
+        <button id="btn-start" class="btn btn-primary btn-lg">¡Comenzar batalla!</button>
+      </div>
+
+      <a href="/rpsls/" class="back-hub-link">← Cambiar modo</a>
+    </section>
+
+    <!-- ══════════════════ BATTLE ══════════════════ -->
+    <section id="screen-battle" class="screen" aria-label="Batalla">
+      <div class="scoreboard">
+        <div class="score-block">
+          <span class="score-name" id="sb-name-p1">J1</span>
+          <div class="score-roll" id="roll-p1"><span class="score-digit">0</span></div>
+        </div>
+        <div class="scoreboard-center">
+          <span class="round-badge" id="battle-round-badge">Ronda 1</span>
+        </div>
+        <div class="score-block">
+          <span class="score-name" id="sb-name-p2">J2</span>
+          <div class="score-roll" id="roll-p2"><span class="score-digit">0</span></div>
+        </div>
+      </div>
+
+      <div class="card" style="text-align:center; overflow:visible;">
+        <div class="battle-arena">
+          <div class="battle-player">
+            <span class="battle-player-name" id="battle-pname-p1">J1</span>
+            <span class="battle-fist" id="battle-fist-p1" aria-hidden="true">✊</span>
+          </div>
+          <span class="battle-vs" aria-hidden="true">VS</span>
+          <div class="battle-player">
+            <span class="battle-player-name" id="battle-pname-p2">J2</span>
+            <span class="battle-fist" id="battle-fist-p2" aria-hidden="true">✊</span>
+          </div>
+        </div>
+
+        <div class="result-actions" style="margin-top: var(--sp-2);">
+          <button id="btn-reveal" class="btn-reveal-main">
+            ⚔️ &nbsp;¡Revelar jugada!
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ RESULT ══════════════════ -->
+    <section id="screen-result" class="screen" aria-label="Resultado de ronda">
+      <div class="scoreboard">
+        <div class="score-block">
+          <span class="score-name" id="res-name-p1">J1</span>
+          <div class="score-roll" id="res-roll-p1"><span class="score-digit">0</span></div>
+        </div>
+        <div class="scoreboard-center">
+          <span class="round-badge" id="res-round-badge"></span>
+        </div>
+        <div class="score-block">
+          <span class="score-name" id="res-name-p2">J2</span>
+          <div class="score-roll" id="res-roll-p2"><span class="score-digit">0</span></div>
+        </div>
+      </div>
+
+      <div class="card result-card">
+        <div class="result-arena">
+          <div class="result-pick-block">
+            <span class="res-pname" id="res-pname-p1"></span>
+            <span class="res-emoji" id="res-p1-emoji"></span>
+            <span class="res-pick-label" id="res-p1-label"></span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div class="result-vs">VS</div>
+          </div>
+          <div class="result-pick-block">
+            <span class="res-pname" id="res-pname-p2"></span>
+            <span class="res-emoji" id="res-p2-emoji"></span>
+            <span class="res-pick-label" id="res-p2-label"></span>
+          </div>
+        </div>
+
+        <div id="result-banner" class="result-banner" role="status" aria-live="polite"></div>
+
+        <div class="result-actions">
+          <button id="btn-next-round"      class="btn btn-primary btn-lg">Siguiente ronda →</button>
+          <button id="btn-revenge"         class="btn btn-secondary">🔄 Revancha</button>
+          <button id="btn-new-game-result" class="btn btn-ghost">Nueva partida</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ GAME OVER ══════════════════ -->
+    <section id="screen-gameover" class="screen" aria-label="Fin de partida">
+      <div class="card gameover-card">
+        <div class="gameover-trophy" id="go-trophy">🏆</div>
+        <h2 class="gameover-title">
+          <span id="go-winner-name" class="go-winner-name"></span>
+          <span id="go-title-suffix"></span>
+        </h2>
+        <p class="gameover-subtitle" id="go-subtitle"></p>
+
+        <div class="gameover-score">
+          <div class="go-score-block">
+            <span class="score-name" id="go-name-p1"></span>
+            <span class="go-score-val" id="go-val-p1">0</span>
+          </div>
+          <span class="go-dash">—</span>
+          <div class="go-score-block">
+            <span class="score-name" id="go-name-p2"></span>
+            <span class="go-score-val" id="go-val-p2">0</span>
+          </div>
+        </div>
+
+        <div class="gameover-actions">
+          <button id="btn-revenge-go" class="btn btn-primary btn-lg">🔄 Revancha</button>
+          <button id="btn-new-game-go" class="btn btn-ghost">Nueva partida</button>
+          <a href="/rpsls/" class="btn btn-ghost">Cambiar modo</a>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- #app -->
+
+  <script src="/js/game-rpsls-battle.js?v=1"></script>
+  <script src="/js/audio.js?v=2"></script>
+  <script src="/js/ui-rpsls-battle.js?v=1"></script>
+</body>
+</html>

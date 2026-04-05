@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>Pedra Papel Tesoura Lagarto Spock — 2 Jogadores mesmo dispositivo</title>
+  <meta name="description" content="Jogue Pedra Papel Tesoura Lagarto Spock com um amigo no mesmo dispositivo. Turno a turno com tela de handoff. 5 gestos, 10 relações." />
+  <link rel="canonical"      href="https://handgames.app/rpsls/pt/local.html" />
+  <link rel="alternate" hreflang="es"        href="https://handgames.app/rpsls/local.html" />
+  <link rel="alternate" hreflang="en"        href="https://handgames.app/rpsls/en/local.html" />
+  <link rel="alternate" hreflang="pt"        href="https://handgames.app/rpsls/pt/local.html" />
+  <link rel="alternate" hreflang="x-default" href="https://handgames.app/rpsls/local.html" />
+  <meta property="og:type"             content="website" />
+  <meta property="og:url"              content="https://handgames.app/rpsls/pt/local.html" />
+  <meta property="og:title"            content="RPSLS — 2 Jogadores Pedra Papel Tesoura Lagarto Spock" />
+  <meta property="og:description"      content="Turno a turno no mesmo dispositivo. 5 gestos, 10 relações de vitória." />
+  <meta property="og:image"            content="https://handgames.app/assets/og-image.png" />
+  <meta property="og:locale"           content="pt_BR" />
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="RPSLS — 2 Jogadores Pedra Papel Tesoura Lagarto Spock" />
+  <meta name="twitter:description" content="Turno a turno com handoff. 5 gestos, 10 relações." />
+  <meta name="twitter:image"       content="https://handgames.app/assets/og-image.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Pedra Papel Tesoura Lagarto Spock — 2 Jogadores",
+    "url": "https://handgames.app/rpsls/pt/local.html",
+    "description": "Modo 2 jogadores no mesmo dispositivo. Turno a turno com tela de handoff.",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "inLanguage": ["pt", "es", "en"],
+    "genre": "Casual game"
+  }
+  </script>
+  <link rel="icon" type="image/x-icon"  href="/assets/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
+  <link rel="apple-touch-icon"          href="/assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/css/tokens.css?v=3" />
+  <link rel="stylesheet" href="/css/layout.css?v=3" />
+  <link rel="stylesheet" href="/css/components.css?v=3" />
+  <link rel="stylesheet" href="/css/animations.css?v=3" />
+  <style>
+    .pick-buttons-rpsls { display: flex; flex-direction: column; gap: var(--sp-3); margin: var(--sp-4) 0; }
+    .pick-row { display: flex; justify-content: center; gap: var(--sp-3); }
+    .pick-row .btn-pick { flex: 1; max-width: 110px; }
+    .handoff-card { text-align: center; padding: var(--sp-10) var(--sp-6); }
+    .handoff-icon { font-size: 4rem; display: block; margin-bottom: var(--sp-4); animation: float 3s var(--ease-in-out) infinite; }
+    .handoff-msg { font-size: var(--text-lg); font-weight: 700; color: var(--clr-text); margin-bottom: var(--sp-2); }
+    .handoff-hint { font-size: var(--text-sm); color: var(--clr-text-muted); margin-bottom: var(--sp-8); }
+    .back-hub-link { display: block; text-align: center; margin-top: var(--sp-4); font-size: var(--text-sm); color: var(--clr-text-subtle); text-decoration: none; transition: color var(--dur-fast); }
+    .back-hub-link:hover { color: var(--clr-text-muted); }
+  </style>
+</head>
+<body>
+
+  <div id="curtain" aria-hidden="true"></div>
+  <div id="confetti-container" aria-hidden="true"></div>
+  <button id="btn-mute" class="btn-mute" aria-label="Silenciar áudio" title="Silenciar áudio">🔊</button>
+
+  <div id="app">
+
+    <section id="screen-setup" class="screen active" aria-label="Configuração">
+      <header class="screen-header">
+        <h1 class="game-title"><span class="title-emoji">👥</span> 2 Jogadores</h1>
+        <p class="game-subtitle">Pedra Papel Tesoura Lagarto Spock</p>
+      </header>
+      <div class="card">
+        <div class="players-row">
+          <div class="field">
+            <label for="name-p1">Jogador 1</label>
+            <input id="name-p1" type="text" maxlength="20" placeholder="Jogador 1"
+                   autocomplete="off" spellcheck="false" />
+          </div>
+          <div class="vs-badge">VS</div>
+          <div class="field">
+            <label for="name-p2">Jogador 2</label>
+            <input id="name-p2" type="text" maxlength="20" placeholder="Jogador 2"
+                   autocomplete="off" spellcheck="false" />
+          </div>
+        </div>
+        <fieldset class="mode-group">
+          <legend>Modo de jogo</legend>
+          <label class="mode-option">
+            <input type="radio" name="mode" value="best-of-3" checked />
+            <span class="mode-label">
+              <span class="mode-icon">🏆</span>
+              <span class="mode-text"><strong>Melhor de 3</strong><small>Primeiro a ganhar 2 rodadas</small></span>
+            </span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="mode" value="single" />
+            <span class="mode-label">
+              <span class="mode-icon">⚡</span>
+              <span class="mode-text"><strong>Partida única</strong><small>Tudo em uma rodada</small></span>
+            </span>
+          </label>
+        </fieldset>
+        <button id="btn-start" class="btn btn-primary btn-lg">Jogar!</button>
+      </div>
+      <a href="/rpsls/pt/" class="back-hub-link">← Mudar modo</a>
+    </section>
+
+    <section id="screen-pick" class="screen" aria-label="Escolha sua jogada">
+      <div class="scoreboard">
+        <div class="score-block">
+          <span class="score-name" id="sb-name-p1">J1</span>
+          <div class="score-roll" id="roll-p1"><span class="score-digit">0</span></div>
+        </div>
+        <div class="scoreboard-center">
+          <span class="round-badge" id="pick-round-badge">Rodada 1</span>
+        </div>
+        <div class="score-block">
+          <span class="score-name" id="sb-name-p2">J2</span>
+          <div class="score-roll" id="roll-p2"><span class="score-digit">0</span></div>
+        </div>
+      </div>
+      <div class="card pick-card">
+        <p class="pick-hint" id="pick-prompt">Escolha sua jogada</p>
+        <div class="pick-buttons-rpsls">
+          <div class="pick-row">
+            <button class="btn btn-pick" data-pick="rock" aria-label="Escolher Pedra">
+              <span class="pick-emoji">🪨</span><span class="pick-label">Pedra</span>
+            </button>
+            <button class="btn btn-pick" data-pick="paper" aria-label="Escolher Papel">
+              <span class="pick-emoji">📄</span><span class="pick-label">Papel</span>
+            </button>
+            <button class="btn btn-pick" data-pick="scissors" aria-label="Escolher Tesoura">
+              <span class="pick-emoji">✂️</span><span class="pick-label">Tesoura</span>
+            </button>
+          </div>
+          <div class="pick-row">
+            <button class="btn btn-pick" data-pick="lizard" aria-label="Escolher Lagarto">
+              <span class="pick-emoji">🦎</span><span class="pick-label">Lagarto</span>
+            </button>
+            <button class="btn btn-pick" data-pick="spock" aria-label="Escolher Spock">
+              <span class="pick-emoji">🖖</span><span class="pick-label">Spock</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-handoff" class="screen" aria-label="Passar dispositivo">
+      <div class="card handoff-card">
+        <span class="handoff-icon" aria-hidden="true">📱</span>
+        <p class="handoff-msg" id="handoff-msg">Passe o dispositivo para o próximo jogador</p>
+        <p class="handoff-hint">A jogada anterior está oculta</p>
+        <button id="btn-handoff-ready" class="btn btn-primary btn-lg">Pronto →</button>
+      </div>
+    </section>
+
+    <section id="screen-result" class="screen" aria-label="Resultado da rodada">
+      <div class="scoreboard">
+        <div class="score-block">
+          <span class="score-name" id="res-name-p1">J1</span>
+          <div class="score-roll" id="res-roll-p1"><span class="score-digit">0</span></div>
+        </div>
+        <div class="scoreboard-center">
+          <span class="round-badge" id="res-round-badge"></span>
+        </div>
+        <div class="score-block">
+          <span class="score-name" id="res-name-p2">J2</span>
+          <div class="score-roll" id="res-roll-p2"><span class="score-digit">0</span></div>
+        </div>
+      </div>
+      <div class="card result-card">
+        <div class="result-arena">
+          <div class="result-pick-block">
+            <span class="res-pname" id="res-name-p1-pick"></span>
+            <span class="res-emoji" id="res-p1-emoji"></span>
+            <span class="res-pick-label" id="res-p1-label"></span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:var(--sp-1);">
+            <div class="result-vs">VS</div>
+          </div>
+          <div class="result-pick-block">
+            <span class="res-pname" id="res-name-p2-pick"></span>
+            <span class="res-emoji" id="res-p2-emoji"></span>
+            <span class="res-pick-label" id="res-p2-label"></span>
+          </div>
+        </div>
+        <div id="result-banner" class="result-banner" role="status" aria-live="polite"></div>
+        <div class="result-actions">
+          <button id="btn-next-round"      class="btn btn-primary btn-lg">Próxima rodada →</button>
+          <button id="btn-retry-round"     class="btn btn-secondary">↩ Repetir rodada</button>
+          <button id="btn-revenge"         class="btn btn-secondary">🔄 Revanche</button>
+          <button id="btn-new-game-result" class="btn btn-ghost">Nova partida</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-gameover" class="screen" aria-label="Fim de partida">
+      <div class="card gameover-card">
+        <div class="gameover-trophy" id="go-trophy">🏆</div>
+        <h2 class="gameover-title">
+          <span id="go-winner-name" class="go-winner-name"></span>
+          <span id="go-title-suffix"></span>
+        </h2>
+        <p class="gameover-subtitle" id="go-subtitle"></p>
+        <div class="gameover-score">
+          <div class="go-score-block">
+            <span class="score-name" id="go-name-p1"></span>
+            <span class="go-score-val" id="go-val-p1">0</span>
+          </div>
+          <span class="go-dash">—</span>
+          <div class="go-score-block">
+            <span class="score-name" id="go-name-p2"></span>
+            <span class="go-score-val" id="go-val-p2">0</span>
+          </div>
+        </div>
+        <div class="gameover-actions">
+          <button id="btn-revenge-go"  class="btn btn-primary btn-lg">🔄 Revanche</button>
+          <button id="btn-new-game-go" class="btn btn-ghost">Nova partida</button>
+          <a href="/rpsls/pt/" class="btn btn-ghost">Mudar modo</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="/js/game-rpsls-local.js?v=1"></script>
+  <script src="/js/audio.js?v=2"></script>
+  <script src="/js/ui-rpsls-local.js?v=1"></script>
+</body>
+</html>
