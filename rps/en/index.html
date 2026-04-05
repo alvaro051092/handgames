@@ -202,6 +202,13 @@
     }
     .lang-link:hover { color: var(--clr-text); background: var(--clr-surface-2); }
     .lang-link.active { color: var(--clr-primary-light); }
+    .rules-section{width:100%;max-width:640px;margin-top:var(--sp-10);border-top:1px solid var(--clr-border);padding-top:var(--sp-8);padding-bottom:var(--sp-4);}
+    .rules-section h2{font-size:var(--text-base);font-weight:800;color:var(--clr-text);margin-bottom:var(--sp-3);text-align:center;}
+    .rules-section h3{font-size:var(--text-xs);font-weight:700;color:var(--clr-primary-light);text-transform:uppercase;letter-spacing:.6px;margin:var(--sp-5) 0 var(--sp-2);}
+    .rules-section p{font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.7;margin-bottom:var(--sp-2);}
+    .rules-list{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-2);margin-bottom:var(--sp-2);}
+    .rules-list li{background:var(--clr-surface-2);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-2) var(--sp-3);font-size:var(--text-xs);color:var(--clr-text-muted);line-height:1.5;}
+    @media(max-width:480px){.rules-list{grid-template-columns:1fr;}}
   </style>
 </head>
 <body class="hub-page">
@@ -255,6 +262,26 @@
       </a>
     </nav>
   </main>
+
+  <section class="rules-section" aria-labelledby="rules-heading">
+    <h2 id="rules-heading">How to play Rock Paper Scissors</h2>
+    <h3>The 3 gestures</h3>
+    <ul class="rules-list">
+      <li>🪨 <strong>Rock</strong> — closed fist</li>
+      <li>📄 <strong>Paper</strong> — open hand</li>
+      <li>✂️ <strong>Scissors</strong> — two fingers extended</li>
+    </ul>
+    <h3>The rules</h3>
+    <ul class="rules-list">
+      <li>🪨 Rock crushes ✂️ Scissors</li>
+      <li>✂️ Scissors cuts 📄 Paper</li>
+      <li>📄 Paper covers 🪨 Rock</li>
+    </ul>
+    <h3>Objective</h3>
+    <p>Both players reveal their gesture simultaneously. The winning gesture earns one point. First to reach the target score (or best of 3) wins the match.</p>
+    <h3>Strategy</h3>
+    <p>Each gesture beats one and loses to one — pure reads and psychology. No dominant option exists: every choice is a calculated risk.</p>
+  </section>
 
   <footer class="hub-footer">
     Rock · Paper · Scissors &mdash; v3

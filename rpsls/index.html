@@ -72,6 +72,13 @@
     .mode-card-desc{font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.5;}
     .mode-cta{font-size:var(--text-sm);font-weight:700;color:var(--clr-primary-light);flex-shrink:0;}
     .hub-footer{margin-top:var(--sp-8);font-size:var(--text-xs);color:var(--clr-text-subtle);text-align:center;}
+    .rules-section{width:100%;max-width:640px;margin-top:var(--sp-10);border-top:1px solid var(--clr-border);padding-top:var(--sp-8);padding-bottom:var(--sp-4);}
+    .rules-section h2{font-size:var(--text-base);font-weight:800;color:var(--clr-text);margin-bottom:var(--sp-3);text-align:center;}
+    .rules-section h3{font-size:var(--text-xs);font-weight:700;color:var(--clr-primary-light);text-transform:uppercase;letter-spacing:.6px;margin:var(--sp-5) 0 var(--sp-2);}
+    .rules-section p{font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.7;margin-bottom:var(--sp-2);}
+    .rules-list{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-2);margin-bottom:var(--sp-2);}
+    .rules-list li{background:var(--clr-surface-2);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-2) var(--sp-3);font-size:var(--text-xs);color:var(--clr-text-muted);line-height:1.5;}
+    @media(max-width:480px){.rules-list{grid-template-columns:1fr;}}
   </style>
 </head>
 <body class="mode-hub">
@@ -130,6 +137,37 @@
 
     </nav>
   </main>
+
+  <section class="rules-section" aria-labelledby="rules-heading">
+    <h2 id="rules-heading">Cómo jugar Piedra Papel Tijeras Lagarto Spock</h2>
+    <p>Variante de 5 gestos del clásico juego de mano, popularizada por <em>The Big Bang Theory</em>. Cada gesto derrota exactamente a dos de los otros cuatro, lo que reduce los empates y añade profundidad estratégica.</p>
+
+    <h3>Los 5 gestos</h3>
+    <ul class="rules-list">
+      <li>🪨 <strong>Piedra</strong> — puño cerrado</li>
+      <li>📄 <strong>Papel</strong> — mano extendida</li>
+      <li>✂️ <strong>Tijeras</strong> — dos dedos en V</li>
+      <li>🦎 <strong>Lagarto</strong> — mano como boca abierta</li>
+      <li>🖖 <strong>Spock</strong> — saludo vulcano de Star Trek</li>
+    </ul>
+
+    <h3>Las 10 relaciones de victoria</h3>
+    <ul class="rules-list">
+      <li>🪨 Piedra <strong>aplasta</strong> Tijeras</li>
+      <li>🪨 Piedra <strong>aplasta</strong> Lagarto</li>
+      <li>📄 Papel <strong>cubre</strong> Piedra</li>
+      <li>📄 Papel <strong>refuta</strong> a Spock</li>
+      <li>✂️ Tijeras <strong>cortan</strong> Papel</li>
+      <li>✂️ Tijeras <strong>decapitan</strong> Lagarto</li>
+      <li>🦎 Lagarto <strong>envenena</strong> a Spock</li>
+      <li>🦎 Lagarto <strong>come</strong> Papel</li>
+      <li>🖖 Spock <strong>destroza</strong> Tijeras</li>
+      <li>🖖 Spock <strong>vaporiza</strong> Piedra</li>
+    </ul>
+
+    <h3>Objetivo</h3>
+    <p>Ambos jugadores eligen un gesto simultáneamente. Si el tuyo derrota al rival, ganas la ronda. En <strong>Mejor de 3</strong>, gana quien consiga 2 victorias primero. En <strong>Intento único</strong>, todo se decide en una ronda. Los empates se repiten: ningún marcador avanza.</p>
+  </section>
 
   <footer class="hub-footer">
     handgames.app &mdash; Piedra Papel Tijeras Lagarto Spock

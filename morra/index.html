@@ -185,6 +185,57 @@
     }
     .lang-link:hover { color: var(--clr-text); background: var(--clr-surface-2); }
     .lang-link.active { color: var(--clr-primary-light); }
+
+    /* ── Rules section ── */
+    .rules-section {
+      width: 100%;
+      max-width: 640px;
+      margin-top: var(--sp-10);
+      border-top: 1px solid var(--clr-border);
+      padding-top: var(--sp-8);
+      padding-bottom: var(--sp-4);
+    }
+    .rules-section h2 {
+      font-size: var(--text-base);
+      font-weight: 800;
+      color: var(--clr-text);
+      margin-bottom: var(--sp-3);
+      text-align: center;
+    }
+    .rules-section h3 {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      color: var(--clr-primary-light);
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      margin: var(--sp-5) 0 var(--sp-2);
+    }
+    .rules-section p {
+      font-size: var(--text-sm);
+      color: var(--clr-text-muted);
+      line-height: 1.7;
+      margin-bottom: var(--sp-2);
+    }
+    .rules-list {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-2);
+      margin-bottom: var(--sp-2);
+    }
+    .rules-list li {
+      background: var(--clr-surface-2);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-sm);
+      padding: var(--sp-2) var(--sp-3);
+      font-size: var(--text-xs);
+      color: var(--clr-text-muted);
+      line-height: 1.5;
+    }
+    @media (max-width: 480px) {
+      .rules-list { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body class="hub-page">
@@ -238,6 +289,25 @@
       </a>
     </nav>
   </main>
+
+  <section class="rules-section" aria-labelledby="rules-heading">
+    <h2 id="rules-heading">Cómo jugar Morra</h2>
+    <p>La Morra es uno de los juegos de mano más antiguos del mundo, documentado en el Antiguo Egipto y practicado durante siglos en Italia, España, Grecia y América Latina. Combina velocidad, psicología y predicción.</p>
+
+    <h3>Cómo se juega</h3>
+    <ul class="rules-list">
+      <li>Cada jugador muestra <strong>1 a 5 dedos</strong> simultáneamente</li>
+      <li>Cada jugador apuesta el <strong>total de ambas manos</strong> (entre 2 y 10)</li>
+      <li>Quien <strong>acierta la suma exacta</strong> gana la ronda</li>
+      <li>Si <strong>ambos o ninguno</strong> aciertan, la ronda se repite</li>
+    </ul>
+
+    <h3>El rango de apuesta</h3>
+    <p>El mínimo posible es 2 (ambos muestran 1 dedo) y el máximo es 10 (ambos muestran 5). Las apuestas más frecuentes están entre 5 y 7, pero adaptar tu rango al estilo del rival es parte clave de la estrategia.</p>
+
+    <h3>Estrategia</h3>
+    <p>Observa los patrones de tu rival: ¿tiende a mostrar muchos dedos o pocos? Ajusta tu apuesta en consecuencia. También puedes intentar engañarle mostrando muchos dedos cuando apuestas bajo, y viceversa.</p>
+  </section>
 
   <footer class="hub-footer">
     Morra &mdash; Hand Games

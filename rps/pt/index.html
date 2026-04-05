@@ -199,6 +199,13 @@
     }
     .lang-link:hover { color: var(--clr-text); background: var(--clr-surface-2); }
     .lang-link.active { color: var(--clr-primary-light); }
+    .rules-section{width:100%;max-width:640px;margin-top:var(--sp-10);border-top:1px solid var(--clr-border);padding-top:var(--sp-8);padding-bottom:var(--sp-4);}
+    .rules-section h2{font-size:var(--text-base);font-weight:800;color:var(--clr-text);margin-bottom:var(--sp-3);text-align:center;}
+    .rules-section h3{font-size:var(--text-xs);font-weight:700;color:var(--clr-primary-light);text-transform:uppercase;letter-spacing:.6px;margin:var(--sp-5) 0 var(--sp-2);}
+    .rules-section p{font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.7;margin-bottom:var(--sp-2);}
+    .rules-list{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-2);margin-bottom:var(--sp-2);}
+    .rules-list li{background:var(--clr-surface-2);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-2) var(--sp-3);font-size:var(--text-xs);color:var(--clr-text-muted);line-height:1.5;}
+    @media(max-width:480px){.rules-list{grid-template-columns:1fr;}}
   </style>
 </head>
 <body class="hub-page">
@@ -252,6 +259,26 @@
       </a>
     </nav>
   </main>
+
+  <section class="rules-section" aria-labelledby="rules-heading">
+    <h2 id="rules-heading">Como jogar Pedra Papel Tesoura</h2>
+    <h3>Os 3 gestos</h3>
+    <ul class="rules-list">
+      <li>🪨 <strong>Pedra</strong> — punho fechado</li>
+      <li>📄 <strong>Papel</strong> — mão aberta</li>
+      <li>✂️ <strong>Tesoura</strong> — dois dedos estendidos</li>
+    </ul>
+    <h3>As regras</h3>
+    <ul class="rules-list">
+      <li>🪨 Pedra esmaga ✂️ Tesoura</li>
+      <li>✂️ Tesoura corta 📄 Papel</li>
+      <li>📄 Papel cobre 🪨 Pedra</li>
+    </ul>
+    <h3>Objetivo</h3>
+    <p>Os dois jogadores revelam o gesto ao mesmo tempo. O gesto vencedor vale um ponto. Quem atingir a pontuação alvo (ou melhor de 3) vence a partida.</p>
+    <h3>Estratégia</h3>
+    <p>Cada gesto vence um e perde para outro — pura leitura e psicologia. Não existe opção dominante: cada escolha é um risco calculado.</p>
+  </section>
 
   <footer class="hub-footer">
     Pedra · Papel · Tesoura &mdash; v3

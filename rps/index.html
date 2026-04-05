@@ -209,6 +209,57 @@
     }
     .lang-link:hover { color: var(--clr-text); background: var(--clr-surface-2); }
     .lang-link.active { color: var(--clr-primary-light); }
+
+    /* ── Rules section ── */
+    .rules-section {
+      width: 100%;
+      max-width: 640px;
+      margin-top: var(--sp-10);
+      border-top: 1px solid var(--clr-border);
+      padding-top: var(--sp-8);
+      padding-bottom: var(--sp-4);
+    }
+    .rules-section h2 {
+      font-size: var(--text-base);
+      font-weight: 800;
+      color: var(--clr-text);
+      margin-bottom: var(--sp-3);
+      text-align: center;
+    }
+    .rules-section h3 {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      color: var(--clr-primary-light);
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      margin: var(--sp-5) 0 var(--sp-2);
+    }
+    .rules-section p {
+      font-size: var(--text-sm);
+      color: var(--clr-text-muted);
+      line-height: 1.7;
+      margin-bottom: var(--sp-2);
+    }
+    .rules-list {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-2);
+      margin-bottom: var(--sp-2);
+    }
+    .rules-list li {
+      background: var(--clr-surface-2);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-sm);
+      padding: var(--sp-2) var(--sp-3);
+      font-size: var(--text-xs);
+      color: var(--clr-text-muted);
+      line-height: 1.5;
+    }
+    @media (max-width: 480px) {
+      .rules-list { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body class="hub-page">
@@ -262,6 +313,31 @@
       </a>
     </nav>
   </main>
+
+  <section class="rules-section" aria-labelledby="rules-heading">
+    <h2 id="rules-heading">Cómo jugar Piedra Papel Tijeras</h2>
+    <p>Uno de los juegos de mano más populares del mundo, conocido como <em>Jan-Ken-Pō</em> en Japón y <em>Rock Paper Scissors</em> en inglés. Dos jugadores eligen simultáneamente uno de tres gestos: el que derrota al rival gana la ronda.</p>
+
+    <h3>Los 3 gestos</h3>
+    <ul class="rules-list">
+      <li>🪨 <strong>Piedra</strong> — puño cerrado</li>
+      <li>📄 <strong>Papel</strong> — mano extendida</li>
+      <li>✂️ <strong>Tijeras</strong> — dos dedos en V</li>
+    </ul>
+
+    <h3>Las 3 reglas de victoria</h3>
+    <ul class="rules-list">
+      <li>🪨 Piedra <strong>aplasta</strong> Tijeras</li>
+      <li>📄 Papel <strong>cubre</strong> Piedra</li>
+      <li>✂️ Tijeras <strong>cortan</strong> Papel</li>
+    </ul>
+
+    <h3>Objetivo</h3>
+    <p>En <strong>Mejor de 3</strong>, gana quien consiga 2 victorias. En <strong>Intento único</strong>, todo se decide en una ronda. Los empates se repiten automáticamente.</p>
+
+    <h3>Estrategia</h3>
+    <p>¿Tu rival acaba de perder con Tijeras? Estadísticamente, los jugadores tienden a repetir su jugada o cambiar de forma predecible. Observa patrones: muchos jugadores tienen un gesto favorito o repiten inconscientemente el gesto ganador.</p>
+  </section>
 
   <footer class="hub-footer">
     Piedra · Papel · Tijeras &mdash; v3
