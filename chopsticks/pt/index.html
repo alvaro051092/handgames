@@ -16,6 +16,7 @@
   <meta property="og:title"  content="Pauzinhos — Escolha o modo de jogo" />
   <meta property="og:description" content="Escolha como jogar Pauzinhos: vs CPU, 2 jogadores ou modo Batalha." />
   <meta property="og:image"  content="https://handgames.app/assets/og-image.png" />
+  <meta property="og:site_name"  content="Hand Games" />
   <meta property="og:locale" content="pt_BR" />
   <meta name="twitter:card"  content="summary_large_image" />
   <meta name="twitter:title" content="Pauzinhos — Escolha o modo de jogo" />
@@ -61,6 +62,61 @@
     .rules-list li{background:var(--clr-surface-2);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-2) var(--sp-3);font-size:var(--text-xs);color:var(--clr-text-muted);line-height:1.5;}
     @media(max-width:480px){.rules-list{grid-template-columns:1fr;}}
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Pauzinhos",
+    "alternateName": ["Chopsticks", "Palillos"],
+    "url": "https://handgames.app/chopsticks/pt/",
+    "description": "Jogo dos Pauzinhos online. Some dedos para eliminar as mãos do adversário. Três modos: vs CPU, 2 jogadores e Batalha.",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "inLanguage": ["pt", "es", "en"],
+    "genre": "Casual game"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Como se joga Pauzinhos (Chopsticks)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Cada jogador começa com 1 dedo em cada mão. Na sua vez, toque uma das suas mãos na mão do adversário — os dedos se somam. Uma mão que chegar a 5 dedos é eliminada. Elimine as duas mãos do adversário para vencer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "O que é a divisão em Pauzinhos?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Em vez de atacar, você pode redistribuir os dedos entre suas próprias mãos. A distribuição deve ser diferente da atual — não é permitido passar a vez retornando ao mesmo estado."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Como se vence em Pauzinhos?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Force as duas mãos do adversário a chegar exatamente a 5 dedos para eliminá-las. Uma mão com 5 dedos vale 0. Elimine ambas as mãos para vencer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "É grátis jogar Pauzinhos online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sim, completamente grátis. Sem cadastro ou download. Jogue direto no navegador em qualquer dispositivo."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body class="mode-hub">
 

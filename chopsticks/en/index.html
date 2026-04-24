@@ -16,6 +16,7 @@
   <meta property="og:title"  content="Chopsticks — Choose your game mode" />
   <meta property="og:description" content="Choose how to play Chopsticks: vs CPU, 2 players or Battle mode." />
   <meta property="og:image"  content="https://handgames.app/assets/og-image.png" />
+  <meta property="og:site_name"  content="Hand Games" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card"  content="summary_large_image" />
   <meta name="twitter:title" content="Chopsticks — Choose your game mode" />
@@ -61,6 +62,61 @@
     .rules-list li{background:var(--clr-surface-2);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-2) var(--sp-3);font-size:var(--text-xs);color:var(--clr-text-muted);line-height:1.5;}
     @media(max-width:480px){.rules-list{grid-template-columns:1fr;}}
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Chopsticks",
+    "alternateName": ["Chopsticks Finger Game", "Palillos", "Pauzinhos"],
+    "url": "https://handgames.app/chopsticks/en/",
+    "description": "Chopsticks online game. Add fingers to eliminate your opponent's hands. Three modes: vs CPU, 2 players and Battle.",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "inLanguage": ["en", "es", "pt"],
+    "genre": "Casual game"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do you play Chopsticks?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Each player starts with 1 finger on each hand. On your turn, tap one of your hands against an opponent's hand to add your fingers to theirs. A hand that reaches exactly 5 fingers is eliminated. Eliminate both of your opponent's hands to win."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the split in Chopsticks?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Instead of attacking, you can redistribute fingers between your own two hands. The new distribution must differ from the current one — you cannot skip your turn by splitting back to the same state."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you win at Chopsticks?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Force both of your opponent's hands to reach exactly 5 fingers. A hand at 5 is eliminated (counts as 0). Eliminate both hands to win the game."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Chopsticks free to play online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, completely free. No sign-up or download required. Play directly in your browser on any device."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body class="mode-hub">
 
