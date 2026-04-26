@@ -295,6 +295,7 @@
   /* ── Round over (best-of-3 intermediate) ── */
 
   function populateRoundOver(state) {
+    HGA.roundResult(state.roundWinner, { score_player: state.scores.player, score_cpu: state.scores.cpu });
     const isWin = state.roundWinner === 'player';
     $('ro-trophy').textContent = isWin ? '🏆' : '💻';
     $('ro-title').textContent  = isWin
@@ -306,6 +307,7 @@
   /* ── Game over ── */
 
   function populateGameover(state) {
+    HGA.gameOver(state.winner, state.scores);
     const win = state.winner === 'player';
     $('go-trophy').textContent = win ? '🏆' : '🤖';
     typewriter($('go-winner-name'), win ? state.names.player : 'CPU');
@@ -341,6 +343,7 @@
     _gameCount = 0;
     _cpuThinking = false;
     const state = G.configure(name, mode);
+    HGA.gameStart(mode);
     renderBoard(state);
     goTo('game', 'fwd');
     GameAudio.playTick();
@@ -370,6 +373,7 @@
     if (_transitioning) return;
     $('confetti-container').innerHTML = '';
     $('session-stats').style.display = 'none';
+    HGA.revenge();
     _gameCount = 0;
     _cpuThinking = false;
     const state = G.revenge();
@@ -389,6 +393,7 @@
 
   $('btn-mute').addEventListener('click', () => {
     const muted = GameAudio.toggle();
+    HGA.audioToggle(muted);
     $('btn-mute').textContent = muted ? '🔇' : '🔊';
   });
 

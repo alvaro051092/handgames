@@ -302,6 +302,7 @@
   /* ──────────── Game Over Screen ──────────── */
 
   function populateGameover(state) {
+    HGA.gameOver(state.matchWinner, state.scores, state.round);
     const { players, scores, matchWinner } = state;
 
     $('go-trophy').textContent       = '🏆';
@@ -326,6 +327,7 @@
     const p2   = $('name-p2').value.trim();
     const mode = document.querySelector('input[name="mode"]:checked').value;
     const state = GameOOELocal.configure(p1, p2, mode);
+    HGA.gameStart(mode);
     pickingPlayer = 'p1';
     populatePick(state);
     goTo('pick', 'fwd');
@@ -362,6 +364,8 @@
       $('finger-buttons').querySelectorAll('.btn-finger').forEach(b => b.disabled = true);
       await new Promise(r => setTimeout(r, 300));
       const state = GameOOELocal.p2Pick(pendingFingers);
+      HGA.pickMade({ player: 'p2', pick_fingers: pendingFingers, round: state.round });
+      HGA.roundResult(state.roundWinner, { round: state.round });
       populateResult(state);
       await goTo('result', 'fwd');
       animateResult(state);  // intentionally not awaited
@@ -377,6 +381,7 @@
     GameAudio.playTick();
     await new Promise(r => setTimeout(r, 200));
     const state = GameOOELocal.p1Pick(pendingFingers, pendingBet);
+    HGA.pickMade({ player: 'p1', pick_fingers: pendingFingers, pick_bet: pendingBet, round: state.round });
     pickingPlayer = 'p2';
     await curtainWrap(() => {
       populateHandoff(state);
@@ -403,6 +408,7 @@
 
   $('btn-revenge').addEventListener('click', () => {
     if (transitioning) return;
+    HGA.revenge();
     pickingPlayer = 'p1';
     const state = GameOOELocal.revenge();
     populatePick(state);
@@ -421,6 +427,7 @@
   $('btn-revenge-go').addEventListener('click', () => {
     if (transitioning) return;
     $('confetti-container').innerHTML = '';
+    HGA.revenge();
     pickingPlayer = 'p1';
     const state = GameOOELocal.revenge();
     populatePick(state);
@@ -439,6 +446,7 @@
 
   $('btn-mute').addEventListener('click', () => {
     const muted = GameAudio.toggle();
+    HGA.audioToggle(muted);
     $('btn-mute').textContent = muted ? '🔇' : '🔊';
     $('btn-mute').setAttribute('aria-label', muted ? 'Activar audio' : 'Silenciar audio');
     $('btn-mute').title = muted ? 'Activar audio' : 'Silenciar audio';

@@ -301,6 +301,7 @@
   /* ──────────── Game Over Screen ──────────── */
 
   function populateGameover(state) {
+    HGA.gameOver(state.matchWinner, state.scores, state.round);
     const { player, scores, matchWinner, session } = state;
 
     if (matchWinner === 'player') {
@@ -348,6 +349,7 @@
     const name = $('name-player').value.trim();
     const mode = document.querySelector('input[name="mode"]:checked').value;
     const state = GameMorraCPU.configure(name, mode);
+    HGA.gameStart(mode);
     populatePick(state);
     goTo('pick', 'fwd');
     GameAudio.playTick();
@@ -384,6 +386,8 @@
     GameAudio.playTick();
     await new Promise(r => setTimeout(r, 200));
     const state = GameMorraCPU.playerPick(pendingFingers, pendingGuess);
+    HGA.pickMade({ pick_fingers: pendingFingers, pick_guess: pendingGuess, round: state.round });
+    HGA.roundResult(state.roundWinner, { pick_player_fingers: state.picks.playerFingers, pick_cpu_fingers: state.picks.cpuFingers, round: state.round });
     populateResult(state);
     await goTo('result', 'fwd');
     animateCPUReveal(state);  // intentionally not awaited
@@ -406,6 +410,7 @@
 
   $('btn-revenge').addEventListener('click', () => {
     if (transitioning) return;
+    HGA.revenge();
     const state = GameMorraCPU.revenge();
     populatePick(state);
     goTo('pick', 'back');
@@ -423,6 +428,7 @@
     if (transitioning) return;
     $('confetti-container').innerHTML = '';
     $('session-stats').style.display  = 'none';
+    HGA.revenge();
     const state = GameMorraCPU.revenge();
     populatePick(state);
     goTo('pick', 'back');
@@ -440,6 +446,7 @@
 
   $('btn-mute').addEventListener('click', () => {
     const muted = GameAudio.toggle();
+    HGA.audioToggle(muted);
     $('btn-mute').textContent = muted ? '🔇' : '🔊';
     $('btn-mute').setAttribute('aria-label', muted ? 'Activar audio' : 'Silenciar audio');
     $('btn-mute').title = muted ? 'Activar audio' : 'Silenciar audio';

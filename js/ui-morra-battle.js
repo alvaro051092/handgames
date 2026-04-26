@@ -232,6 +232,7 @@
   /* ──────────── Game Over Screen ──────────── */
 
   function populateGameover(state) {
+    HGA.gameOver(state.matchWinner, state.scores, state.round);
     const { players, scores, matchWinner } = state;
 
     $('go-trophy').textContent     = '🏆';
@@ -257,6 +258,7 @@
     const p2   = $('name-p2').value.trim();
     const mode = document.querySelector('input[name="mode"]:checked').value;
     const state = GameMorraBattle.configure(p1, p2, mode);
+    HGA.gameStart(mode);
     populateBattle(state);
     goTo('battle', 'fwd');
     GameAudio.playTick();
@@ -278,6 +280,7 @@
     await new Promise(r => setTimeout(r, 300));
 
     const state = GameMorraBattle.reveal();
+    HGA.roundResult(state.roundWinner, { round: state.round });
     fist1.textContent = state.picks.p1Fingers;
     fist2.textContent = state.picks.p2Fingers;
     await new Promise(r => setTimeout(r, 400));
@@ -295,6 +298,7 @@
 
   $('btn-revenge').addEventListener('click', () => {
     if (transitioning) return;
+    HGA.revenge();
     const state = GameMorraBattle.revenge();
     populateBattle(state);
     goTo('battle', 'back');
@@ -312,6 +316,7 @@
   $('btn-revenge-go').addEventListener('click', () => {
     if (transitioning) return;
     $('confetti-container').innerHTML = '';
+    HGA.revenge();
     const state = GameMorraBattle.revenge();
     populateBattle(state);
     goTo('battle', 'back');
@@ -329,6 +334,7 @@
 
   $('btn-mute').addEventListener('click', () => {
     const muted = GameAudio.toggle();
+    HGA.audioToggle(muted);
     $('btn-mute').textContent = muted ? '🔇' : '🔊';
     $('btn-mute').setAttribute('aria-label', muted ? 'Activar audio' : 'Silenciar audio');
     $('btn-mute').title = muted ? 'Activar audio' : 'Silenciar audio';

@@ -266,6 +266,7 @@
 
   /* ── Game over ── */
   function populateGameover(state) {
+    HGA.gameOver(state.matchWinner, state.scores, state.round);
     const { player, scores, matchWinner, session } = state;
     const win = matchWinner === 'player';
     $('go-trophy').textContent = win ? '🏆' : (matchWinner === 'draw' ? '🤝' : '🤖');
@@ -298,6 +299,7 @@
     const name = $('name-player').value.trim() || (_lang==='en'?'Player':_lang==='pt'?'Jogador':'Jugador');
     const mode = document.querySelector('input[name="mode"]:checked').value;
     const state = G.configure(name, mode);
+    HGA.gameStart(mode);
     populatePick(state);
     goTo('pick', 'fwd');
     GameAudio.playTick();
@@ -312,6 +314,8 @@
       GameAudio.playTick();
       await new Promise(r => setTimeout(r, 150));
       const state = G.playerPick(pick);
+      HGA.pickMade({ pick, round: state.round });
+      HGA.roundResult(state.roundWinner, { pick_player: state.picks?.player, pick_cpu: state.picks?.cpu, round: state.round });
       populateResult(state);
       await goTo('result', 'fwd');
       animateReveal(state);
@@ -335,6 +339,7 @@
 
   $('btn-revenge').addEventListener('click', () => {
     if (transitioning) return;
+    HGA.revenge();
     const state = G.revenge();
     populatePick(state);
     goTo('pick', 'back');
@@ -352,6 +357,7 @@
     if (transitioning) return;
     $('confetti-container').innerHTML = '';
     $('session-stats').style.display = 'none';
+    HGA.revenge();
     const state = G.revenge();
     populatePick(state);
     goTo('pick', 'back');
@@ -369,6 +375,7 @@
 
   $('btn-mute').addEventListener('click', () => {
     const muted = GameAudio.toggle();
+    HGA.audioToggle(muted);
     $('btn-mute').textContent = muted ? '🔇' : '🔊';
   });
 

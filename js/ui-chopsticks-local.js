@@ -248,6 +248,7 @@
 
   function populateRoundOver(state) {
     const winner = state.roundWinner;
+    HGA.roundResult(winner, { score_p1: state.scores.p1, score_p2: state.scores.p2 });
     $('ro-trophy').textContent = '🏆';
     $('ro-title').textContent  = i.roundWon(state.names[winner], `${state.scores.p1}—${state.scores.p2}`);
     $('btn-next-game').textContent = i.nextGame;
@@ -256,6 +257,7 @@
   /* ── Game over ── */
 
   function populateGameover(state) {
+    HGA.gameOver(state.winner, state.scores);
     const winner = state.winner;
     $('go-trophy').textContent = '🏆';
     typewriter($('go-winner-name'), state.names[winner]);
@@ -277,6 +279,7 @@
     const mode = document.querySelector('input[name="mode"]:checked').value;
     _gameCount = 0;
     const state = G.configure(p1, p2, mode);
+    HGA.gameStart(mode);
     renderBoard(state);
     goTo('game', 'fwd');
     GameAudio.playTick();
@@ -303,6 +306,7 @@
   $('btn-revenge-go').addEventListener('click', () => {
     if (_transitioning) return;
     $('confetti-container').innerHTML = '';
+    HGA.revenge();
     _gameCount = 0;
     const state = G.revenge();
     renderBoard(state);
@@ -320,6 +324,7 @@
 
   $('btn-mute').addEventListener('click', () => {
     const muted = GameAudio.toggle();
+    HGA.audioToggle(muted);
     $('btn-mute').textContent = muted ? '🔇' : '🔊';
   });
 

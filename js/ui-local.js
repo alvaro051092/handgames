@@ -289,6 +289,7 @@
   }
 
   function populateGameover(state) {
+    HGA.gameOver(state.matchWinner, state.scores, state.round);
     const { players, scores, matchWinner } = state;
 
     if (matchWinner === 'draw') {
@@ -322,6 +323,7 @@
     const p2   = $('name-p2').value.trim();
     const mode = document.querySelector('input[name="mode"]:checked').value;
     const state = Game.configure(p1, p2, mode);
+    HGA.gameStart(mode);
     pickingPlayer = 'p1';
     populatePick(state);
     goTo('pick', 'fwd');
@@ -342,6 +344,7 @@
 
     if (pickingPlayer === 'p1') {
       const state = Game.p1Pick(pick);
+      HGA.pickMade({ pick, player: 'p1', round: state.round });
       pickingPlayer = 'p2';
       await curtainWrap(() => {
         populateHandoff(state);
@@ -351,6 +354,8 @@
     } else {
       pickingPlayer = 'p1';
       const state = Game.p2Pick(pick);
+      HGA.pickMade({ pick, player: 'p2', round: state.round });
+      HGA.roundResult(state.roundWinner, { pick_p1: state.picks.p1, pick_p2: state.picks.p2, round: state.round });
       populateResult(state);
       await goTo('result', 'fwd');
       animateResult(state);  // intentionally not awaited — runs in background
@@ -375,6 +380,7 @@
 
   $('btn-revenge').addEventListener('click', () => {
     if (transitioning) return;
+    HGA.revenge();
     pickingPlayer = 'p1';
     const state = Game.revenge();
     populatePick(state);
@@ -393,6 +399,7 @@
   $('btn-revenge-go').addEventListener('click', () => {
     if (transitioning) return;
     $('confetti-container').innerHTML = '';
+    HGA.revenge();
     pickingPlayer = 'p1';
     const state = Game.revenge();
     populatePick(state);
@@ -411,6 +418,7 @@
 
   $('btn-mute').addEventListener('click', () => {
     const muted = GameAudio.toggle();
+    HGA.audioToggle(muted);
     $('btn-mute').textContent = muted ? '🔇' : '🔊';
     $('btn-mute').setAttribute('aria-label', muted ? 'Activar audio' : 'Silenciar audio');
     $('btn-mute').title = muted ? 'Activar audio' : 'Silenciar audio';

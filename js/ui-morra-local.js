@@ -253,6 +253,7 @@
   /* ──────────── Game Over Screen ──────────── */
 
   function populateGameover(state) {
+    HGA.gameOver(state.matchWinner, state.scores, state.round);
     const { players, scores, matchWinner } = state;
 
     if (matchWinner === 'p1') {
@@ -284,6 +285,7 @@
     const p2 = $('name-p2').value.trim();
     const mode = document.querySelector('input[name="mode"]:checked').value;
     const state = GameMorraLocal.configure(p1, p2, mode);
+    HGA.gameStart(mode);
     populatePick(state, 'p1');
     goTo('pick', 'fwd');
     GameAudio.playTick();
@@ -321,10 +323,13 @@
 
     if (currentPicker === 'p1') {
       const state = GameMorraLocal.p1Pick(pendingFingers, pendingGuess);
+      HGA.pickMade({ player: 'p1', pick_fingers: pendingFingers, pick_guess: pendingGuess, round: state.round });
       populateHandoff(state);
       await goTo('handoff', 'fwd');
     } else {
       const state = GameMorraLocal.p2Pick(pendingFingers, pendingGuess);
+      HGA.pickMade({ player: 'p2', pick_fingers: pendingFingers, pick_guess: pendingGuess, round: state.round });
+      HGA.roundResult(state.roundWinner, { round: state.round });
       populateResult(state);
       await goTo('result', 'fwd');
       animateResult(state);
@@ -357,6 +362,7 @@
 
   $('btn-revenge').addEventListener('click', () => {
     if (transitioning) return;
+    HGA.revenge();
     const state = GameMorraLocal.revenge();
     populatePick(state, 'p1');
     goTo('pick', 'back');
@@ -374,6 +380,7 @@
   $('btn-revenge-go').addEventListener('click', () => {
     if (transitioning) return;
     $('confetti-container').innerHTML = '';
+    HGA.revenge();
     const state = GameMorraLocal.revenge();
     populatePick(state, 'p1');
     goTo('pick', 'back');
@@ -391,6 +398,7 @@
 
   $('btn-mute').addEventListener('click', () => {
     const muted = GameAudio.toggle();
+    HGA.audioToggle(muted);
     $('btn-mute').textContent = muted ? '🔇' : '🔊';
     $('btn-mute').setAttribute('aria-label', muted ? 'Activar audio' : 'Silenciar audio');
     $('btn-mute').title = muted ? 'Activar audio' : 'Silenciar audio';

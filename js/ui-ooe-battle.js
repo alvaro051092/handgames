@@ -282,6 +282,7 @@
     if (roundWinner === 'p1') p2Block.classList.add('loser');
     if (roundWinner === 'p2') p1Block.classList.add('loser');
 
+    HGA.roundResult(roundWinner, { round: state.round });
     revealing = false;
 
     // 9. Auto-advance or show action buttons
@@ -300,6 +301,7 @@
   /* ──────────── Game Over Screen ──────────── */
 
   function populateGameover(state) {
+    HGA.gameOver(state.matchWinner, state.scores, state.round);
     const { players, scores, matchWinner } = state;
 
     const winner = matchWinner === 'p1' ? players.p1 : players.p2;
@@ -324,6 +326,7 @@
     const p2   = $('name-p2').value.trim();
     const mode = document.querySelector('input[name="mode"]:checked').value;
     const state = GameOOEBattle.configure(p1, p2, mode);
+    HGA.gameStart(mode);
     populateBattleReady(state);
     goTo('battle', 'fwd');
     GameAudio.playTick();
@@ -344,6 +347,7 @@
   $('btn-revenge').addEventListener('click', () => {
     if (transitioning || revealing) return;
     $('confetti-container').innerHTML = '';
+    HGA.revenge();
     const state = GameOOEBattle.revenge();
     populateBattleReady(state);
     GameAudio.playTick();
@@ -361,6 +365,7 @@
   $('btn-revenge-go').addEventListener('click', () => {
     if (transitioning) return;
     $('confetti-container').innerHTML = '';
+    HGA.revenge();
     const state = GameOOEBattle.revenge();
     populateBattleReady(state);
     goTo('battle', 'back');
@@ -378,6 +383,7 @@
 
   $('btn-mute').addEventListener('click', () => {
     const muted = GameAudio.toggle();
+    HGA.audioToggle(muted);
     $('btn-mute').textContent = muted ? '🔇' : '🔊';
     $('btn-mute').setAttribute('aria-label', muted ? 'Activar audio' : 'Silenciar audio');
     $('btn-mute').title = muted ? 'Activar audio' : 'Silenciar audio';

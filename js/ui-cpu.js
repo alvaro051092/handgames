@@ -279,6 +279,7 @@
   }
 
   function populateGameover(state) {
+    HGA.gameOver(state.matchWinner, state.scores, state.round);
     const { player, scores, matchWinner, session } = state;
 
     if (matchWinner === 'draw') {
@@ -340,6 +341,7 @@
     const name = $('name-player').value.trim();
     const mode = document.querySelector('input[name="mode"]:checked').value;
     const state = GameCPU.configure(name, mode);
+    HGA.gameStart(mode);
     populatePick(state);
     goTo('pick', 'fwd');
     GameAudio.playTick();
@@ -358,6 +360,8 @@
     btn.classList.remove('bouncing');
 
     const state = GameCPU.playerPick(pick);
+    HGA.pickMade({ pick, round: state.round });
+    HGA.roundResult(state.roundWinner, { pick_player: state.picks.player, pick_cpu: state.picks.cpu, round: state.round });
     populateResult(state);
     await goTo('result', 'fwd');
     animateCPUReveal(state);  // intentionally not awaited — runs in background
@@ -372,6 +376,7 @@
 
   $('btn-revenge').addEventListener('click', () => {
     if (transitioning) return;
+    HGA.revenge();
     const state = GameCPU.revenge();
     populatePick(state);
     goTo('pick', 'back');
@@ -389,6 +394,7 @@
     if (transitioning) return;
     $('confetti-container').innerHTML = '';
     $('session-stats').style.display  = 'none';
+    HGA.revenge();
     const state = GameCPU.revenge();
     populatePick(state);
     goTo('pick', 'back');
@@ -406,6 +412,7 @@
 
   $('btn-mute').addEventListener('click', () => {
     const muted = GameAudio.toggle();
+    HGA.audioToggle(muted);
     $('btn-mute').textContent = muted ? '🔇' : '🔊';
     $('btn-mute').setAttribute('aria-label', muted ? 'Activar audio' : 'Silenciar audio');
     $('btn-mute').title = muted ? 'Activar audio' : 'Silenciar audio';
