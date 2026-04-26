@@ -58,17 +58,12 @@
   }
 
   function typewriter(containerEl, text) {
-    containerEl.innerHTML = '';
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       containerEl.textContent = text; return;
     }
-    [...text].forEach((ch, i) => {
-      const span = document.createElement('span');
-      span.className = 'tw-char';
-      span.textContent = ch === ' ' ? '\u00a0' : ch;
-      span.style.animationDelay = `${i * 45}ms`;
-      containerEl.appendChild(span);
-    });
+    containerEl.innerHTML = [...text].map((ch, i) =>
+      `<span class="tw-char" style="animation-delay:${i * 45}ms">${ch === ' ' ? '&nbsp;' : ch}</span>`
+    ).join('');
   }
 
   function countUp(el, end, duration = 900) {
@@ -89,6 +84,7 @@
     const container = $('confetti-container');
     container.innerHTML = '';
     const COLORS = ['#7c3aed','#a855f7','#0ea5e9','#22c55e','#f59e0b','#ef4444','#ec4899','#f97316'];
+    const frag = document.createDocumentFragment();
     for (let i = 0; i < 35; i++) {
       const p = document.createElement('div');
       p.className = 'confetti-piece';
@@ -103,8 +99,9 @@
         `transform:rotate(${Math.floor(Math.random()*360)}deg)`,
         `border-radius:${Math.random()>.5?'50%':'3px'}`,
       ].join(';');
-      container.appendChild(p);
+      frag.appendChild(p);
     }
+    container.appendChild(frag);
     setTimeout(() => { container.innerHTML = ''; }, 2800);
   }
 
@@ -347,6 +344,8 @@
     GameAudio.playTick();
   });
 
+  $('pick-buttons').addEventListener('pointerdown', () => GameAudio.prime(), { passive: true });
+
   $('pick-buttons').addEventListener('click', async e => {
     const btn = e.target.closest('.btn-pick');
     if (!btn || btn.disabled || transitioning) return;
@@ -360,8 +359,10 @@
     btn.classList.remove('bouncing');
 
     const state = GameCPU.playerPick(pick);
-    HGA.pickMade({ pick, round: state.round });
-    HGA.roundResult(state.roundWinner, { pick_player: state.picks.player, pick_cpu: state.picks.cpu, round: state.round });
+    setTimeout(() => {
+      HGA.pickMade({ pick, round: state.round });
+      HGA.roundResult(state.roundWinner, { pick_player: state.picks.player, pick_cpu: state.picks.cpu, round: state.round });
+    }, 0);
     populateResult(state);
     await goTo('result', 'fwd');
     animateCPUReveal(state);  // intentionally not awaited — runs in background

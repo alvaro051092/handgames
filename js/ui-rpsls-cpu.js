@@ -106,20 +106,17 @@
   }
 
   function typewriter(el, text) {
-    el.innerHTML = '';
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = text; return; }
-    [...text].forEach((ch, k) => {
-      const s = document.createElement('span');
-      s.className = 'tw-char'; s.textContent = ch === ' ' ? '\u00a0' : ch;
-      s.style.animationDelay = `${k * 45}ms`;
-      el.appendChild(s);
-    });
+    el.innerHTML = [...text].map((ch, k) =>
+      `<span class="tw-char" style="animation-delay:${k * 45}ms">${ch === ' ' ? '&nbsp;' : ch}</span>`
+    ).join('');
   }
 
   function spawnConfetti() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const c = $('confetti-container'); c.innerHTML = '';
     const COLORS = ['#7c3aed','#a855f7','#0ea5e9','#22c55e','#f59e0b','#ef4444','#ec4899'];
+    const frag = document.createDocumentFragment();
     for (let k = 0; k < 35; k++) {
       const p = document.createElement('div'); p.className = 'confetti-piece';
       const w = 6 + Math.random() * 7;
@@ -130,8 +127,9 @@
         `animation-duration:${(0.9+Math.random()*0.7).toFixed(2)}s`,
         `transform:rotate(${Math.floor(Math.random()*360)}deg)`,
         `border-radius:${Math.random()>.5?'50%':'3px'}`].join(';');
-      c.appendChild(p);
+      frag.appendChild(p);
     }
+    c.appendChild(frag);
     setTimeout(() => { c.innerHTML = ''; }, 2800);
   }
 
@@ -306,6 +304,7 @@
   });
 
   document.querySelectorAll('.btn-pick').forEach(btn => {
+    btn.addEventListener('pointerdown', () => GameAudio.prime(), { passive: true });
     btn.addEventListener('click', async () => {
       if (transitioning) return;
       const pick = btn.dataset.pick;
@@ -314,8 +313,10 @@
       GameAudio.playTick();
       await new Promise(r => setTimeout(r, 150));
       const state = G.playerPick(pick);
-      HGA.pickMade({ pick, round: state.round });
-      HGA.roundResult(state.roundWinner, { pick_player: state.picks?.player, pick_cpu: state.picks?.cpu, round: state.round });
+      setTimeout(() => {
+        HGA.pickMade({ pick, round: state.round });
+        HGA.roundResult(state.roundWinner, { pick_player: state.picks?.player, pick_cpu: state.picks?.cpu, round: state.round });
+      }, 0);
       populateResult(state);
       await goTo('result', 'fwd');
       animateReveal(state);

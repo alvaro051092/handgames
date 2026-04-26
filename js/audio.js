@@ -65,5 +65,12 @@ window.GameAudio = (() => {
   function toggle() { muted = !muted; return muted; }
   function isMuted() { return muted; }
 
-  return { playTick, playWin, playDraw, playFanfare, playGameDraw, toggle, isMuted };
+  // Call on pointerdown so AudioContext exists before the click handler runs
+  function prime() {
+    if (!ctx) {
+      try { ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch (_) {}
+    }
+  }
+
+  return { playTick, playWin, playDraw, playFanfare, playGameDraw, toggle, isMuted, prime };
 })();

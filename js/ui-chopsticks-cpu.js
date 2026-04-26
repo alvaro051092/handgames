@@ -106,15 +106,10 @@
   }
 
   function typewriter(el, text) {
-    el.innerHTML = '';
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = text; return; }
-    [...text].forEach((ch, i) => {
-      const s = document.createElement('span');
-      s.className = 'tw-char';
-      s.textContent = ch === ' ' ? '\u00a0' : ch;
-      s.style.animationDelay = `${i * 45}ms`;
-      el.appendChild(s);
-    });
+    el.innerHTML = [...text].map((ch, i) =>
+      `<span class="tw-char" style="animation-delay:${i * 45}ms">${ch === ' ' ? '&nbsp;' : ch}</span>`
+    ).join('');
   }
 
   function spawnConfetti() {
@@ -122,6 +117,7 @@
     const c = $('confetti-container');
     c.innerHTML = '';
     const COLORS = ['#7c3aed','#a855f7','#0ea5e9','#22c55e','#f59e0b','#ef4444','#ec4899'];
+    const frag = document.createDocumentFragment();
     for (let k = 0; k < 35; k++) {
       const p = document.createElement('div');
       p.className = 'confetti-piece';
@@ -135,8 +131,9 @@
         `transform:rotate(${Math.floor(Math.random()*360)}deg)`,
         `border-radius:${Math.random()>.5?'50%':'3px'}`,
       ].join(';');
-      c.appendChild(p);
+      frag.appendChild(p);
     }
+    c.appendChild(frag);
     setTimeout(() => { c.innerHTML = ''; }, 2800);
   }
 
@@ -351,6 +348,7 @@
 
   // Hand buttons
   document.querySelectorAll('.chop-hand').forEach(btn => {
+    btn.addEventListener('pointerdown', () => GameAudio.prime(), { passive: true });
     btn.addEventListener('click', () => onHandClick(btn.dataset.who, btn.dataset.side));
   });
 
