@@ -32,6 +32,12 @@ window.HGA = (() => {
     } catch (_) {}
   }
 
+  function clarityEvent(name) {
+    try {
+      if (typeof clarity === 'function') clarity('event', name);
+    } catch (_) {}
+  }
+
   /* ── Public API ── */
 
   return {
@@ -42,6 +48,7 @@ window.HGA = (() => {
       claritySet('game_mode', mode);
       claritySet('lang', lang);
       claritySet('match_type', matchType);
+      clarityEvent('game_start');
       track('game_start', { match_type: matchType });
     },
 
@@ -68,7 +75,17 @@ window.HGA = (() => {
       if (scores && typeof scores === 'object') {
         Object.entries(scores).forEach(([k, v]) => { flat['score_' + k] = v; });
       }
+      clarityEvent('game_over');
       track('game_over', { match_winner: String(winner), total_rounds: totalRounds, ...flat });
+
+      /* ── Streak tracking (only for vs-CPU and single-player modes) ── */
+      try {
+        if (typeof HGStreak !== 'undefined' && game !== 'hub') {
+          /* winner values: 'player' = human won, anything else = loss/draw */
+          const isWin = String(winner) === 'player';
+          HGStreak.recordResult(game, isWin);
+        }
+      } catch (_) {}
     },
 
     /* Called when a player starts a rematch. */

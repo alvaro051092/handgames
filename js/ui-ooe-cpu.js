@@ -4,6 +4,7 @@
 ═══════════════════════════════════════════════════════════ */
 (() => {
   /* ──────────── State ──────────── */
+  const _lang = document.documentElement.lang || 'es';
   let transitioning  = false;
   let pendingBet     = null;   // 'par' | 'impar'
   let pendingFingers = null;   // 0-5
@@ -337,9 +338,10 @@
   /* ──────────── Event Listeners ──────────── */
 
   $('btn-start').addEventListener('click', () => {
-    const name = $('name-player').value.trim();
+    const name = $('name-player').value.trim() || (_lang==='en'?'Player':_lang==='pt'?'Jogador':'Jugador');
+    const difficulty = document.querySelector('input[name=\"difficulty\"]:checked')?.value || 'medium';
     const mode = document.querySelector('input[name="mode"]:checked').value;
-    const state = GameOOECPU.configure(name, mode);
+    const state = GameOOECPU.configure(name, mode, difficulty);
     HGA.gameStart(mode);
     populatePick(state);
     goTo('pick', 'fwd');

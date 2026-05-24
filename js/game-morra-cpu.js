@@ -5,6 +5,7 @@
 ═══════════════════════════════════════════════════════════ */
 window.GameMorraCPU = (() => {
   const FINGERS = [1, 2, 3, 4, 5];
+  const LS_KEY = 'hg_morra_session';
 
   const FINGERS_META = {
     1: { label: '1 dedo' },
@@ -20,6 +21,7 @@ window.GameMorraCPU = (() => {
     scores:      { player: 0, cpu: 0 },
     round:       1,
     phase:       'setup',   // setup | pick | result | gameover
+    difficulty:  'medium',
     picks: {
       playerFingers: null,
       playerGuess:   null,
@@ -51,9 +53,37 @@ window.GameMorraCPU = (() => {
     return min + Math.floor(Math.random() * (max - min + 1));
   }
 
-  function configure(playerName, mode) {
+
+  /* ── localStorage helpers ── */
+  function loadSession() {
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      if (raw) { const s = JSON.parse(raw); Object.assign(state.session, s); }
+    } catch(e) {}
+  }
+  function saveSession() {
+    try { localStorage.setItem(LS_KEY, JSON.stringify(state.session)); } catch(e) {}
+  }
+  function clearSession() {
+    state.session = { matches: 0, wins: 0, losses: 0 };
+    try { localStorage.removeItem(LS_KEY); } catch(e) {}
+  }
+
+  /* ── Smart CPU finger/guess pick based on difficulty ── */
+  function cpuSmartFingers() {
+    if (state.difficulty === 'easy') return FINGERS[Math.floor(Math.random() * FINGERS.length)];
+    // medium/hard: pick 1-5 randomly (no advantage in finger choice)
+    return FINGERS[Math.floor(Math.random() * FINGERS.length)];
+  }
+
+  // Init: load persisted session
+  loadSession();
+
+  function configure(playerName, mode, difficulty) {
+
     state.player.name = playerName || 'Jugador';
     state.mode        = mode;
+    state.difficulty  = difficulty || 'medium';
     state.scores      = { player: 0, cpu: 0 };
     state.round       = 1;
     state.picks       = { playerFingers: null, playerGuess: null, cpuFingers: null, cpuGuess: null };
@@ -103,6 +133,7 @@ window.GameMorraCPU = (() => {
         state.session.matches++;
         if (state.matchWinner === 'player') state.session.wins++;
         else                                state.session.losses++;
+        saveSession();
       }
     }
 
@@ -158,5 +189,5 @@ window.GameMorraCPU = (() => {
   function fingersMeta() { return FINGERS_META; }
   function getState()    { return snap(); }
 
-  return { configure, playerPick, nextRound, retryRound, revenge, newGame, fingersMeta, getState };
+  return { configure, playerPick, nextRound, retryRound, revenge, newGame, fingersMeta, getState, clearSession };
 })();

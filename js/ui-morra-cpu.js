@@ -4,6 +4,7 @@
 ═══════════════════════════════════════════════════════════ */
 (() => {
   /* ──────────── State ──────────── */
+  const _lang = document.documentElement.lang || 'es';
   let transitioning    = false;
   let pendingFingers   = null;   // 1-5
   let pendingGuess     = null;   // 2-10
@@ -343,9 +344,10 @@
   /* ──────────── Event Listeners ──────────── */
 
   $('btn-start').addEventListener('click', () => {
-    const name = $('name-player').value.trim();
+    const name = $('name-player').value.trim() || (_lang==='en'?'Player':_lang==='pt'?'Jogador':'Jugador');
+    const difficulty = document.querySelector('input[name=\"difficulty\"]:checked')?.value || 'medium';
     const mode = document.querySelector('input[name="mode"]:checked').value;
-    const state = GameMorraCPU.configure(name, mode);
+    const state = GameMorraCPU.configure(name, mode, difficulty);
     HGA.gameStart(mode);
     populatePick(state);
     goTo('pick', 'fwd');

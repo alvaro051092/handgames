@@ -295,8 +295,9 @@
   /* ── Events ── */
   $('btn-start').addEventListener('click', () => {
     const name = $('name-player').value.trim() || (_lang==='en'?'Player':_lang==='pt'?'Jogador':'Jugador');
+    const difficulty = document.querySelector('input[name=\"difficulty\"]:checked')?.value || 'medium';
     const mode = document.querySelector('input[name="mode"]:checked').value;
-    const state = G.configure(name, mode);
+    const state = G.configure(name, mode, difficulty);
     HGA.gameStart(mode);
     populatePick(state);
     goTo('pick', 'fwd');

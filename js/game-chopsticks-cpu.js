@@ -8,6 +8,7 @@
 window.GameChopsticksCPU = (() => {
 
   const EMOJI = ['✊', '☝️', '✌️', '🤟', '🖖'];
+  const LS_KEY = 'hg_chopsticks_session';
 
   const state = {
     phase:       'setup',   // setup | game | round-over | gameover
@@ -17,6 +18,7 @@ window.GameChopsticksCPU = (() => {
     player:      { left: 1, right: 1 },
     cpu:         { left: 1, right: 1 },
     turn:        'player',  // 'player' | 'cpu'
+    difficulty:  'medium',
     scores:      { player: 0, cpu: 0 },
     roundWinner: null,      // 'player' | 'cpu' | null
     winner:      null,      // final match winner
@@ -35,15 +37,69 @@ window.GameChopsticksCPU = (() => {
     def[dHand] = v >= 5 ? 0 : v;
   }
 
-  /** CPU prefers killing moves, otherwise random. */
+  /* ── localStorage helpers ── */
+  function loadSession() {
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      if (raw) { const s = JSON.parse(raw); Object.assign(state.session, s); }
+    } catch(e) {}
+  }
+  function saveSession() {
+    try { localStorage.setItem(LS_KEY, JSON.stringify(state.session)); } catch(e) {}
+  }
+  function clearSession() {
+    state.session = { matches: 0, wins: 0, losses: 0 };
+    try { localStorage.removeItem(LS_KEY); } catch(e) {}
+  }
+
+  // Init: load persisted session
+  loadSession();
+
+  /** CPU pick based on difficulty.
+   *  Easy: fully random.
+   *  Medium/Hard: prefers killing moves. Hard also avoids exposing hands to player kills. */
   function _cpuPick() {
     const mine = ['left', 'right'].filter(h => state.cpu[h] > 0);
     const tgts = ['left', 'right'].filter(h => state.player[h] > 0);
+
+    if (state.difficulty === 'easy') {
+      return {
+        m: mine[Math.floor(Math.random() * mine.length)],
+        t: tgts[Math.floor(Math.random() * tgts.length)],
+      };
+    }
+
+    // Medium/Hard: try to kill opponent
     for (const m of mine) {
       for (const t of tgts) {
         if (state.cpu[m] + state.player[t] >= 5) return { m, t };
       }
     }
+
+    if (state.difficulty === 'hard') {
+      // Hard: avoid moves that let player kill us next turn
+      const safe = [];
+      for (const m of mine) {
+        for (const t of tgts) {
+          const newVal = state.cpu[m] + state.player[t];  // what player's hand becomes? No — this is CPU attacking.
+          // After this tap, check if any player hand could kill any cpu hand
+          const cpuCopy = { ...state.cpu };
+          // actually check if no player hand is 1 away from killing cpu hand
+          let risky = false;
+          for (const ph of ['left','right']) {
+            if (state.player[ph] === 0) continue;
+            for (const ch of ['left','right']) {
+              if (cpuCopy[ch] === 0) continue;
+              if (state.player[ph] + cpuCopy[ch] >= 5) { risky = true; break; }
+            }
+            if (risky) break;
+          }
+          if (!risky) safe.push({ m, t });
+        }
+      }
+      if (safe.length > 0) return safe[Math.floor(Math.random() * safe.length)];
+    }
+
     return {
       m: mine[Math.floor(Math.random() * mine.length)],
       t: tgts[Math.floor(Math.random() * tgts.length)],
@@ -61,6 +117,7 @@ window.GameChopsticksCPU = (() => {
         state.session.matches++;
         if (attacker === 'player') state.session.wins++;
         else                       state.session.losses++;
+        saveSession();
       } else {
         state.roundWinner = attacker;
         state.phase       = 'round-over';
@@ -72,9 +129,10 @@ window.GameChopsticksCPU = (() => {
 
   // ── Public API ─────────────────────────────────────────
 
-  function configure(playerName, mode) {
+  function configure(playerName, mode, difficulty) {
     state.names.player = playerName || 'Jugador';
     state.mode         = mode || 'best-of-3';
+    state.difficulty   = difficulty || 'medium';
     state.need         = state.mode === 'best-of-3' ? 2 : 1;
     state.player       = { left: 1, right: 1 };
     state.cpu          = { left: 1, right: 1 };
@@ -144,5 +202,5 @@ window.GameChopsticksCPU = (() => {
   function getState() { return snap(); }
   function emoji(n)   { return EMOJI[Math.max(0, Math.min(4, n))]; }
 
-  return { configure, playerTap, cpuMove, nextRound, revenge, newGame, getState, emoji };
+  return { configure, playerTap, cpuMove, nextRound, revenge, newGame, getState, emoji, clearSession };
 })();

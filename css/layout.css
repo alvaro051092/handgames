@@ -213,3 +213,12 @@ body {
   .card { padding: var(--sp-5); }
   .scoreboard { padding: var(--sp-3) var(--sp-4); }
 }
+
+/* ═══════════════════════════ LANG NAV ═══════════════════════════ */
+/* Prevents dead-clicks on the active language indicator */
+.lang-link.active {
+  cursor: default;
+  pointer-events: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

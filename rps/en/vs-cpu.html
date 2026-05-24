@@ -230,6 +230,40 @@
             </span>
           </label>
         </fieldset>
+        <fieldset class="mode-group difficulty-group">
+          <legend>CPU Difficulty</legend>
+          <label class="mode-option">
+            <input type="radio" name="difficulty" value="easy" />
+            <span class="mode-label">
+              <span class="mode-icon">🌱</span>
+              <span class="mode-text">
+                <strong>Easy</strong>
+                <small>CPU picks randomly</small>
+              </span>
+            </span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="difficulty" value="medium" checked />
+            <span class="mode-label">
+              <span class="mode-icon">⚡</span>
+              <span class="mode-text">
+                <strong>Medium</strong>
+                <small>CPU learns your patterns</small>
+              </span>
+            </span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="difficulty" value="hard" />
+            <span class="mode-label">
+              <span class="mode-icon">💀</span>
+              <span class="mode-text">
+                <strong>Hard</strong>
+                <small>CPU analyses and counters you</small>
+              </span>
+            </span>
+          </label>
+        </fieldset>
+
 
         <button id="btn-start" class="btn btn-primary btn-lg">Play!</button>
       </div>
@@ -376,6 +410,7 @@
   </div><!-- #app -->
 
   <script src="/js/analytics.js?v=1"></script>
+  <script src="/js/streak.js?v=1"></script>
   <script src="/js/game-cpu.js?v=1"></script>
   <script src="/js/audio.js?v=2"></script>
   <script src="/js/ui-cpu.js?v=1"></script>

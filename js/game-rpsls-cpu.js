@@ -6,6 +6,7 @@
 window.GameRPSLSCPU = (() => {
 
   const PICKS = ['rock', 'paper', 'scissors', 'lizard', 'spock'];
+  const LS_KEY = 'hg_rpsls_session';
 
   // What each pick defeats (and why)
   const BEATS = {
@@ -44,24 +45,59 @@ window.GameRPSLSCPU = (() => {
     scores:      { player: 0, cpu: 0 },
     round:       1,
     phase:       'setup',
+    difficulty:  'medium',
     picks:       { player: null, cpu: null },
     roundWinner: null,   // 'player' | 'cpu' | 'draw'
     matchWinner: null,
     reason:      null,   // e.g. 'rock_scissors'
-    session: { matches: 0, wins: 0, losses: 0, draws: 0 },
+    session: { matches: 0, wins: 0, losses: 0, draws: 0, pickFreq: { rock: 0, paper: 0, scissors: 0, lizard: 0, spock: 0 } },
   };
 
   function snap()    { return JSON.parse(JSON.stringify(state)); }
   function maxWins() { return state.mode === 'best-of-3' ? 2 : 1; }
+
+  /* ── localStorage helpers ── */
+  function loadSession() {
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      if (raw) { const s = JSON.parse(raw); Object.assign(state.session, s); }
+    } catch(e) {}
+  }
+  function saveSession() {
+    try { localStorage.setItem(LS_KEY, JSON.stringify(state.session)); } catch(e) {}
+  }
+  function clearSession() {
+    state.session = { matches: 0, wins: 0, losses: 0, draws: 0, pickFreq: { rock: 0, paper: 0, scissors: 0, lizard: 0, spock: 0 } };
+    try { localStorage.removeItem(LS_KEY); } catch(e) {}
+  }
+
+  /* ── Smart CPU pick: find what beats the player's most-used pick ── */
+  function cpuSmartPick() {
+    if (state.difficulty === 'easy') return PICKS[Math.floor(Math.random() * PICKS.length)];
+    const freq = state.session.pickFreq;
+    const total = PICKS.reduce((s, p) => s + (freq[p] || 0), 0);
+    if (total === 0) return PICKS[Math.floor(Math.random() * PICKS.length)];
+    const most = PICKS.reduce((a, b) => (freq[a] || 0) >= (freq[b] || 0) ? a : b);
+    // Find picks that beat 'most'
+    const counters = PICKS.filter(p => BEATS[p] && BEATS[p][most] !== undefined);
+    if (counters.length === 0) return PICKS[Math.floor(Math.random() * PICKS.length)];
+    const counter = counters[Math.floor(Math.random() * counters.length)];
+    const bias = state.difficulty === 'hard' ? 0.65 : 0.35;
+    return Math.random() < bias ? counter : PICKS[Math.floor(Math.random() * PICKS.length)];
+  }
+
+  // Init: load persisted session
+  loadSession();
 
   function _resolve(a, b) {
     if (a === b) return 'draw';
     return BEATS[a][b] !== undefined ? 'player' : 'cpu';
   }
 
-  function configure(playerName, mode) {
+  function configure(playerName, mode, difficulty) {
     state.player.name = playerName || 'Jugador';
     state.mode        = mode || 'best-of-3';
+    state.difficulty  = difficulty || 'medium';
     state.scores      = { player: 0, cpu: 0 };
     state.round       = 1;
     state.picks       = { player: null, cpu: null };
@@ -73,7 +109,8 @@ window.GameRPSLSCPU = (() => {
   }
 
   function playerPick(pick) {
-    const cpu = PICKS[Math.floor(Math.random() * PICKS.length)];
+    state.session.pickFreq[pick] = (state.session.pickFreq[pick] || 0) + 1;
+    const cpu = cpuSmartPick();
     state.picks.player = pick;
     state.picks.cpu    = cpu;
 
@@ -99,6 +136,7 @@ window.GameRPSLSCPU = (() => {
       if      (state.matchWinner === 'player') state.session.wins++;
       else if (state.matchWinner === 'cpu')    state.session.losses++;
       else                                     state.session.draws++;
+      saveSession();
     }
 
     state.phase = 'result';
@@ -139,5 +177,5 @@ window.GameRPSLSCPU = (() => {
   function reasons()  { return REASONS; }
   function getState() { return snap(); }
 
-  return { configure, playerPick, nextRound, revenge, newGame, meta, reasons, getState };
+  return { configure, playerPick, nextRound, revenge, newGame, meta, reasons, getState, clearSession };
 })();

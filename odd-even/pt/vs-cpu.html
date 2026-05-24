@@ -97,6 +97,40 @@
           <label class="mode-option"><input type="radio" name="mode" value="best-of-3" checked /><span class="mode-label"><span class="mode-icon">🏆</span><span class="mode-text"><strong>Melhor de 3</strong><small>Primeiro a ganhar 2 rodadas</small></span></span></label>
           <label class="mode-option"><input type="radio" name="mode" value="single" /><span class="mode-label"><span class="mode-icon">⚡</span><span class="mode-text"><strong>Rodada única</strong><small>Tudo em uma só rodada</small></span></span></label>
         </fieldset>
+        <fieldset class="mode-group difficulty-group">
+          <legend>Dificuldade da CPU</legend>
+          <label class="mode-option">
+            <input type="radio" name="difficulty" value="easy" />
+            <span class="mode-label">
+              <span class="mode-icon">🌱</span>
+              <span class="mode-text">
+                <strong>Fácil</strong>
+                <small>CPU escolhe aleatoriamente</small>
+              </span>
+            </span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="difficulty" value="medium" checked />
+            <span class="mode-label">
+              <span class="mode-icon">⚡</span>
+              <span class="mode-text">
+                <strong>Médio</strong>
+                <small>CPU aprende seus padrões</small>
+              </span>
+            </span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="difficulty" value="hard" />
+            <span class="mode-label">
+              <span class="mode-icon">💀</span>
+              <span class="mode-text">
+                <strong>Difícil</strong>
+                <small>CPU analisa e contra-ataca</small>
+              </span>
+            </span>
+          </label>
+        </fieldset>
+
         <button id="btn-start" class="btn btn-primary btn-lg">Jogar!</button>
       </div>
       <a href="/odd-even/pt/" class="back-hub-link">← Mudar modo</a>
@@ -189,6 +223,7 @@
     </section>
   </div>
   <script src="/js/analytics.js?v=1"></script>
+  <script src="/js/streak.js?v=1"></script>
   <script src="/js/game-ooe-cpu.js?v=1"></script>
   <script src="/js/audio.js?v=2"></script>
   <script src="/js/ui-ooe-cpu.js?v=1"></script>

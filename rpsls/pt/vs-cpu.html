@@ -139,6 +139,40 @@
             </span>
           </label>
         </fieldset>
+        <fieldset class="mode-group difficulty-group">
+          <legend>Dificuldade da CPU</legend>
+          <label class="mode-option">
+            <input type="radio" name="difficulty" value="easy" />
+            <span class="mode-label">
+              <span class="mode-icon">🌱</span>
+              <span class="mode-text">
+                <strong>Fácil</strong>
+                <small>CPU escolhe aleatoriamente</small>
+              </span>
+            </span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="difficulty" value="medium" checked />
+            <span class="mode-label">
+              <span class="mode-icon">⚡</span>
+              <span class="mode-text">
+                <strong>Médio</strong>
+                <small>CPU aprende seus padrões</small>
+              </span>
+            </span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="difficulty" value="hard" />
+            <span class="mode-label">
+              <span class="mode-icon">💀</span>
+              <span class="mode-text">
+                <strong>Difícil</strong>
+                <small>CPU analisa e contra-ataca</small>
+              </span>
+            </span>
+          </label>
+        </fieldset>
+
         <button id="btn-start" class="btn btn-primary btn-lg">Jogar!</button>
       </div>
       <a href="/rpsls/pt/" class="back-hub-link">← Mudar modo</a>
@@ -265,6 +299,7 @@
   </div>
 
   <script src="/js/analytics.js?v=1"></script>
+  <script src="/js/streak.js?v=1"></script>
   <script src="/js/game-rpsls-cpu.js?v=1"></script>
   <script src="/js/audio.js?v=2"></script>
   <script src="/js/ui-rpsls-cpu.js?v=1"></script>

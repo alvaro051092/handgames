@@ -4,6 +4,7 @@
 ═══════════════════════════════════════════════════════════ */
 window.GameOOECPU = (() => {
   const FINGERS = [0, 1, 2, 3, 4, 5];
+  const LS_KEY = 'hg_ooe_session';
 
   const FINGERS_META = {
     0: { label: '0 dedos' },
@@ -25,6 +26,7 @@ window.GameOOECPU = (() => {
     scores:      { player: 0, cpu: 0 },
     round:       1,
     phase:       'setup',   // setup | pick | result | gameover
+    difficulty:  'medium',
     picks:       { player: null, cpu: null },
     bet:         null,      // 'par' | 'impar' — player's bet
     sum:         null,
@@ -44,9 +46,46 @@ window.GameOOECPU = (() => {
   function snap()    { return JSON.parse(JSON.stringify(state)); }
   function maxWins() { return state.mode === 'best-of-3' ? 2 : 1; }
 
-  function configure(playerName, mode) {
+  /* ── localStorage helpers ── */
+  function loadSession() {
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      if (raw) { const s = JSON.parse(raw); Object.assign(state.session, s); }
+    } catch(e) {}
+  }
+  function saveSession() {
+    try { localStorage.setItem(LS_KEY, JSON.stringify(state.session)); } catch(e) {}
+  }
+  function clearSession() {
+    state.session = { matches: 0, wins: 0, losses: 0, betFreq: { par: 0, impar: 0 } };
+    try { localStorage.removeItem(LS_KEY); } catch(e) {}
+  }
+
+  /* ── Smart CPU finger pick based on difficulty ──
+     Hard mode: if player bets 'par' more, CPU picks odd fingers (to make sum odd).
+     If player bets 'impar' more, CPU picks even fingers. */
+  const EVEN_FINGERS = [0, 2, 4];
+  const ODD_FINGERS  = [1, 3, 5];
+  function cpuSmartFingers() {
+    if (state.difficulty === 'easy') return FINGERS[Math.floor(Math.random() * FINGERS.length)];
+    const freq = state.session.betFreq;
+    const total = freq.par + freq.impar;
+    if (total < 3) return FINGERS[Math.floor(Math.random() * FINGERS.length)];
+    const favBet = freq.par >= freq.impar ? 'par' : 'impar';
+    // counter: if player bets 'par', pick odd to push sum odd
+    const pool = favBet === 'par' ? ODD_FINGERS : EVEN_FINGERS;
+    const bias = state.difficulty === 'hard' ? 0.65 : 0.35;
+    if (Math.random() < bias) return pool[Math.floor(Math.random() * pool.length)];
+    return FINGERS[Math.floor(Math.random() * FINGERS.length)];
+  }
+
+  // Init: load persisted session
+  loadSession();
+
+  function configure(playerName, mode, difficulty) {
     state.player.name  = playerName || 'Jugador';
     state.mode         = mode;
+    state.difficulty   = difficulty || 'medium';
     state.scores       = { player: 0, cpu: 0 };
     state.round        = 1;
     state.picks        = { player: null, cpu: null };
@@ -64,7 +103,7 @@ window.GameOOECPU = (() => {
    * No draws possible: sum is always par or impar.
    */
   function playerPick(fingers, bet) {
-    const cpuFingers = FINGERS[Math.floor(Math.random() * FINGERS.length)];
+    const cpuFingers = cpuSmartFingers();
     state.picks.player = fingers;
     state.picks.cpu    = cpuFingers;
     state.bet          = bet;
@@ -90,6 +129,7 @@ window.GameOOECPU = (() => {
       state.session.matches++;
       if (state.matchWinner === 'player') state.session.wins++;
       else                                state.session.losses++;
+      saveSession();
     }
 
     state.phase = 'result';
@@ -142,5 +182,5 @@ window.GameOOECPU = (() => {
   function betMeta()     { return BET_META; }
   function getState()    { return snap(); }
 
-  return { configure, playerPick, nextRound, revenge, newGame, fingersMeta, betMeta, getState };
+  return { configure, playerPick, nextRound, revenge, newGame, fingersMeta, betMeta, getState, clearSession };
 })();

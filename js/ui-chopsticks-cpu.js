@@ -335,11 +335,12 @@
   /* ── Event listeners ── */
 
   $('btn-start').addEventListener('click', () => {
-    const name = $('name-player').value.trim() || 'Jugador';
+    const name = $('name-player').value.trim() || (_lang==='en'?'Player':_lang==='pt'?'Jogador':'Jugador');
+    const difficulty = document.querySelector('input[name=\"difficulty\"]:checked')?.value || 'medium';
     const mode = document.querySelector('input[name="mode"]:checked').value;
     _gameCount = 0;
     _cpuThinking = false;
-    const state = G.configure(name, mode);
+    const state = G.configure(name, mode, difficulty);
     HGA.gameStart(mode);
     renderBoard(state);
     goTo('game', 'fwd');

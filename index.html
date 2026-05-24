@@ -84,13 +84,13 @@
 
     .hub-header {
       text-align: center;
-      margin-bottom: var(--sp-10);
+      margin-bottom: var(--sp-5);
     }
 
     .hub-logo {
-      font-size: 3rem;
+      font-size: 2.2rem;
       display: block;
-      margin-bottom: var(--sp-3);
+      margin-bottom: var(--sp-2);
       animation: float 3s var(--ease-in-out) infinite;
     }
 
@@ -102,9 +102,74 @@
     }
 
     .hub-subtitle {
-      margin-top: var(--sp-2);
-      font-size: var(--text-base);
+      margin-top: var(--sp-1);
+      font-size: var(--text-sm);
       color: var(--clr-text-muted);
+    }
+
+    /* Hero CTA — direct shortcut to the most-played game */
+    .hub-hero {
+      width: 100%;
+      max-width: 700px;
+      margin-bottom: var(--sp-5);
+    }
+
+    .hub-hero-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-3);
+      width: 100%;
+      padding: var(--sp-4) var(--sp-6);
+      background: var(--clr-primary);
+      color: #fff;
+      font-size: var(--text-lg);
+      font-weight: 800;
+      border-radius: var(--radius-lg);
+      text-decoration: none;
+      box-shadow: var(--shadow-primary);
+      transition:
+        background var(--dur-fast) var(--ease-out),
+        transform  var(--dur-fast) var(--ease-out),
+        box-shadow var(--dur-fast) var(--ease-out);
+      letter-spacing: -0.3px;
+    }
+
+    .hub-hero-btn:hover {
+      background: var(--clr-primary-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(124,58,237,.45);
+    }
+
+    .hub-hero-btn:active { transform: translateY(1px); box-shadow: none; }
+
+    .hub-hero-label {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .hub-hero-tagline {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      opacity: .75;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+    }
+
+    /* Popular badge on game card */
+    .badge-popular {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: var(--sp-2);
+      font-size: var(--text-xs);
+      font-weight: 800;
+      color: var(--clr-draw);
+      background: rgba(245,158,11,.13);
+      padding: 2px var(--sp-2);
+      border-radius: 99px;
+      letter-spacing: .3px;
     }
 
     .games-grid {
@@ -210,6 +275,19 @@
     @media (max-width: 560px) {
       .games-grid { grid-template-columns: 1fr; max-width: 380px; }
     }
+
+    /* Difficulty / time badges */
+    .badge-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: var(--sp-3);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      color: var(--clr-text-subtle);
+      letter-spacing: .2px;
+    }
+    .badge-meta span { opacity: .45; }
   </style>
   <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
@@ -232,6 +310,18 @@
   </header>
 
   <main>
+    <!-- Hero CTA: shortcut to the most-played game (Palillos vs CPU) -->
+    <div class="hub-hero">
+      <a href="/chopsticks/vs-cpu" class="hub-hero-btn">
+        <span aria-hidden="true">🖖</span>
+        <span class="hub-hero-label">
+          <span class="hub-hero-tagline">El más jugado</span>
+          <span>Jugar Palillos vs CPU</span>
+        </span>
+        <span aria-hidden="true">▶</span>
+      </a>
+    </div>
+
     <nav class="games-grid" aria-label="Juegos disponibles">
 
       <a href="/rps/" class="game-card">
@@ -241,6 +331,8 @@
           El clásico. 2 jugadores, vs CPU o modo Batalla
           donde la suerte lo decide todo.
         </p>
+        
+        <span class="badge-meta">⚡ 2 min<span>·</span>Fácil</span>
         <span class="game-card-cta" aria-hidden="true">Jugar →</span>
       </a>
 
@@ -251,16 +343,21 @@
           Muestra dedos y adivina el total antes que tu rival.
           El juego de mano más antiguo del mundo.
         </p>
+        
+        <span class="badge-meta">🧠 3 min<span>·</span>Medio</span>
         <span class="game-card-cta" aria-hidden="true">Jugar →</span>
       </a>
 
       <a href="/chopsticks/" class="game-card">
+        <span class="badge-popular">⭐ El más popular</span>
         <span class="game-card-icon" aria-hidden="true">🖖</span>
         <span class="game-card-title">Palillos</span>
         <p class="game-card-desc">
           Acumula dedos en las manos de tu oponente
           para eliminarlo. Estrategia pura.
         </p>
+        
+        <span class="badge-meta">♟️ 5 min<span>·</span>Estrategia</span>
         <span class="game-card-cta" aria-hidden="true">Jugar →</span>
       </a>
 
@@ -271,6 +368,8 @@
           Adivina si la suma de dedos será par o impar.
           Rápido, simple y emocionante.
         </p>
+        
+        <span class="badge-meta">🎲 1 min<span>·</span>Instantáneo</span>
         <span class="game-card-cta" aria-hidden="true">Jugar →</span>
       </a>
 
@@ -281,6 +380,8 @@
           Piedra Papel Tijeras con Lagarto y Spock.
           5 gestos, 10 relaciones. Más estrategia.
         </p>
+        
+        <span class="badge-meta">🖖 3 min<span>·</span>Complejo</span>
         <span class="game-card-cta" aria-hidden="true">Jugar →</span>
       </a>
 

@@ -124,6 +124,23 @@
       transition: color var(--dur-fast);
     }
     .back-hub-link:hover { color: var(--clr-text-muted); }
+
+    /* ── Battle info box ── */
+    .battle-info-box {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--sp-3);
+      background: rgba(124,58,237,.1);
+      border: 1px solid rgba(124,58,237,.3);
+      border-radius: var(--radius-sm);
+      padding: var(--sp-3) var(--sp-4);
+      margin-bottom: var(--sp-5);
+      font-size: var(--text-sm);
+      color: var(--clr-text-muted);
+      line-height: 1.55;
+    }
+    .battle-info-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 1px; }
+    .battle-info-text strong { color: var(--clr-primary-light); }
   </style>
   <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
@@ -146,6 +163,15 @@
       </header>
 
       <div class="card">
+
+      <div class="battle-info-box">
+          <span class="battle-info-icon">⚔️</span>
+          <div class="battle-info-text">
+            <strong>Modo Batalla</strong> — La CPU elige por ambos jugadores simultáneamente.
+            Sin estrategia posible: solo los favorece la suerte. Ideal para resolver
+            disputas rápidas o simplemente divertirse.
+          </div>
+        </div>
         <div class="players-row">
           <div class="field">
             <label for="name-p1">Jugador 1</label>

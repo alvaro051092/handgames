@@ -365,6 +365,40 @@
             </span>
           </label>
         </fieldset>
+        <fieldset class="mode-group difficulty-group">
+          <legend>Dificultad de la CPU</legend>
+          <label class="mode-option">
+            <input type="radio" name="difficulty" value="easy" />
+            <span class="mode-label">
+              <span class="mode-icon">🌱</span>
+              <span class="mode-text">
+                <strong>Fácil</strong>
+                <small>CPU elige al azar</small>
+              </span>
+            </span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="difficulty" value="medium" checked />
+            <span class="mode-label">
+              <span class="mode-icon">⚡</span>
+              <span class="mode-text">
+                <strong>Medio</strong>
+                <small>CPU aprende tus patrones</small>
+              </span>
+            </span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="difficulty" value="hard" />
+            <span class="mode-label">
+              <span class="mode-icon">💀</span>
+              <span class="mode-text">
+                <strong>Difícil</strong>
+                <small>CPU te analiza y contraataca</small>
+              </span>
+            </span>
+          </label>
+        </fieldset>
+
 
         <button id="btn-start" class="btn btn-primary btn-lg">¡Jugar!</button>
       </div>
@@ -515,6 +549,7 @@
   </div><!-- #app -->
 
   <script src="/js/analytics.js?v=1"></script>
+  <script src="/js/streak.js?v=1"></script>
   <script src="/js/game-ooe-cpu.js?v=1"></script>
   <script src="/js/audio.js?v=2"></script>
   <script src="/js/ui-ooe-cpu.js?v=1"></script>
