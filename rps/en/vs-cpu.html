@@ -7,6 +7,17 @@
   <title>Rock Paper Scissors vs Computer — Play Against CPU</title>
   <meta name="description" content="Challenge the CPU at rock paper scissors. 3-2-1 countdown, session stats and best of 3. Can you beat the machine?" />
   <!-- Canonical + hreflang -->
+  <!-- Performance: preconnect to analytics/clarity origins -->
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#7c3aed" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://www.clarity.ms" />
+  <link rel="dns-prefetch" href="https://www.google-analytics.com" />
   <link rel="canonical"      href="https://handgames.app/rps/en/vs-cpu.html" />
   <link rel="alternate" hreflang="es"        href="https://handgames.app/rps/vs-cpu.html" />
   <link rel="alternate" hreflang="en"        href="https://handgames.app/rps/en/vs-cpu.html" />
@@ -184,6 +195,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XM1YK1TG5W');</script>
   <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","wgsyxocqkn");</script>
+<script>history.scrollRestoration="manual";</script>
 </head>
 <body>
 
@@ -290,15 +302,15 @@
       <div class="card pick-card">
         <p class="pick-hint" style="margin-top: var(--sp-2);">Choose your move</p>
         <div class="pick-buttons" id="pick-buttons">
-          <button class="btn btn-pick" data-pick="rock" aria-label="Choose Rock">
+          <button data-kbd-hint="1" class="btn btn-pick" data-pick="rock" aria-label="Choose Rock">
             <span class="pick-emoji">🪨</span>
             <span class="pick-label">Rock</span>
           </button>
-          <button class="btn btn-pick" data-pick="paper" aria-label="Choose Paper">
+          <button data-kbd-hint="2" class="btn btn-pick" data-pick="paper" aria-label="Choose Paper">
             <span class="pick-emoji">📄</span>
             <span class="pick-label">Paper</span>
           </button>
-          <button class="btn btn-pick" data-pick="scissors" aria-label="Choose Scissors">
+          <button data-kbd-hint="3" class="btn btn-pick" data-pick="scissors" aria-label="Choose Scissors">
             <span class="pick-emoji">✂️</span>
             <span class="pick-label">Scissors</span>
           </button>
@@ -403,16 +415,21 @@
           <button id="btn-revenge-go" class="btn btn-primary btn-lg">🔄 Rematch</button>
           <button id="btn-new-game-go" class="btn btn-ghost">New game</button>
           <a href="/rps/en/" class="btn btn-ghost">Change mode</a>
+        
+          <a href="/en/" class="btn btn-ghost" style="font-size:var(--text-sm);">🎮 Other games</a>
         </div>
       </div>
     </section>
 
   </div><!-- #app -->
 
-  <script src="/js/analytics.js?v=1"></script>
-  <script src="/js/streak.js?v=1"></script>
-  <script src="/js/game-cpu.js?v=1"></script>
+  <script src="/js/analytics.js?v=2"></script>
+  <script src="/js/lang-nav.js?v=2"></script>
+  <script src="/js/share.js?v=2"></script>
+  <script src="/js/keyboard.js?v=2"></script>
+  <script src="/js/streak.js?v=2"></script>
+  <script src="/js/game-cpu.js?v=2"></script>
   <script src="/js/audio.js?v=2"></script>
-  <script src="/js/ui-cpu.js?v=1"></script>
+  <script src="/js/ui-cpu.js?v=2"></script>
 </body>
 </html>

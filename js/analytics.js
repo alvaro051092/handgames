@@ -98,5 +98,81 @@ window.HGA = (() => {
     audioToggle(muted) {
       track('audio_toggle', { audio_state: muted ? 'muted' : 'unmuted' });
     },
+
+    /* Generic event for share, etc. */
+    event(name, params) {
+      track(name, params || {});
+    },
   };
 })();
+
+/* ── Haptic feedback on pick buttons (mobile, silent fail elsewhere) ── */
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.btn-pick').forEach(btn => {
+    btn.addEventListener('pointerdown', () => {
+      try { if (navigator.vibrate) navigator.vibrate(12); } catch (_) {}
+    }, { passive: true });
+  });
+});
+
+/* ── Sync mute button icon on page load ── */
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('btn-mute');
+  if (!btn) return;
+  try {
+    const muted = localStorage.getItem('hg_muted') === '1';
+    btn.textContent = muted ? '🔇' : '🔊';
+    btn.setAttribute('aria-label', muted ? 'Activar audio' : 'Silenciar audio');
+    btn.title = muted ? 'Activar audio' : 'Silenciar audio';
+  } catch (_) {}
+});
+
+/* ── Service Worker registration + offline toast ── */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(reg => {
+      /* Show a subtle "available offline" toast the first time the SW installs */
+      reg.addEventListener('updatefound', () => {
+        const worker = reg.installing;
+        if (!worker) return;
+        worker.addEventListener('statechange', () => {
+          if (worker.state === 'installed' && !navigator.serviceWorker.controller) {
+            _showOfflineToast();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+
+function _showOfflineToast() {
+  try {
+    const lang = (document.documentElement.lang || 'es').slice(0, 2);
+    const msg  = lang === 'en' ? '✓ Available offline'
+               : lang === 'pt' ? '✓ Disponível offline'
+               : '✓ Disponible sin conexión';
+    const toast = document.createElement('div');
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
+    toast.style.cssText = [
+      'position:fixed','bottom:var(--sp-6,20px)','left:50%',
+      'transform:translateX(-50%) translateY(12px)',
+      'background:rgba(34,197,94,.92)',
+      'color:#fff','font-size:13px','font-weight:700',
+      'padding:8px 18px','border-radius:999px',
+      'pointer-events:none','z-index:9999',
+      'opacity:0','transition:opacity .35s, transform .35s',
+    ].join(';');
+    toast.textContent = msg;
+    document.body.appendChild(toast);
+    requestAnimationFrame(() => {
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateX(-50%) translateY(0)';
+    });
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(-50%) translateY(8px)';
+      setTimeout(() => toast.remove(), 400);
+    }, 3500);
+  } catch (_) {}
+}

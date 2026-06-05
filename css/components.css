@@ -15,6 +15,9 @@
   width: 100%;
   position: relative;
   overflow: hidden;
+  /* Removes the 300ms tap delay and prevents double-tap zoom on mobile */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition:
     background var(--dur-fast) var(--ease-out),
     box-shadow  var(--dur-fast) var(--ease-out),
@@ -62,6 +65,40 @@
 }
 .btn-ghost:hover  { background: var(--clr-surface-2); color: var(--clr-text); transform: translateY(-2px); }
 .btn-ghost:active { transform: translateY(1px); }
+
+/* ── Disabled / loading state: prevents rage clicks ── */
+.btn:disabled,
+.btn[disabled],
+.btn.btn-loading {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+  pointer-events: none;
+}
+.btn.btn-loading::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255,255,255,.12) 50%,
+    transparent 100%);
+  background-size: 200% 100%;
+  animation: btnLoadingShimmer 1.2s linear infinite;
+}
+@keyframes btnLoadingShimmer {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+
+/* ── Pick buttons: larger touch targets on mobile ── */
+@media (hover: none) and (pointer: coarse) {
+  .btn-pick {
+    min-height: 72px;
+    min-width: 72px;
+  }
+}
 
 /* ═══════════════════════════ SETUP: INPUTS ═══════════════════════════ */
 .players-row {
@@ -214,6 +251,8 @@
   width: auto;
   flex: 1;
   max-width: 130px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition:
     border-color var(--dur-fast),
     background   var(--dur-fast),
@@ -440,3 +479,53 @@
 .hg-sep {
   color: var(--clr-border);
 }
+
+/* ═══════════════════════════ SHARE BUTTON ═══════════════════════════ */
+/* Injected dynamically by share.js into .gameover-card */
+#hg-share-btn {
+  background: transparent;
+  color: var(--clr-text-muted);
+  border: 1px dashed var(--clr-border-light);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  min-height: 44px;
+  padding: var(--sp-2) var(--sp-5);
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity     0.3s var(--ease-out),
+    transform   0.3s var(--ease-out),
+    background  var(--dur-fast),
+    border-color var(--dur-fast),
+    color        var(--dur-fast);
+  animation: shareButtonIn 0.4s 0.2s var(--ease-out) forwards;
+}
+#hg-share-btn:hover {
+  background: rgba(124,58,237,.08);
+  border-color: var(--clr-primary);
+  color: var(--clr-primary-light);
+}
+@keyframes shareButtonIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════ KEYBOARD HINT ═══════════════════════════ */
+/* Injected by keyboard.js */
+[data-kbd-hint] {
+  position: relative;
+}
+[data-kbd-hint]::after {
+  content: attr(data-kbd-hint);
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--clr-text-subtle);
+  letter-spacing: .5px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* --clr-draw is now defined in tokens.css */

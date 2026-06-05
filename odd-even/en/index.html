@@ -6,6 +6,17 @@
   <meta name="robots" content="index, follow" />
   <title>Odd or Even Online — Play Free</title>
   <meta name="description" content="Play odd or even online for free. Choose from 2-player mode, vs Computer, or Battle mode. No sign-up, no downloads required." />
+  <!-- Performance: preconnect to analytics/clarity origins -->
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#7c3aed" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://www.clarity.ms" />
+  <link rel="dns-prefetch" href="https://www.google-analytics.com" />
   <link rel="canonical"      href="https://handgames.app/odd-even/en/" />
   <link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/" />
   <link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/" />
@@ -37,6 +48,29 @@
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "inLanguage": ["en", "es", "pt"],
     "genre": "Casual game"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do you play Odd or Even?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Two players simultaneously show between 0 and 5 fingers with one hand. One player calls 'odd' or 'even' before revealing. If the total fingers matches their call, they win the round." }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens on a tie in Odd or Even?",
+        "acceptedAnswer": { "@type": "Answer", "text": "If both players guess correctly or both guess wrong, the round is a draw and replayed." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the history of Odd or Even?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Odd or Even has roots in ancient Greece and Rome (Ludere par impar). It is one of the oldest hand games in the world, found across cultures on every continent." }
+      }
+    ]
   }
   </script>
   <link rel="icon" type="image/x-icon"  href="/assets/favicon.ico" />
@@ -115,6 +149,30 @@
       </a>
     </nav>
   </main>
+
+  <section aria-labelledby="rules-heading" style="width:100%;max-width:640px;margin-top:2.5rem;border-top:1px solid var(--clr-border);padding-top:2rem;padding-bottom:1rem;">
+    <h2 id="rules-heading" style="font-size:1rem;font-weight:800;color:var(--clr-text);margin-bottom:.75rem;text-align:center;">How to play Odd or Even</h2>
+    <p style="font-size:.875rem;color:var(--clr-text-muted);line-height:1.7;margin-bottom:.5rem;">
+      Odd or Even is a two-player hand game. Both players simultaneously show between 0 and 5 fingers with one hand. Before revealing, one player calls "odd" or "even" — if the total number of fingers shown matches their call, they win the round.
+    </p>
+    <h3 style="font-size:.75rem;font-weight:700;color:var(--clr-primary-light);text-transform:uppercase;letter-spacing:.6px;margin:1.25rem 0 .5rem;">Rules</h3>
+    <ul style="list-style:none;display:flex;flex-direction:column;gap:.5rem;font-size:.875rem;color:var(--clr-text-muted);">
+      <li>🖐 Each player shows 0–5 fingers simultaneously</li>
+      <li>➕ Both players' fingers are added together</li>
+      <li>🎯 The player who called "odd" or "even" wins if they guessed correctly</li>
+      <li>🔁 If both guess right or both wrong, the round is replayed</li>
+    </ul>
+    <h3 style="font-size:.75rem;font-weight:700;color:var(--clr-primary-light);text-transform:uppercase;letter-spacing:.6px;margin:1.25rem 0 .5rem;">Strategy</h3>
+    <p style="font-size:.875rem;color:var(--clr-text-muted);line-height:1.7;margin-bottom:.5rem;">
+      People tend to show middle numbers (2 or 3 fingers) more than extremes (0 or 5). Watch your opponent's patterns — if they consistently show low numbers, bet odd when it's your turn. Vary your own number to break any pattern your opponent might try to exploit.
+    </p>
+    <h3 style="font-size:.75rem;font-weight:700;color:var(--clr-primary-light);text-transform:uppercase;letter-spacing:.6px;margin:1.25rem 0 .5rem;">History</h3>
+    <p style="font-size:.875rem;color:var(--clr-text-muted);line-height:1.7;">
+      Odd or Even has roots in ancient Greece and Rome, where it was known as <em>Ludere par impar</em>. In Italy it persists as <em>Pari o dispari</em>, and in Japan as <em>Chifurechifure</em>. It is one of the oldest hand-guessing games in the world, found across cultures on every continent.
+    </p>
+  </section>
+
   <footer class="hub-footer">Odd or Even &mdash; Hand Games</footer>
+  <script src="/js/analytics.js?v=2"></script>
 </body>
 </html>

@@ -219,6 +219,7 @@ body {
 .lang-link.active {
   cursor: default;
   pointer-events: none;
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  text-decoration: none;
+  font-weight: 800;
+  opacity: 1;
 }

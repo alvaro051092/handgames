@@ -6,6 +6,17 @@
   <meta name="robots" content="index, follow" />
   <title>Pedra Papel Tesoura Lagarto Spock — 2 Jogadores mesmo dispositivo</title>
   <meta name="description" content="Jogue Pedra Papel Tesoura Lagarto Spock com um amigo no mesmo dispositivo. Turno a turno com tela de handoff. 5 gestos, 10 relações." />
+  <!-- Performance: preconnect to analytics/clarity origins -->
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#7c3aed" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://www.clarity.ms" />
+  <link rel="dns-prefetch" href="https://www.google-analytics.com" />
   <link rel="canonical"      href="https://handgames.app/rpsls/pt/local.html" />
   <link rel="alternate" hreflang="es"        href="https://handgames.app/rpsls/local.html" />
   <link rel="alternate" hreflang="en"        href="https://handgames.app/rpsls/en/local.html" />
@@ -58,6 +69,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XM1YK1TG5W');</script>
   <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","wgsyxocqkn");</script>
+<script>history.scrollRestoration="manual";</script>
 </head>
 <body>
 
@@ -126,21 +138,21 @@
         <p class="pick-hint" id="pick-prompt">Escolha sua jogada</p>
         <div class="pick-buttons-rpsls">
           <div class="pick-row">
-            <button class="btn btn-pick" data-pick="rock" aria-label="Escolher Pedra">
+            <button data-kbd-hint="1" class="btn btn-pick" data-pick="rock" aria-label="Escolher Pedra">
               <span class="pick-emoji">🪨</span><span class="pick-label">Pedra</span>
             </button>
-            <button class="btn btn-pick" data-pick="paper" aria-label="Escolher Papel">
+            <button data-kbd-hint="2" class="btn btn-pick" data-pick="paper" aria-label="Escolher Papel">
               <span class="pick-emoji">📄</span><span class="pick-label">Papel</span>
             </button>
-            <button class="btn btn-pick" data-pick="scissors" aria-label="Escolher Tesoura">
+            <button data-kbd-hint="3" class="btn btn-pick" data-pick="scissors" aria-label="Escolher Tesoura">
               <span class="pick-emoji">✂️</span><span class="pick-label">Tesoura</span>
             </button>
           </div>
           <div class="pick-row">
-            <button class="btn btn-pick" data-pick="lizard" aria-label="Escolher Lagarto">
+            <button data-kbd-hint="4" class="btn btn-pick" data-pick="lizard" aria-label="Escolher Lagarto">
               <span class="pick-emoji">🦎</span><span class="pick-label">Lagarto</span>
             </button>
-            <button class="btn btn-pick" data-pick="spock" aria-label="Escolher Spock">
+            <button data-kbd-hint="5" class="btn btn-pick" data-pick="spock" aria-label="Escolher Spock">
               <span class="pick-emoji">🖖</span><span class="pick-label">Spock</span>
             </button>
           </div>
@@ -220,15 +232,21 @@
           <button id="btn-revenge-go"  class="btn btn-primary btn-lg">🔄 Revanche</button>
           <button id="btn-new-game-go" class="btn btn-ghost">Nova partida</button>
           <a href="/rpsls/pt/" class="btn btn-ghost">Mudar modo</a>
+        
+          <a href="/pt/" class="btn btn-ghost" style="font-size:var(--text-sm);">🎮 Outros jogos</a>
         </div>
       </div>
     </section>
 
   </div>
 
-  <script src="/js/analytics.js?v=1"></script>
-  <script src="/js/game-rpsls-local.js?v=1"></script>
+  <script src="/js/analytics.js?v=2"></script>
+  <script src="/js/lang-nav.js?v=2"></script>
+  <script src="/js/share.js?v=2"></script>
+  <script src="/js/keyboard.js?v=2"></script>
+  <script src="/js/game-rpsls-local.js?v=2"></script>
   <script src="/js/audio.js?v=2"></script>
-  <script src="/js/ui-rpsls-local.js?v=1"></script>
+  <script src="/js/streak.js?v=2"></script>
+  <script src="/js/ui-rpsls-local.js?v=2"></script>
 </body>
 </html>

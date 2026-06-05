@@ -6,6 +6,17 @@
   <meta name="robots" content="index, follow" />
   <title>Pauzinhos Batalha — A CPU decide tudo</title>
   <meta name="description" content="Modo batalha dos Pauzinhos: a CPU joga dos dois lados. Avance movimento a movimento ou ative o modo automático." />
+  <!-- Performance: preconnect to analytics/clarity origins -->
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#7c3aed" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://www.clarity.ms" />
+  <link rel="dns-prefetch" href="https://www.google-analytics.com" />
   <link rel="canonical"      href="https://handgames.app/chopsticks/pt/battle.html" />
   <link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/battle.html" />
   <link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/battle.html" />
@@ -72,6 +83,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XM1YK1TG5W');</script>
   <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","wgsyxocqkn");</script>
+<script>history.scrollRestoration="manual";</script>
 </head>
 <body>
   <div id="curtain" aria-hidden="true"></div>
@@ -165,14 +177,20 @@
           <button id="btn-revenge-go"  class="btn btn-primary btn-lg">🔄 Revanche</button>
           <button id="btn-new-game-go" class="btn btn-ghost">Nova partida</button>
           <a href="/chopsticks/pt/" class="btn btn-ghost">Mudar modo</a>
+        
+          <a href="/pt/" class="btn btn-ghost" style="font-size:var(--text-sm);">🎮 Outros jogos</a>
         </div>
       </div>
     </section>
 
   </div>
-  <script src="/js/analytics.js?v=1"></script>
-  <script src="/js/game-chopsticks-battle.js?v=1"></script>
+  <script src="/js/analytics.js?v=2"></script>
+  <script src="/js/lang-nav.js?v=2"></script>
+  <script src="/js/share.js?v=2"></script>
+  <script src="/js/keyboard.js?v=2"></script>
+  <script src="/js/game-chopsticks-battle.js?v=2"></script>
   <script src="/js/audio.js?v=2"></script>
-  <script src="/js/ui-chopsticks-battle.js?v=1"></script>
+  <script src="/js/streak.js?v=2"></script>
+  <script src="/js/ui-chopsticks-battle.js?v=2"></script>
 </body>
 </html>

@@ -106,9 +106,12 @@
   }
 
   function typewriter(el, text) {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = text; return; }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.textContent = text; return;
+    }
+    const _esc = c => c === ' ' ? '&nbsp;' : c === '<' ? '&lt;' : c === '>' ? '&gt;' : c === '&' ? '&amp;' : c === '"' ? '&quot;' : c;
     el.innerHTML = [...text].map((ch, i) =>
-      `<span class="tw-char" style="animation-delay:${i * 45}ms">${ch === ' ' ? '&nbsp;' : ch}</span>`
+      `<span class="tw-char" style="animation-delay:${i * 45}ms">${_esc(ch)}</span>`
     ).join('');
   }
 
@@ -150,6 +153,7 @@
   async function goTo(nextId, dir = 'fwd') {
     if (_transitioning) return;
     _transitioning = true;
+    document.querySelectorAll('.btn:not(.btn-pick):not(.btn-mute)').forEach(b => b.classList.add('btn-loading'));
     const cur  = activeScreen();
     const next = screens[nextId];
     if (!cur || !next || cur === next) { _transitioning = false; return; }
@@ -161,6 +165,7 @@
     cur.classList.remove('s-exiting', d);
     next.classList.remove('s-entering', d);
     _transitioning = false;
+    document.querySelectorAll('.btn-loading').forEach(b => b.classList.remove('btn-loading'));
   }
 
   /* ── Board rendering ── */

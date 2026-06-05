@@ -120,6 +120,7 @@
   async function goTo(nextId, direction = 'fwd') {
     if (transitioning) return;
     transitioning = true;
+    document.querySelectorAll('.btn:not(.btn-pick):not(.btn-mute)').forEach(b => b.classList.add('btn-loading'));
     const cur  = activeScreen();
     const next = screens[nextId];
     if (!cur || !next || cur === next) { transitioning = false; return; }
@@ -131,6 +132,7 @@
     cur.classList.remove('s-exiting', dir);
     next.classList.remove('s-entering', dir);
     transitioning = false;
+    document.querySelectorAll('.btn-loading').forEach(b => b.classList.remove('btn-loading'));
   }
 
   /* ──────────── Pick Screen ──────────── */

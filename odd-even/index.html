@@ -7,6 +7,17 @@
   <title>Par o Impar Online — Juega Gratis</title>
   <meta name="description" content="Juega par o impar online gratis. Elige entre modo 2 jugadores, vs CPU o modo Batalla. Sin registro, sin descargas." />
   <!-- Canonical + hreflang -->
+  <!-- Performance: preconnect to analytics/clarity origins -->
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#7c3aed" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://www.clarity.ms" />
+  <link rel="dns-prefetch" href="https://www.google-analytics.com" />
   <link rel="canonical"      href="https://handgames.app/odd-even/" />
   <link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/" />
   <link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/" />
@@ -41,6 +52,46 @@
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "inLanguage": ["es", "en", "pt"],
     "genre": "Casual game"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Cómo se juega Par o Impar?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Dos jugadores muestran simultáneamente entre 0 y 5 dedos con una mano. Uno elige 'par' o 'impar' antes de revelar. Si la suma de los dedos mostrados coincide con su elección, gana la ronda."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cuántos dedos se pueden mostrar en Par o Impar?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Cada jugador puede mostrar entre 0 y 5 dedos con una sola mano. La suma máxima posible es 10 (par) y la mínima es 0 (par)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué pasa si hay empate en Par o Impar?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Si ambos jugadores aciertan o ambos fallan al mismo tiempo, la ronda se considera empate y se repite."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cuál es el origen de Par o Impar?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Par o Impar tiene raíces en la antigua Grecia y Roma, donde era conocido como Ludere par impar. Es uno de los juegos de mano más antiguos del mundo, presente en culturas de todos los continentes."
+        }
+      }
+    ]
   }
   </script>
   <!-- Favicon -->
@@ -245,9 +296,32 @@
     </nav>
   </main>
 
+  <section class="rules-section" aria-labelledby="rules-heading" style="width:100%;max-width:640px;margin-top:2.5rem;border-top:1px solid var(--clr-border);padding-top:2rem;padding-bottom:1rem;">
+    <h2 id="rules-heading" style="font-size:1rem;font-weight:800;color:var(--clr-text);margin-bottom:.75rem;text-align:center;">Cómo jugar Par o Impar</h2>
+    <p style="font-size:.875rem;color:var(--clr-text-muted);line-height:1.7;margin-bottom:.5rem;">
+      Par o Impar (<em>Odd or Even</em>) es un juego de mano para dos jugadores. Ambos muestran simultáneamente entre 0 y 5 dedos con una mano. Uno de los jugadores elige "par" o "impar" antes de revelar — si la suma de los dedos mostrados coincide con su elección, gana la ronda.
+    </p>
+    <h3 style="font-size:.75rem;font-weight:700;color:var(--clr-primary-light);text-transform:uppercase;letter-spacing:.6px;margin:1.25rem 0 .5rem;">Las reglas</h3>
+    <ul style="list-style:none;display:flex;flex-direction:column;gap:.5rem;font-size:.875rem;color:var(--clr-text-muted);">
+      <li>🖐 Cada jugador muestra 0–5 dedos simultáneamente</li>
+      <li>➕ Se suma el total de dedos mostrados por ambos</li>
+      <li>🎯 El jugador que apostó "par" o "impar" gana si acertó</li>
+      <li>🔁 En empate (ambos aciertan o fallan), se repite la ronda</li>
+    </ul>
+    <h3 style="font-size:.75rem;font-weight:700;color:var(--clr-primary-light);text-transform:uppercase;letter-spacing:.6px;margin:1.25rem 0 .5rem;">Estrategia</h3>
+    <p style="font-size:.875rem;color:var(--clr-text-muted);line-height:1.7;margin-bottom:.5rem;">
+      Las personas tienden a mostrar números medios (2 ó 3 dedos) más que extremos (0 ó 5). Observá los patrones de tu oponente — si consistentemente elige números bajos, apostá a impar cuando te toca. Variar tu propio número rompe cualquier patrón que el rival intente explotar.
+    </p>
+    <h3 style="font-size:.75rem;font-weight:700;color:var(--clr-primary-light);text-transform:uppercase;letter-spacing:.6px;margin:1.25rem 0 .5rem;">Historia</h3>
+    <p style="font-size:.875rem;color:var(--clr-text-muted);line-height:1.7;">
+      Par o Impar tiene raíces en la antigua Grecia y Roma, donde era conocido como <em>Ludere par impar</em>. En Italia persiste como <em>Pari o dispari</em>, y en Japón como <em>Chifurechifure</em>. Es uno de los juegos de azar manual más antiguos del mundo, presente en culturas de todos los continentes.
+    </p>
+  </section>
+
   <footer class="hub-footer">
     Par o Impar &mdash; Hand Games
   </footer>
 
+  <script src="/js/analytics.js?v=2"></script>
 </body>
 </html>

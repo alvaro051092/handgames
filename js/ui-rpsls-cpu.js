@@ -107,8 +107,9 @@
 
   function typewriter(el, text) {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = text; return; }
+    const _esc = c => c === ' ' ? '&nbsp;' : c === '<' ? '&lt;' : c === '>' ? '&gt;' : c === '&' ? '&amp;' : c === '"' ? '&quot;' : c;
     el.innerHTML = [...text].map((ch, k) =>
-      `<span class="tw-char" style="animation-delay:${k * 45}ms">${ch === ' ' ? '&nbsp;' : ch}</span>`
+      `<span class="tw-char" style="animation-delay:${k * 45}ms">${_esc(ch)}</span>`
     ).join('');
   }
 
@@ -146,6 +147,7 @@
   async function goTo(nextId, dir = 'fwd') {
     if (transitioning) return;
     transitioning = true;
+    document.querySelectorAll('.btn:not(.btn-pick):not(.btn-mute)').forEach(b => b.classList.add('btn-loading'));
     const cur = activeScreen(), next = screens[nextId];
     if (!cur || !next || cur === next) { transitioning = false; return; }
     const d = `dir-${dir}`;

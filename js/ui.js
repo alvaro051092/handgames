@@ -144,9 +144,17 @@
     if (transitioning) return;
     transitioning = true;
 
+    /* Disable all action buttons during the transition to prevent rage clicks */
+    const btns = document.querySelectorAll('.btn:not(.btn-pick):not(.btn-mute)');
+    btns.forEach(b => b.classList.add('btn-loading'));
+
     const cur  = activeScreen();
     const next = screens[nextId];
-    if (!cur || !next || cur === next) { transitioning = false; return; }
+    if (!cur || !next || cur === next) {
+      transitioning = false;
+      btns.forEach(b => b.classList.remove('btn-loading'));
+      return;
+    }
 
     const dir = `dir-${direction}`;
     cur.classList.add('s-exiting', dir);
@@ -158,6 +166,9 @@
     cur.classList.remove('s-exiting', dir);
     next.classList.remove('s-entering', dir);
     transitioning = false;
+
+    /* Re-enable buttons once the next screen is fully visible */
+    btns.forEach(b => b.classList.remove('btn-loading'));
   }
 
   /** Curtain drops → instant swap cb() → curtain rises. */

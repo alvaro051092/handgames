@@ -6,6 +6,17 @@
   <meta name="robots" content="index, follow" />
   <title>Piedra Papel Tijeras Lagarto Spock vs CPU — Juega gratis online</title>
   <meta name="description" content="Enfréntate a la CPU en Piedra Papel Tijeras Lagarto Spock. 5 gestos, 10 relaciones. Conteo 3-2-1, estadísticas de sesión y mejor de 3." />
+  <!-- Performance: preconnect to analytics/clarity origins -->
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#7c3aed" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://www.clarity.ms" />
+  <link rel="dns-prefetch" href="https://www.google-analytics.com" />
   <link rel="canonical"      href="https://handgames.app/rpsls/vs-cpu.html" />
   <link rel="alternate" hreflang="es"        href="https://handgames.app/rpsls/vs-cpu.html" />
   <link rel="alternate" hreflang="en"        href="https://handgames.app/rpsls/en/vs-cpu.html" />
@@ -204,6 +215,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XM1YK1TG5W');</script>
   <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","wgsyxocqkn");</script>
+<script>history.scrollRestoration="manual";</script>
 </head>
 <body>
 
@@ -288,8 +300,42 @@
         <button id="btn-start" class="btn btn-primary btn-lg">¡Jugar!</button>
       </div>
 
+      <button class="htp-link" id="btn-htp" type="button" style="display:block;text-align:center;margin-top:var(--sp-3);font-size:var(--text-sm);color:var(--clr-text-muted);cursor:pointer;background:none;border:none;font-family:var(--font);text-decoration:underline;text-underline-offset:3px;">¿Cómo se juega RPSLS?</button>
       <a href="/rpsls/" class="back-hub-link">← Cambiar modo</a>
     </section>
+
+    <!-- ══════════════════ HTP OVERLAY ══════════════════ -->
+    <div id="htp-overlay" role="dialog" aria-modal="true" aria-labelledby="htp-title"
+         style="position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);z-index:100;display:flex;align-items:center;justify-content:center;padding:var(--sp-4);opacity:0;pointer-events:none;transition:opacity var(--dur-fast);">
+      <div style="background:var(--clr-surface);border:1.5px solid var(--clr-border-light);border-radius:var(--radius-lg);padding:var(--sp-6);max-width:400px;width:100%;transform:translateY(12px);transition:transform var(--dur-normal);" id="htp-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--sp-4);">
+          <span id="htp-title" style="font-size:var(--text-lg);font-weight:800;color:var(--clr-primary-light);">Piedra · Papel · Tijeras · Lagarto · Spock</span>
+          <button id="btn-htp-close" type="button" aria-label="Cerrar" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--clr-text-subtle);line-height:1;padding:0;">✕</button>
+        </div>
+        <p style="font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.7;margin-bottom:var(--sp-3);">5 gestos, 10 resultados posibles. Cada gesto vence a 2 y pierde ante 2.</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--sp-2);font-size:var(--text-sm);color:var(--clr-text-muted);">
+          <li>🪨 <strong>Piedra</strong> aplasta Tijeras · aplasta Lagarto</li>
+          <li>📄 <strong>Papel</strong> cubre Piedra · refuta Spock</li>
+          <li>✂️ <strong>Tijeras</strong> cortan Papel · decapitan Lagarto</li>
+          <li>🦎 <strong>Lagarto</strong> come Papel · envenena Spock</li>
+          <li>🖖 <strong>Spock</strong> destroza Piedra · vaporiza Tijeras</li>
+        </ul>
+        <button id="btn-htp-got-it" class="btn btn-primary" type="button" style="margin-top:var(--sp-5);">¡Entendido, a jugar!</button>
+      </div>
+    </div>
+    <script>
+    (function(){
+      var ov = document.getElementById('htp-overlay');
+      var card = document.getElementById('htp-card');
+      function open(){ov.style.opacity='1';ov.style.pointerEvents='auto';card.style.transform='translateY(0)';document.getElementById('btn-htp-close').focus();}
+      function close(){ov.style.opacity='0';ov.style.pointerEvents='none';card.style.transform='translateY(12px)';}
+      document.getElementById('btn-htp').addEventListener('click',open);
+      document.getElementById('btn-htp-close').addEventListener('click',close);
+      document.getElementById('btn-htp-got-it').addEventListener('click',close);
+      ov.addEventListener('click',function(e){if(e.target===ov)close();});
+      document.addEventListener('keydown',function(e){if(e.key==='Escape'&&ov.style.opacity==='1')close();});
+    })();
+    </script>
 
     <!-- ══════════════════ PICK ══════════════════ -->
     <section id="screen-pick" class="screen" aria-label="Selección de jugada">
@@ -311,25 +357,25 @@
         <p class="pick-hint" id="pick-prompt">Elige tu jugada</p>
         <div class="pick-buttons-rpsls">
           <div class="pick-row">
-            <button class="btn btn-pick" data-pick="rock" aria-label="Elegir Piedra">
+            <button data-kbd-hint="1" class="btn btn-pick" data-pick="rock" aria-label="Elegir Piedra">
               <span class="pick-emoji">🪨</span>
               <span class="pick-label">Piedra</span>
             </button>
-            <button class="btn btn-pick" data-pick="paper" aria-label="Elegir Papel">
+            <button data-kbd-hint="2" class="btn btn-pick" data-pick="paper" aria-label="Elegir Papel">
               <span class="pick-emoji">📄</span>
               <span class="pick-label">Papel</span>
             </button>
-            <button class="btn btn-pick" data-pick="scissors" aria-label="Elegir Tijeras">
+            <button data-kbd-hint="3" class="btn btn-pick" data-pick="scissors" aria-label="Elegir Tijeras">
               <span class="pick-emoji">✂️</span>
               <span class="pick-label">Tijeras</span>
             </button>
           </div>
           <div class="pick-row">
-            <button class="btn btn-pick" data-pick="lizard" aria-label="Elegir Lagarto">
+            <button data-kbd-hint="4" class="btn btn-pick" data-pick="lizard" aria-label="Elegir Lagarto">
               <span class="pick-emoji">🦎</span>
               <span class="pick-label">Lagarto</span>
             </button>
-            <button class="btn btn-pick" data-pick="spock" aria-label="Elegir Spock">
+            <button data-kbd-hint="5" class="btn btn-pick" data-pick="spock" aria-label="Elegir Spock">
               <span class="pick-emoji">🖖</span>
               <span class="pick-label">Spock</span>
             </button>
@@ -432,16 +478,21 @@
           <button id="btn-revenge-go" class="btn btn-primary btn-lg">🔄 Revancha</button>
           <button id="btn-new-game-go" class="btn btn-ghost">Nueva partida</button>
           <a href="/rpsls/" class="btn btn-ghost">Cambiar modo</a>
+        
+          <a href="/" class="btn btn-ghost" style="font-size:var(--text-sm);">🎮 Otros juegos</a>
         </div>
       </div>
     </section>
 
   </div><!-- #app -->
 
-  <script src="/js/analytics.js?v=1"></script>
-  <script src="/js/streak.js?v=1"></script>
-  <script src="/js/game-rpsls-cpu.js?v=1"></script>
+  <script src="/js/analytics.js?v=2"></script>
+  <script src="/js/lang-nav.js?v=2"></script>
+  <script src="/js/share.js?v=2"></script>
+  <script src="/js/keyboard.js?v=2"></script>
+  <script src="/js/streak.js?v=2"></script>
+  <script src="/js/game-rpsls-cpu.js?v=2"></script>
   <script src="/js/audio.js?v=2"></script>
-  <script src="/js/ui-rpsls-cpu.js?v=1"></script>
+  <script src="/js/ui-rpsls-cpu.js?v=2"></script>
 </body>
 </html>

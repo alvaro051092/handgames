@@ -1,4 +1,7 @@
 /* ═══════════════════════════ DESIGN SYSTEM TOKENS ═══════════════════════════ */
+/* Tell the browser this is a dark-only site — prevents white flash on iOS Safari */
+:root { color-scheme: dark; }
+
 :root {
   /* ── Colors ── */
   --clr-bg:           #0a0a14;
@@ -19,6 +22,7 @@
   --clr-success:  #22c55e;
   --clr-danger:   #ef4444;
   --clr-warning:  #f59e0b;
+  --clr-draw:     #f59e0b;
 
   --clr-text:        #e2e8f0;
   --clr-text-muted:  #94a3b8;

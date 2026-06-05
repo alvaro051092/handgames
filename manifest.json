@@ -1,0 +1,40 @@
+{
+  "name": "Hand Games",
+  "short_name": "Hand Games",
+  "description": "Juegos de mano gratis: Piedra Papel Tijeras, Morra, Palillos y más. Sin registro, sin descargas.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0a14",
+  "theme_color": "#7c3aed",
+  "lang": "es",
+  "categories": ["games", "entertainment"],
+  "icons": [
+    {
+      "src": "/assets/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Piedra Papel Tijeras",
+      "short_name": "RPS",
+      "url": "/rps/vs-cpu.html",
+      "icons": [{ "src": "/assets/favicon-32.png", "sizes": "32x32" }]
+    },
+    {
+      "name": "Palillos vs CPU",
+      "short_name": "Palillos",
+      "url": "/chopsticks/vs-cpu.html",
+      "icons": [{ "src": "/assets/favicon-32.png", "sizes": "32x32" }]
+    }
+  ]
+}

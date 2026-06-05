@@ -7,6 +7,17 @@
   <title>Hand Games — Juegos de mano gratis online</title>
   <meta name="description" content="Juegos de mano gratis: Piedra Papel Tijeras, Morra, Palillos y más. Sin registro, sin descargas. Juega en cualquier dispositivo." />
   <!-- Canonical + hreflang -->
+  <!-- Performance: preconnect to analytics/clarity origins -->
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#7c3aed" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://www.clarity.ms" />
+  <link rel="dns-prefetch" href="https://www.google-analytics.com" />
   <link rel="canonical"      href="https://handgames.app/" />
   <link rel="alternate" hreflang="es"        href="https://handgames.app/" />
   <link rel="alternate" hreflang="en"        href="https://handgames.app/en/" />
@@ -192,26 +203,16 @@
       box-shadow: var(--shadow);
       transition:
         border-color var(--dur-fast) var(--ease-out),
-        background   var(--dur-fast) var(--ease-out),
-        transform    var(--dur-fast) var(--ease-out),
-        box-shadow   var(--dur-fast) var(--ease-out);
+        background   var(--dur-fast) var(--ease-out);
     }
 
-    .game-card:not(.coming-soon):hover {
+    .game-card:hover {
       border-color: var(--clr-primary);
       background: var(--clr-surface-2);
-      transform: translateY(-6px);
-      box-shadow: var(--shadow-primary);
-    }
-
-    .game-card:focus-visible {
-      outline: 3px solid var(--clr-primary-light);
-      outline-offset: 3px;
     }
 
     .game-card.coming-soon {
       opacity: 0.5;
-      cursor: default;
       pointer-events: none;
     }
 
@@ -241,19 +242,41 @@
       flex: 1;
     }
 
-    .game-card-cta {
-      display: inline-block;
+    .game-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       margin-top: var(--sp-4);
-      font-size: var(--text-sm);
-      font-weight: 700;
-      color: var(--clr-primary-light);
-      letter-spacing: .3px;
-      transition: letter-spacing var(--dur-fast);
+      gap: var(--sp-2);
     }
 
-    .game-card:hover .game-card-cta {
-      letter-spacing: 1px;
+    .game-card-cta {
+      display: inline-block;
+      font-size: var(--text-sm);
+      font-weight: 800;
+      color: #fff;
+      background: var(--clr-primary);
+      padding: var(--sp-2) var(--sp-4);
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      letter-spacing: .2px;
+      transition:
+        background var(--dur-fast),
+        transform  var(--dur-fast) var(--ease-out);
+      white-space: nowrap;
     }
+
+    .game-card-cta:hover  { background: var(--clr-primary-hover); transform: translateY(-2px); }
+    .game-card-cta:active { transform: translateY(0); }
+
+    .game-card-modes {
+      font-size: var(--text-xs);
+      color: var(--clr-text-subtle);
+      text-decoration: none;
+      transition: color var(--dur-fast);
+      white-space: nowrap;
+    }
+    .game-card-modes:hover { color: var(--clr-text-muted); }
 
     .badge-soon {
       display: inline-block;
@@ -312,7 +335,7 @@
   <main>
     <!-- Hero CTA: shortcut to the most-played game (Palillos vs CPU) -->
     <div class="hub-hero">
-      <a href="/chopsticks/vs-cpu" class="hub-hero-btn">
+      <a href="/chopsticks/vs-cpu.html" class="hub-hero-btn">
         <span aria-hidden="true">🖖</span>
         <span class="hub-hero-label">
           <span class="hub-hero-tagline">El más jugado</span>
@@ -324,31 +347,35 @@
 
     <nav class="games-grid" aria-label="Juegos disponibles">
 
-      <a href="/rps/" class="game-card">
+      <div class="game-card">
         <span class="game-card-icon" aria-hidden="true">✊</span>
         <span class="game-card-title">Piedra Papel Tijeras</span>
         <p class="game-card-desc">
           El clásico. 2 jugadores, vs CPU o modo Batalla
           donde la suerte lo decide todo.
         </p>
-        
         <span class="badge-meta">⚡ 2 min<span>·</span>Fácil</span>
-        <span class="game-card-cta" aria-hidden="true">Jugar →</span>
-      </a>
+        <div class="game-card-footer">
+          <a href="/rps/vs-cpu.html" class="game-card-cta">▶ Jugar ya</a>
+          <a href="/rps/" class="game-card-modes">Todos los modos →</a>
+        </div>
+      </div>
 
-      <a href="/morra/" class="game-card">
+      <div class="game-card">
         <span class="game-card-icon" aria-hidden="true">🤌</span>
         <span class="game-card-title">Morra</span>
         <p class="game-card-desc">
           Muestra dedos y adivina el total antes que tu rival.
           El juego de mano más antiguo del mundo.
         </p>
-        
         <span class="badge-meta">🧠 3 min<span>·</span>Medio</span>
-        <span class="game-card-cta" aria-hidden="true">Jugar →</span>
-      </a>
+        <div class="game-card-footer">
+          <a href="/morra/vs-cpu.html" class="game-card-cta">▶ Jugar ya</a>
+          <a href="/morra/" class="game-card-modes">Todos los modos →</a>
+        </div>
+      </div>
 
-      <a href="/chopsticks/" class="game-card">
+      <div class="game-card">
         <span class="badge-popular">⭐ El más popular</span>
         <span class="game-card-icon" aria-hidden="true">🖖</span>
         <span class="game-card-title">Palillos</span>
@@ -356,34 +383,40 @@
           Acumula dedos en las manos de tu oponente
           para eliminarlo. Estrategia pura.
         </p>
-        
         <span class="badge-meta">♟️ 5 min<span>·</span>Estrategia</span>
-        <span class="game-card-cta" aria-hidden="true">Jugar →</span>
-      </a>
+        <div class="game-card-footer">
+          <a href="/chopsticks/vs-cpu.html" class="game-card-cta">▶ Jugar ya</a>
+          <a href="/chopsticks/" class="game-card-modes">Todos los modos →</a>
+        </div>
+      </div>
 
-      <a href="/odd-even/" class="game-card">
+      <div class="game-card">
         <span class="game-card-icon">🎲</span>
         <span class="game-card-title">Par o Impar</span>
         <p class="game-card-desc">
           Adivina si la suma de dedos será par o impar.
           Rápido, simple y emocionante.
         </p>
-        
         <span class="badge-meta">🎲 1 min<span>·</span>Instantáneo</span>
-        <span class="game-card-cta" aria-hidden="true">Jugar →</span>
-      </a>
+        <div class="game-card-footer">
+          <a href="/odd-even/vs-cpu.html" class="game-card-cta">▶ Jugar ya</a>
+          <a href="/odd-even/" class="game-card-modes">Todos los modos →</a>
+        </div>
+      </div>
 
-      <a href="/rpsls/" class="game-card">
+      <div class="game-card">
         <span class="game-card-icon" aria-hidden="true">🖖</span>
         <span class="game-card-title">RPSLS</span>
         <p class="game-card-desc">
           Piedra Papel Tijeras con Lagarto y Spock.
           5 gestos, 10 relaciones. Más estrategia.
         </p>
-        
         <span class="badge-meta">🖖 3 min<span>·</span>Complejo</span>
-        <span class="game-card-cta" aria-hidden="true">Jugar →</span>
-      </a>
+        <div class="game-card-footer">
+          <a href="/rpsls/vs-cpu.html" class="game-card-cta">▶ Jugar ya</a>
+          <a href="/rpsls/" class="game-card-modes">Todos los modos →</a>
+        </div>
+      </div>
 
     </nav>
   </main>
@@ -392,5 +425,6 @@
     handgames.app &mdash; Juegos de mano gratis
   </footer>
 
+  <script src="/js/analytics.js?v=2"></script>
 </body>
 </html>

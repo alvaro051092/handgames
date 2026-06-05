@@ -7,6 +7,17 @@
   <title>Hand Games — Free Hand Games Online</title>
   <meta name="description" content="Free hand games online: Rock Paper Scissors, Morra, Chopsticks and more. No sign-up, no downloads. Play on any device." />
   <!-- Canonical + hreflang -->
+  <!-- Performance: preconnect to analytics/clarity origins -->
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#7c3aed" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://www.clarity.ms" />
+  <link rel="dns-prefetch" href="https://www.google-analytics.com" />
   <link rel="canonical"      href="https://handgames.app/en/" />
   <link rel="alternate" hreflang="es"        href="https://handgames.app/" />
   <link rel="alternate" hreflang="en"        href="https://handgames.app/en/" />
@@ -192,26 +203,16 @@
       box-shadow: var(--shadow);
       transition:
         border-color var(--dur-fast) var(--ease-out),
-        background   var(--dur-fast) var(--ease-out),
-        transform    var(--dur-fast) var(--ease-out),
-        box-shadow   var(--dur-fast) var(--ease-out);
+        background   var(--dur-fast) var(--ease-out);
     }
 
-    .game-card:not(.coming-soon):hover {
+    .game-card:hover {
       border-color: var(--clr-primary);
       background: var(--clr-surface-2);
-      transform: translateY(-6px);
-      box-shadow: var(--shadow-primary);
-    }
-
-    .game-card:focus-visible {
-      outline: 3px solid var(--clr-primary-light);
-      outline-offset: 3px;
     }
 
     .game-card.coming-soon {
       opacity: 0.5;
-      cursor: default;
       pointer-events: none;
     }
 
@@ -240,19 +241,41 @@
       flex: 1;
     }
 
-    .game-card-cta {
-      display: inline-block;
+    .game-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       margin-top: var(--sp-4);
-      font-size: var(--text-sm);
-      font-weight: 700;
-      color: var(--clr-primary-light);
-      letter-spacing: .3px;
-      transition: letter-spacing var(--dur-fast);
+      gap: var(--sp-2);
     }
 
-    .game-card:hover .game-card-cta {
-      letter-spacing: 1px;
+    .game-card-cta {
+      display: inline-block;
+      font-size: var(--text-sm);
+      font-weight: 800;
+      color: #fff;
+      background: var(--clr-primary);
+      padding: var(--sp-2) var(--sp-4);
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      letter-spacing: .2px;
+      transition:
+        background var(--dur-fast),
+        transform  var(--dur-fast) var(--ease-out);
+      white-space: nowrap;
     }
+
+    .game-card-cta:hover  { background: var(--clr-primary-hover); transform: translateY(-2px); }
+    .game-card-cta:active { transform: translateY(0); }
+
+    .game-card-modes {
+      font-size: var(--text-xs);
+      color: var(--clr-text-subtle);
+      text-decoration: none;
+      transition: color var(--dur-fast);
+      white-space: nowrap;
+    }
+    .game-card-modes:hover { color: var(--clr-text-muted); }
 
     .badge-soon {
       display: inline-block;
@@ -311,7 +334,7 @@
   <main>
     <!-- Hero CTA: shortcut to the most-played game (Chopsticks vs CPU) -->
     <div class="hub-hero">
-      <a href="/chopsticks/en/vs-cpu" class="hub-hero-btn">
+      <a href="/chopsticks/en/vs-cpu.html" class="hub-hero-btn">
         <span aria-hidden="true">🖖</span>
         <span class="hub-hero-label">
           <span class="hub-hero-tagline">Most played</span>
@@ -323,7 +346,7 @@
 
     <nav class="games-grid" aria-label="Available games">
 
-      <a href="/rps/en/" class="game-card">
+      <div class="game-card">
         <span class="game-card-icon" aria-hidden="true">✊</span>
         <span class="game-card-title">Rock Paper Scissors</span>
         <p class="game-card-desc">
@@ -332,10 +355,13 @@
         </p>
         
         <span class="badge-meta">⚡ 2 min<span>·</span>Easy</span>
-        <span class="game-card-cta" aria-hidden="true">Play →</span>
-      </a>
+        <div class="game-card-footer">
+          <a href="/rps/en/vs-cpu.html" class="game-card-cta">&#9654; Play now</a>
+          <a href="/rps/en/" class="game-card-modes">All modes →</a>
+        </div>
+      </div>
 
-      <a href="/morra/en/" class="game-card">
+      <div class="game-card">
         <span class="game-card-icon" aria-hidden="true">🤌</span>
         <span class="game-card-title">Morra</span>
         <p class="game-card-desc">
@@ -344,10 +370,13 @@
         </p>
         
         <span class="badge-meta">🧠 3 min<span>·</span>Medium</span>
-        <span class="game-card-cta" aria-hidden="true">Play →</span>
-      </a>
+        <div class="game-card-footer">
+          <a href="/morra/en/vs-cpu.html" class="game-card-cta">&#9654; Play now</a>
+          <a href="/morra/en/" class="game-card-modes">All modes →</a>
+        </div>
+      </div>
 
-      <a href="/chopsticks/en/" class="game-card">
+      <div class="game-card">
         <span class="badge-popular">⭐ Most popular</span>
         <span class="game-card-icon" aria-hidden="true">🖖</span>
         <span class="game-card-title">Chopsticks</span>
@@ -357,10 +386,13 @@
         </p>
         
         <span class="badge-meta">♟️ 5 min<span>·</span>Strategy</span>
-        <span class="game-card-cta" aria-hidden="true">Play →</span>
-      </a>
+        <div class="game-card-footer">
+          <a href="/chopsticks/en/vs-cpu.html" class="game-card-cta">&#9654; Play now</a>
+          <a href="/chopsticks/en/" class="game-card-modes">All modes →</a>
+        </div>
+      </div>
 
-      <a href="/odd-even/en/" class="game-card">
+      <div class="game-card">
         <span class="game-card-icon">🎲</span>
         <span class="game-card-title">Odd or Even</span>
         <p class="game-card-desc">
@@ -369,10 +401,13 @@
         </p>
         
         <span class="badge-meta">🎲 1 min<span>·</span>Instant</span>
-        <span class="game-card-cta" aria-hidden="true">Play →</span>
-      </a>
+        <div class="game-card-footer">
+          <a href="/odd-even/en/vs-cpu.html" class="game-card-cta">&#9654; Play now</a>
+          <a href="/odd-even/en/" class="game-card-modes">All modes →</a>
+        </div>
+      </div>
 
-      <a href="/rpsls/en/" class="game-card">
+      <div class="game-card">
         <span class="game-card-icon" aria-hidden="true">🖖</span>
         <span class="game-card-title">RPSLS</span>
         <p class="game-card-desc">
@@ -381,8 +416,11 @@
         </p>
         
         <span class="badge-meta">🖖 3 min<span>·</span>Complex</span>
-        <span class="game-card-cta" aria-hidden="true">Play →</span>
-      </a>
+        <div class="game-card-footer">
+          <a href="/rpsls/en/vs-cpu.html" class="game-card-cta">&#9654; Play now</a>
+          <a href="/rpsls/en/" class="game-card-modes">All modes →</a>
+        </div>
+      </div>
 
     </nav>
   </main>
@@ -391,5 +429,6 @@
     handgames.app &mdash; Free hand games
   </footer>
 
+  <script src="/js/analytics.js?v=2"></script>
 </body>
 </html>

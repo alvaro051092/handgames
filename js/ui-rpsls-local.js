@@ -128,6 +128,7 @@
   async function goTo(nextId, dir = 'fwd') {
     if (transitioning) return;
     transitioning = true;
+    document.querySelectorAll('.btn:not(.btn-pick):not(.btn-mute)').forEach(b => b.classList.add('btn-loading'));
     const cur = activeScreen(), next = screens[nextId];
     if (!cur || !next || cur === next) { transitioning = false; return; }
     const d = `dir-${dir}`;

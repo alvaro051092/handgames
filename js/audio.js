@@ -61,8 +61,15 @@ window.GameAudio = (() => {
     tone({ freq: 330, type: 'triangle', dur: 0.25, gain: 0.14, delay: 0.18 });
   }
 
-  /* ── Mute control ── */
-  function toggle() { muted = !muted; return muted; }
+  /* ── Mute control — persisted in localStorage ── */
+  const MUTE_KEY = 'hg_muted';
+  try { if (localStorage.getItem(MUTE_KEY) === '1') muted = true; } catch (_) {}
+
+  function toggle() {
+    muted = !muted;
+    try { localStorage.setItem(MUTE_KEY, muted ? '1' : '0'); } catch (_) {}
+    return muted;
+  }
   function isMuted() { return muted; }
 
   // Call on pointerdown so AudioContext exists before the click handler runs
@@ -72,5 +79,5 @@ window.GameAudio = (() => {
     }
   }
 
-  return { playTick, playWin, playDraw, playFanfare, playGameDraw, toggle, isMuted, prime };
+  return { playTick, playWin, playDraw, playFanfare, playGameDraw, toggle, isMuted, prime, get initialMuted() { return muted; } };
 })();
