@@ -1,7 +1,7 @@
 # Plan SEO — handgames.app
 
-> Última actualización: 2026-04-24
-> Datos de base: Google Search Console, últimos 3 meses
+> Última actualización: 2026-06-10
+> Datos de base: Google Search Console, últimos 3 meses (cifras originales del 2026-04-24)
 
 ## Situación actual
 
@@ -32,33 +32,35 @@
 
 ## Etapas
 
-### Etapa 1 — SEO técnico rápido ✅ / ⬜
+### Etapa 1 — SEO técnico rápido ✅
 
 Objetivo: mejorar CTR y cubrir gaps técnicos. Sin crear contenido nuevo.
 
 | # | Tarea | Archivos afectados | Estado |
 |---|---|---|---|
-| 1.1 | Añadir **FAQ schema** a todas las páginas que ya tienen sección "How to play" / "Cómo jugar" | Todas los hubs (15 páginas × 3 idiomas) | ⬜ |
-| 1.2 | Añadir **JSON-LD faltante** en 4 páginas sin schema | `chopsticks/en/`, `chopsticks/pt/`, `morra/en/`, `morra/pt/` | ⬜ |
-| 1.3 | Mejorar **title + meta description** de `/rps/en/` — incluir "free", "no signup", número de modos | `rps/en/index.html` | ⬜ |
-| 1.4 | Mejorar **title + meta description** de `/rps/pt/` — está convirtiendo bien, optimizar para escalar | `rps/pt/index.html` | ⬜ |
-| 1.5 | Añadir `og:site_name` a todas las páginas que no lo tienen (solo hubs de plataforma lo tienen) | Hubs de juego (5 juegos × 3 idiomas) | ⬜ |
+| 1.1 | Añadir **FAQ schema** a todas las páginas que ya tienen sección "How to play" / "Cómo jugar" | Todas los hubs (15 páginas × 3 idiomas) | ✅ |
+| 1.2 | Añadir **JSON-LD faltante** en 4 páginas sin schema | `chopsticks/en/`, `chopsticks/pt/`, `morra/en/`, `morra/pt/` | ✅ |
+| 1.3 | Mejorar **title + meta description** de `/rps/en/` — incluir "free", "no signup", número de modos | `rps/en/index.html` | ✅ |
+| 1.4 | Mejorar **title + meta description** de `/rps/pt/` — está convirtiendo bien, optimizar para escalar | `rps/pt/index.html` | ✅ |
+| 1.5 | Añadir `og:site_name` a todas las páginas que no lo tienen (solo hubs de plataforma lo tienen) | Hubs de juego (5 juegos × 3 idiomas) | ✅ |
 
 **Impacto esperado:** rich snippets de FAQ en SERP, mejor CTR, más credibilidad de marca.
 
 ---
 
-### Etapa 2 — Contenido en páginas clave
+### Etapa 2 — Contenido en páginas clave ✅ (ES/EN) / ⬜ (PT pendiente)
 
 Objetivo: rankear más alto en consultas de alto volumen con contenido que compita con los top 5.
 
-| # | Tarea | Detalle |
-|---|---|---|
-| 2.1 | **Ampliar contenido** de `/rps/en/` | Añadir sección: estrategia, estadísticas del juego, variantes (RPSLS), historia |
-| 2.2 | **Ampliar contenido** de `/rps/` (ES) | Mismo enfoque en español — consultas como "piedra papel tijeras online" tienen volumen |
-| 2.3 | **Página de Chopsticks en inglés** con contenido profundo | "chopsticks hand game" y "chopsticks finger game" son queries con intención clara |
-| 2.4 | **Página de Morra** con contexto cultural | "morra" es una búsqueda de nicho pero con 0 competencia real |
-| 2.5 | Añadir **BreadcrumbList schema** en páginas de modos de juego | `/rps/en/vs-cpu.html`, `/rps/en/local.html`, etc. |
+| # | Tarea | Detalle | Estado |
+|---|---|---|---|
+| 2.1 | **Ampliar contenido** de `/rps/en/` | Añadir sección: estrategia, estadísticas del juego, variantes (RPSLS), historia | ✅ |
+| 2.2 | **Ampliar contenido** de `/rps/` (ES) | Mismo enfoque en español — consultas como "piedra papel tijeras online" tienen volumen | ✅ |
+| 2.3 | **Página de Chopsticks en inglés** con contenido profundo | "chopsticks hand game" y "chopsticks finger game" son queries con intención clara | ✅ |
+| 2.4 | **Página de Morra** con contexto cultural | "morra" es una búsqueda de nicho pero con 0 competencia real | ✅ |
+| 2.5 | Añadir **BreadcrumbList schema** en páginas de modos de juego | `/rps/en/vs-cpu`, `/rps/en/local`, etc. (45 páginas) | ✅ |
+| 2.6 | **Blog de contenido** (ES + EN) — 4 artículos por idioma (historia, reglas, guías) con CTAs deep-linked a `/vs-cpu` | `blog/`, `en/blog/` | ✅ |
+| 2.7 | **Blog en portugués** — crear `/pt/blog/` y traducir los 4 artículos | `pt/blog/` | ⬜ (Etapa 5) |
 
 **Criterio para las secciones de contenido:** responder la intención exacta del buscador.
 - Para "rock paper scissors online" → página que responde: ¿cómo jugar? ¿modos? ¿gratis? ¿sin registro?
@@ -88,6 +90,26 @@ Objetivo: salir de posición 18 → posición <10. Requiere señales externas.
 | 4.2 | Comparar CTR de páginas con FAQ schema vs sin schema |
 | 4.3 | Identificar nuevas consultas que aparezcan tras añadir contenido |
 | 4.4 | A/B comparar títulos si GSC muestra páginas con muchas imp. y CTR bajo |
+
+---
+
+### Etapa 5 — Mejoras técnicas adicionales (sesión 2026-06-10)
+
+Tras completar Etapas 1 y 2 (ES/EN), se hizo una segunda pasada de auditoría técnica iterativa. Resultado:
+
+| # | Tarea | Estado |
+|---|---|---|
+| 5.1 | Fix canonical/hreflang/og:url de 45 páginas de modo (`vs-cpu`/`local`/`battle`) que apuntaban a URLs `.html` con redirect 307 | ✅ |
+| 5.2 | Alinear títulos de Chopsticks ES/PT al patrón "X Online — Juega Gratis / Jogue Grátis" | ✅ |
+| 5.3 | BreadcrumbList JSON-LD en las 45 páginas de modo | ✅ |
+| 5.4 | Sección "Otros juegos" cross-link en los 15 hubs de juego | ✅ |
+| 5.5 | Páginas 404 localizadas para `/en/` y `/pt/` (antes mostraban la versión en español) | ✅ |
+| 5.6 | Fix: posts de blog en EN enlazaban a páginas de juego en ES — corregidos todos los CTAs + deep-link a `/vs-cpu` | ✅ |
+| 5.7 | Hacer visible en `<body>` el contenido de FAQPage schema (23 páginas, 98 preguntas) — antes el schema no tenía contraparte visible | ✅ |
+| 5.8 | Auditoría trailing-slash en links internos y sitemap — sin problemas encontrados | ✅ |
+| 5.9 | Añadir `<lastmod>` a las 73 URLs de `sitemap.xml` | ✅ |
+| 5.10 | Revisión de fuentes/render-blocking — sitio ya usa fuentes del sistema (sin webfonts) y JS no crítico al final del `<body>`, sin cambios necesarios | ✅ (verificado, sin cambios) |
+| 5.11 | Blog en portugués — crear `/pt/blog/` y traducir artículos prioritarios (Chopsticks, historia RPS, Morra, Par o Impar) | ⬜ próximo |
 
 ---
 
