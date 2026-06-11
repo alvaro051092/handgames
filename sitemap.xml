@@ -62,87 +62,87 @@
 
   <!-- RPS vs-cpu (ES/EN/PT) -->
   <url>
-    <loc>https://handgames.app/rps/vs-cpu.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rps/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rps/en/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rps/pt/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rps/vs-cpu.html" />
+    <loc>https://handgames.app/rps/vs-cpu</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rps/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rps/en/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rps/pt/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rps/vs-cpu" />
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://handgames.app/rps/en/vs-cpu.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rps/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rps/en/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rps/pt/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rps/vs-cpu.html" />
+    <loc>https://handgames.app/rps/en/vs-cpu</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rps/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rps/en/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rps/pt/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rps/vs-cpu" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://handgames.app/rps/pt/vs-cpu.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rps/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rps/en/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rps/pt/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rps/vs-cpu.html" />
+    <loc>https://handgames.app/rps/pt/vs-cpu</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rps/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rps/en/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rps/pt/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rps/vs-cpu" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- RPS local (ES/EN/PT) -->
   <url>
-    <loc>https://handgames.app/rps/local.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rps/local.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rps/en/local.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rps/pt/local.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rps/local.html" />
+    <loc>https://handgames.app/rps/local</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rps/local" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rps/en/local" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rps/pt/local" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rps/local" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://handgames.app/rps/en/local.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rps/local.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rps/en/local.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rps/pt/local.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rps/local.html" />
+    <loc>https://handgames.app/rps/en/local</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rps/local" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rps/en/local" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rps/pt/local" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rps/local" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://handgames.app/rps/pt/local.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rps/local.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rps/en/local.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rps/pt/local.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rps/local.html" />
+    <loc>https://handgames.app/rps/pt/local</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rps/local" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rps/en/local" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rps/pt/local" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rps/local" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- RPS battle (ES/EN/PT) -->
   <url>
-    <loc>https://handgames.app/rps/battle.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rps/battle.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rps/en/battle.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rps/pt/battle.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rps/battle.html" />
+    <loc>https://handgames.app/rps/battle</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rps/battle" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rps/en/battle" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rps/pt/battle" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rps/battle" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://handgames.app/rps/en/battle.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rps/battle.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rps/en/battle.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rps/pt/battle.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rps/battle.html" />
+    <loc>https://handgames.app/rps/en/battle</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rps/battle" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rps/en/battle" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rps/pt/battle" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rps/battle" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://handgames.app/rps/pt/battle.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rps/battle.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rps/en/battle.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rps/pt/battle.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rps/battle.html" />
+    <loc>https://handgames.app/rps/pt/battle</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rps/battle" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rps/en/battle" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rps/pt/battle" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rps/battle" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -179,87 +179,87 @@
 
   <!-- Odd or Even vs-cpu (ES/EN/PT) -->
   <url>
-    <loc>https://handgames.app/odd-even/vs-cpu.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/vs-cpu.html" />
+    <loc>https://handgames.app/odd-even/vs-cpu</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/vs-cpu" />
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://handgames.app/odd-even/en/vs-cpu.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/vs-cpu.html" />
+    <loc>https://handgames.app/odd-even/en/vs-cpu</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/vs-cpu" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://handgames.app/odd-even/pt/vs-cpu.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/vs-cpu.html" />
+    <loc>https://handgames.app/odd-even/pt/vs-cpu</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/vs-cpu" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Odd or Even local (ES/EN/PT) -->
   <url>
-    <loc>https://handgames.app/odd-even/local.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/local.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/local.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/local.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/local.html" />
+    <loc>https://handgames.app/odd-even/local</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/local" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/local" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/local" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/local" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://handgames.app/odd-even/en/local.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/local.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/local.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/local.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/local.html" />
+    <loc>https://handgames.app/odd-even/en/local</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/local" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/local" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/local" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/local" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://handgames.app/odd-even/pt/local.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/local.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/local.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/local.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/local.html" />
+    <loc>https://handgames.app/odd-even/pt/local</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/local" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/local" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/local" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/local" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Odd or Even battle (ES/EN/PT) -->
   <url>
-    <loc>https://handgames.app/odd-even/battle.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/battle.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/battle.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/battle.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/battle.html" />
+    <loc>https://handgames.app/odd-even/battle</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/battle" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/battle" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/battle" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/battle" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://handgames.app/odd-even/en/battle.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/battle.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/battle.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/battle.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/battle.html" />
+    <loc>https://handgames.app/odd-even/en/battle</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/battle" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/battle" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/battle" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/battle" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://handgames.app/odd-even/pt/battle.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/battle.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/battle.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/battle.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/battle.html" />
+    <loc>https://handgames.app/odd-even/pt/battle</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/odd-even/battle" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/odd-even/en/battle" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/odd-even/pt/battle" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/odd-even/battle" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -296,87 +296,87 @@
 
   <!-- Morra vs-cpu (ES/EN/PT) -->
   <url>
-    <loc>https://handgames.app/morra/vs-cpu.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/vs-cpu.html" />
+    <loc>https://handgames.app/morra/vs-cpu</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/vs-cpu" />
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://handgames.app/morra/en/vs-cpu.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/vs-cpu.html" />
+    <loc>https://handgames.app/morra/en/vs-cpu</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/vs-cpu" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://handgames.app/morra/pt/vs-cpu.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/vs-cpu.html" />
+    <loc>https://handgames.app/morra/pt/vs-cpu</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/vs-cpu" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Morra local (ES/EN/PT) -->
   <url>
-    <loc>https://handgames.app/morra/local.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/local.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/local.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/local.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/local.html" />
+    <loc>https://handgames.app/morra/local</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/local" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/local" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/local" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/local" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://handgames.app/morra/en/local.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/local.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/local.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/local.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/local.html" />
+    <loc>https://handgames.app/morra/en/local</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/local" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/local" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/local" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/local" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://handgames.app/morra/pt/local.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/local.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/local.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/local.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/local.html" />
+    <loc>https://handgames.app/morra/pt/local</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/local" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/local" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/local" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/local" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Morra battle (ES/EN/PT) -->
   <url>
-    <loc>https://handgames.app/morra/battle.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/battle.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/battle.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/battle.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/battle.html" />
+    <loc>https://handgames.app/morra/battle</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/battle" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/battle" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/battle" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/battle" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://handgames.app/morra/en/battle.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/battle.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/battle.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/battle.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/battle.html" />
+    <loc>https://handgames.app/morra/en/battle</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/battle" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/battle" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/battle" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/battle" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://handgames.app/morra/pt/battle.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/battle.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/battle.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/battle.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/battle.html" />
+    <loc>https://handgames.app/morra/pt/battle</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/morra/battle" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/morra/en/battle" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/morra/pt/battle" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/battle" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -412,87 +412,87 @@
 
   <!-- Chopsticks — vs CPU -->
   <url>
-    <loc>https://handgames.app/chopsticks/vs-cpu.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/vs-cpu.html" />
+    <loc>https://handgames.app/chopsticks/vs-cpu</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/vs-cpu" />
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://handgames.app/chopsticks/en/vs-cpu.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/vs-cpu.html" />
+    <loc>https://handgames.app/chopsticks/en/vs-cpu</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/vs-cpu" />
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://handgames.app/chopsticks/pt/vs-cpu.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/vs-cpu.html" />
+    <loc>https://handgames.app/chopsticks/pt/vs-cpu</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/vs-cpu" />
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Chopsticks — local 2-player -->
   <url>
-    <loc>https://handgames.app/chopsticks/local.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/local.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/local.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/local.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/local.html" />
+    <loc>https://handgames.app/chopsticks/local</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/local" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/local" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/local" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/local" />
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://handgames.app/chopsticks/en/local.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/local.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/local.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/local.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/local.html" />
+    <loc>https://handgames.app/chopsticks/en/local</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/local" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/local" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/local" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/local" />
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://handgames.app/chopsticks/pt/local.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/local.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/local.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/local.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/local.html" />
+    <loc>https://handgames.app/chopsticks/pt/local</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/local" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/local" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/local" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/local" />
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Chopsticks — battle -->
   <url>
-    <loc>https://handgames.app/chopsticks/battle.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/battle.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/battle.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/battle.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/battle.html" />
+    <loc>https://handgames.app/chopsticks/battle</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/battle" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/battle" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/battle" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/battle" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://handgames.app/chopsticks/en/battle.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/battle.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/battle.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/battle.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/battle.html" />
+    <loc>https://handgames.app/chopsticks/en/battle</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/battle" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/battle" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/battle" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/battle" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://handgames.app/chopsticks/pt/battle.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/battle.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/battle.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/battle.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/battle.html" />
+    <loc>https://handgames.app/chopsticks/pt/battle</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/chopsticks/battle" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/chopsticks/en/battle" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/chopsticks/pt/battle" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/battle" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -528,87 +528,87 @@
 
   <!-- RPSLS vs-cpu -->
   <url>
-    <loc>https://handgames.app/rpsls/vs-cpu.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rpsls/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rpsls/en/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rpsls/pt/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rpsls/vs-cpu.html" />
+    <loc>https://handgames.app/rpsls/vs-cpu</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rpsls/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rpsls/en/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rpsls/pt/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rpsls/vs-cpu" />
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://handgames.app/rpsls/en/vs-cpu.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rpsls/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rpsls/en/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rpsls/pt/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rpsls/vs-cpu.html" />
+    <loc>https://handgames.app/rpsls/en/vs-cpu</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rpsls/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rpsls/en/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rpsls/pt/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rpsls/vs-cpu" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://handgames.app/rpsls/pt/vs-cpu.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rpsls/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rpsls/en/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rpsls/pt/vs-cpu.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rpsls/vs-cpu.html" />
+    <loc>https://handgames.app/rpsls/pt/vs-cpu</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rpsls/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rpsls/en/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rpsls/pt/vs-cpu" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rpsls/vs-cpu" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- RPSLS local -->
   <url>
-    <loc>https://handgames.app/rpsls/local.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rpsls/local.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rpsls/en/local.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rpsls/pt/local.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rpsls/local.html" />
+    <loc>https://handgames.app/rpsls/local</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rpsls/local" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rpsls/en/local" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rpsls/pt/local" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rpsls/local" />
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://handgames.app/rpsls/en/local.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rpsls/local.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rpsls/en/local.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rpsls/pt/local.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rpsls/local.html" />
+    <loc>https://handgames.app/rpsls/en/local</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rpsls/local" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rpsls/en/local" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rpsls/pt/local" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rpsls/local" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://handgames.app/rpsls/pt/local.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rpsls/local.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rpsls/en/local.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rpsls/pt/local.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rpsls/local.html" />
+    <loc>https://handgames.app/rpsls/pt/local</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rpsls/local" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rpsls/en/local" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rpsls/pt/local" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rpsls/local" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- RPSLS battle -->
   <url>
-    <loc>https://handgames.app/rpsls/battle.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rpsls/battle.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rpsls/en/battle.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rpsls/pt/battle.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rpsls/battle.html" />
+    <loc>https://handgames.app/rpsls/battle</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rpsls/battle" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rpsls/en/battle" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rpsls/pt/battle" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rpsls/battle" />
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://handgames.app/rpsls/en/battle.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rpsls/battle.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rpsls/en/battle.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rpsls/pt/battle.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rpsls/battle.html" />
+    <loc>https://handgames.app/rpsls/en/battle</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rpsls/battle" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rpsls/en/battle" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rpsls/pt/battle" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rpsls/battle" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://handgames.app/rpsls/pt/battle.html</loc>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rpsls/battle.html" />
-    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rpsls/en/battle.html" />
-    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rpsls/pt/battle.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rpsls/battle.html" />
+    <loc>https://handgames.app/rpsls/pt/battle</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/rpsls/battle" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/rpsls/en/battle" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/rpsls/pt/battle" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/rpsls/battle" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
