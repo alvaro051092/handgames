@@ -681,6 +681,7 @@
     <loc>https://handgames.app/blog/</loc>
     <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/" />
     <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/pt/blog/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/blog/" />
     <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -690,6 +691,7 @@
     <loc>https://handgames.app/blog/como-jugar-palillos/</loc>
     <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/como-jugar-palillos/" />
     <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/how-to-play-chopsticks/" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/pt/blog/como-jogar-pauzinhos/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/blog/como-jugar-palillos/" />
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -727,6 +729,7 @@
     <loc>https://handgames.app/en/blog/</loc>
     <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/" />
     <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/pt/blog/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/blog/" />
     <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -736,6 +739,7 @@
     <loc>https://handgames.app/en/blog/how-to-play-chopsticks/</loc>
     <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/como-jugar-palillos/" />
     <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/how-to-play-chopsticks/" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/pt/blog/como-jogar-pauzinhos/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/en/blog/how-to-play-chopsticks/" />
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -768,4 +772,26 @@
     <priority>0.8</priority>
   </url>
 
+
+  <!-- Blog PT — hub + artigos -->
+  <url>
+    <loc>https://handgames.app/pt/blog/</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/pt/blog/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/blog/" />
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/pt/blog/como-jogar-pauzinhos/</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/como-jugar-palillos/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/how-to-play-chopsticks/" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/pt/blog/como-jogar-pauzinhos/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/blog/como-jugar-palillos/" />
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

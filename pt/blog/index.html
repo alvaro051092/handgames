@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>Blog Hand Games — Regras, História e Guias de Estratégia</title>
+  <meta name="description" content="Aprenda a jogar Pauzinhos, Pedra Papel Tesoura, Morra e mais. Guias completos com regras, história e estratégia para os melhores jogos de mãos do mundo." />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#7c3aed" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://www.clarity.ms" />
+  <link rel="canonical" href="https://handgames.app/pt/blog/" />
+  <link rel="alternate" hreflang="es" href="https://handgames.app/blog/" />
+  <link rel="alternate" hreflang="en" href="https://handgames.app/en/blog/" />
+  <link rel="alternate" hreflang="pt" href="https://handgames.app/pt/blog/" />
+  <link rel="alternate" hreflang="x-default" href="https://handgames.app/blog/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://handgames.app/pt/blog/" />
+  <meta property="og:title" content="Blog Hand Games — Regras, História e Guias de Estratégia" />
+  <meta property="og:description" content="Guias completos de Pauzinhos, Pedra Papel Tesoura, Morra e mais." />
+  <meta property="og:image" content="https://handgames.app/assets/og-image.png" />
+  <meta property="og:site_name" content="Hand Games" />
+  <meta property="og:locale" content="pt_BR" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Hand Games Blog",
+    "url": "https://handgames.app/pt/blog/",
+    "description": "Regras, história e guias de estratégia para os melhores jogos de mãos do mundo",
+    "inLanguage": "pt",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Hand Games",
+      "url": "https://handgames.app/"
+    }
+  }
+  </script>
+  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/css/tokens.css?v=3" />
+  <link rel="stylesheet" href="/css/layout.css?v=3" />
+  <link rel="stylesheet" href="/css/animations.css?v=3" />
+  <style>
+    body { font-family: var(--font); background: var(--clr-bg); color: var(--clr-text); margin: 0; padding: 0; }
+    .blog-wrap { max-width: 860px; margin: 0 auto; padding: var(--sp-8) var(--sp-4) var(--sp-12); }
+    .top-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--sp-10); }
+    .back-link { font-size: var(--text-sm); font-weight: 700; color: var(--clr-text-subtle); text-decoration: none; transition: color var(--dur-fast); }
+    .back-link:hover { color: var(--clr-text); }
+    .lang-nav { display: flex; gap: var(--sp-2); }
+    .lang-link { font-size: var(--text-xs); font-weight: 700; color: var(--clr-text-subtle); text-decoration: none; padding: var(--sp-1) var(--sp-2); border-radius: var(--radius-sm); transition: color var(--dur-fast), background var(--dur-fast); }
+    .lang-link:hover { color: var(--clr-text); background: var(--clr-surface-2); }
+    .lang-link.active { color: var(--clr-primary-light); }
+    .blog-header { margin-bottom: var(--sp-10); }
+    .blog-header h1 { font-size: clamp(var(--text-2xl), 5vw, var(--text-4xl)); font-weight: 900; letter-spacing: -1px; line-height: 1.1; margin: 0 0 var(--sp-3); }
+    .blog-header p { font-size: var(--text-base); color: var(--clr-text-muted); margin: 0; }
+    .articles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--sp-5); }
+    .article-card { display: flex; flex-direction: column; background: var(--clr-surface); border: 2px solid var(--clr-border); border-radius: var(--radius-lg); padding: var(--sp-6); text-decoration: none; color: var(--clr-text); transition: border-color var(--dur-fast), transform var(--dur-fast), box-shadow var(--dur-fast); }
+    .article-card:hover { border-color: var(--clr-primary); transform: translateY(-4px); box-shadow: var(--shadow-primary); }
+    .article-card-emoji { font-size: 2rem; margin-bottom: var(--sp-3); display: block; }
+    .article-card-game { font-size: var(--text-xs); font-weight: 700; color: var(--clr-primary-light); text-transform: uppercase; letter-spacing: .6px; margin-bottom: var(--sp-2); }
+    .article-card h2 { font-size: var(--text-base); font-weight: 800; line-height: 1.3; margin: 0 0 var(--sp-2); color: var(--clr-text); }
+    .article-card p { font-size: var(--text-sm); color: var(--clr-text-muted); line-height: 1.6; margin: 0; flex: 1; }
+    .article-card-cta { display: inline-block; margin-top: var(--sp-4); font-size: var(--text-sm); font-weight: 700; color: var(--clr-primary-light); }
+    .blog-footer { margin-top: var(--sp-12); text-align: center; font-size: var(--text-xs); color: var(--clr-text-subtle); }
+  </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XM1YK1TG5W');</script>
+  <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","wgsyxocqkn");</script>
+</head>
+<body>
+<div class="blog-wrap">
+  <nav class="top-nav">
+    <a href="/pt/" class="back-link">← Hand Games</a>
+    <div class="lang-nav">
+      <a href="/blog/" class="lang-link">ES</a>
+      <a href="/en/blog/" class="lang-link">EN</a>
+      <span class="lang-link active">PT</span>
+    </div>
+  </nav>
+
+  <header class="blog-header">
+    <h1>Blog Hand Games</h1>
+    <p>Regras completas, história e estratégia para os jogos de mãos mais populares do mundo.</p>
+  </header>
+
+  <main>
+    <div class="articles-grid">
+
+      <a href="/pt/blog/como-jogar-pauzinhos/" class="article-card">
+        <span class="article-card-emoji">🖖</span>
+        <span class="article-card-game">Pauzinhos</span>
+        <h2>Como jogar Pauzinhos: regras completas e estratégia</h2>
+        <p>Tudo o que você precisa para dominar o jogo de dedos mais estratégico do recreio.</p>
+        <span class="article-card-cta">Ler →</span>
+      </a>
+
+    </div>
+  </main>
+
+  <footer class="blog-footer">
+    <a href="/pt/" style="color:var(--clr-text-subtle);text-decoration:none;">handgames.app</a> &mdash; Jogos de mãos grátis online
+  </footer>
+</div>
+<script src="/js/analytics.js?v=2"></script>
+</body>
+</html>
