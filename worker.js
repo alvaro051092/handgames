@@ -32,8 +32,14 @@ function isBlockedPath(pathname) {
   return false;
 }
 
+function get404Path(pathname) {
+  if (/(^|\/)en(\/|$)/.test(pathname)) return '/en/404.html';
+  if (/(^|\/)pt(\/|$)/.test(pathname)) return '/pt/404.html';
+  return '/404.html';
+}
+
 async function notFoundResponse(env, url) {
-  const notFound = await env.ASSETS.fetch(new Request(`${url.origin}/404.html`));
+  const notFound = await env.ASSETS.fetch(new Request(`${url.origin}${get404Path(url.pathname)}`));
   const headers = new Headers(notFound.headers);
   headers.set('Cache-Control', getCacheHeader(url.pathname));
   for (const [key, value] of Object.entries(SECURITY_HEADERS)) {
