@@ -720,6 +720,7 @@
   <url>
     <loc>https://handgames.app/blog/par-o-impar-reglas/</loc>
     <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/par-o-impar-reglas/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/odds-and-evens-rules/" />
     <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/pt/blog/par-ou-impar-regras/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/blog/par-o-impar-reglas/" />
     <lastmod>2026-06-10</lastmod>
@@ -822,9 +823,20 @@
   <url>
     <loc>https://handgames.app/pt/blog/par-ou-impar-regras/</loc>
     <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/par-o-impar-reglas/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/odds-and-evens-rules/" />
     <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/pt/blog/par-ou-impar-regras/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/blog/par-o-impar-reglas/" />
     <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/en/blog/odds-and-evens-rules/</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/par-o-impar-reglas/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/odds-and-evens-rules/" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/pt/blog/par-ou-impar-regras/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/en/blog/odds-and-evens-rules/" />
+    <lastmod>2026-06-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
