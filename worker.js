@@ -23,6 +23,29 @@ function getCacheHeader(pathname) {
   return 'no-cache, must-revalidate';
 }
 
+// Dotfiles/dirs (.git, .claude, .wrangler, ...) and dev-only files must
+// never be served, even if they slip into the deployed assets bundle.
+function isBlockedPath(pathname) {
+  if (/(^|\/)\.[^/]+/.test(pathname)) return true;
+  if (/\.command$/.test(pathname)) return true;
+  if (/^\/(docker-compose\.yml|wrangler\.jsonc|nginx(\/|$))/.test(pathname)) return true;
+  return false;
+}
+
+async function notFoundResponse(env, url) {
+  const notFound = await env.ASSETS.fetch(new Request(`${url.origin}/404.html`));
+  const headers = new Headers(notFound.headers);
+  headers.set('Cache-Control', getCacheHeader(url.pathname));
+  for (const [key, value] of Object.entries(SECURITY_HEADERS)) {
+    headers.set(key, value);
+  }
+  return new Response(notFound.body, {
+    status: 404,
+    statusText: 'Not Found',
+    headers,
+  });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -33,16 +56,15 @@ export default {
       return Response.redirect(url.toString(), 301);
     }
 
-    let response = await env.ASSETS.fetch(request);
+    if (isBlockedPath(url.pathname)) {
+      return notFoundResponse(env, url);
+    }
+
+    const response = await env.ASSETS.fetch(request);
 
     // Serve custom 404 page instead of Cloudflare's generic error
     if (response.status === 404) {
-      const notFound = await env.ASSETS.fetch(new Request(`${url.origin}/404.html`));
-      response = new Response(notFound.body, {
-        status: 404,
-        statusText: 'Not Found',
-        headers: notFound.headers,
-      });
+      return notFoundResponse(env, url);
     }
 
     // Clone with added headers (Response is immutable)

@@ -1,0 +1,24 @@
+# Files/dirs that must never be uploaded as public static assets.
+# Cloudflare Workers (unlike Pages) does NOT auto-exclude .git, node_modules, etc.
+# https://developers.cloudflare.com/workers/static-assets/binding/#ignoring-assets
+
+.git
+.github
+.claude
+.wrangler
+node_modules
+.DS_Store
+.gitignore
+.assetsignore
+.env*
+.dev.vars*
+
+# Dev-only scripts and configs — not needed by visitors
+*.command
+docker-compose.yml
+wrangler.jsonc
+nginx
+
+# Internal SEO/content planning docs
+content-strategy.md
+estrategia-contenido.md
