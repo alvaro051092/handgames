@@ -711,6 +711,7 @@
     <loc>https://handgames.app/blog/morra-historia-reglas/</loc>
     <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/morra-historia-reglas/" />
     <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/how-to-play-morra/" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/pt/blog/morra-historia-regras/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/blog/morra-historia-reglas/" />
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -760,6 +761,7 @@
     <loc>https://handgames.app/en/blog/how-to-play-morra/</loc>
     <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/morra-historia-reglas/" />
     <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/how-to-play-morra/" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/pt/blog/morra-historia-regras/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/en/blog/how-to-play-morra/" />
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -802,6 +804,16 @@
     <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/history-rock-paper-scissors/" />
     <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/pt/blog/historia-pedra-papel-tesoura/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/blog/historia-piedra-papel-tijeras/" />
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/pt/blog/morra-historia-regras/</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/morra-historia-reglas/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/how-to-play-morra/" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/pt/blog/morra-historia-regras/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/blog/morra-historia-reglas/" />
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
