@@ -1,6 +1,6 @@
 # Plan SEO — handgames.app
 
-> Última actualización: 2026-06-10
+> Última actualización: 2026-06-11
 > Datos de base: Google Search Console, últimos 3 meses (cifras originales del 2026-04-24)
 
 ## Situación actual
@@ -109,7 +109,18 @@ Tras completar Etapas 1 y 2 (ES/EN), se hizo una segunda pasada de auditoría t�
 | 5.8 | Auditoría trailing-slash en links internos y sitemap — sin problemas encontrados | ✅ |
 | 5.9 | Añadir `<lastmod>` a las 73 URLs de `sitemap.xml` | ✅ |
 | 5.10 | Revisión de fuentes/render-blocking — sitio ya usa fuentes del sistema (sin webfonts) y JS no crítico al final del `<body>`, sin cambios necesarios | ✅ (verificado, sin cambios) |
-| 5.11 | Blog en portugués — crear `/pt/blog/` y traducir artículos prioritarios (Chopsticks, historia RPS, Morra, Par o Impar) | ⬜ próximo |
+| 5.11 | Blog en portugués — crear `/pt/blog/` y traducir artículos prioritarios (Chopsticks, historia RPS, Morra, Par o Impar) | ✅ |
+| 5.12 | Traducir artículo de Morra a PT, con hreflang recíproco ES/EN/PT y cross-link desde `/morra/pt/` | ✅ |
+| 5.13 | Traducir artículo de Par o Impar a PT (desde ES, no existía EN aún), cross-link desde `/odd-even/pt/` | ✅ |
+| 5.14 | Detectado gap: Par o Impar / Odds and Evens no existía en EN — creado `/en/blog/odds-and-evens-rules/`, hreflang ES/EN/PT, card en blog EN, cross-link `/odd-even/en/` | ✅ |
+| 5.15 | Detectado gap: RPSLS solo existía en EN — creado `/blog/reglas-piedra-papel-tijeras-lagarto-spock/` (ES), hreflang recíproco, card + cross-link en `/rpsls/` | ✅ |
+| 5.16 | Traducido RPSLS a PT (`/pt/blog/regras-pedra-papel-tesoura-lagarto-spock/`), hreflang ES/EN/PT completo, cards y cross-links en los 3 hubs `/rpsls/*` | ✅ |
+| 5.17 | Añadido `image` (og-image.png 1200x630) al schema Article de los 15 artículos del blog (ES/EN/PT) para rich results | ✅ |
+| 5.18 | Paridad de internal-linking: hubs PT (`rps`, `chopsticks`, `morra`, `odd-even`) ahora tienen 3 artículos relacionados cada uno, igual que ES | ✅ |
+| 5.19 | Verificación en producción: nuevas páginas, sitemap (21 URLs nuevas/actualizadas), hreflang recíproco y `image` en JSON-LD — todo OK en vivo | ✅ |
+| 5.20 | Añadido BreadcrumbList JSON-LD (Hand Games > Blog > Artículo) a los 15 artículos del blog en ES/EN/PT | ✅ |
+
+**Estado: blog con paridad completa de 5 artículos en ES/EN/PT (15 páginas), todas con Article + FAQPage + BreadcrumbList schema, hreflang recíproco completo y `image` para rich results.**
 
 ---
 
