@@ -328,6 +328,15 @@
     @media (max-width: 480px) {
       .rules-list { grid-template-columns: 1fr; }
     }
+  
+    .faq-section{width:100%;max-width:640px;margin-top:var(--sp-8);}
+    .faq-section h2{font-size:var(--text-base);font-weight:800;color:var(--clr-text);margin-bottom:var(--sp-3);text-align:center;}
+    .faq-item{background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);margin-bottom:var(--sp-2);}
+    .faq-item summary{cursor:pointer;font-weight:700;font-size:var(--text-sm);color:var(--clr-text);list-style:none;}
+    .faq-item summary::-webkit-details-marker{display:none;}
+    .faq-item summary::after{content:'+';float:right;color:var(--clr-primary-light);font-weight:900;}
+    .faq-item[open] summary::after{content:'\2212';}
+    .faq-item p{margin-top:var(--sp-2);font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.6;}
   </style>
   <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
@@ -437,6 +446,35 @@
     </div>
   </section>
 
+
+
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <h2 id="faq-heading">Preguntas frecuentes</h2>
+    <details class="faq-item">
+      <summary>¿Cómo se juega Piedra Papel Tijeras?</summary>
+      <p>Piedra aplasta Tijeras, Tijeras cortan Papel, Papel cubre Piedra. Ambos jugadores eligen un gesto simultáneamente — el gesto ganador suma un punto. Gana quien alcance el marcador objetivo.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Es gratis jugar Piedra Papel Tijeras online?</summary>
+      <p>Sí, completamente gratis. Sin registro ni descargas. Juega directamente en el navegador desde cualquier dispositivo.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Qué modos de juego tiene?</summary>
+      <p>Tres modos: 2 Jugadores (dos personas, un dispositivo), vs CPU (tú contra la máquina) y Batalla (la CPU elige por ambos — pura suerte).</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Cuál es la estrategia en Piedra Papel Tijeras?</summary>
+      <p>Ningún gesto domina — cada elección gana a uno y pierde ante otro. Los principiantes tienden a elegir Piedra, así que empezar con Papel tiene ventaja estadística. Los ganadores suelen repetir su gesto — lanza lo que lo derrota.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿De dónde viene el juego Piedra Papel Tijeras?</summary>
+      <p>Piedra Papel Tijeras se originó en China durante la Dinastía Han (206 a.C. – 220 d.C.) como 'shoushiling'. Llegó a Japón en el siglo XVII como 'jan-ken' y se extendió a Occidente a principios del siglo XX.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Qué es Piedra Papel Tijeras Lagarto Spock?</summary>
+      <p>Es una versión ampliada con 5 gestos: Piedra, Papel, Tijeras, Lagarto y Spock. Cada gesto vence a dos y pierde ante dos, reduciendo a la mitad la probabilidad de empate. Popularizada por la serie The Big Bang Theory.</p>
+    </details>
+  </section>
 
   <section style="max-width:680px;margin:var(--sp-8) auto 0;border-top:1px solid var(--clr-border);padding-top:var(--sp-7);">
     <p style="font-size:var(--text-xs);font-weight:700;color:var(--clr-text-subtle);text-transform:uppercase;letter-spacing:.6px;margin:0 0 var(--sp-4);">Otros juegos</p>

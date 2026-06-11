@@ -114,6 +114,15 @@
     .related-card:hover { border-color: var(--clr-primary); color: var(--clr-text); }
     .related-card strong { display: block; color: var(--clr-text); font-weight: 700; margin-bottom: var(--sp-1); }
     .article-footer { margin-top: var(--sp-10); text-align: center; font-size: var(--text-xs); color: var(--clr-text-subtle); }
+  
+    .faq-section{width:100%;max-width:640px;margin-top:var(--sp-8);}
+    .faq-section h2{font-size:var(--text-base);font-weight:800;color:var(--clr-text);margin-bottom:var(--sp-3);text-align:center;}
+    .faq-item{background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);margin-bottom:var(--sp-2);}
+    .faq-item summary{cursor:pointer;font-weight:700;font-size:var(--text-sm);color:var(--clr-text);list-style:none;}
+    .faq-item summary::-webkit-details-marker{display:none;}
+    .faq-item summary::after{content:'+';float:right;color:var(--clr-primary-light);font-weight:900;}
+    .faq-item[open] summary::after{content:'\2212';}
+    .faq-item p{margin-top:var(--sp-2);font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.6;}
   </style>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XM1YK1TG5W');</script>
@@ -196,6 +205,27 @@
     <a href="/morra/en/vs-cpu" class="play-cta" style="display:inline-flex;margin-top:var(--sp-4);">✋ Play Morra free →</a>
 
   </article>
+
+
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <h2 id="faq-heading">Frequently Asked Questions</h2>
+    <details class="faq-item">
+      <summary>How do you play Morra?</summary>
+      <p>Both players simultaneously show 0–5 fingers while shouting a number between 2 and 10. The player whose shouted number equals the total fingers shown by both players scores a point. If neither player guesses correctly, no one scores. Games are typically played to 3 or 5 points.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How old is the game of Morra?</summary>
+      <p>Morra is at least 5,000 years old. Images of a game resembling Morra appear on tomb paintings in ancient Egypt from around 3000 BC. It was documented in ancient Greece and ancient Rome, where it was a popular tavern and street game. The Italian name 'morra' has been in continuous use since at least the Roman period.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Why was Morra banned?</summary>
+      <p>Morra was banned in multiple countries — including Italy (1931) and some US states — primarily because it was almost always played for money and the shouting it generates made it associated with disorder and gambling. In southern Italy, players would shout so loudly that it disrupted public spaces, which led to repeated municipal bans. Italy's national ban lasted until 1973.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What is the difference between Morra and odds-and-evens?</summary>
+      <p>In Morra, each player shows 0–5 fingers and shouts their guess for the combined total (2–10). Both players guess simultaneously. In Odds and Evens (Par o Impar), one player chooses 'odd' or 'even' and both show fingers; the combined total determines who wins. Morra has higher numbers to guess and requires both players to shout simultaneously, making it louder and faster-paced.</p>
+    </details>
+  </section>
 
   <section class="related-articles">
     <h2>Related articles</h2>

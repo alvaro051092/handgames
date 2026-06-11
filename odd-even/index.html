@@ -237,6 +237,15 @@
     }
     .lang-link:hover { color: var(--clr-text); background: var(--clr-surface-2); }
     .lang-link.active { color: var(--clr-primary-light); }
+  
+    .faq-section{width:100%;max-width:640px;margin-top:var(--sp-8);}
+    .faq-section h2{font-size:var(--text-base);font-weight:800;color:var(--clr-text);margin-bottom:var(--sp-3);text-align:center;}
+    .faq-item{background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);margin-bottom:var(--sp-2);}
+    .faq-item summary{cursor:pointer;font-weight:700;font-size:var(--text-sm);color:var(--clr-text);list-style:none;}
+    .faq-item summary::-webkit-details-marker{display:none;}
+    .faq-item summary::after{content:'+';float:right;color:var(--clr-primary-light);font-weight:900;}
+    .faq-item[open] summary::after{content:'\2212';}
+    .faq-item p{margin-top:var(--sp-2);font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.6;}
   </style>
   <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
@@ -336,6 +345,27 @@
     </div>
   </section>
 
+
+
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <h2 id="faq-heading">Preguntas frecuentes</h2>
+    <details class="faq-item">
+      <summary>¿Cómo se juega Par o Impar?</summary>
+      <p>Dos jugadores muestran simultáneamente entre 0 y 5 dedos con una mano. Uno elige 'par' o 'impar' antes de revelar. Si la suma de los dedos mostrados coincide con su elección, gana la ronda.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Cuántos dedos se pueden mostrar en Par o Impar?</summary>
+      <p>Cada jugador puede mostrar entre 0 y 5 dedos con una sola mano. La suma máxima posible es 10 (par) y la mínima es 0 (par).</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Qué pasa si hay empate en Par o Impar?</summary>
+      <p>Si ambos jugadores aciertan o ambos fallan al mismo tiempo, la ronda se considera empate y se repite.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Cuál es el origen de Par o Impar?</summary>
+      <p>Par o Impar tiene raíces en la antigua Grecia y Roma, donde era conocido como Ludere par impar. Es uno de los juegos de mano más antiguos del mundo, presente en culturas de todos los continentes.</p>
+    </details>
+  </section>
 
   <section style="max-width:680px;margin:var(--sp-8) auto 0;border-top:1px solid var(--clr-border);padding-top:var(--sp-7);">
     <p style="font-size:var(--text-xs);font-weight:700;color:var(--clr-text-subtle);text-transform:uppercase;letter-spacing:.6px;margin:0 0 var(--sp-4);">Otros juegos</p>

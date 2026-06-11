@@ -126,6 +126,15 @@
     .related-card:hover { border-color: var(--clr-primary); color: var(--clr-text); }
     .related-card strong { display: block; color: var(--clr-text); font-weight: 700; margin-bottom: var(--sp-1); }
     .article-footer { margin-top: var(--sp-10); text-align: center; font-size: var(--text-xs); color: var(--clr-text-subtle); }
+  
+    .faq-section{width:100%;max-width:640px;margin-top:var(--sp-8);}
+    .faq-section h2{font-size:var(--text-base);font-weight:800;color:var(--clr-text);margin-bottom:var(--sp-3);text-align:center;}
+    .faq-item{background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);margin-bottom:var(--sp-2);}
+    .faq-item summary{cursor:pointer;font-weight:700;font-size:var(--text-sm);color:var(--clr-text);list-style:none;}
+    .faq-item summary::-webkit-details-marker{display:none;}
+    .faq-item summary::after{content:'+';float:right;color:var(--clr-primary-light);font-weight:900;}
+    .faq-item[open] summary::after{content:'\2212';}
+    .faq-item p{margin-top:var(--sp-2);font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.6;}
   </style>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XM1YK1TG5W');</script>
@@ -234,6 +243,31 @@
     <a href="/chopsticks/vs-cpu" class="play-cta" style="display:inline-flex;margin-top:var(--sp-4);">🖖 Jugar Palillos gratis →</a>
 
   </article>
+
+
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <h2 id="faq-heading">Preguntas frecuentes</h2>
+    <details class="faq-item">
+      <summary>¿Cómo se juegan los Palillos (Chopsticks)?</summary>
+      <p>Cada jugador empieza con 1 dedo en cada mano. En tu turno, tocás una mano del rival con una de las tuyas — los dedos se suman. Una mano con 5 o más dedos queda eliminada. Eliminá las dos manos del rival para ganar.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Qué es la división en Palillos?</summary>
+      <p>En lugar de atacar, podés redistribuir los dedos entre tus dos manos. El total debe ser el mismo y el resultado debe ser diferente al estado actual. Es el movimiento más estratégico del juego y permite recuperar una mano eliminada.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Cuántos dedos se pueden mostrar en Palillos?</summary>
+      <p>Entre 0 y 4 dedos por mano (una mano con 5 vale 0, está eliminada). Las manos muestran 1, 2, 3, 4 dedos activos, o 0 si fueron eliminadas.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Es gratis jugar Palillos online?</summary>
+      <p>Sí, completamente gratis en handgames.app. Sin registro ni descargas. Disponible en modo vs CPU, 2 jugadores y Batalla.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Qué estrategia usar en Palillos?</summary>
+      <p>La clave es forzar al rival a tener totales que no puede dividir de forma útil. Preferí tener distribuciones asimétricas (como 1-3) que simétricas (2-2), porque tienen más opciones de ataque. Usá la división para escapar de posiciones perdedoras y recuperar una mano eliminada.</p>
+    </details>
+  </section>
 
   <section class="related-articles">
     <h2>Artículos relacionados</h2>

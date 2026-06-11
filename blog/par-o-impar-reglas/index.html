@@ -113,6 +113,15 @@
     .related-card:hover { border-color: var(--clr-primary); color: var(--clr-text); }
     .related-card strong { display: block; color: var(--clr-text); font-weight: 700; margin-bottom: var(--sp-1); }
     .article-footer { margin-top: var(--sp-10); text-align: center; font-size: var(--text-xs); color: var(--clr-text-subtle); }
+  
+    .faq-section{width:100%;max-width:640px;margin-top:var(--sp-8);}
+    .faq-section h2{font-size:var(--text-base);font-weight:800;color:var(--clr-text);margin-bottom:var(--sp-3);text-align:center;}
+    .faq-item{background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);margin-bottom:var(--sp-2);}
+    .faq-item summary{cursor:pointer;font-weight:700;font-size:var(--text-sm);color:var(--clr-text);list-style:none;}
+    .faq-item summary::-webkit-details-marker{display:none;}
+    .faq-item summary::after{content:'+';float:right;color:var(--clr-primary-light);font-weight:900;}
+    .faq-item[open] summary::after{content:'\2212';}
+    .faq-item p{margin-top:var(--sp-2);font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.6;}
   </style>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XM1YK1TG5W');</script>
@@ -207,6 +216,27 @@
     <a href="/odd-even/vs-cpu" class="play-cta" style="display:inline-flex;margin-top:var(--sp-4);">🤞 Jugar Par o Impar gratis →</a>
 
   </article>
+
+
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <h2 id="faq-heading">Preguntas frecuentes</h2>
+    <details class="faq-item">
+      <summary>¿Cómo se juega Par o Impar?</summary>
+      <p>Uno de los jugadores elige 'par' o 'impar'. Luego ambos muestran simultáneamente entre 0 y 5 dedos con una mano. Si la suma total de dedos mostrados coincide con la elección del jugador (par o impar), ese jugador gana la ronda.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Quién elige par o impar en el juego?</summary>
+      <p>Un jugador elige antes de revelar, generalmente el que tiene la iniciativa o el que ganó el turno anterior. En la versión online de handgames.app, el sistema asigna la elección al inicio de cada ronda.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Tiene estrategia el juego de Par o Impar?</summary>
+      <p>Sí. Los jugadores tienden a mostrar números intermedios (2 o 3 dedos) más que extremos (0 o 5). Si lográs predecir cuántos dedos mostrará el rival, podés ajustar tus propios dedos para controlar si la suma será par o impar. También podés influir en la suma ajustando tus propios dedos — mostrando un número par si querés una suma impar con un rival que suele mostrar impar, y viceversa.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Cómo se llama Par o Impar en otros países?</summary>
+      <p>En Italia se llama 'Pari o dispari', en Japón 'Chifurechifure', en inglés 'Odds and evens', en portugués 'Par ou ímpar'. En la antigua Roma se llamaba 'Ludere par impar'. Es uno de los juegos más universales del mundo, presente en casi todas las culturas.</p>
+    </details>
+  </section>
 
   <section class="related-articles">
     <h2>Artículos relacionados</h2>

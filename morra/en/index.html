@@ -73,6 +73,15 @@
     .rules-list{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-2);margin-bottom:var(--sp-2);}
     .rules-list li{background:var(--clr-surface-2);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-2) var(--sp-3);font-size:var(--text-xs);color:var(--clr-text-muted);line-height:1.5;}
     @media(max-width:480px){.rules-list{grid-template-columns:1fr;}}
+  
+    .faq-section{width:100%;max-width:640px;margin-top:var(--sp-8);}
+    .faq-section h2{font-size:var(--text-base);font-weight:800;color:var(--clr-text);margin-bottom:var(--sp-3);text-align:center;}
+    .faq-item{background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);margin-bottom:var(--sp-2);}
+    .faq-item summary{cursor:pointer;font-weight:700;font-size:var(--text-sm);color:var(--clr-text);list-style:none;}
+    .faq-item summary::-webkit-details-marker{display:none;}
+    .faq-item summary::after{content:'+';float:right;color:var(--clr-primary-light);font-weight:900;}
+    .faq-item[open] summary::after{content:'\2212';}
+    .faq-item p{margin-top:var(--sp-2);font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.6;}
   </style>
   <script type="application/ld+json">
   {
@@ -208,6 +217,27 @@
     </div>
   </section>
 
+
+
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <h2 id="faq-heading">Frequently Asked Questions</h2>
+    <details class="faq-item">
+      <summary>How do you play Morra?</summary>
+      <p>Each player shows 0–5 fingers simultaneously and guesses the combined total (0–10). The player who guesses the exact total wins the round. If both or neither player guesses correctly, it is a draw.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What is Morra?</summary>
+      <p>Morra is an ancient hand game documented in Ancient Egypt and practiced for centuries in Italy, Spain, Greece, and Latin America. It combines speed, psychology, and prediction.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What is the guessing range in Morra?</summary>
+      <p>Since each player shows 0–5 fingers, the combined total ranges from 0 to 10. You must commit your guess before seeing your opponent's hand.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Is Morra free to play online?</summary>
+      <p>Yes, completely free. No sign-up or download required. Play directly in your browser.</p>
+    </details>
+  </section>
 
   <section style="max-width:680px;margin:var(--sp-8) auto 0;border-top:1px solid var(--clr-border);padding-top:var(--sp-7);">
     <p style="font-size:var(--text-xs);font-weight:700;color:var(--clr-text-subtle);text-transform:uppercase;letter-spacing:.6px;margin:0 0 var(--sp-4);">Other games</p>

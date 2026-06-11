@@ -274,6 +274,15 @@
     .rules-list{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-2);margin-bottom:var(--sp-2);}
     .rules-list li{background:var(--clr-surface-2);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-2) var(--sp-3);font-size:var(--text-xs);color:var(--clr-text-muted);line-height:1.5;}
     @media(max-width:480px){.rules-list{grid-template-columns:1fr;}}
+  
+    .faq-section{width:100%;max-width:640px;margin-top:var(--sp-8);}
+    .faq-section h2{font-size:var(--text-base);font-weight:800;color:var(--clr-text);margin-bottom:var(--sp-3);text-align:center;}
+    .faq-item{background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);margin-bottom:var(--sp-2);}
+    .faq-item summary{cursor:pointer;font-weight:700;font-size:var(--text-sm);color:var(--clr-text);list-style:none;}
+    .faq-item summary::-webkit-details-marker{display:none;}
+    .faq-item summary::after{content:'+';float:right;color:var(--clr-primary-light);font-weight:900;}
+    .faq-item[open] summary::after{content:'\2212';}
+    .faq-item p{margin-top:var(--sp-2);font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.6;}
   </style>
   <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
@@ -360,6 +369,35 @@
     <p>A expansão mais popular é <strong>Pedra Papel Tesoura Lagarto Spock</strong> — adiciona Lagarto e Spock criando 10 resultados possíveis por rodada, reduzindo à metade a chance de empate. Popularizada por The Big Bang Theory. <a href="/rpsls/pt/" style="color:var(--clr-primary-light);text-decoration:none;font-weight:700;">Jogar RPSLS →</a></p>
   </section>
 
+
+
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <h2 id="faq-heading">Perguntas frequentes</h2>
+    <details class="faq-item">
+      <summary>Como se joga Pedra Papel Tesoura?</summary>
+      <p>Pedra esmaga Tesoura, Tesoura corta Papel, Papel cobre Pedra. Os dois jogadores revelam um gesto ao mesmo tempo — o gesto vencedor marca um ponto. Quem atingir a pontuação alvo vence.</p>
+    </details>
+    <details class="faq-item">
+      <summary>É grátis jogar Pedra Papel Tesoura online?</summary>
+      <p>Sim, completamente grátis. Sem cadastro ou download. Jogue direto no navegador em qualquer dispositivo.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Quais modos de jogo estão disponíveis?</summary>
+      <p>Três modos: 2 Jogadores (duas pessoas, um dispositivo), vs CPU (você contra o computador) e Batalha (a CPU escolhe pelos dois — pura sorte).</p>
+    </details>
+    <details class="faq-item">
+      <summary>Qual é a melhor estratégia para Pedra Papel Tesoura?</summary>
+      <p>Nenhum gesto domina — cada escolha vence uma e perde para outra. Iniciantes jogam Pedra com mais frequência — começar com Papel dá vantagem estatística. O vencedor tende a repetir o gesto; jogue o que o derrota.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Qual é a origem do Pedra Papel Tesoura?</summary>
+      <p>Pedra Papel Tesoura surgiu na China durante a Dinastia Han (206 a.C. – 220 d.C.) como 'shoushiling'. Chegou ao Japão no século XVII como 'jan-ken' e se espalhou pelo Ocidente no início do século XX.</p>
+    </details>
+    <details class="faq-item">
+      <summary>O que é Pedra Papel Tesoura Lagarto Spock?</summary>
+      <p>É uma versão expandida com 5 gestos: Pedra, Papel, Tesoura, Lagarto e Spock. Cada gesto vence dois e perde para dois, reduzindo à metade a chance de empate. Popularizada pela série The Big Bang Theory.</p>
+    </details>
+  </section>
 
   <section style="max-width:680px;margin:var(--sp-8) auto 0;border-top:1px solid var(--clr-border);padding-top:var(--sp-7);">
     <p style="font-size:var(--text-xs);font-weight:700;color:var(--clr-text-subtle);text-transform:uppercase;letter-spacing:.6px;margin:0 0 var(--sp-4);">Outros jogos</p>

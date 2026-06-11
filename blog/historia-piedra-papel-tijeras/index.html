@@ -120,6 +120,15 @@
     .related-card:hover { border-color: var(--clr-primary); color: var(--clr-text); }
     .related-card strong { display: block; color: var(--clr-text); font-weight: 700; margin-bottom: var(--sp-1); }
     .article-footer { margin-top: var(--sp-10); text-align: center; font-size: var(--text-xs); color: var(--clr-text-subtle); }
+  
+    .faq-section{width:100%;max-width:640px;margin-top:var(--sp-8);}
+    .faq-section h2{font-size:var(--text-base);font-weight:800;color:var(--clr-text);margin-bottom:var(--sp-3);text-align:center;}
+    .faq-item{background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);margin-bottom:var(--sp-2);}
+    .faq-item summary{cursor:pointer;font-weight:700;font-size:var(--text-sm);color:var(--clr-text);list-style:none;}
+    .faq-item summary::-webkit-details-marker{display:none;}
+    .faq-item summary::after{content:'+';float:right;color:var(--clr-primary-light);font-weight:900;}
+    .faq-item[open] summary::after{content:'\2212';}
+    .faq-item p{margin-top:var(--sp-2);font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.6;}
   </style>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XM1YK1TG5W');</script>
@@ -222,6 +231,27 @@
     <a href="/rps/vs-cpu" class="play-cta" style="display:inline-flex;margin-top:var(--sp-4);">✂️ Jugar Piedra Papel Tijeras gratis →</a>
 
   </article>
+
+
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <h2 id="faq-heading">Preguntas frecuentes</h2>
+    <details class="faq-item">
+      <summary>¿De dónde viene el juego Piedra Papel Tijeras?</summary>
+      <p>Piedra Papel Tijeras se originó en China durante la Dinastía Han (206 a.C. – 220 d.C.) como un juego llamado 'shoushiling' o 'morra china'. Llegó a Japón en el siglo XVII como 'jan-ken-pō' y se extendió a Occidente a principios del siglo XX.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Cuándo llegó Piedra Papel Tijeras a Occidente?</summary>
+      <p>La primera referencia escrita en inglés data de 1924, en un artículo del diario Times de Londres que describía el 'jan-ken-pō' japonés. Se popularizó en Europa y América durante la segunda mitad del siglo XX.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Existe un torneo mundial de Piedra Papel Tijeras?</summary>
+      <p>Sí. La World RPS Society organizó el primer Campeonato Mundial en Toronto, Canadá, en 2002. El torneo llegó a reunir a más de 500 participantes y contó con cobertura televisiva. La sociedad publicó también el libro oficial de estrategia del juego.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Tiene estrategia Piedra Papel Tijeras o es puro azar?</summary>
+      <p>Contra la computadora es puro azar porque la CPU no tiene sesgos. Contra humanos hay estrategia real: los jugadores tienen gestos favoritos, tienden a repetir el gesto ganador y a 'subir' cíclicamente de Piedra a Papel a Tijeras. Observar esos patrones da ventaja estadística.</p>
+    </details>
+  </section>
 
   <section class="related-articles">
     <h2>Artículos relacionados</h2>

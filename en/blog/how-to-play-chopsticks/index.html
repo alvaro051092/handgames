@@ -126,6 +126,15 @@
     .related-card:hover { border-color: var(--clr-primary); color: var(--clr-text); }
     .related-card strong { display: block; color: var(--clr-text); font-weight: 700; margin-bottom: var(--sp-1); }
     .article-footer { margin-top: var(--sp-10); text-align: center; font-size: var(--text-xs); color: var(--clr-text-subtle); }
+  
+    .faq-section{width:100%;max-width:640px;margin-top:var(--sp-8);}
+    .faq-section h2{font-size:var(--text-base);font-weight:800;color:var(--clr-text);margin-bottom:var(--sp-3);text-align:center;}
+    .faq-item{background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);margin-bottom:var(--sp-2);}
+    .faq-item summary{cursor:pointer;font-weight:700;font-size:var(--text-sm);color:var(--clr-text);list-style:none;}
+    .faq-item summary::-webkit-details-marker{display:none;}
+    .faq-item summary::after{content:'+';float:right;color:var(--clr-primary-light);font-weight:900;}
+    .faq-item[open] summary::after{content:'\2212';}
+    .faq-item p{margin-top:var(--sp-2);font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.6;}
   </style>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XM1YK1TG5W');</script>
@@ -229,6 +238,31 @@
     <a href="/chopsticks/en/vs-cpu" class="play-cta" style="display:inline-flex;margin-top:var(--sp-4);">🖖 Play Chopsticks free →</a>
 
   </article>
+
+
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <h2 id="faq-heading">Frequently Asked Questions</h2>
+    <details class="faq-item">
+      <summary>How do you play Chopsticks finger game?</summary>
+      <p>Each player starts with one finger up on each hand. On your turn you tap one of your hands against one of your opponent's hands. The tapped hand gains fingers equal to your attacking hand. When a hand reaches 5 or more fingers, it is eliminated (goes to zero). The goal is to eliminate both of the opponent's hands.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What is splitting in Chopsticks?</summary>
+      <p>Splitting is a special move where, instead of attacking, you redistribute fingers between your own two hands. For example, if you have 4 fingers on one hand and 0 on the other, you can split to have 2 on each hand. You can only split if the result is different from your current state.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Can you revive a dead hand in Chopsticks?</summary>
+      <p>Yes — this is called 'rollover' or 'revival'. If you have an even number on your live hand, you can split and redistribute to revive your dead hand. For example, 4-0 can become 2-2. This is one of the most important strategic moves in Chopsticks.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What happens when a hand reaches exactly 5 in Chopsticks?</summary>
+      <p>In the standard rules, a hand at exactly 5 (or any number ≥ 5) is eliminated and goes to 0. Some variant rules use 'modular arithmetic' where 5 becomes 0, 6 becomes 1, 7 becomes 2, etc. The most common version treats any hand at 5 or above as eliminated.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What is the best opening move in Chopsticks?</summary>
+      <p>The standard opening is to attack with your 1-finger hand and tap the opponent's 1-finger hand, giving them 2. This is neutral for both players. More aggressive openings exist but every player starts symmetrically at 1-1, so the first few moves are largely positional rather than decisive.</p>
+    </details>
+  </section>
 
   <section class="related-articles">
     <h2>Related articles</h2>

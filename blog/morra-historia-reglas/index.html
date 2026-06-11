@@ -114,6 +114,15 @@
     .related-card:hover { border-color: var(--clr-primary); color: var(--clr-text); }
     .related-card strong { display: block; color: var(--clr-text); font-weight: 700; margin-bottom: var(--sp-1); }
     .article-footer { margin-top: var(--sp-10); text-align: center; font-size: var(--text-xs); color: var(--clr-text-subtle); }
+  
+    .faq-section{width:100%;max-width:640px;margin-top:var(--sp-8);}
+    .faq-section h2{font-size:var(--text-base);font-weight:800;color:var(--clr-text);margin-bottom:var(--sp-3);text-align:center;}
+    .faq-item{background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);margin-bottom:var(--sp-2);}
+    .faq-item summary{cursor:pointer;font-weight:700;font-size:var(--text-sm);color:var(--clr-text);list-style:none;}
+    .faq-item summary::-webkit-details-marker{display:none;}
+    .faq-item summary::after{content:'+';float:right;color:var(--clr-primary-light);font-weight:900;}
+    .faq-item[open] summary::after{content:'\2212';}
+    .faq-item p{margin-top:var(--sp-2);font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.6;}
   </style>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XM1YK1TG5W');</script>
@@ -205,6 +214,27 @@
     <a href="/morra/vs-cpu" class="play-cta" style="display:inline-flex;margin-top:var(--sp-4);">✋ Jugar Morra online →</a>
 
   </article>
+
+
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <h2 id="faq-heading">Preguntas frecuentes</h2>
+    <details class="faq-item">
+      <summary>¿Cómo se juega la Morra?</summary>
+      <p>Ambos jugadores muestran simultáneamente entre 1 y 5 dedos con una mano, y al mismo tiempo gritan un número del 2 al 10. El jugador que adivina la suma total de dedos mostrados gana la ronda. Gana quien llega primero al número de rondas acordado.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Por qué fue prohibida la Morra?</summary>
+      <p>La Morra fue prohibida repetidamente en Italia, España y otros países mediterráneos durante los siglos XVIII y XIX porque frecuentemente derivaba en peleas y disputas sobre el resultado. El griterío generado también era motivo de quejas de vecinos. En Toscana, la prohibición duró décadas.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Cuántos años tiene el juego de la Morra?</summary>
+      <p>Las representaciones más antiguas de la Morra encontradas en tumbas egipcias datan de alrededor del año 3.000 a.C. Hay también registros en bajorrelieves del Antiguo Egipto y pinturas de la Grecia clásica, lo que la convierte en el juego de mano más antiguo documentado.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Tiene estrategia la Morra?</summary>
+      <p>Sí. La estrategia principal consiste en predecir cuántos dedos mostrará el rival para elegir una apuesta que, combinada con los tuyos, sume el número que vas a gritar. Los jugadores expertos leen los patrones del rival: cuántos dedos tiende a mostrar, qué números prefiere apostar y cómo varía bajo presión.</p>
+    </details>
+  </section>
 
   <section class="related-articles">
     <h2>Artículos relacionados</h2>

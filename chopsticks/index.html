@@ -129,6 +129,15 @@
     .rules-list{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-2);margin-bottom:var(--sp-2);}
     .rules-list li{background:var(--clr-surface-2);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-2) var(--sp-3);font-size:var(--text-xs);color:var(--clr-text-muted);line-height:1.5;}
     @media(max-width:480px){.rules-list{grid-template-columns:1fr;}}
+  
+    .faq-section{width:100%;max-width:640px;margin-top:var(--sp-8);}
+    .faq-section h2{font-size:var(--text-base);font-weight:800;color:var(--clr-text);margin-bottom:var(--sp-3);text-align:center;}
+    .faq-item{background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);margin-bottom:var(--sp-2);}
+    .faq-item summary{cursor:pointer;font-weight:700;font-size:var(--text-sm);color:var(--clr-text);list-style:none;}
+    .faq-item summary::-webkit-details-marker{display:none;}
+    .faq-item summary::after{content:'+';float:right;color:var(--clr-primary-light);font-weight:900;}
+    .faq-item[open] summary::after{content:'\2212';}
+    .faq-item p{margin-top:var(--sp-2);font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.6;}
   </style>
   <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
@@ -223,6 +232,27 @@
     </div>
   </section>
 
+
+
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <h2 id="faq-heading">Preguntas frecuentes</h2>
+    <details class="faq-item">
+      <summary>¿Cómo se juegan los Palillos (Chopsticks)?</summary>
+      <p>Cada jugador empieza con 1 dedo en cada mano. En tu turno, toca una mano del rival con una de tus manos — los dedos se suman. Una mano con 5 o más dedos queda eliminada. Elimina las dos manos del rival para ganar.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Qué es la división en Palillos?</summary>
+      <p>En lugar de atacar, puedes redistribuir los dedos entre tus dos manos. La nueva distribución debe ser distinta a la actual — no puedes repetir el estado para saltar tu turno.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Cómo se gana en Palillos?</summary>
+      <p>Fuerza las dos manos de tu rival a llegar exactamente a 5 dedos para eliminarlas. Una mano con 5 dedos vale 0. Elimina ambas manos para ganar.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Es gratis jugar Palillos online?</summary>
+      <p>Sí, completamente gratis. Sin registro ni descargas. Juega directamente en el navegador desde cualquier dispositivo.</p>
+    </details>
+  </section>
 
   <section style="max-width:680px;margin:var(--sp-8) auto 0;border-top:1px solid var(--clr-border);padding-top:var(--sp-7);">
     <p style="font-size:var(--text-xs);font-weight:700;color:var(--clr-text-subtle);text-transform:uppercase;letter-spacing:.6px;margin:0 0 var(--sp-4);">Otros juegos</p>

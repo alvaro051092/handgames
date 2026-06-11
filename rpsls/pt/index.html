@@ -131,6 +131,15 @@
     .rules-list{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-2);margin-bottom:var(--sp-2);}
     .rules-list li{background:var(--clr-surface-2);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-2) var(--sp-3);font-size:var(--text-xs);color:var(--clr-text-muted);line-height:1.5;}
     @media(max-width:480px){.rules-list{grid-template-columns:1fr;}}
+  
+    .faq-section{width:100%;max-width:640px;margin-top:var(--sp-8);}
+    .faq-section h2{font-size:var(--text-base);font-weight:800;color:var(--clr-text);margin-bottom:var(--sp-3);text-align:center;}
+    .faq-item{background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);margin-bottom:var(--sp-2);}
+    .faq-item summary{cursor:pointer;font-weight:700;font-size:var(--text-sm);color:var(--clr-text);list-style:none;}
+    .faq-item summary::-webkit-details-marker{display:none;}
+    .faq-item summary::after{content:'+';float:right;color:var(--clr-primary-light);font-weight:900;}
+    .faq-item[open] summary::after{content:'\2212';}
+    .faq-item p{margin-top:var(--sp-2);font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.6;}
   </style>
   <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
@@ -217,6 +226,27 @@
     <p>Popularizado por The Big Bang Theory, este jogo adiciona Lagarto e Spock ao clássico. Com 10 relações de vitória em vez de 3, os empates são menos frequentes e a estratégia é muito mais profunda.</p>
   </section>
 
+
+
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <h2 id="faq-heading">Perguntas frequentes</h2>
+    <details class="faq-item">
+      <summary>O que é Pedra Papel Tesoura Lagarto Spock?</summary>
+      <p>Uma variante de 5 gestos do clássico Pedra Papel Tesoura, popularizada por The Big Bang Theory. Adiciona Lagarto e Spock, criando 10 relações de vitória em vez de 3. Os empates são menos frequentes e a estratégia é muito mais profunda.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Quais são todas as regras de Pedra Papel Tesoura Lagarto Spock?</summary>
+      <p>Pedra esmaga Tesoura e Lagarto. Tesoura corta Papel e decapita Lagarto. Papel cobre Pedra e refuta Spock. Lagarto envenena Spock e come Papel. Spock destrói Tesoura e vaporiza Pedra.</p>
+    </details>
+    <details class="faq-item">
+      <summary>É grátis jogar Pedra Papel Tesoura Lagarto Spock?</summary>
+      <p>Sim, completamente grátis. Sem cadastro ou download. Jogue direto no navegador.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Quais modos de jogo estão disponíveis para RPSLS?</summary>
+      <p>Três modos: 2 Jogadores (duas pessoas, um dispositivo), vs CPU (você contra o computador) e Batalha (a CPU escolhe pelos dois — pura sorte).</p>
+    </details>
+  </section>
 
   <section style="max-width:680px;margin:var(--sp-8) auto 0;border-top:1px solid var(--clr-border);padding-top:var(--sp-7);">
     <p style="font-size:var(--text-xs);font-weight:700;color:var(--clr-text-subtle);text-transform:uppercase;letter-spacing:.6px;margin:0 0 var(--sp-4);">Outros jogos</p>
