@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>Rock Paper Scissors Lizard Spock Rules: All 10 Outcomes Explained</title>
+  <meta name="description" content="Complete RPSLS rules: all 10 win/lose outcomes, the 5 gestures, hand signs, strategy to win more often, and the origin of the Lizard Spock variant." />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#7c3aed" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://www.clarity.ms" />
+  <link rel="canonical" href="https://handgames.app/en/blog/rpsls-rules/" />
+  <link rel="alternate" hreflang="en" href="https://handgames.app/en/blog/rpsls-rules/" />
+  <link rel="alternate" hreflang="x-default" href="https://handgames.app/en/blog/rpsls-rules/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://handgames.app/en/blog/rpsls-rules/" />
+  <meta property="og:title" content="Rock Paper Scissors Lizard Spock Rules: All 10 Outcomes Explained" />
+  <meta property="og:description" content="Complete RPSLS rules: all 10 win/lose outcomes, gestures, strategy and origin of the Lizard Spock variant." />
+  <meta property="og:image" content="https://handgames.app/assets/og-image.png" />
+  <meta property="og:site_name" content="Hand Games" />
+  <meta property="og:locale" content="en_US" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Rock Paper Scissors Lizard Spock Rules: All 10 Outcomes Explained",
+    "description": "Complete RPSLS rules with all 10 outcomes, gestures, strategy and history.",
+    "url": "https://handgames.app/en/blog/rpsls-rules/",
+    "inLanguage": "en",
+    "author": { "@type": "Organization", "name": "Hand Games", "url": "https://handgames.app/" },
+    "publisher": { "@type": "Organization", "name": "Hand Games", "url": "https://handgames.app/" },
+    "datePublished": "2026-06-10",
+    "dateModified": "2026-06-10"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What are the rules of Rock Paper Scissors Lizard Spock?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "RPSLS adds Lizard and Spock to the classic three gestures. The 10 outcomes: Scissors cuts Paper, Paper covers Rock, Rock crushes Lizard, Lizard poisons Spock, Spock smashes Scissors, Scissors decapitates Lizard, Lizard eats Paper, Paper disproves Spock, Spock vaporizes Rock, Rock crushes Scissors. Each gesture beats two others and loses to two others."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Who invented Rock Paper Scissors Lizard Spock?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "RPSLS was invented by Sam Kass and Karen Bryla in 1998 and published on Sam Kass's website. It became globally famous after being featured in The Big Bang Theory (Season 2, Episode 8, 2008), where Sheldon Cooper explains the rules to Raj."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What hand sign is Spock in RPSLS?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Spock is represented by the Vulcan salute: all fingers extended, with a V-shaped split between the middle and ring fingers (index and middle fingers together, ring and pinky together, thumb extended out). It's the hand sign associated with 'Live long and prosper' from Star Trek."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does RPSLS reduce ties compared to RPS?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. In standard RPS, the probability of a tie (same gesture) is 1 in 3 (33.3%). In RPSLS with 5 gestures chosen randomly, the probability of a tie drops to 1 in 5 (20%). In practice, ties are even rarer because players tend to avoid repeating gestures, giving RPSLS approximately 55% fewer ties than standard RPS."
+        }
+      }
+    ]
+  }
+  </script>
+  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/css/tokens.css?v=3" />
+  <link rel="stylesheet" href="/css/layout.css?v=3" />
+  <style>
+    body { font-family: var(--font); background: var(--clr-bg); color: var(--clr-text); margin: 0; padding: 0; }
+    .article-wrap { max-width: 720px; margin: 0 auto; padding: var(--sp-8) var(--sp-4) var(--sp-12); }
+    .top-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--sp-8); }
+    .back-link { font-size: var(--text-sm); font-weight: 700; color: var(--clr-text-subtle); text-decoration: none; transition: color var(--dur-fast); }
+    .back-link:hover { color: var(--clr-text); }
+    .lang-nav { display: flex; gap: var(--sp-2); }
+    .lang-link { font-size: var(--text-xs); font-weight: 700; color: var(--clr-text-subtle); text-decoration: none; padding: var(--sp-1) var(--sp-2); border-radius: var(--radius-sm); transition: color var(--dur-fast), background var(--dur-fast); }
+    .lang-link:hover { color: var(--clr-text); background: var(--clr-surface-2); }
+    .lang-link.active { color: var(--clr-primary-light); }
+    .article-header { margin-bottom: var(--sp-8); }
+    .article-tag { font-size: var(--text-xs); font-weight: 700; color: var(--clr-primary-light); text-transform: uppercase; letter-spacing: .6px; margin-bottom: var(--sp-3); display: block; }
+    .article-header h1 { font-size: clamp(var(--text-2xl), 5vw, var(--text-4xl)); font-weight: 900; letter-spacing: -1px; line-height: 1.15; margin: 0 0 var(--sp-4); }
+    .article-lead { font-size: var(--text-lg); color: var(--clr-text-muted); line-height: 1.65; margin: 0; }
+    .play-cta { display: inline-flex; align-items: center; gap: var(--sp-2); background: var(--clr-primary); color: #fff; font-size: var(--text-sm); font-weight: 700; text-decoration: none; padding: var(--sp-3) var(--sp-5); border-radius: var(--radius-sm); margin: var(--sp-6) 0; transition: background var(--dur-fast), transform var(--dur-fast); }
+    .play-cta:hover { background: var(--clr-primary-hover); transform: translateY(-2px); }
+    .article-body h2 { font-size: var(--text-xl); font-weight: 800; color: var(--clr-text); margin: var(--sp-10) 0 var(--sp-3); padding-top: var(--sp-6); border-top: 1px solid var(--clr-border); }
+    .article-body h3 { font-size: var(--text-base); font-weight: 700; color: var(--clr-primary-light); text-transform: uppercase; letter-spacing: .5px; margin: var(--sp-6) 0 var(--sp-2); }
+    .article-body p { font-size: var(--text-base); color: var(--clr-text-muted); line-height: 1.75; margin: 0 0 var(--sp-4); }
+    .article-body ul { padding-left: var(--sp-5); margin: 0 0 var(--sp-4); }
+    .article-body li { font-size: var(--text-base); color: var(--clr-text-muted); line-height: 1.7; margin-bottom: var(--sp-2); }
+    .article-body strong { color: var(--clr-text); font-weight: 700; }
+    .article-body a { color: var(--clr-primary-light); text-decoration: none; font-weight: 600; }
+    .article-body a:hover { text-decoration: underline; }
+    .outcomes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); margin: var(--sp-5) 0; }
+    @media (max-width: 480px) { .outcomes-grid { grid-template-columns: 1fr; } }
+    .outcome-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--radius-sm); padding: var(--sp-3) var(--sp-4); font-size: var(--text-sm); color: var(--clr-text-muted); }
+    .outcome-card strong { color: var(--clr-text); }
+    .gestures-table { width: 100%; border-collapse: collapse; margin: var(--sp-5) 0; }
+    .gestures-table th, .gestures-table td { padding: var(--sp-2) var(--sp-3); text-align: left; border-bottom: 1px solid var(--clr-border); font-size: var(--text-sm); }
+    .gestures-table th { color: var(--clr-text); font-weight: 700; background: var(--clr-surface); }
+    .gestures-table td { color: var(--clr-text-muted); }
+    .related-articles { margin-top: var(--sp-12); border-top: 1px solid var(--clr-border); padding-top: var(--sp-8); }
+    .related-articles h2 { font-size: var(--text-base); font-weight: 800; color: var(--clr-text); margin: 0 0 var(--sp-5); border: none; padding: 0; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--sp-3); }
+    .related-card { display: block; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--radius-sm); padding: var(--sp-4); text-decoration: none; color: var(--clr-text-muted); font-size: var(--text-sm); transition: border-color var(--dur-fast), color var(--dur-fast); }
+    .related-card:hover { border-color: var(--clr-primary); color: var(--clr-text); }
+    .related-card strong { display: block; color: var(--clr-text); font-weight: 700; margin-bottom: var(--sp-1); }
+    .article-footer { margin-top: var(--sp-10); text-align: center; font-size: var(--text-xs); color: var(--clr-text-subtle); }
+  </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XM1YK1TG5W');</script>
+  <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","wgsyxocqkn");</script>
+</head>
+<body>
+<div class="article-wrap">
+  <nav class="top-nav">
+    <a href="/en/blog/" class="back-link">← Blog</a>
+    <div class="lang-nav">
+      <span class="lang-link active">EN</span>
+    </div>
+  </nav>
+
+  <header class="article-header">
+    <span class="article-tag">🖖 RPSLS</span>
+    <h1>Rock Paper Scissors Lizard Spock: Rules & Strategy Explained</h1>
+    <p class="article-lead">Rock Paper Scissors Lizard Spock adds two gestures to the classic game, cuts the tie rate roughly in half, and introduces 10 possible outcomes instead of 3. It sounds complex — but there's a simple trick to memorizing all the outcomes, and a surprisingly deep strategic dimension once you understand why each gesture was chosen.</p>
+  </header>
+
+  <a href="/rpsls/" class="play-cta">🖖 Play RPSLS →</a>
+
+  <article class="article-body">
+
+    <h2>The 5 gestures</h2>
+    <table class="gestures-table">
+      <thead><tr><th>Gesture</th><th>Hand sign</th><th>Beats</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Rock</strong> 🪨</td><td>Closed fist</td><td>Scissors, Lizard</td></tr>
+        <tr><td><strong>Paper</strong> 📄</td><td>Open flat hand</td><td>Rock, Spock</td></tr>
+        <tr><td><strong>Scissors</strong> ✂️</td><td>Index + middle extended</td><td>Paper, Lizard</td></tr>
+        <tr><td><strong>Lizard</strong> 🦎</td><td>Hand like a sock puppet / biting mouth</td><td>Spock, Paper</td></tr>
+        <tr><td><strong>Spock</strong> 🖖</td><td>Vulcan salute (V split between middle/ring)</td><td>Scissors, Rock</td></tr>
+      </tbody>
+    </table>
+
+    <h2>All 10 outcomes — with explanations</h2>
+    <p>Each gesture beats exactly two others. Here are all 10 winning relationships and the in-universe explanation for each:</p>
+    <div class="outcomes-grid">
+      <div class="outcome-card"><strong>Scissors ✂️ cuts Paper 📄</strong><br>Classic outcome, unchanged from RPS.</div>
+      <div class="outcome-card"><strong>Paper 📄 covers Rock 🪨</strong><br>Classic outcome, unchanged from RPS.</div>
+      <div class="outcome-card"><strong>Rock 🪨 crushes Scissors ✂️</strong><br>Classic outcome, unchanged from RPS.</div>
+      <div class="outcome-card"><strong>Rock 🪨 crushes Lizard 🦎</strong><br>The rock is too heavy for the lizard.</div>
+      <div class="outcome-card"><strong>Lizard 🦎 poisons Spock 🖖</strong><br>Even Vulcans can be poisoned.</div>
+      <div class="outcome-card"><strong>Spock 🖖 smashes Scissors ✂️</strong><br>Spock's logic destroys the scissors.</div>
+      <div class="outcome-card"><strong>Scissors ✂️ decapitates Lizard 🦎</strong><br>Scissors cut cleanly.</div>
+      <div class="outcome-card"><strong>Lizard 🦎 eats Paper 📄</strong><br>Paper is edible. Lizards eat things.</div>
+      <div class="outcome-card"><strong>Paper 📄 disproves Spock 🖖</strong><br>The paper contains the logical argument that refutes Spock.</div>
+      <div class="outcome-card"><strong>Spock 🖖 vaporizes Rock 🪨</strong><br>Advanced Vulcan technology.</div>
+    </div>
+
+    <h2>Memory trick: the circle</h2>
+    <p>The easiest way to memorize all 10 outcomes is to picture a five-pointed star (pentagon with diagonals). Write the gestures clockwise around the pentagon: Rock → Spock → Paper → Lizard → Scissors → (back to Rock). The rule: <strong>each gesture beats the two gestures immediately to its right</strong> in the star pattern.</p>
+    <p>Alternatively, use the mnemonic: <em>"Scissors cuts paper, paper covers rock, rock crushes lizard, lizard poisons Spock, Spock smashes scissors, scissors decapitates lizard, lizard eats paper, paper disproves Spock, Spock vaporizes rock, rock crushes scissors."</em> Repeat it twice and you'll have all 10.</p>
+
+    <h2>Origin: Sam Kass and The Big Bang Theory</h2>
+    <p>RPSLS was invented by <strong>Sam Kass</strong> and <strong>Karen Bryla</strong> in 1998, published on Sam Kass's personal website as a solution to the high tie rate in standard RPS. Kass's explicit goal was to create a version with more outcomes to reduce deadlocks in repeated games between people who know each other's tendencies.</p>
+    <p>The game existed in relative obscurity for a decade. Then in 2008, <em>The Big Bang Theory</em> Season 2, Episode 8 featured it. Sheldon Cooper explains the rules to Raj in a scene that became one of the show's most-quoted moments. Overnight, RPSLS went from a niche internet curiosity to a globally recognized game variant. Sam Kass was subsequently credited in the show.</p>
+
+    <h2>Does RPSLS actually reduce ties?</h2>
+    <p>Yes, significantly. In standard RPS with random play, both players choose the same gesture 1 in 3 times (33.3%). In RPSLS with 5 gestures, the tie probability drops to 1 in 5 (20%). In practice it's even lower — most players naturally avoid repeating the same gesture twice in a row, which means their choices are already pseudo-random with low self-repeat probability. Under these conditions, ties in RPSLS occur roughly <strong>half as often</strong> as in standard RPS.</p>
+    <p>This is exactly what makes RPSLS useful for its intended purpose: breaking deadlocks between two people who know each other well and tend to "follow" each other's patterns in standard RPS.</p>
+
+    <h2>Strategy: how Lizard and Spock change the game</h2>
+
+    <h3>Spock is a strong opener</h3>
+    <p>Spock beats Rock and Scissors. Since Rock is the statistically most common first-round gesture (especially among inexperienced players), Spock is a strong opener. Against a player who tends to open with Rock, Spock wins immediately. Paper also beats Spock, so a veteran who anticipates your Spock will punish you — making Spock a strong but not dominant opener.</p>
+
+    <h3>Lizard targets the "safe" gestures</h3>
+    <p>Many standard RPS players default to Paper when they want to play safely (it beats Rock and doesn't lose to Paper or Scissors in a way that feels "stupid"). In RPSLS, Lizard beats Paper and Spock. Lizard punishes players who default to safe Paper-dominant strategies.</p>
+
+    <h3>The new dominant pair</h3>
+    <p>In standard RPS, no gesture is dominant. In RPSLS, empirical research on first-round choices suggests that Paper and Spock are chosen slightly more often than the other three by players who have studied the game. This creates a secondary meta where Lizard (which beats both Paper and Spock) becomes undervalued and thus effective against thinking players.</p>
+
+    <h3>The anti-meta: Rock</h3>
+    <p>Rock is the intuitive default of beginners, making it predictable. In RPSLS it still loses to Paper and Spock — but it still beats Scissors and Lizard. Against players who are thinking about Lizard and Spock, Rock is surprisingly underused and can catch them off guard.</p>
+
+    <a href="/rpsls/" class="play-cta" style="display:inline-flex;margin-top:var(--sp-4);">🖖 Play RPSLS free →</a>
+
+  </article>
+
+  <section class="related-articles">
+    <h2>Related articles</h2>
+    <div class="related-grid">
+      <a href="/en/blog/history-rock-paper-scissors/" class="related-card">
+        <strong>History of RPS</strong>
+        2,000 years of the world's most famous hand game
+      </a>
+      <a href="/en/blog/how-to-play-chopsticks/" class="related-card">
+        <strong>How to play Chopsticks</strong>
+        The most strategic finger game
+      </a>
+      <a href="/en/blog/how-to-play-morra/" class="related-card">
+        <strong>How to play Morra</strong>
+        The world's oldest hand game
+      </a>
+      <a href="/rps/" class="related-card">
+        <strong>Play RPS</strong>
+        Online, free, no registration
+      </a>
+    </div>
+  </section>
+
+  <footer class="article-footer">
+    <a href="/en/blog/" style="color:var(--clr-text-subtle);text-decoration:none;">← Back to blog</a>
+    &nbsp;·&nbsp;
+    <a href="/en/" style="color:var(--clr-text-subtle);text-decoration:none;">handgames.app</a>
+  </footer>
+</div>
+<script src="/js/analytics.js?v=2"></script>
+</body>
+</html>

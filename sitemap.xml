@@ -613,4 +613,86 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Blog ES — hub + artículos -->
+  <url>
+    <loc>https://handgames.app/blog/</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/blog/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/blog/como-jugar-palillos/</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/como-jugar-palillos/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/how-to-play-chopsticks/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/blog/como-jugar-palillos/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/blog/historia-piedra-papel-tijeras/</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/historia-piedra-papel-tijeras/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/history-rock-paper-scissors/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/blog/historia-piedra-papel-tijeras/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/blog/morra-historia-reglas/</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/morra-historia-reglas/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/how-to-play-morra/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/blog/morra-historia-reglas/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/blog/par-o-impar-reglas/</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/par-o-impar-reglas/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/blog/par-o-impar-reglas/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Blog EN — hub + articles -->
+  <url>
+    <loc>https://handgames.app/en/blog/</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/blog/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/en/blog/how-to-play-chopsticks/</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/como-jugar-palillos/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/how-to-play-chopsticks/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/en/blog/how-to-play-chopsticks/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/en/blog/history-rock-paper-scissors/</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/historia-piedra-papel-tijeras/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/history-rock-paper-scissors/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/en/blog/history-rock-paper-scissors/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/en/blog/how-to-play-morra/</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/morra-historia-reglas/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/how-to-play-morra/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/en/blog/how-to-play-morra/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/en/blog/rpsls-rules/</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/rpsls-rules/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/en/blog/rpsls-rules/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
