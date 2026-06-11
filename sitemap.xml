@@ -773,6 +773,7 @@
     <loc>https://handgames.app/en/blog/rpsls-rules/</loc>
     <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/rpsls-rules/" />
     <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/reglas-piedra-papel-tijeras-lagarto-spock/" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/pt/blog/regras-pedra-papel-tesoura-lagarto-spock/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/en/blog/rpsls-rules/" />
     <lastmod>2026-06-11</lastmod>
     <changefreq>monthly</changefreq>
@@ -782,6 +783,17 @@
     <loc>https://handgames.app/blog/reglas-piedra-papel-tijeras-lagarto-spock/</loc>
     <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/reglas-piedra-papel-tijeras-lagarto-spock/" />
     <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/rpsls-rules/" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/pt/blog/regras-pedra-papel-tesoura-lagarto-spock/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/en/blog/rpsls-rules/" />
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://handgames.app/pt/blog/regras-pedra-papel-tesoura-lagarto-spock/</loc>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://handgames.app/blog/reglas-piedra-papel-tijeras-lagarto-spock/" />
+    <xhtml:link rel="alternate" hreflang="en"        href="https://handgames.app/en/blog/rpsls-rules/" />
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://handgames.app/pt/blog/regras-pedra-papel-tesoura-lagarto-spock/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://handgames.app/en/blog/rpsls-rules/" />
     <lastmod>2026-06-11</lastmod>
     <changefreq>monthly</changefreq>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>Pedra Papel Tesoura Lagarto Spock: as 10 combinações explicadas</title>
+  <meta name="description" content="Regras completas de PPTLS: as 10 combinações de vitória/derrota, os 5 gestos, sinais de mão, estratégia para ganhar mais e a origem da variante Lagarto Spock." />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#7c3aed" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://www.clarity.ms" />
+  <link rel="canonical" href="https://handgames.app/pt/blog/regras-pedra-papel-tesoura-lagarto-spock/" />
+  <link rel="alternate" hreflang="pt" href="https://handgames.app/pt/blog/regras-pedra-papel-tesoura-lagarto-spock/" />
+  <link rel="alternate" hreflang="es" href="https://handgames.app/blog/reglas-piedra-papel-tijeras-lagarto-spock/" />
+  <link rel="alternate" hreflang="en" href="https://handgames.app/en/blog/rpsls-rules/" />
+  <link rel="alternate" hreflang="x-default" href="https://handgames.app/en/blog/rpsls-rules/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://handgames.app/pt/blog/regras-pedra-papel-tesoura-lagarto-spock/" />
+  <meta property="og:title" content="Pedra Papel Tesoura Lagarto Spock: as 10 combinações explicadas" />
+  <meta property="og:description" content="Regras completas de PPTLS: as 10 combinações, gestos, estratégia e origem da variante Lagarto Spock." />
+  <meta property="og:image" content="https://handgames.app/assets/og-image.png" />
+  <meta property="og:site_name" content="Hand Games" />
+  <meta property="og:locale" content="pt_BR" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Pedra Papel Tesoura Lagarto Spock: as 10 combinações explicadas",
+    "description": "Regras completas de Pedra Papel Tesoura Lagarto Spock com as 10 combinações, gestos, estratégia e história.",
+    "url": "https://handgames.app/pt/blog/regras-pedra-papel-tesoura-lagarto-spock/",
+    "inLanguage": "pt",
+    "author": { "@type": "Organization", "name": "Hand Games", "url": "https://handgames.app/" },
+    "publisher": { "@type": "Organization", "name": "Hand Games", "url": "https://handgames.app/" },
+    "datePublished": "2026-06-11",
+    "dateModified": "2026-06-11"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Quais são as regras de Pedra Papel Tesoura Lagarto Spock?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "PPTLS adiciona Lagarto e Spock aos três gestos clássicos. As 10 combinações: Tesoura corta Papel, Papel cobre Pedra, Pedra esmaga Lagarto, Lagarto envenena Spock, Spock quebra Tesoura, Tesoura decapita Lagarto, Lagarto come Papel, Papel desmente Spock, Spock vaporiza Pedra, Pedra esmaga Tesoura. Cada gesto vence outros dois e perde para outros dois."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quem inventou Pedra Papel Tesoura Lagarto Spock?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "PPTLS foi inventado por Sam Kass e Karen Bryla em 1998 e publicado no site de Sam Kass. Ficou mundialmente famoso depois de aparecer em The Big Bang Theory (Temporada 2, Episódio 8, 2008), onde Sheldon Cooper explica as regras para Raj."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Qual sinal de mão representa Spock em PPTLS?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Spock é representado pela saudação vulcana: todos os dedos esticados, com uma divisão em V entre o dedo médio e o anelar (indicador e médio juntos, anelar e mínimo juntos, polegar separado). É o sinal associado a 'Vida longa e próspera' de Star Trek."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "PPTLS reduz os empates em relação ao PPT?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sim. No PPT padrão, a probabilidade de empate (mesmo gesto) é 1 em 3 (33,3%). No PPTLS com 5 gestos escolhidos ao acaso, a probabilidade de empate cai para 1 em 5 (20%). Na prática os empates são ainda mais raros porque os jogadores tendem a evitar repetir gestos, o que dá ao PPTLS aproximadamente 55% menos empates do que o PPT padrão."
+        }
+      }
+    ]
+  }
+  </script>
+  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/css/tokens.css?v=3" />
+  <link rel="stylesheet" href="/css/layout.css?v=3" />
+  <style>
+    body { font-family: var(--font); background: var(--clr-bg); color: var(--clr-text); margin: 0; padding: 0; }
+    .article-wrap { max-width: 720px; margin: 0 auto; padding: var(--sp-8) var(--sp-4) var(--sp-12); }
+    .top-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--sp-8); }
+    .back-link { font-size: var(--text-sm); font-weight: 700; color: var(--clr-text-subtle); text-decoration: none; transition: color var(--dur-fast); }
+    .back-link:hover { color: var(--clr-text); }
+    .lang-nav { display: flex; gap: var(--sp-2); }
+    .lang-link { font-size: var(--text-xs); font-weight: 700; color: var(--clr-text-subtle); text-decoration: none; padding: var(--sp-1) var(--sp-2); border-radius: var(--radius-sm); transition: color var(--dur-fast), background var(--dur-fast); }
+    .lang-link:hover { color: var(--clr-text); background: var(--clr-surface-2); }
+    .lang-link.active { color: var(--clr-primary-light); }
+    .article-header { margin-bottom: var(--sp-8); }
+    .article-tag { font-size: var(--text-xs); font-weight: 700; color: var(--clr-primary-light); text-transform: uppercase; letter-spacing: .6px; margin-bottom: var(--sp-3); display: block; }
+    .article-header h1 { font-size: clamp(var(--text-2xl), 5vw, var(--text-4xl)); font-weight: 900; letter-spacing: -1px; line-height: 1.15; margin: 0 0 var(--sp-4); }
+    .article-lead { font-size: var(--text-lg); color: var(--clr-text-muted); line-height: 1.65; margin: 0; }
+    .play-cta { display: inline-flex; align-items: center; gap: var(--sp-2); background: var(--clr-primary); color: #fff; font-size: var(--text-sm); font-weight: 700; text-decoration: none; padding: var(--sp-3) var(--sp-5); border-radius: var(--radius-sm); margin: var(--sp-6) 0; transition: background var(--dur-fast), transform var(--dur-fast); }
+    .play-cta:hover { background: var(--clr-primary-hover); transform: translateY(-2px); }
+    .article-body h2 { font-size: var(--text-xl); font-weight: 800; color: var(--clr-text); margin: var(--sp-10) 0 var(--sp-3); padding-top: var(--sp-6); border-top: 1px solid var(--clr-border); }
+    .article-body h3 { font-size: var(--text-base); font-weight: 700; color: var(--clr-primary-light); text-transform: uppercase; letter-spacing: .5px; margin: var(--sp-6) 0 var(--sp-2); }
+    .article-body p { font-size: var(--text-base); color: var(--clr-text-muted); line-height: 1.75; margin: 0 0 var(--sp-4); }
+    .article-body ul { padding-left: var(--sp-5); margin: 0 0 var(--sp-4); }
+    .article-body li { font-size: var(--text-base); color: var(--clr-text-muted); line-height: 1.7; margin-bottom: var(--sp-2); }
+    .article-body strong { color: var(--clr-text); font-weight: 700; }
+    .article-body a { color: var(--clr-primary-light); text-decoration: none; font-weight: 600; }
+    .article-body a:hover { text-decoration: underline; }
+    .outcomes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); margin: var(--sp-5) 0; }
+    @media (max-width: 480px) { .outcomes-grid { grid-template-columns: 1fr; } }
+    .outcome-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--radius-sm); padding: var(--sp-3) var(--sp-4); font-size: var(--text-sm); color: var(--clr-text-muted); }
+    .outcome-card strong { color: var(--clr-text); }
+    .gestures-table { width: 100%; border-collapse: collapse; margin: var(--sp-5) 0; }
+    .gestures-table th, .gestures-table td { padding: var(--sp-2) var(--sp-3); text-align: left; border-bottom: 1px solid var(--clr-border); font-size: var(--text-sm); }
+    .gestures-table th { color: var(--clr-text); font-weight: 700; background: var(--clr-surface); }
+    .gestures-table td { color: var(--clr-text-muted); }
+    .related-articles { margin-top: var(--sp-12); border-top: 1px solid var(--clr-border); padding-top: var(--sp-8); }
+    .related-articles h2 { font-size: var(--text-base); font-weight: 800; color: var(--clr-text); margin: 0 0 var(--sp-5); border: none; padding: 0; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--sp-3); }
+    .related-card { display: block; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--radius-sm); padding: var(--sp-4); text-decoration: none; color: var(--clr-text-muted); font-size: var(--text-sm); transition: border-color var(--dur-fast), color var(--dur-fast); }
+    .related-card:hover { border-color: var(--clr-primary); color: var(--clr-text); }
+    .related-card strong { display: block; color: var(--clr-text); font-weight: 700; margin-bottom: var(--sp-1); }
+    .article-footer { margin-top: var(--sp-10); text-align: center; font-size: var(--text-xs); color: var(--clr-text-subtle); }
+
+    .faq-section{width:100%;max-width:640px;margin-top:var(--sp-8);}
+    .faq-section h2{font-size:var(--text-base);font-weight:800;color:var(--clr-text);margin-bottom:var(--sp-3);text-align:center;}
+    .faq-item{background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);margin-bottom:var(--sp-2);}
+    .faq-item summary{cursor:pointer;font-weight:700;font-size:var(--text-sm);color:var(--clr-text);list-style:none;}
+    .faq-item summary::-webkit-details-marker{display:none;}
+    .faq-item summary::after{content:'+';float:right;color:var(--clr-primary-light);font-weight:900;}
+    .faq-item[open] summary::after{content:'\2212';}
+    .faq-item p{margin-top:var(--sp-2);font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.6;}
+  </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XM1YK1TG5W');</script>
+  <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","wgsyxocqkn");</script>
+</head>
+<body>
+<div class="article-wrap">
+  <nav class="top-nav">
+    <a href="/pt/blog/" class="back-link">← Blog</a>
+    <div class="lang-nav">
+      <a href="/blog/reglas-piedra-papel-tijeras-lagarto-spock/" class="lang-link">ES</a>
+      <a href="/en/blog/rpsls-rules/" class="lang-link">EN</a>
+      <span class="lang-link active">PT</span>
+    </div>
+  </nav>
+
+  <header class="article-header">
+    <span class="article-tag">🖖 PPTLS</span>
+    <h1>Pedra Papel Tesoura Lagarto Spock: regras e estratégia</h1>
+    <p class="article-lead">Pedra Papel Tesoura Lagarto Spock adiciona dois gestos ao jogo clássico, reduz a taxa de empates pela metade e introduz 10 combinações possíveis em vez de 3. Parece complexo — mas existe um truque simples para memorizar todas as combinações, e uma dimensão estratégica surpreendentemente profunda assim que você entende por que cada gesto foi escolhido.</p>
+  </header>
+
+  <a href="/rpsls/pt/vs-cpu" class="play-cta">🖖 Jogar PPTLS →</a>
+
+  <article class="article-body">
+
+    <h2>Os 5 gestos</h2>
+    <table class="gestures-table">
+      <thead><tr><th>Gesto</th><th>Sinal</th><th>Vence</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Pedra</strong> 🪨</td><td>Punho fechado</td><td>Tesoura, Lagarto</td></tr>
+        <tr><td><strong>Papel</strong> 📄</td><td>Mão aberta e plana</td><td>Pedra, Spock</td></tr>
+        <tr><td><strong>Tesoura</strong> ✂️</td><td>Indicador e médio esticados</td><td>Papel, Lagarto</td></tr>
+        <tr><td><strong>Lagarto</strong> 🦎</td><td>Mão como um fantoche de meia / boca que morde</td><td>Spock, Papel</td></tr>
+        <tr><td><strong>Spock</strong> 🖖</td><td>Saudação vulcana (V entre médio e anelar)</td><td>Tesoura, Pedra</td></tr>
+      </tbody>
+    </table>
+
+    <h2>As 10 combinações — explicadas</h2>
+    <p>Cada gesto vence exatamente outros dois. Aqui estão as 10 relações de vitória com a explicação de cada uma dentro do universo do jogo:</p>
+    <div class="outcomes-grid">
+      <div class="outcome-card"><strong>Tesoura ✂️ corta Papel 📄</strong><br>Combinação clássica, igual ao PPT.</div>
+      <div class="outcome-card"><strong>Papel 📄 cobre Pedra 🪨</strong><br>Combinação clássica, igual ao PPT.</div>
+      <div class="outcome-card"><strong>Pedra 🪨 esmaga Tesoura ✂️</strong><br>Combinação clássica, igual ao PPT.</div>
+      <div class="outcome-card"><strong>Pedra 🪨 esmaga Lagarto 🦎</strong><br>A pedra é pesada demais para o lagarto.</div>
+      <div class="outcome-card"><strong>Lagarto 🦎 envenena Spock 🖖</strong><br>Até vulcanos podem ser envenenados.</div>
+      <div class="outcome-card"><strong>Spock 🖖 quebra Tesoura ✂️</strong><br>A lógica de Spock destrói a tesoura.</div>
+      <div class="outcome-card"><strong>Tesoura ✂️ decapita Lagarto 🦎</strong><br>A tesoura corta limpo.</div>
+      <div class="outcome-card"><strong>Lagarto 🦎 come Papel 📄</strong><br>O papel é comestível. Lagartos comem coisas.</div>
+      <div class="outcome-card"><strong>Papel 📄 desmente Spock 🖖</strong><br>O papel contém o argumento lógico que refuta Spock.</div>
+      <div class="outcome-card"><strong>Spock 🖖 vaporiza Pedra 🪨</strong><br>Tecnologia vulcana avançada.</div>
+    </div>
+
+    <h2>Truque para memorizar: o círculo</h2>
+    <p>A forma mais fácil de memorizar as 10 combinações é imaginar uma estrela de cinco pontas (um pentágono com diagonais). Escreva os gestos em sentido horário ao redor do pentágono: Pedra → Spock → Papel → Lagarto → Tesoura → (de volta para Pedra). A regra: <strong>cada gesto vence os dois gestos imediatamente à sua direita</strong> no padrão da estrela.</p>
+    <p>Você também pode usar a mnemônica: <em>"Tesoura corta papel, papel cobre pedra, pedra esmaga lagarto, lagarto envenena Spock, Spock quebra tesoura, tesoura decapita o lagarto, lagarto come o papel, papel desmente Spock, Spock vaporiza a pedra, pedra esmaga tesoura."</em> Repita duas vezes e você terá as 10.</p>
+
+    <h2>Origem: Sam Kass e The Big Bang Theory</h2>
+    <p>PPTLS foi inventado por <strong>Sam Kass</strong> e <strong>Karen Bryla</strong> em 1998, publicado no site pessoal de Sam Kass como solução para a alta taxa de empates do PPT padrão. O objetivo explícito de Kass era criar uma versão com mais combinações para reduzir os impasses em partidas repetidas entre pessoas que conhecem as tendências umas das outras.</p>
+    <p>O jogo existiu em relativa obscuridade por uma década. Depois, em 2008, <em>The Big Bang Theory</em> o apresentou na Temporada 2, Episódio 8. Sheldon Cooper explica as regras para Raj em uma cena que se tornou um dos momentos mais citados da série. Da noite para o dia, PPTLS deixou de ser uma curiosidade da internet e virou uma variante reconhecida mundialmente. Sam Kass foi posteriormente creditado no programa.</p>
+
+    <h2>PPTLS realmente reduz os empates?</h2>
+    <p>Sim, significativamente. No PPT padrão com jogadas aleatórias, os dois jogadores escolhem o mesmo gesto 1 em 3 vezes (33,3%). No PPTLS com 5 gestos, a probabilidade de empate cai para 1 em 5 (20%). Na prática é ainda menor — a maioria dos jogadores naturalmente evita repetir o mesmo gesto duas vezes seguidas, o que torna suas escolhas pseudo-aleatórias com baixa probabilidade de auto-repetição. Nessas condições, os empates no PPTLS ocorrem aproximadamente <strong>na metade das vezes</strong> em comparação ao PPT padrão.</p>
+    <p>É exatamente isso que torna o PPTLS útil para seu propósito original: quebrar impasses entre duas pessoas que se conhecem bem e tendem a "seguir" os padrões uma da outra no PPT padrão.</p>
+
+    <h2>Estratégia: como Lagarto e Spock mudam o jogo</h2>
+
+    <h3>Spock é uma boa abertura</h3>
+    <p>Spock vence Pedra e Tesoura. Como Pedra é o gesto estatisticamente mais comum na primeira rodada (especialmente entre jogadores inexperientes), Spock é uma boa abertura. Contra um jogador que tende a abrir com Pedra, Spock vence imediatamente. Papel também vence Spock, então um jogador experiente que antecipar seu Spock vai te punir — o que torna Spock uma abertura forte, mas não dominante.</p>
+
+    <h3>Lagarto mira nos gestos "seguros"</h3>
+    <p>Muitos jogadores de PPT padrão recorrem ao Papel quando querem jogar com segurança (vence Pedra e não perde para Papel ou Tesoura de uma forma que pareça "boba"). No PPTLS, Lagarto vence Papel e Spock. Lagarto pune jogadores que recorrem por padrão a estratégias dominadas pelo Papel.</p>
+
+    <h3>O novo par dominante</h3>
+    <p>No PPT padrão, nenhum gesto é dominante. No PPTLS, pesquisas empíricas sobre escolhas na primeira rodada sugerem que Papel e Spock são escolhidos um pouco mais frequentemente do que os outros três por jogadores que estudaram o jogo. Isso cria um meta-jogo secundário em que Lagarto (que vence tanto Papel quanto Spock) fica subvalorizado e, portanto, é eficaz contra jogadores analíticos.</p>
+
+    <h3>O anti-meta: Pedra</h3>
+    <p>Pedra é a escolha intuitiva padrão dos iniciantes, o que a torna previsível. No PPTLS ela ainda perde para Papel e Spock — mas continua vencendo Tesoura e Lagarto. Contra jogadores que estão pensando em Lagarto e Spock, Pedra está surpreendentemente subutilizada e pode pegá-los desprevenidos.</p>
+
+    <a href="/rpsls/pt/vs-cpu" class="play-cta" style="display:inline-flex;margin-top:var(--sp-4);">🖖 Jogar PPTLS grátis →</a>
+
+  </article>
+
+
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <h2 id="faq-heading">Perguntas Frequentes</h2>
+    <details class="faq-item">
+      <summary>Quais são as regras de Pedra Papel Tesoura Lagarto Spock?</summary>
+      <p>PPTLS adiciona Lagarto e Spock aos três gestos clássicos. As 10 combinações: Tesoura corta Papel, Papel cobre Pedra, Pedra esmaga Lagarto, Lagarto envenena Spock, Spock quebra Tesoura, Tesoura decapita Lagarto, Lagarto come Papel, Papel desmente Spock, Spock vaporiza Pedra, Pedra esmaga Tesoura. Cada gesto vence outros dois e perde para outros dois.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Quem inventou Pedra Papel Tesoura Lagarto Spock?</summary>
+      <p>PPTLS foi inventado por Sam Kass e Karen Bryla em 1998 e publicado no site de Sam Kass. Ficou mundialmente famoso depois de aparecer em The Big Bang Theory (Temporada 2, Episódio 8, 2008), onde Sheldon Cooper explica as regras para Raj.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Qual sinal de mão representa Spock em PPTLS?</summary>
+      <p>Spock é representado pela saudação vulcana: todos os dedos esticados, com uma divisão em V entre o dedo médio e o anelar (indicador e médio juntos, anelar e mínimo juntos, polegar separado). É o sinal associado a 'Vida longa e próspera' de Star Trek.</p>
+    </details>
+    <details class="faq-item">
+      <summary>PPTLS reduz os empates em relação ao PPT?</summary>
+      <p>Sim. No PPT padrão, a probabilidade de empate (mesmo gesto) é 1 em 3 (33,3%). No PPTLS com 5 gestos escolhidos ao acaso, a probabilidade de empate cai para 1 em 5 (20%). Na prática os empates são ainda mais raros porque os jogadores tendem a evitar repetir gestos, o que dá ao PPTLS aproximadamente 55% menos empates do que o PPT padrão.</p>
+    </details>
+  </section>
+
+  <section class="related-articles">
+    <h2>Artigos relacionados</h2>
+    <div class="related-grid">
+      <a href="/pt/blog/historia-pedra-papel-tesoura/" class="related-card">
+        <strong>História do Pedra Papel Tesoura</strong>
+        2.000 anos do jogo mais famoso do mundo
+      </a>
+      <a href="/pt/blog/como-jogar-pauzinhos/" class="related-card">
+        <strong>Como jogar Pauzinhos</strong>
+        O jogo de dedos mais estratégico
+      </a>
+      <a href="/pt/blog/morra-historia-regras/" class="related-card">
+        <strong>Morra: história e regras</strong>
+        O jogo de mãos mais antigo do mundo
+      </a>
+      <a href="/rpsls/pt/" class="related-card">
+        <strong>Jogar PPTLS</strong>
+        Online, grátis, sem cadastro
+      </a>
+    </div>
+  </section>
+
+  <footer class="article-footer">
+    <a href="/pt/blog/" style="color:var(--clr-text-subtle);text-decoration:none;">← Voltar ao blog</a>
+    &nbsp;·&nbsp;
+    <a href="/pt/" style="color:var(--clr-text-subtle);text-decoration:none;">handgames.app</a>
+  </footer>
+</div>
+<script src="/js/analytics.js?v=2"></script>
+</body>
+</html>
