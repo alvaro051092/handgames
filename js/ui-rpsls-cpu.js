@@ -149,13 +149,18 @@
     transitioning = true;
     document.querySelectorAll('.btn:not(.btn-pick):not(.btn-mute)').forEach(b => b.classList.add('btn-loading'));
     const cur = activeScreen(), next = screens[nextId];
-    if (!cur || !next || cur === next) { transitioning = false; return; }
+    if (!cur || !next || cur === next) {
+      transitioning = false;
+      document.querySelectorAll('.btn-loading').forEach(b => b.classList.remove('btn-loading'));
+      return;
+    }
     const d = `dir-${dir}`;
     cur.classList.add('s-exiting', d); cur.classList.remove('active');
     next.classList.add('active', 's-entering', d);
     await Promise.all([onceAnim(cur, 500), onceAnim(next, 500)]);
     cur.classList.remove('s-exiting', d); next.classList.remove('s-entering', d);
     transitioning = false;
+    document.querySelectorAll('.btn-loading').forEach(b => b.classList.remove('btn-loading'));
   }
 
   /* ── Pick screen ── */
