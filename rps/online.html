@@ -52,12 +52,15 @@
     .join-row { display: none; gap: var(--sp-2); margin-top: var(--sp-2); }
     .join-row.show { display: flex; }
     .join-row input {
-      flex: 1; background: var(--clr-surface-2); border: 1.5px solid var(--clr-border);
+      flex: 1 1 0; min-width: 0; background: var(--clr-surface-2); border: 1.5px solid var(--clr-border);
       border-radius: var(--radius-sm); color: var(--clr-text); font-family: var(--font);
       font-size: var(--text-lg); text-align: center; letter-spacing: 3px; text-transform: uppercase;
-      padding: var(--sp-3); outline: none; width: 0;
+      padding: var(--sp-3) var(--sp-1); outline: none;
     }
     .join-row input:focus { border-color: var(--clr-primary); }
+    /* Override .btn's default width:100% — in this row it should hug its
+       own label, not fight the code input for space. */
+    .join-row .btn { width: auto; flex: 0 0 auto; padding-left: var(--sp-4); padding-right: var(--sp-4); }
 
     .pick-wait { text-align: center; color: var(--clr-text-muted); font-size: var(--text-sm); margin-top: var(--sp-3); }
     .setup-err { text-align: center; color: var(--clr-danger); font-size: var(--text-sm); min-height: 1.4em; }

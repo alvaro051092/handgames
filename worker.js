@@ -68,8 +68,37 @@ async function getRoom(env, code) {
   return raw ? JSON.parse(raw) : null;
 }
 
-async function saveRoom(env, code, state) {
-  await env.ROOMS.put(code, JSON.stringify(state), { expirationTtl: ROOM_TTL_SECONDS });
+async function saveRoom(env, code, doc) {
+  await env.ROOMS.put(code, JSON.stringify(doc), { expirationTtl: ROOM_TTL_SECONDS });
+}
+
+/* Picks live in their own KV key per player per round, so two players
+   submitting at nearly the same instant never race on a shared
+   read-modify-write and clobber each other's pick (the room doc itself
+   only ever needs a read-modify-write for infrequent events: create,
+   join, next-round, and the once-per-round score commit below). */
+function pickKey(code, round, playerId) { return `${code}:pick:${round}:${playerId}`; }
+
+async function getPick(env, code, round, playerId) {
+  return env.ROOMS.get(pickKey(code, round, playerId));
+}
+
+async function savePick(env, code, round, playerId, pick) {
+  await env.ROOMS.put(pickKey(code, round, playerId), pick, { expirationTtl: ROOM_TTL_SECONDS });
+}
+
+function buildStateResponse(doc, p1Pick, p2Pick) {
+  const roundWinner = (p1Pick && p2Pick)
+    ? (p1Pick === p2Pick ? 'draw' : (BEATS[p1Pick] === p2Pick ? 'p1' : 'p2'))
+    : null;
+  return {
+    createdAt: doc.createdAt,
+    round: doc.round,
+    scores: doc.scores,
+    roundWinner,
+    p1: doc.p1 ? { name: doc.p1.name, pick: p1Pick || null } : null,
+    p2: doc.p2 ? { name: doc.p2.name, pick: p2Pick || null } : null,
+  };
 }
 
 async function handleRoomsApi(request, env, url) {
@@ -80,13 +109,13 @@ async function handleRoomsApi(request, env, url) {
     if (request.method !== 'POST') return jsonResponse({ error: 'method not allowed' }, 405);
     const body = await safeJson(request);
     const code = genRoomCode();
-    const state = {
-      createdAt: Date.now(), round: 1, scores: { p1: 0, p2: 0 }, roundWinner: null,
-      p1: { name: clampName(body.name) || 'Jugador 1', pick: null },
+    const doc = {
+      createdAt: Date.now(), round: 1, scores: { p1: 0, p2: 0 }, resolvedRound: 0,
+      p1: { name: clampName(body.name) || 'Jugador 1' },
       p2: null,
     };
-    await saveRoom(env, code, state);
-    return jsonResponse({ code, playerId: 'p1', state });
+    await saveRoom(env, code, doc);
+    return jsonResponse({ code, playerId: 'p1', state: buildStateResponse(doc, null, null) });
   }
 
   const code = (parts[2] || '').toUpperCase();
@@ -95,9 +124,13 @@ async function handleRoomsApi(request, env, url) {
   // GET /api/rps-room/:code — poll current state
   if (parts.length === 3) {
     if (request.method !== 'GET') return jsonResponse({ error: 'method not allowed' }, 405);
-    const state = await getRoom(env, code);
-    if (!state) return jsonResponse({ error: 'room not found' }, 404);
-    return jsonResponse({ state });
+    const doc = await getRoom(env, code);
+    if (!doc) return jsonResponse({ error: 'room not found' }, 404);
+    const [p1Pick, p2Pick] = await Promise.all([
+      getPick(env, code, doc.round, 'p1'),
+      getPick(env, code, doc.round, 'p2'),
+    ]);
+    return jsonResponse({ state: buildStateResponse(doc, p1Pick, p2Pick) });
   }
 
   const action = parts[3];
@@ -105,44 +138,60 @@ async function handleRoomsApi(request, env, url) {
 
   // POST /api/rps-room/:code/join — caller becomes p2 (idempotent)
   if (action === 'join') {
-    const state = await getRoom(env, code);
-    if (!state) return jsonResponse({ error: 'room not found' }, 404);
+    const doc = await getRoom(env, code);
+    if (!doc) return jsonResponse({ error: 'room not found' }, 404);
     const body = await safeJson(request);
-    if (!state.p2) state.p2 = { name: clampName(body.name) || 'Jugador 2', pick: null };
-    await saveRoom(env, code, state);
-    return jsonResponse({ playerId: 'p2', state });
+    if (!doc.p2) {
+      doc.p2 = { name: clampName(body.name) || 'Jugador 2' };
+      await saveRoom(env, code, doc);
+    }
+    const [p1Pick, p2Pick] = await Promise.all([
+      getPick(env, code, doc.round, 'p1'),
+      getPick(env, code, doc.round, 'p2'),
+    ]);
+    return jsonResponse({ playerId: 'p2', state: buildStateResponse(doc, p1Pick, p2Pick) });
   }
 
   // POST /api/rps-room/:code/pick — submit a pick; resolves the round once both are in
   if (action === 'pick') {
-    const state = await getRoom(env, code);
-    if (!state) return jsonResponse({ error: 'room not found' }, 404);
+    const doc = await getRoom(env, code);
+    if (!doc) return jsonResponse({ error: 'room not found' }, 404);
     const body = await safeJson(request);
     const playerId = body.playerId === 'p2' ? 'p2' : 'p1';
+    const otherId  = playerId === 'p1' ? 'p2' : 'p1';
     if (!VALID_PICKS.has(body.pick)) return jsonResponse({ error: 'invalid pick' }, 400);
-    if (!state[playerId]) return jsonResponse({ error: 'player not in room' }, 400);
+    if (!doc[playerId]) return jsonResponse({ error: 'player not in room' }, 400);
 
-    state[playerId].pick = body.pick;
-    if (state.p1?.pick && state.p2?.pick) {
-      const a = state.p1.pick, b = state.p2.pick;
-      state.roundWinner = a === b ? 'draw' : (BEATS[a] === b ? 'p1' : 'p2');
-      if (state.roundWinner === 'p1') state.scores.p1++;
-      if (state.roundWinner === 'p2') state.scores.p2++;
+    await savePick(env, code, doc.round, playerId, body.pick);
+    const otherPick = await getPick(env, code, doc.round, otherId);
+    const picks = { [playerId]: body.pick, [otherId]: otherPick };
+
+    // Both picks are in — commit this round's score exactly once. Re-reads
+    // the doc right before writing to narrow (not eliminate) the race with
+    // the other player's request doing the same check at the same instant;
+    // worst case a score is off by one, it never drops anyone's pick.
+    if (otherPick && doc.resolvedRound !== doc.round) {
+      const fresh = await getRoom(env, code);
+      if (fresh.resolvedRound !== doc.round) {
+        const winner = picks.p1 === picks.p2 ? 'draw' : (BEATS[picks.p1] === picks.p2 ? 'p1' : 'p2');
+        if (winner === 'p1') fresh.scores.p1++;
+        if (winner === 'p2') fresh.scores.p2++;
+        fresh.resolvedRound = doc.round;
+        await saveRoom(env, code, fresh);
+      }
+      doc.scores = fresh.scores;
     }
-    await saveRoom(env, code, state);
-    return jsonResponse({ state });
+
+    return jsonResponse({ state: buildStateResponse(doc, picks.p1, picks.p2) });
   }
 
   // POST /api/rps-room/:code/next — advance to the next round (keeps scores)
   if (action === 'next') {
-    const state = await getRoom(env, code);
-    if (!state) return jsonResponse({ error: 'room not found' }, 404);
-    state.round++;
-    state.roundWinner = null;
-    if (state.p1) state.p1.pick = null;
-    if (state.p2) state.p2.pick = null;
-    await saveRoom(env, code, state);
-    return jsonResponse({ state });
+    const doc = await getRoom(env, code);
+    if (!doc) return jsonResponse({ error: 'room not found' }, 404);
+    doc.round++;
+    await saveRoom(env, code, doc);
+    return jsonResponse({ state: buildStateResponse(doc, null, null) });
   }
 
   return jsonResponse({ error: 'not found' }, 404);
