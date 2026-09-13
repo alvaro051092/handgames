@@ -14,7 +14,7 @@
 (() => {
   /* Only activate on game pages (not hub/index) */
   const path = window.location.pathname;
-  const isGamePage = /\/(vs-cpu|local|battle)\.html$/.test(path);
+  const isGamePage = /\/(vs-cpu|local|battle|online)\.html$/.test(path);
   if (!isGamePage) return;
 
   /* Helper: find first visible, non-disabled button matching selector */

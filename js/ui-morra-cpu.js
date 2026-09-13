@@ -8,6 +8,10 @@
   let transitioning    = false;
   let pendingFingers   = null;   // 1-5
   let pendingGuess     = null;   // 2-10
+  let inputMode        = 'click'; // 'click' | 'camera'
+  let camUiRaf         = null;
+  let lastSnapshot      = null;
+  let camFeedbackUntil = 0; // suppress loop's status text while a one-off message is showing
 
   /* ──────────── Utilities ──────────── */
 
@@ -134,6 +138,11 @@
 
   /* ──────────── Pick Screen ──────────── */
 
+  function updateConfirmEnabled() {
+    const fingersReady = inputMode === 'camera' ? true : pendingFingers !== null;
+    $('btn-confirm').disabled = !fingersReady || pendingGuess === null;
+  }
+
   function resetPickSelections() {
     pendingFingers = null;
     pendingGuess   = null;
@@ -145,7 +154,7 @@
       b.classList.remove('selected');
       b.disabled = false;
     });
-    $('btn-confirm').disabled = true;
+    updateConfirmEnabled();
   }
 
   function populatePick(state) {
@@ -156,6 +165,46 @@
     $('pick-round-badge').textContent =
       state.mode === 'best-of-3' ? `Ronda ${state.round}` : 'Intento único';
     resetPickSelections();
+
+    $('finger-pick-click').style.display  = inputMode === 'click'  ? '' : 'none';
+    $('finger-pick-camera').style.display = inputMode === 'camera' ? '' : 'none';
+    if (inputMode === 'camera') {
+      $('cam-status').textContent = 'Detectando mano…';
+      $('cam-countdown').textContent = '';
+      startCamUiLoop();
+    }
+  }
+
+  /* ── Camera mode: reflect detection state onto the oval/status. ── */
+  function startCamUiLoop() {
+    if (camUiRaf) cancelAnimationFrame(camUiRaf);
+    function tick() {
+      if (inputMode !== 'camera' || !CameraGesture.isReady()) {
+        camUiRaf = requestAnimationFrame(tick);
+        return;
+      }
+      const count = CameraGesture.countFingersCurrent();
+      const oval = $('cam-oval');
+      const showFeedback = performance.now() < camFeedbackUntil;
+      if (CameraGesture.hasDetection()) {
+        oval.classList.toggle('detected', count >= 1 && count <= 5);
+        if (!showFeedback) {
+          $('cam-status').textContent = count >= 1
+            ? `Detectando: ${count} dedo${count === 1 ? '' : 's'}`
+            : 'Mano detectada — mostrá tus dedos';
+        }
+      } else {
+        oval.classList.remove('detected');
+        if (!showFeedback) $('cam-status').textContent = 'Detectando mano…';
+      }
+      camUiRaf = requestAnimationFrame(tick);
+    }
+    tick();
+  }
+
+  function stopCamUiLoop() {
+    if (camUiRaf) cancelAnimationFrame(camUiRaf);
+    camUiRaf = null;
   }
 
   /* ──────────── Result Screen ──────────── */
@@ -179,6 +228,15 @@
     $('res-player-name').textContent  = player.name;
     $('res-player-num').textContent   = picks.playerFingers;
     $('res-player-guess').textContent = `apostó: ${picks.playerGuess}`;
+    const snapImg = $('res-player-snap');
+    if (inputMode === 'camera' && lastSnapshot) {
+      snapImg.src = lastSnapshot;
+      snapImg.style.display = '';
+      $('res-player-num').style.display = 'none';
+    } else {
+      snapImg.style.display = 'none';
+      $('res-player-num').style.display = '';
+    }
 
     // CPU block — "?" initially
     const cpuBlock = $('res-cpu-block');
@@ -346,10 +404,36 @@
 
   /* ──────────── Event Listeners ──────────── */
 
-  $('btn-start').addEventListener('click', () => {
+  $('btn-start').addEventListener('click', async () => {
     const name = $('name-player').value.trim() || (_lang==='en'?'Player':_lang==='pt'?'Jogador':'Jugador');
     const difficulty = document.querySelector('input[name=\"difficulty\"]:checked')?.value || 'medium';
     const mode = document.querySelector('input[name="mode"]:checked').value;
+    const wantsCamera = document.querySelector('input[name="input-mode"]:checked')?.value === 'camera';
+    const startBtn = $('btn-start');
+    const camStatus = $('setup-cam-status');
+    camStatus.classList.remove('err');
+    camStatus.textContent = '';
+
+    if (wantsCamera) {
+      startBtn.disabled = true;
+      camStatus.textContent = 'Activando cámara…';
+      try {
+        await CameraGesture.init($('cam-video'), $('cam-overlay'));
+        inputMode = 'camera';
+      } catch (err) {
+        console.error(err);
+        camStatus.classList.add('err');
+        camStatus.textContent = err.name === 'NotAllowedError'
+          ? 'Permiso de cámara denegado — seguimos con el modo click.'
+          : 'No se pudo iniciar la cámara — seguimos con el modo click.';
+        inputMode = 'click';
+        await new Promise(r => setTimeout(r, 1400));
+      }
+      startBtn.disabled = false;
+    } else {
+      inputMode = 'click';
+    }
+
     const state = GameMorraCPU.configure(name, mode, difficulty);
     HGA.gameStart(mode);
     populatePick(state);
@@ -364,7 +448,7 @@
     $('finger-buttons').querySelectorAll('.btn-finger').forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
     pendingFingers = parseInt(btn.dataset.f, 10);
-    $('btn-confirm').disabled = pendingFingers === null || pendingGuess === null;
+    updateConfirmEnabled();
     GameAudio.playTick();
   });
 
@@ -375,22 +459,42 @@
     $('guess-buttons').querySelectorAll('.btn-guess').forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
     pendingGuess = parseInt(btn.dataset.g, 10);
-    $('btn-confirm').disabled = pendingFingers === null || pendingGuess === null;
+    updateConfirmEnabled();
     GameAudio.playTick();
   });
 
   // Confirm (reveal)
   $('btn-confirm').addEventListener('pointerdown', () => GameAudio.prime(), { passive: true });
   $('btn-confirm').addEventListener('click', async () => {
-    if (transitioning || pendingFingers === null || pendingGuess === null) return;
-    $('finger-buttons').querySelectorAll('.btn-finger').forEach(b => b.disabled = true);
+    if (transitioning || pendingGuess === null) return;
+    if (inputMode === 'click' && pendingFingers === null) return;
+
     $('guess-buttons').querySelectorAll('.btn-guess').forEach(b => b.disabled = true);
     $('btn-confirm').disabled = true;
-    GameAudio.playTick();
-    await new Promise(r => setTimeout(r, 200));
+
+    if (inputMode === 'camera') {
+      const { pick, snapshot } = await CameraGesture.captureWithCountdown({
+        classify: CameraGesture.countFingers1to5,
+        onTick: label => { $('cam-countdown').textContent = label; },
+      });
+      if (!pick) {
+        $('cam-status').textContent = 'No pude leer tus dedos a tiempo — probá de nuevo';
+        camFeedbackUntil = performance.now() + 1800;
+        $('guess-buttons').querySelectorAll('.btn-guess').forEach(b => b.disabled = false);
+        updateConfirmEnabled();
+        return;
+      }
+      pendingFingers = pick;
+      lastSnapshot   = snapshot;
+    } else {
+      $('finger-buttons').querySelectorAll('.btn-finger').forEach(b => b.disabled = true);
+      GameAudio.playTick();
+      await new Promise(r => setTimeout(r, 200));
+    }
+
     const state = GameMorraCPU.playerPick(pendingFingers, pendingGuess);
     setTimeout(() => {
-      HGA.pickMade({ pick_fingers: pendingFingers, pick_guess: pendingGuess, round: state.round });
+      HGA.pickMade({ pick_fingers: pendingFingers, pick_guess: pendingGuess, round: state.round, input_mode: inputMode });
       HGA.roundResult(state.roundWinner, { pick_player_fingers: state.picks.playerFingers, pick_cpu_fingers: state.picks.cpuFingers, round: state.round });
     }, 0);
     populateResult(state);
@@ -424,8 +528,11 @@
 
   $('btn-new-game-result').addEventListener('click', () => {
     if (transitioning) return;
+    if (inputMode === 'camera') { CameraGesture.stop(); stopCamUiLoop(); }
     GameMorraCPU.newGame();
     $('name-player').value = '';
+    $('setup-cam-status').textContent = '';
+    $('setup-cam-status').classList.remove('err');
     goTo('setup', 'back');
   });
 
@@ -442,10 +549,13 @@
 
   $('btn-new-game-go').addEventListener('click', () => {
     if (transitioning) return;
+    if (inputMode === 'camera') { CameraGesture.stop(); stopCamUiLoop(); }
     $('confetti-container').innerHTML = '';
     $('session-stats').style.display  = 'none';
     GameMorraCPU.newGame();
     $('name-player').value = '';
+    $('setup-cam-status').textContent = '';
+    $('setup-cam-status').classList.remove('err');
     goTo('setup', 'back');
   });
 

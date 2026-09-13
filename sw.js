@@ -7,8 +7,18 @@
    caches.match uses ignoreSearch:true so versioned URLs are served
    from the precache. On deploy, bump CACHE_VERSION to clear old cache.
 ═══════════════════════════════════════════════════════════ */
-const CACHE_VERSION = 'hg-v2';
+const CACHE_VERSION = 'hg-v4';
 const CACHE_STATIC  = `${CACHE_VERSION}-static`;
+const CACHE_ML      = `${CACHE_VERSION}-ml-models`;
+
+/* Third-party hosts serving the (versioned, immutable) hand-tracking
+   model + wasm runtime — cached forever once downloaded so repeat
+   visits skip the ~5-10MB download. */
+const ML_HOSTS = ['cdn.jsdelivr.net', 'storage.googleapis.com'];
+function isMlAsset(url) {
+  return ML_HOSTS.includes(url.hostname) &&
+    (url.pathname.includes('/@mediapipe/') || url.pathname.includes('/mediapipe-models/'));
+}
 
 /* Assets that never change between games */
 const PRECACHE = [
@@ -17,6 +27,7 @@ const PRECACHE = [
   '/css/layout.css',
   '/css/components.css',
   '/css/animations.css',
+  '/css/camera.css',
   '/js/analytics.js',
   '/js/audio.js',
   '/js/streak.js',
@@ -30,6 +41,7 @@ const PRECACHE = [
   '/js/ui-cpu.js',
   '/js/ui-local.js',
   '/js/ui-battle.js',
+  '/js/camera-gesture.js',
   '/assets/favicon.ico',
   '/assets/favicon-32.png',
   '/assets/apple-touch-icon.png',
@@ -57,7 +69,7 @@ self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
       Promise.all(
-        keys.filter(k => k !== CACHE_STATIC).map(k => caches.delete(k))
+        keys.filter(k => k !== CACHE_STATIC && k !== CACHE_ML).map(k => caches.delete(k))
       )
     )
   );
@@ -69,8 +81,28 @@ self.addEventListener('fetch', event => {
   const { request } = event;
   const url = new URL(request.url);
 
+  /* Hand-tracking model + wasm runtime (cross-origin, versioned, immutable):
+     cache forever once downloaded, regardless of the CDN's own headers. */
+  if (isMlAsset(url)) {
+    event.respondWith(
+      caches.open(CACHE_ML).then(cache =>
+        cache.match(request).then(cached => {
+          if (cached) return cached;
+          return fetch(request).then(res => {
+            if (res.ok) cache.put(request, res.clone());
+            return res;
+          });
+        })
+      )
+    );
+    return;
+  }
+
   /* Only handle same-origin requests */
   if (url.origin !== self.location.origin) return;
+
+  /* Live API data (room polling, etc.) — never cache, always hit the network */
+  if (url.pathname.startsWith('/api/')) return;
 
   /* HTML pages: network-first (keeps content fresh) */
   if (request.headers.get('Accept')?.includes('text/html')) {

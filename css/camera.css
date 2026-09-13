@@ -1,0 +1,66 @@
+/* ═══════════════════════════ CAMERA GESTURE MODE ═══════════════════════════ */
+.input-mode-group { margin-bottom: var(--sp-5); }
+
+.cam-stage {
+  position: relative;
+  width: 100%; max-width: 380px;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--clr-surface-2);
+  border: 1px solid var(--clr-border);
+  margin: 0 auto;
+}
+.cam-stage video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  transform: scaleX(-1);
+}
+.cam-stage canvas.cam-overlay {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  transform: scaleX(-1);
+  pointer-events: none;
+}
+.cam-guide {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+}
+.cam-guide-oval {
+  width: 62%; height: 44%;
+  border: 3px dashed rgba(255,255,255,.35);
+  border-radius: 50%;
+  transition: border-color var(--dur-fast);
+}
+.cam-guide-oval.detected { border-color: var(--clr-success); border-style: solid; }
+
+.cam-hint {
+  position: absolute; left: 0; right: 0; bottom: var(--sp-3);
+  text-align: center; font-size: var(--text-sm); font-weight: 700;
+  color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,.8);
+  pointer-events: none;
+}
+.cam-countdown {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 4.5rem; font-weight: 900; color: #fff;
+  text-shadow: 0 2px 12px rgba(0,0,0,.8);
+  pointer-events: none;
+}
+
+.cam-status {
+  text-align: center; color: var(--clr-text-muted); font-size: var(--text-sm);
+  min-height: 1.4em; margin-top: var(--sp-3);
+}
+.cam-status.err { color: var(--clr-danger); font-weight: 700; }
+
+.snap-thumb {
+  width: 84px; height: 84px; object-fit: cover; border-radius: var(--radius);
+  border: 2px solid var(--clr-border); transform: scaleX(-1);
+  display: block; margin: 0 auto;
+}
+
+.cam-privacy-note {
+  font-size: var(--text-xs); color: var(--clr-text-subtle);
+  text-align: center; margin-top: var(--sp-3); line-height: 1.5;
+}

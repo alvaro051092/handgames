@@ -62,6 +62,7 @@
   <link rel="stylesheet" href="/css/layout.css?v=3" />
   <link rel="stylesheet" href="/css/components.css?v=3" />
   <link rel="stylesheet" href="/css/animations.css?v=3" />
+  <link rel="stylesheet" href="/css/camera.css?v=2" />
   <style>
     /* ── CPU flip animations ── */
     @keyframes cpuFlipOut {
@@ -331,8 +332,32 @@
           </label>
         </fieldset>
 
+        <fieldset class="mode-group input-mode-group">
+          <legend>Cómo elegís tu jugada</legend>
+          <label class="mode-option">
+            <input type="radio" name="input-mode" value="click" checked />
+            <span class="mode-label">
+              <span class="mode-icon">🖱️</span>
+              <span class="mode-text">
+                <strong>Click</strong>
+                <small>Elegís tocando un botón</small>
+              </span>
+            </span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="input-mode" value="camera" />
+            <span class="mode-label">
+              <span class="mode-icon">📸</span>
+              <span class="mode-text">
+                <strong>Cámara <em style="opacity:.7;font-style:normal;">(beta)</em></strong>
+                <small>Le mostrás la mano de verdad</small>
+              </span>
+            </span>
+          </label>
+        </fieldset>
 
         <button id="btn-start" class="btn btn-primary btn-lg">¡Jugar!</button>
+        <p id="setup-cam-status" class="cam-status"></p>
       </div>
 
       <a href="/rps/" class="back-hub-link">← Cambiar modo</a>
@@ -354,7 +379,7 @@
         </div>
       </div>
 
-      <div class="card pick-card">
+      <div class="card pick-card" id="pick-card-click">
         <p class="pick-hint" style="margin-top: var(--sp-2);">Elige tu jugada</p>
         <div class="pick-buttons" id="pick-buttons">
           <button data-kbd-hint="1" class="btn btn-pick" data-pick="rock" aria-label="Elegir Piedra">
@@ -370,6 +395,18 @@
             <span class="pick-label">Tijeras</span>
           </button>
         </div>
+      </div>
+
+      <div class="card pick-card" id="pick-card-camera" style="display:none;">
+        <div class="cam-stage" id="cam-stage">
+          <video id="cam-video" autoplay playsinline muted></video>
+          <canvas id="cam-overlay" class="cam-overlay"></canvas>
+          <div class="cam-guide"><div class="cam-guide-oval" id="cam-oval"></div></div>
+          <div class="cam-hint" id="cam-hint">Colocá tu mano dentro del óvalo</div>
+          <div class="cam-countdown" id="cam-countdown"></div>
+        </div>
+        <p class="cam-status" id="cam-status">Detectando mano…</p>
+        <button id="btn-cam-round" class="btn btn-primary btn-lg" style="width:100%;" disabled>✊✋✌️ ¡Jugar ronda!</button>
       </div>
     </section>
 
@@ -394,6 +431,7 @@
           <div class="result-pick-block" id="res-player-block">
             <span class="res-pname" id="res-player-name"></span>
             <span class="res-emoji" id="res-player-emoji"></span>
+            <img id="res-player-snap" class="snap-thumb" style="display:none;" alt="Tu gesto capturado" />
             <span class="res-pick-label" id="res-player-label"></span>
           </div>
           <div class="result-center-col">
@@ -486,6 +524,7 @@
   <script src="/js/streak.js?v=2"></script>
   <script src="/js/game-cpu.js?v=2"></script>
   <script src="/js/audio.js?v=2"></script>
-  <script src="/js/ui-cpu.js?v=2"></script>
+  <script src="/js/camera-gesture.js?v=2"></script>
+  <script src="/js/ui-cpu.js?v=3"></script>
 </body>
 </html>

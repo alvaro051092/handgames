@@ -6,6 +6,10 @@
   /* ──────────── State ──────────── */
   const _lang = document.documentElement.lang || 'es';
   let transitioning = false;
+  let inputMode = 'click'; // 'click' | 'camera'
+  let camUiRaf = null;
+  let lastSnapshot = null;
+  let camFeedbackUntil = 0; // suppress loop's status text while a one-off message is showing
 
   /* ──────────── Utilities ──────────── */
 
@@ -154,6 +158,54 @@
       b.disabled = false;
       b.classList.remove('selected', 'bouncing');
     });
+
+    $('pick-card-click').style.display  = inputMode === 'click'  ? '' : 'none';
+    $('pick-card-camera').style.display = inputMode === 'camera' ? '' : 'none';
+    if (inputMode === 'camera') {
+      $('btn-cam-round').disabled = true;
+      $('cam-status').textContent = 'Detectando mano…';
+      $('cam-countdown').textContent = '';
+      startCamUiLoop();
+    }
+  }
+
+  /* ── Camera mode: UI polling loop (separate from CameraGesture's own
+     detection loop) — just reflects detection state onto the oval/status/button. ── */
+  function startCamUiLoop() {
+    if (camUiRaf) cancelAnimationFrame(camUiRaf);
+    function tick() {
+      if (inputMode !== 'camera' || !CameraGesture.isReady()) {
+        camUiRaf = requestAnimationFrame(tick);
+        return;
+      }
+      const gesture = CameraGesture.classifyCurrent();
+      const oval = $('cam-oval');
+      const showFeedback = performance.now() < camFeedbackUntil;
+      if (CameraGesture.hasDetection()) {
+        oval.classList.toggle('detected', !!gesture);
+        if (!showFeedback) {
+          $('cam-status').textContent = gesture
+            ? `Detectando: ${pickLabel(gesture)}`
+            : 'Mano detectada — ajustá el gesto';
+        }
+        $('btn-cam-round').disabled = false;
+      } else {
+        oval.classList.remove('detected');
+        if (!showFeedback) $('cam-status').textContent = 'Detectando mano…';
+        $('btn-cam-round').disabled = true;
+      }
+      camUiRaf = requestAnimationFrame(tick);
+    }
+    tick();
+  }
+
+  function stopCamUiLoop() {
+    if (camUiRaf) cancelAnimationFrame(camUiRaf);
+    camUiRaf = null;
+  }
+
+  function pickLabel(g) {
+    return g === 'rock' ? '🪨 Piedra' : g === 'paper' ? '📄 Papel' : '✌️ Tijeras';
   }
 
   function populateResult(state) {
@@ -177,6 +229,15 @@
     $('res-player-name').textContent  = player.name;
     $('res-player-emoji').textContent = meta[picks.player].emoji;
     $('res-player-label').textContent = meta[picks.player].label;
+    const snapImg = $('res-player-snap');
+    if (inputMode === 'camera' && lastSnapshot) {
+      snapImg.src = lastSnapshot;
+      snapImg.style.display = '';
+      $('res-player-emoji').style.display = 'none';
+    } else {
+      snapImg.style.display = 'none';
+      $('res-player-emoji').style.display = '';
+    }
 
     // CPU block — visible immediately showing ✊ (fist = mystery)
     const cpuBlock = $('res-cpu-block');
@@ -338,15 +399,66 @@
 
   /* ──────────── Event Listeners ──────────── */
 
-  $('btn-start').addEventListener('click', () => {
+  $('btn-start').addEventListener('click', async () => {
     const name = $('name-player').value.trim() || (_lang==='en'?'Player':_lang==='pt'?'Jogador':'Jugador');
     const difficulty = document.querySelector('input[name=\"difficulty\"]:checked')?.value || 'medium';
     const mode = document.querySelector('input[name="mode"]:checked').value;
+    const wantsCamera = document.querySelector('input[name="input-mode"]:checked')?.value === 'camera';
+    const startBtn = $('btn-start');
+    const camStatus = $('setup-cam-status');
+    camStatus.classList.remove('err');
+    camStatus.textContent = '';
+
+    if (wantsCamera) {
+      startBtn.disabled = true;
+      camStatus.textContent = 'Activando cámara…';
+      try {
+        await CameraGesture.init($('cam-video'), $('cam-overlay'));
+        inputMode = 'camera';
+      } catch (err) {
+        console.error(err);
+        camStatus.classList.add('err');
+        camStatus.textContent = err.name === 'NotAllowedError'
+          ? 'Permiso de cámara denegado — seguimos con el modo click.'
+          : 'No se pudo iniciar la cámara — seguimos con el modo click.';
+        inputMode = 'click';
+        await new Promise(r => setTimeout(r, 1400));
+      }
+      startBtn.disabled = false;
+    } else {
+      inputMode = 'click';
+    }
+
     const state = GameCPU.configure(name, mode, difficulty);
     HGA.gameStart(mode);
     populatePick(state);
     goTo('pick', 'fwd');
     GameAudio.playTick();
+  });
+
+  $('btn-cam-round').addEventListener('click', async () => {
+    const btn = $('btn-cam-round');
+    btn.disabled = true;
+    const { pick, snapshot } = await CameraGesture.captureWithCountdown({
+      onTick: label => { $('cam-countdown').textContent = label; },
+    });
+
+    if (!pick) {
+      $('cam-status').textContent = 'No pude leer tu gesto a tiempo — probá de nuevo';
+      camFeedbackUntil = performance.now() + 1800;
+      btn.disabled = false;
+      return;
+    }
+
+    lastSnapshot = snapshot;
+    const state = GameCPU.playerPick(pick);
+    setTimeout(() => {
+      HGA.pickMade({ pick, round: state.round, input_mode: 'camera' });
+      HGA.roundResult(state.roundWinner, { pick_player: state.picks.player, pick_cpu: state.picks.cpu, round: state.round });
+    }, 0);
+    populateResult(state);
+    await goTo('result', 'fwd');
+    animateCPUReveal(state);
   });
 
   $('pick-buttons').addEventListener('pointerdown', () => GameAudio.prime(), { passive: true });
@@ -365,7 +477,7 @@
 
     const state = GameCPU.playerPick(pick);
     setTimeout(() => {
-      HGA.pickMade({ pick, round: state.round });
+      HGA.pickMade({ pick, round: state.round, input_mode: 'click' });
       HGA.roundResult(state.roundWinner, { pick_player: state.picks.player, pick_cpu: state.picks.cpu, round: state.round });
     }, 0);
     populateResult(state);
@@ -391,8 +503,11 @@
 
   $('btn-new-game-result').addEventListener('click', () => {
     if (transitioning) return;
+    if (inputMode === 'camera') { CameraGesture.stop(); stopCamUiLoop(); }
     GameCPU.newGame();
     $('name-player').value = '';
+    $('setup-cam-status').textContent = '';
+    $('setup-cam-status').classList.remove('err');
     goTo('setup', 'back');
   });
 
@@ -409,10 +524,13 @@
 
   $('btn-new-game-go').addEventListener('click', () => {
     if (transitioning) return;
+    if (inputMode === 'camera') { CameraGesture.stop(); stopCamUiLoop(); }
     $('confetti-container').innerHTML = '';
     $('session-stats').style.display  = 'none';
     GameCPU.newGame();
     $('name-player').value = '';
+    $('setup-cam-status').textContent = '';
+    $('setup-cam-status').classList.remove('err');
     goTo('setup', 'back');
   });
 

@@ -12,5 +12,11 @@
   },
   "compatibility_flags": [
     "nodejs_compat"
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "ROOMS",
+      "id": "1d4f535b94a44eb18debf39489b9aef7"
+    }
   ]
 }

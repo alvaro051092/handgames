@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>Piedra Papel Tijeras Online — Jugá con un amigo a distancia</title>
+  <meta name="description" content="Jugá Piedra Papel Tijeras con un amigo a distancia. Creá una sala, compartí el link y jueguen en tiempo real desde sus propios celus." />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#7c3aed" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://www.clarity.ms" />
+  <link rel="canonical" href="https://handgames.app/rps/online" />
+  <link rel="icon" type="image/x-icon"  href="/assets/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/css/tokens.css?v=3" />
+  <link rel="stylesheet" href="/css/layout.css?v=3" />
+  <link rel="stylesheet" href="/css/components.css?v=3" />
+  <link rel="stylesheet" href="/css/animations.css?v=3" />
+  <style>
+    .room-code {
+      font-size: clamp(2.5rem, 10vw, 3.5rem);
+      font-weight: 900;
+      letter-spacing: 6px;
+      text-align: center;
+      color: var(--clr-primary-light);
+      margin: var(--sp-4) 0;
+    }
+    .lobby-status {
+      text-align: center;
+      color: var(--clr-text-muted);
+      font-size: var(--text-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+    }
+    .lobby-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--clr-primary);
+      animation: pulseDot 1.2s ease-in-out infinite;
+    }
+    @keyframes pulseDot { 0%,100% { opacity: .3; } 50% { opacity: 1; } }
+
+    .setup-choice { display: flex; flex-direction: column; gap: var(--sp-3); }
+    .join-row { display: none; gap: var(--sp-2); margin-top: var(--sp-2); }
+    .join-row.show { display: flex; }
+    .join-row input {
+      flex: 1; background: var(--clr-surface-2); border: 1.5px solid var(--clr-border);
+      border-radius: var(--radius-sm); color: var(--clr-text); font-family: var(--font);
+      font-size: var(--text-lg); text-align: center; letter-spacing: 3px; text-transform: uppercase;
+      padding: var(--sp-3); outline: none; width: 0;
+    }
+    .join-row input:focus { border-color: var(--clr-primary); }
+
+    .pick-wait { text-align: center; color: var(--clr-text-muted); font-size: var(--text-sm); margin-top: var(--sp-3); }
+    .setup-err { text-align: center; color: var(--clr-danger); font-size: var(--text-sm); min-height: 1.4em; }
+  </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XM1YK1TG5W');</script>
+  <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","wgsyxocqkn");</script>
+  <script>history.scrollRestoration="manual";</script>
+</head>
+<body>
+
+  <div id="curtain" aria-hidden="true"></div>
+  <div id="confetti-container" aria-hidden="true"></div>
+  <button id="btn-mute" class="btn-mute" aria-label="Silenciar audio" title="Silenciar audio">🔊</button>
+
+  <div id="app">
+
+    <!-- ══════════════════ SETUP ══════════════════ -->
+    <section id="screen-setup" class="screen active" aria-label="Configuración">
+      <header class="screen-header">
+        <h1 class="game-title"><span class="title-emoji">🌐</span> Piedra · Papel · Tijeras</h1>
+        <p class="game-subtitle">Con un amigo, a distancia</p>
+      </header>
+
+      <div class="card" style="max-width:420px;">
+        <div class="player-row-single">
+          <label for="name-player">Tu nombre</label>
+          <input id="name-player" type="text" maxlength="20" placeholder="Jugador"
+                 autocomplete="off" spellcheck="false" />
+        </div>
+
+        <div class="setup-choice">
+          <button id="btn-create" class="btn btn-primary btn-lg">Crear sala nueva</button>
+          <button id="btn-show-join" class="btn btn-secondary">Unirme con un código</button>
+          <div class="join-row" id="join-row">
+            <input id="input-code" maxlength="5" placeholder="CÓDIGO" />
+            <button id="btn-join" class="btn btn-primary">Unirme</button>
+          </div>
+        </div>
+        <p id="setup-err" class="setup-err"></p>
+      </div>
+
+      <a href="/rps/" class="back-hub-link">← Cambiar modo</a>
+    </section>
+
+    <!-- ══════════════════ LOBBY ══════════════════ -->
+    <section id="screen-lobby" class="screen" aria-label="Sala de espera">
+      <div class="card" style="max-width:420px; text-align:center;">
+        <p class="pick-hint">Compartí este código o el link con tu amigo</p>
+        <div class="room-code" id="lobby-code">-----</div>
+        <button id="btn-copy-link" class="btn btn-secondary" style="width:100%;">🔗 Copiar link para invitar</button>
+        <p class="lobby-status" style="margin-top:var(--sp-5);">
+          <span class="lobby-dot"></span>
+          <span id="lobby-status-text">Esperando a que se una tu amigo…</span>
+        </p>
+      </div>
+      <a href="/rps/" class="back-hub-link">← Salir</a>
+    </section>
+
+    <!-- ══════════════════ PICK ══════════════════ -->
+    <section id="screen-pick" class="screen" aria-label="Selección de jugada">
+      <div class="scoreboard">
+        <div class="score-block">
+          <span class="score-name" id="sb-name-me">Vos</span>
+          <div class="score-roll" id="roll-me"><span class="score-digit">0</span></div>
+        </div>
+        <div class="scoreboard-center">
+          <span class="round-badge" id="pick-round-badge">Ronda 1</span>
+        </div>
+        <div class="score-block">
+          <span class="score-name" id="sb-name-rival">Rival</span>
+          <div class="score-roll" id="roll-rival"><span class="score-digit">0</span></div>
+        </div>
+      </div>
+
+      <div class="card pick-card">
+        <p class="pick-hint" style="margin-top: var(--sp-2);">Elige tu jugada</p>
+        <div class="pick-buttons" id="pick-buttons">
+          <button data-kbd-hint="1" class="btn btn-pick" data-pick="rock" aria-label="Elegir Piedra">
+            <span class="pick-emoji">🪨</span>
+            <span class="pick-label">Piedra</span>
+          </button>
+          <button data-kbd-hint="2" class="btn btn-pick" data-pick="paper" aria-label="Elegir Papel">
+            <span class="pick-emoji">📄</span>
+            <span class="pick-label">Papel</span>
+          </button>
+          <button data-kbd-hint="3" class="btn btn-pick" data-pick="scissors" aria-label="Elegir Tijeras">
+            <span class="pick-emoji">✂️</span>
+            <span class="pick-label">Tijeras</span>
+          </button>
+        </div>
+        <p class="pick-wait" id="pick-wait" style="display:none;">
+          <span class="lobby-dot"></span> Ya elegiste — esperando al rival…
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════════════ RESULT ══════════════════ -->
+    <section id="screen-result" class="screen" aria-label="Resultado de ronda">
+      <div class="scoreboard">
+        <div class="score-block">
+          <span class="score-name" id="res-name-me">Vos</span>
+          <div class="score-roll" id="res-roll-me"><span class="score-digit">0</span></div>
+        </div>
+        <div class="scoreboard-center">
+          <span class="round-badge" id="res-round-badge"></span>
+        </div>
+        <div class="score-block">
+          <span class="score-name" id="res-name-rival">Rival</span>
+          <div class="score-roll" id="res-roll-rival"><span class="score-digit">0</span></div>
+        </div>
+      </div>
+
+      <div class="card result-card">
+        <div class="result-arena">
+          <div class="result-pick-block" id="res-me-block">
+            <span class="res-pname" id="res-me-name"></span>
+            <span class="res-emoji" id="res-me-emoji"></span>
+            <span class="res-pick-label" id="res-me-label"></span>
+          </div>
+          <div class="result-center-col">
+            <div class="result-vs">VS</div>
+          </div>
+          <div class="result-pick-block" id="res-rival-block">
+            <span class="res-pname" id="res-rival-name"></span>
+            <span class="res-emoji" id="res-rival-emoji"></span>
+            <span class="res-pick-label" id="res-rival-label"></span>
+          </div>
+        </div>
+
+        <div id="result-banner" class="result-banner show" role="status" aria-live="polite"></div>
+
+        <div class="result-actions">
+          <button id="btn-next-round" class="btn btn-primary btn-lg">Siguiente ronda →</button>
+          <a href="/rps/" class="btn btn-ghost">Salir</a>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- #app -->
+
+  <script src="/js/analytics.js?v=2"></script>
+  <script src="/js/lang-nav.js?v=2"></script>
+  <script src="/js/keyboard.js?v=2"></script>
+  <script src="/js/audio.js?v=2"></script>
+  <script src="/js/game-rps-online.js?v=1"></script>
+  <script src="/js/ui-rps-online.js?v=1"></script>
+</body>
+</html>

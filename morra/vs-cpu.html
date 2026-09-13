@@ -62,6 +62,7 @@
   <link rel="stylesheet" href="/css/layout.css?v=3" />
   <link rel="stylesheet" href="/css/components.css?v=3" />
   <link rel="stylesheet" href="/css/animations.css?v=3" />
+  <link rel="stylesheet" href="/css/camera.css?v=2" />
   <style>
     /* ── CPU flip / countdown ── */
     @keyframes cpuFlipOut {
@@ -431,8 +432,32 @@
           </label>
         </fieldset>
 
+        <fieldset class="mode-group input-mode-group">
+          <legend>Cómo mostrás tus dedos</legend>
+          <label class="mode-option">
+            <input type="radio" name="input-mode" value="click" checked />
+            <span class="mode-label">
+              <span class="mode-icon">🖱️</span>
+              <span class="mode-text">
+                <strong>Click</strong>
+                <small>Elegís tocando un botón</small>
+              </span>
+            </span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="input-mode" value="camera" />
+            <span class="mode-label">
+              <span class="mode-icon">📸</span>
+              <span class="mode-text">
+                <strong>Cámara <em style="opacity:.7;font-style:normal;">(beta)</em></strong>
+                <small>Le mostrás la mano de verdad</small>
+              </span>
+            </span>
+          </label>
+        </fieldset>
 
         <button id="btn-start" class="btn btn-primary btn-lg">¡Jugar!</button>
+        <p id="setup-cam-status" class="cam-status"></p>
         <button class="htp-link" id="btn-htp">¿Cómo se juega? ℹ️</button>
       </div>
 
@@ -469,13 +494,27 @@
           <button class="btn-guess" data-g="10" aria-label="Apostar 10">10</button>
         </div>
 
-        <p class="pick-section-label">Tus dedos (1-5)</p>
-        <div class="finger-buttons" id="finger-buttons">
-          <button class="btn-finger" data-f="1" aria-label="1 dedo">1</button>
-          <button class="btn-finger" data-f="2" aria-label="2 dedos">2</button>
-          <button class="btn-finger" data-f="3" aria-label="3 dedos">3</button>
-          <button class="btn-finger" data-f="4" aria-label="4 dedos">4</button>
-          <button class="btn-finger" data-f="5" aria-label="5 dedos">5</button>
+        <div id="finger-pick-click">
+          <p class="pick-section-label">Tus dedos (1-5)</p>
+          <div class="finger-buttons" id="finger-buttons">
+            <button class="btn-finger" data-f="1" aria-label="1 dedo">1</button>
+            <button class="btn-finger" data-f="2" aria-label="2 dedos">2</button>
+            <button class="btn-finger" data-f="3" aria-label="3 dedos">3</button>
+            <button class="btn-finger" data-f="4" aria-label="4 dedos">4</button>
+            <button class="btn-finger" data-f="5" aria-label="5 dedos">5</button>
+          </div>
+        </div>
+
+        <div id="finger-pick-camera" style="display:none;">
+          <p class="pick-section-label">Tus dedos — mostralos a la cámara</p>
+          <div class="cam-stage" id="cam-stage">
+            <video id="cam-video" autoplay playsinline muted></video>
+            <canvas id="cam-overlay" class="cam-overlay"></canvas>
+            <div class="cam-guide"><div class="cam-guide-oval" id="cam-oval"></div></div>
+            <div class="cam-hint" id="cam-hint">Mostrá tu mano dentro del óvalo</div>
+            <div class="cam-countdown" id="cam-countdown"></div>
+          </div>
+          <p class="cam-status" id="cam-status">Detectando mano…</p>
         </div>
 
         <button id="btn-confirm" class="btn btn-primary btn-lg" disabled>¡Revelar!</button>
@@ -503,6 +542,7 @@
           <div class="result-pick-block" id="res-player-block">
             <span class="res-pname" id="res-player-name"></span>
             <span class="res-finger-num" id="res-player-num">0</span>
+            <img id="res-player-snap" class="snap-thumb" style="display:none;" alt="Tu gesto capturado" />
             <span class="res-guess-badge" id="res-player-guess"></span>
           </div>
           <div class="result-center-col">
@@ -593,6 +633,7 @@
   <script src="/js/streak.js?v=2"></script>
   <script src="/js/game-morra-cpu.js?v=2"></script>
   <script src="/js/audio.js?v=2"></script>
-  <script src="/js/ui-morra-cpu.js?v=2"></script>
+  <script src="/js/camera-gesture.js?v=2"></script>
+  <script src="/js/ui-morra-cpu.js?v=3"></script>
 </body>
 </html>
