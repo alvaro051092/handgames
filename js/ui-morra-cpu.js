@@ -11,7 +11,17 @@
   let inputMode        = 'click'; // 'click' | 'camera'
   let camUiRaf         = null;
   let lastSnapshot      = null;
-  let camFeedbackUntil = 0; // suppress loop's status text while a one-off message is showing
+
+  // Camera "hold to confirm": arm on the first detected finger-count,
+  // lock it in after HOLD_MS as long as it stays steady. Only arms once
+  // a guess has already been picked. GRACE_MS tolerates a brief
+  // detection flicker without resetting the hold.
+  const HOLD_MS = 3000;
+  const GRACE_MS = 350;
+  let armCount = null;
+  let armStartTime = null;
+  let lastGoodTime = null;
+  let capturing = false;
 
   /* ──────────── Utilities ──────────── */
 
@@ -168,35 +178,74 @@
 
     $('finger-pick-click').style.display  = inputMode === 'click'  ? '' : 'none';
     $('finger-pick-camera').style.display = inputMode === 'camera' ? '' : 'none';
+    $('btn-confirm').style.display        = inputMode === 'camera' ? 'none' : '';
     if (inputMode === 'camera') {
-      $('cam-status').textContent = 'Detectando mano…';
+      $('cam-status').textContent = 'Elegí tu apuesta primero';
       $('cam-countdown').textContent = '';
       startCamUiLoop();
     }
   }
 
-  /* ── Camera mode: reflect detection state onto the oval/status. ── */
+  /* ── Camera mode: hold-to-confirm loop. Only arms once a guess has
+     been picked; locks in the finger count once held steadily. ── */
+  function resetCamArm() {
+    armCount = null;
+    armStartTime = null;
+    lastGoodTime = null;
+  }
+
   function startCamUiLoop() {
     if (camUiRaf) cancelAnimationFrame(camUiRaf);
+    resetCamArm();
+    capturing = false;
+
     function tick() {
-      if (inputMode !== 'camera' || !CameraGesture.isReady()) {
+      if (inputMode !== 'camera' || activeScreen()?.id !== 'screen-pick' || capturing || !CameraGesture.isReady()) {
         camUiRaf = requestAnimationFrame(tick);
         return;
       }
+
+      if (pendingGuess === null) {
+        resetCamArm();
+        $('cam-oval').classList.remove('detected');
+        $('cam-countdown').textContent = '';
+        $('cam-status').textContent = 'Elegí tu apuesta primero';
+        camUiRaf = requestAnimationFrame(tick);
+        return;
+      }
+
+      const now = performance.now();
       const count = CameraGesture.countFingersCurrent();
+      const gesture = count >= 1 && count <= 5 ? count : null;
       const oval = $('cam-oval');
-      const showFeedback = performance.now() < camFeedbackUntil;
-      if (CameraGesture.hasDetection()) {
-        oval.classList.toggle('detected', count >= 1 && count <= 5);
-        if (!showFeedback) {
-          $('cam-status').textContent = count >= 1
-            ? `Detectando: ${count} dedo${count === 1 ? '' : 's'}`
-            : 'Mano detectada — mostrá tus dedos';
-        }
+
+      if (gesture) {
+        oval.classList.add('detected');
+        if (gesture !== armCount) { armCount = gesture; armStartTime = now; }
+        lastGoodTime = now;
       } else {
         oval.classList.remove('detected');
-        if (!showFeedback) $('cam-status').textContent = 'Detectando mano…';
+        if (armCount && now - lastGoodTime > GRACE_MS) resetCamArm();
       }
+
+      if (armCount) {
+        const elapsed = now - armStartTime;
+        if (elapsed >= HOLD_MS) {
+          $('cam-countdown').textContent = '¡YA!';
+          $('cam-status').textContent = `Detectando: ${armCount} dedo${armCount === 1 ? '' : 's'}`;
+          capturing = true;
+          finalizeCameraPick(armCount);
+        } else {
+          $('cam-countdown').textContent = String(Math.ceil((HOLD_MS - elapsed) / 1000));
+          $('cam-status').textContent = `Manteniendo ${armCount} dedo${armCount === 1 ? '' : 's'}…`;
+        }
+      } else {
+        $('cam-countdown').textContent = '';
+        $('cam-status').textContent = CameraGesture.hasDetection()
+          ? 'Mano detectada — mostrá tus dedos'
+          : 'Detectando mano…';
+      }
+
       camUiRaf = requestAnimationFrame(tick);
     }
     tick();
@@ -205,6 +254,21 @@
   function stopCamUiLoop() {
     if (camUiRaf) cancelAnimationFrame(camUiRaf);
     camUiRaf = null;
+  }
+
+  async function finalizeCameraPick(fingers) {
+    lastSnapshot = CameraGesture.snapshotSquare();
+    resetCamArm();
+    const guess = pendingGuess;
+    const state = GameMorraCPU.playerPick(fingers, guess);
+    setTimeout(() => {
+      HGA.pickMade({ pick_fingers: fingers, pick_guess: guess, round: state.round, input_mode: 'camera' });
+      HGA.roundResult(state.roundWinner, { pick_player_fingers: state.picks.playerFingers, pick_cpu_fingers: state.picks.cpuFingers, round: state.round });
+    }, 0);
+    populateResult(state);
+    await goTo('result', 'fwd');
+    animateCPUReveal(state);
+    capturing = false;
   }
 
   /* ──────────── Result Screen ──────────── */
@@ -463,38 +527,20 @@
     GameAudio.playTick();
   });
 
-  // Confirm (reveal)
+  // Confirm (reveal) — click mode only; camera mode auto-fires via finalizeCameraPick
   $('btn-confirm').addEventListener('pointerdown', () => GameAudio.prime(), { passive: true });
   $('btn-confirm').addEventListener('click', async () => {
-    if (transitioning || pendingGuess === null) return;
-    if (inputMode === 'click' && pendingFingers === null) return;
+    if (transitioning || pendingGuess === null || pendingFingers === null) return;
 
     $('guess-buttons').querySelectorAll('.btn-guess').forEach(b => b.disabled = true);
+    $('finger-buttons').querySelectorAll('.btn-finger').forEach(b => b.disabled = true);
     $('btn-confirm').disabled = true;
-
-    if (inputMode === 'camera') {
-      const { pick, snapshot } = await CameraGesture.captureWithCountdown({
-        classify: CameraGesture.countFingers1to5,
-        onTick: label => { $('cam-countdown').textContent = label; },
-      });
-      if (!pick) {
-        $('cam-status').textContent = 'No pude leer tus dedos a tiempo — probá de nuevo';
-        camFeedbackUntil = performance.now() + 1800;
-        $('guess-buttons').querySelectorAll('.btn-guess').forEach(b => b.disabled = false);
-        updateConfirmEnabled();
-        return;
-      }
-      pendingFingers = pick;
-      lastSnapshot   = snapshot;
-    } else {
-      $('finger-buttons').querySelectorAll('.btn-finger').forEach(b => b.disabled = true);
-      GameAudio.playTick();
-      await new Promise(r => setTimeout(r, 200));
-    }
+    GameAudio.playTick();
+    await new Promise(r => setTimeout(r, 200));
 
     const state = GameMorraCPU.playerPick(pendingFingers, pendingGuess);
     setTimeout(() => {
-      HGA.pickMade({ pick_fingers: pendingFingers, pick_guess: pendingGuess, round: state.round, input_mode: inputMode });
+      HGA.pickMade({ pick_fingers: pendingFingers, pick_guess: pendingGuess, round: state.round, input_mode: 'click' });
       HGA.roundResult(state.roundWinner, { pick_player_fingers: state.picks.playerFingers, pick_cpu_fingers: state.picks.cpuFingers, round: state.round });
     }, 0);
     populateResult(state);

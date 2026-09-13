@@ -9,7 +9,16 @@
   let inputMode = 'click'; // 'click' | 'camera'
   let camUiRaf = null;
   let lastSnapshot = null;
-  let camFeedbackUntil = 0; // suppress loop's status text while a one-off message is showing
+
+  // Camera "hold to confirm": arm on the first detected gesture, lock it
+  // in after HOLD_MS as long as it stays steady. GRACE_MS tolerates a
+  // brief detection flicker without resetting the hold.
+  const HOLD_MS = 3000;
+  const GRACE_MS = 350;
+  let armGesture = null;
+  let armStartTime = null;
+  let lastGoodTime = null;
+  let capturing = false;
 
   /* ──────────── Utilities ──────────── */
 
@@ -162,38 +171,62 @@
     $('pick-card-click').style.display  = inputMode === 'click'  ? '' : 'none';
     $('pick-card-camera').style.display = inputMode === 'camera' ? '' : 'none';
     if (inputMode === 'camera') {
-      $('btn-cam-round').disabled = true;
       $('cam-status').textContent = 'Detectando mano…';
       $('cam-countdown').textContent = '';
       startCamUiLoop();
     }
   }
 
-  /* ── Camera mode: UI polling loop (separate from CameraGesture's own
-     detection loop) — just reflects detection state onto the oval/status/button. ── */
+  /* ── Camera mode: hold-to-confirm loop. Arms on the first gesture
+     detected, locks it in once held steadily for HOLD_MS. ── */
+  function resetCamArm() {
+    armGesture = null;
+    armStartTime = null;
+    lastGoodTime = null;
+  }
+
   function startCamUiLoop() {
     if (camUiRaf) cancelAnimationFrame(camUiRaf);
+    resetCamArm();
+    capturing = false;
+
     function tick() {
-      if (inputMode !== 'camera' || !CameraGesture.isReady()) {
+      if (inputMode !== 'camera' || activeScreen()?.id !== 'screen-pick' || capturing || !CameraGesture.isReady()) {
         camUiRaf = requestAnimationFrame(tick);
         return;
       }
+
+      const now = performance.now();
       const gesture = CameraGesture.classifyCurrent();
       const oval = $('cam-oval');
-      const showFeedback = performance.now() < camFeedbackUntil;
-      if (CameraGesture.hasDetection()) {
-        oval.classList.toggle('detected', !!gesture);
-        if (!showFeedback) {
-          $('cam-status').textContent = gesture
-            ? `Detectando: ${pickLabel(gesture)}`
-            : 'Mano detectada — ajustá el gesto';
-        }
-        $('btn-cam-round').disabled = false;
+
+      if (gesture) {
+        oval.classList.add('detected');
+        if (gesture !== armGesture) { armGesture = gesture; armStartTime = now; }
+        lastGoodTime = now;
       } else {
         oval.classList.remove('detected');
-        if (!showFeedback) $('cam-status').textContent = 'Detectando mano…';
-        $('btn-cam-round').disabled = true;
+        if (armGesture && now - lastGoodTime > GRACE_MS) resetCamArm();
       }
+
+      if (armGesture) {
+        const elapsed = now - armStartTime;
+        if (elapsed >= HOLD_MS) {
+          $('cam-countdown').textContent = '¡YA!';
+          $('cam-status').textContent = `Detectando: ${pickLabel(armGesture)}`;
+          capturing = true;
+          finalizeCameraPick(armGesture);
+        } else {
+          $('cam-countdown').textContent = String(Math.ceil((HOLD_MS - elapsed) / 1000));
+          $('cam-status').textContent = `Manteniendo ${pickLabel(armGesture)}…`;
+        }
+      } else {
+        $('cam-countdown').textContent = '';
+        $('cam-status').textContent = CameraGesture.hasDetection()
+          ? 'Mano detectada — ajustá el gesto'
+          : 'Detectando mano…';
+      }
+
       camUiRaf = requestAnimationFrame(tick);
     }
     tick();
@@ -206,6 +239,20 @@
 
   function pickLabel(g) {
     return g === 'rock' ? '🪨 Piedra' : g === 'paper' ? '📄 Papel' : '✌️ Tijeras';
+  }
+
+  async function finalizeCameraPick(pick) {
+    lastSnapshot = CameraGesture.snapshotSquare();
+    resetCamArm();
+    const state = GameCPU.playerPick(pick);
+    setTimeout(() => {
+      HGA.pickMade({ pick, round: state.round, input_mode: 'camera' });
+      HGA.roundResult(state.roundWinner, { pick_player: state.picks.player, pick_cpu: state.picks.cpu, round: state.round });
+    }, 0);
+    populateResult(state);
+    await goTo('result', 'fwd');
+    animateCPUReveal(state);
+    capturing = false;
   }
 
   function populateResult(state) {
@@ -434,31 +481,6 @@
     populatePick(state);
     goTo('pick', 'fwd');
     GameAudio.playTick();
-  });
-
-  $('btn-cam-round').addEventListener('click', async () => {
-    const btn = $('btn-cam-round');
-    btn.disabled = true;
-    const { pick, snapshot } = await CameraGesture.captureWithCountdown({
-      onTick: label => { $('cam-countdown').textContent = label; },
-    });
-
-    if (!pick) {
-      $('cam-status').textContent = 'No pude leer tu gesto a tiempo — probá de nuevo';
-      camFeedbackUntil = performance.now() + 1800;
-      btn.disabled = false;
-      return;
-    }
-
-    lastSnapshot = snapshot;
-    const state = GameCPU.playerPick(pick);
-    setTimeout(() => {
-      HGA.pickMade({ pick, round: state.round, input_mode: 'camera' });
-      HGA.roundResult(state.roundWinner, { pick_player: state.picks.player, pick_cpu: state.picks.cpu, round: state.round });
-    }, 0);
-    populateResult(state);
-    await goTo('result', 'fwd');
-    animateCPUReveal(state);
   });
 
   $('pick-buttons').addEventListener('pointerdown', () => GameAudio.prime(), { passive: true });

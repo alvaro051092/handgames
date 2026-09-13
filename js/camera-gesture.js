@@ -136,35 +136,6 @@ window.CameraGesture = (() => {
     return c.toDataURL('image/jpeg', 0.85);
   }
 
-  /* Runs a 3-2-1-¡YA! countdown, samples `classify(landmarks)` during the
-     reveal window, and resolves the majority gesture.
-     onTick(label) fires on each countdown step so callers can drive UI/audio. */
-  async function captureWithCountdown({ classify = classifyRPS, revealMs = 450, onTick } = {}) {
-    for (const label of ['3', '2', '1']) {
-      if (onTick) onTick(label);
-      await new Promise(r => setTimeout(r, 600));
-    }
-    if (onTick) onTick('¡YA!');
-    const snapshot = snapshotSquare();
-
-    const samples = [];
-    const start = performance.now();
-    while (performance.now() - start < revealMs) {
-      if (latestLandmarks) {
-        const g = classify(latestLandmarks);
-        if (g) samples.push(g);
-      }
-      await new Promise(r => requestAnimationFrame(r));
-    }
-    if (onTick) onTick('');
-
-    if (!samples.length) return { pick: null, snapshot };
-    const counts = {};
-    samples.forEach(s => { counts[s] = (counts[s] || 0) + 1; });
-    const pick = Object.keys(counts).reduce((a, b) => (counts[a] >= counts[b] ? a : b));
-    return { pick, snapshot };
-  }
-
   function classifyCurrent(classify = classifyRPS) {
     return latestLandmarks ? classify(latestLandmarks) : null;
   }
@@ -182,7 +153,6 @@ window.CameraGesture = (() => {
     countFingers1to5,
     countFingersCurrent,
     snapshotSquare,
-    captureWithCountdown,
     isReady:        () => ready,
     hasDetection:   () => !!latestLandmarks,
   };
