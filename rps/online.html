@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="/css/layout.css?v=4" />
   <link rel="stylesheet" href="/css/components.css?v=3" />
   <link rel="stylesheet" href="/css/animations.css?v=3" />
+  <link rel="stylesheet" href="/css/camera.css?v=3" />
   <style>
     .room-code {
       font-size: clamp(2.5rem, 10vw, 3.5rem);
@@ -92,6 +93,30 @@
                  autocomplete="off" spellcheck="false" />
         </div>
 
+        <fieldset class="mode-group input-mode-group">
+          <legend>Cómo elegís tu jugada</legend>
+          <label class="mode-option">
+            <input type="radio" name="input-mode" value="click" checked />
+            <span class="mode-label">
+              <span class="mode-icon">🖱️</span>
+              <span class="mode-text">
+                <strong>Click</strong>
+                <small>Elegís tocando un botón</small>
+              </span>
+            </span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="input-mode" value="camera" />
+            <span class="mode-label">
+              <span class="mode-icon">📸</span>
+              <span class="mode-text">
+                <strong>Cámara <em style="opacity:.7;font-style:normal;">(beta)</em></strong>
+                <small>Le mostrás la mano de verdad</small>
+              </span>
+            </span>
+          </label>
+        </fieldset>
+
         <div class="setup-choice">
           <button id="btn-create" class="btn btn-primary btn-lg">Crear sala nueva</button>
           <button id="btn-show-join" class="btn btn-secondary">Unirme con un código</button>
@@ -100,6 +125,7 @@
             <button id="btn-join" class="btn btn-primary">Unirme</button>
           </div>
         </div>
+        <p id="setup-cam-status" class="cam-status"></p>
         <p id="setup-err" class="setup-err"></p>
       </div>
 
@@ -136,7 +162,7 @@
         </div>
       </div>
 
-      <div class="card pick-card">
+      <div class="card pick-card" id="pick-card-click">
         <p class="pick-hint" style="margin-top: var(--sp-2);">Elige tu jugada</p>
         <div class="pick-buttons" id="pick-buttons">
           <button data-kbd-hint="1" class="btn btn-pick" data-pick="rock" aria-label="Elegir Piedra">
@@ -153,6 +179,20 @@
           </button>
         </div>
         <p class="pick-wait" id="pick-wait" style="display:none;">
+          <span class="lobby-dot"></span> Ya elegiste — esperando al rival…
+        </p>
+      </div>
+
+      <div class="card pick-card" id="pick-card-camera" style="display:none;">
+        <div class="cam-stage" id="cam-stage">
+          <video id="cam-video" autoplay playsinline muted></video>
+          <canvas id="cam-overlay" class="cam-overlay"></canvas>
+          <div class="cam-guide"><div class="cam-guide-oval" id="cam-oval"></div></div>
+          <div class="cam-hint" id="cam-hint">Mostrá tu jugada y mantenela</div>
+          <div class="cam-countdown" id="cam-countdown"></div>
+        </div>
+        <p class="cam-status" id="cam-status">Detectando mano…</p>
+        <p class="pick-wait" id="pick-wait-camera" style="display:none;">
           <span class="lobby-dot"></span> Ya elegiste — esperando al rival…
         </p>
       </div>
@@ -179,6 +219,7 @@
           <div class="result-pick-block" id="res-me-block">
             <span class="res-pname" id="res-me-name"></span>
             <span class="res-emoji" id="res-me-emoji"></span>
+            <img id="res-me-snap" class="snap-thumb" style="display:none;" alt="Tu gesto capturado" />
             <span class="res-pick-label" id="res-me-label"></span>
           </div>
           <div class="result-center-col">
@@ -206,7 +247,8 @@
   <script src="/js/lang-nav.js?v=2"></script>
   <script src="/js/keyboard.js?v=2"></script>
   <script src="/js/audio.js?v=2"></script>
+  <script src="/js/camera-gesture.js?v=3"></script>
   <script src="/js/game-rps-online.js?v=1"></script>
-  <script src="/js/ui-rps-online.js?v=1"></script>
+  <script src="/js/ui-rps-online.js?v=2"></script>
 </body>
 </html>

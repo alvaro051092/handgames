@@ -13,6 +13,18 @@
   let pollInFlight      = false;
   let renderedPickRound   = 0;
   let renderedResultRound = 0;
+  let inputMode = 'click'; // 'click' | 'camera'
+  let lastSnapshot = null;
+
+  // Camera "hold to confirm": arm on the first detected gesture, lock it
+  // in after HOLD_MS as long as it stays steady (same pattern as vs-CPU).
+  const HOLD_MS = 3000;
+  const GRACE_MS = 350;
+  let camUiRaf = null;
+  let armGesture = null;
+  let armStartTime = null;
+  let lastGoodTime = null;
+  let capturing = false;
 
   const PICK_META = {
     rock:     { emoji: '🪨', label: 'Piedra' },
@@ -66,13 +78,88 @@
       b.disabled = false;
       b.classList.remove('selected');
     });
-    $('pick-buttons').style.display = '';
-    $('pick-wait').style.display = 'none';
+    $('pick-card-click').style.display  = inputMode === 'click'  ? '' : 'none';
+    $('pick-card-camera').style.display = inputMode === 'camera' ? '' : 'none';
+    if (inputMode === 'camera') {
+      resetCamArm();
+      $('cam-countdown').textContent = '';
+      startCamUiLoop();
+    }
   }
 
   function updatePickWaitUI(alreadyPicked) {
-    $('pick-buttons').style.display = alreadyPicked ? 'none' : '';
-    $('pick-wait').style.display    = alreadyPicked ? 'flex' : 'none';
+    $('pick-buttons').style.display     = (inputMode === 'click'  && !alreadyPicked) ? '' : 'none';
+    $('pick-wait').style.display        = (inputMode === 'click'  &&  alreadyPicked) ? 'flex' : 'none';
+    $('cam-stage').style.display        = (inputMode === 'camera' && !alreadyPicked) ? '' : 'none';
+    $('cam-status').style.display       = (inputMode === 'camera' && !alreadyPicked) ? '' : 'none';
+    $('pick-wait-camera').style.display = (inputMode === 'camera' &&  alreadyPicked) ? 'flex' : 'none';
+  }
+
+  /* ── Camera mode: hold-to-confirm loop (mirrors vs-CPU's) ── */
+  function resetCamArm() {
+    armGesture = null;
+    armStartTime = null;
+    lastGoodTime = null;
+  }
+
+  function startCamUiLoop() {
+    if (camUiRaf) cancelAnimationFrame(camUiRaf);
+    resetCamArm();
+    capturing = false;
+
+    function tick() {
+      if (inputMode !== 'camera' || activeScreenId() !== 'screen-pick' || capturing || !CameraGesture.isReady()) {
+        camUiRaf = requestAnimationFrame(tick);
+        return;
+      }
+
+      const now = performance.now();
+      const gesture = CameraGesture.classifyCurrent();
+      const oval = $('cam-oval');
+
+      if (gesture) {
+        oval.classList.add('detected');
+        if (gesture !== armGesture) { armGesture = gesture; armStartTime = now; }
+        lastGoodTime = now;
+      } else {
+        oval.classList.remove('detected');
+        if (armGesture && now - lastGoodTime > GRACE_MS) resetCamArm();
+      }
+
+      if (armGesture) {
+        const elapsed = now - armStartTime;
+        if (elapsed >= HOLD_MS) {
+          $('cam-countdown').textContent = '¡YA!';
+          $('cam-status').textContent = `Detectando: ${PICK_META[armGesture].emoji} ${PICK_META[armGesture].label}`;
+          capturing = true;
+          finalizeCameraPick(armGesture);
+        } else {
+          $('cam-countdown').textContent = String(Math.ceil((HOLD_MS - elapsed) / 1000));
+          $('cam-status').textContent = `Manteniendo ${PICK_META[armGesture].label}…`;
+        }
+      } else {
+        $('cam-countdown').textContent = '';
+        $('cam-status').textContent = CameraGesture.hasDetection()
+          ? 'Mano detectada — ajustá el gesto'
+          : 'Detectando mano…';
+      }
+
+      camUiRaf = requestAnimationFrame(tick);
+    }
+    tick();
+  }
+
+  async function finalizeCameraPick(pick) {
+    lastSnapshot = CameraGesture.snapshotSquare();
+    resetCamArm();
+    try {
+      const state = await GameRPSOnline.submitPick(code, playerId, pick);
+      HGA.pickMade({ pick, round: state.round, input_mode: 'camera' });
+      render(state);
+    } catch (_) {
+      // transient network hiccup — capturing reset below lets the loop re-arm
+    }
+    capturing = false;
   }
 
   function populateResult(state, rivalKey) {
@@ -85,6 +172,16 @@
     $('res-me-label').textContent    = myMeta.label;
     $('res-rival-emoji').textContent = rivalMeta.emoji;
     $('res-rival-label').textContent = rivalMeta.label;
+
+    const snapImg = $('res-me-snap');
+    if (inputMode === 'camera' && lastSnapshot) {
+      snapImg.src = lastSnapshot;
+      snapImg.style.display = '';
+      $('res-me-emoji').style.display = 'none';
+    } else {
+      snapImg.style.display = 'none';
+      $('res-me-emoji').style.display = '';
+    }
 
     $('res-me-block').classList.remove('loser');
     $('res-rival-block').classList.remove('loser');
@@ -172,10 +269,33 @@
     return $('name-player').value.trim() || 'Jugador';
   }
 
+  async function initCameraIfWanted() {
+    const camStatus = $('setup-cam-status');
+    camStatus.classList.remove('err');
+    camStatus.textContent = '';
+    const wantsCamera = document.querySelector('input[name="input-mode"]:checked')?.value === 'camera';
+    if (!wantsCamera) { inputMode = 'click'; return; }
+
+    camStatus.textContent = 'Activando cámara…';
+    try {
+      await CameraGesture.init($('cam-video'), $('cam-overlay'));
+      inputMode = 'camera';
+    } catch (err) {
+      console.error(err);
+      camStatus.classList.add('err');
+      camStatus.textContent = err.name === 'NotAllowedError'
+        ? 'Permiso de cámara denegado — seguimos con el modo click.'
+        : 'No se pudo iniciar la cámara — seguimos con el modo click.';
+      inputMode = 'click';
+      await new Promise(r => setTimeout(r, 1400));
+    }
+  }
+
   $('btn-create').addEventListener('click', async () => {
     const btn = $('btn-create');
     $('setup-err').textContent = '';
     btn.disabled = true;
+    await initCameraIfWanted();
     try {
       const { code: newCode, playerId: pid, state } = await GameRPSOnline.createRoom(getName());
       code = newCode; playerId = pid;
@@ -203,6 +323,7 @@
       return;
     }
     btn.disabled = true;
+    await initCameraIfWanted();
     try {
       const { playerId: pid, state } = await GameRPSOnline.joinRoom(inputCode, getName());
       code = inputCode; playerId = pid;
