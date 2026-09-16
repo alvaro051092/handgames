@@ -7,7 +7,7 @@
    caches.match uses ignoreSearch:true so versioned URLs are served
    from the precache. On deploy, bump CACHE_VERSION to clear old cache.
 ═══════════════════════════════════════════════════════════ */
-const CACHE_VERSION = 'hg-v6';
+const CACHE_VERSION = 'hg-v7';
 const CACHE_STATIC  = `${CACHE_VERSION}-static`;
 const CACHE_ML      = `${CACHE_VERSION}-ml-models`;
 
