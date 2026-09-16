@@ -241,6 +241,34 @@
     @media (min-width: 721px) and (max-width: 960px) {
       .hub-cards { grid-template-columns: repeat(2, 1fr); max-width: 580px; }
     }
+
+    .hub-toggle {
+      display: flex;
+      gap: var(--sp-3);
+      margin-bottom: var(--sp-7);
+      width: 100%;
+      max-width: 480px;
+    }
+    .hub-toggle-btn {
+      flex: 1;
+      background: var(--clr-surface);
+      border: 2px solid var(--clr-border);
+      border-radius: var(--radius);
+      padding: var(--sp-4);
+      color: var(--clr-text-muted);
+      font-family: var(--font);
+      font-size: var(--text-base);
+      font-weight: 700;
+      cursor: pointer;
+      transition: border-color var(--dur-fast), color var(--dur-fast), background var(--dur-fast);
+    }
+    .hub-toggle-btn:hover { border-color: var(--clr-primary); }
+    .hub-toggle-btn.active {
+      border-color: var(--clr-primary);
+      background: rgba(124,58,237,.12);
+      color: var(--clr-text);
+    }
+
     .top-nav {
       position: fixed;
       top: var(--sp-4);
@@ -308,11 +336,28 @@
     <h1 class="hub-title">
       <span class="title-emoji">✂️</span> Rock · Paper · Scissors
     </h1>
-    <p class="hub-subtitle">Choose your game mode</p>
+    <p class="hub-subtitle">How do you pick your move?</p>
   </header>
 
   <main>
-    <nav class="hub-cards" aria-label="Game modes">
+    <div class="hub-toggle" role="tablist" aria-label="How do you pick your move">
+      <button type="button" class="hub-toggle-btn active" id="toggle-camera" role="tab" aria-selected="true">📸 With camera</button>
+      <button type="button" class="hub-toggle-btn" id="toggle-click" role="tab" aria-selected="false">🖱️ Without camera</button>
+    </div>
+
+    <nav class="hub-cards" aria-label="Camera formats" id="formats-camera">
+      <a href="/rps/en/vs-cpu?cam=1" class="mode-card">
+        <span class="mode-card-icon" aria-hidden="true">🤖</span>
+        <span class="mode-card-title">vs CPU</span>
+        <p class="mode-card-desc">
+          One player vs the machine. Show your real hand to
+          the camera and hold it for 3 seconds.
+        </p>
+        <span class="mode-card-cta" aria-hidden="true">Play →</span>
+      </a>
+    </nav>
+
+    <nav class="hub-cards" aria-label="Click formats" id="formats-click" style="display:none;">
       <a href="/rps/en/local" class="mode-card">
         <span class="mode-card-icon" aria-hidden="true">👥</span>
         <span class="mode-card-title">2 Players</span>
@@ -424,7 +469,6 @@
     <p style="font-size:var(--text-xs);font-weight:700;color:var(--clr-text-subtle);text-transform:uppercase;letter-spacing:.6px;margin:0 0 var(--sp-4);">Other games</p>
     <div style="display:flex;flex-wrap:wrap;gap:var(--sp-3);">
       <a href="/chopsticks/en/" style="display:flex;align-items:center;gap:var(--sp-2);background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);text-decoration:none;color:var(--clr-text);font-size:var(--text-sm);font-weight:600;transition:border-color .15s;"><span aria-hidden="true">🖐</span> Chopsticks</a>
-      <a href="/morra/en/" style="display:flex;align-items:center;gap:var(--sp-2);background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);text-decoration:none;color:var(--clr-text);font-size:var(--text-sm);font-weight:600;transition:border-color .15s;"><span aria-hidden="true">🤚</span> Morra</a>
       <a href="/odd-even/en/" style="display:flex;align-items:center;gap:var(--sp-2);background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);text-decoration:none;color:var(--clr-text);font-size:var(--text-sm);font-weight:600;transition:border-color .15s;"><span aria-hidden="true">🎲</span> Odd or Even</a>
       <a href="/rpsls/en/" style="display:flex;align-items:center;gap:var(--sp-2);background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);text-decoration:none;color:var(--clr-text);font-size:var(--text-sm);font-weight:600;transition:border-color .15s;"><span aria-hidden="true">🦎</span> Rock Paper Scissors Lizard Spock</a>
     </div>
@@ -435,5 +479,6 @@
   </footer>
 
   <script src="/js/analytics.js?v=2"></script>
+  <script src="/js/hub-toggle.js?v=1"></script>
 </body>
 </html>

@@ -238,6 +238,34 @@
     @media (min-width: 721px) and (max-width: 960px) {
       .hub-cards { grid-template-columns: repeat(2, 1fr); max-width: 580px; }
     }
+
+    .hub-toggle {
+      display: flex;
+      gap: var(--sp-3);
+      margin-bottom: var(--sp-7);
+      width: 100%;
+      max-width: 480px;
+    }
+    .hub-toggle-btn {
+      flex: 1;
+      background: var(--clr-surface);
+      border: 2px solid var(--clr-border);
+      border-radius: var(--radius);
+      padding: var(--sp-4);
+      color: var(--clr-text-muted);
+      font-family: var(--font);
+      font-size: var(--text-base);
+      font-weight: 700;
+      cursor: pointer;
+      transition: border-color var(--dur-fast), color var(--dur-fast), background var(--dur-fast);
+    }
+    .hub-toggle-btn:hover { border-color: var(--clr-primary); }
+    .hub-toggle-btn.active {
+      border-color: var(--clr-primary);
+      background: rgba(124,58,237,.12);
+      color: var(--clr-text);
+    }
+
     .top-nav {
       position: fixed;
       top: var(--sp-4);
@@ -305,11 +333,28 @@
     <h1 class="hub-title">
       <span class="title-emoji">✂️</span> Pedra · Papel · Tesoura
     </h1>
-    <p class="hub-subtitle">Escolha seu modo de jogo</p>
+    <p class="hub-subtitle">Como você escolhe sua jogada?</p>
   </header>
 
   <main>
-    <nav class="hub-cards" aria-label="Modos de jogo">
+    <div class="hub-toggle" role="tablist" aria-label="Como você escolhe sua jogada">
+      <button type="button" class="hub-toggle-btn active" id="toggle-camera" role="tab" aria-selected="true">📸 Com câmera</button>
+      <button type="button" class="hub-toggle-btn" id="toggle-click" role="tab" aria-selected="false">🖱️ Sem câmera</button>
+    </div>
+
+    <nav class="hub-cards" aria-label="Formatos com câmera" id="formats-camera">
+      <a href="/rps/pt/vs-cpu?cam=1" class="mode-card">
+        <span class="mode-card-icon" aria-hidden="true">🤖</span>
+        <span class="mode-card-title">vs CPU</span>
+        <p class="mode-card-desc">
+          Um jogador contra a máquina. Mostre sua mão de verdade
+          para a câmera e segure por 3 segundos.
+        </p>
+        <span class="mode-card-cta" aria-hidden="true">Jogar →</span>
+      </a>
+    </nav>
+
+    <nav class="hub-cards" aria-label="Formatos sem câmera" id="formats-click" style="display:none;">
       <a href="/rps/pt/local" class="mode-card">
         <span class="mode-card-icon" aria-hidden="true">👥</span>
         <span class="mode-card-title">2 Jogadores</span>
@@ -431,5 +476,6 @@
   </footer>
 
   <script src="/js/analytics.js?v=2"></script>
+  <script src="/js/hub-toggle.js?v=1"></script>
 </body>
 </html>

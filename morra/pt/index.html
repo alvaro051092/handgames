@@ -59,6 +59,10 @@
     .hub-footer{margin-top:var(--sp-8);font-size:var(--text-xs);color:var(--clr-text-subtle);text-align:center;}
     @media(max-width:720px){.hub-cards{grid-template-columns:1fr;max-width:380px;}}
     @media(min-width:721px) and (max-width:960px){.hub-cards{grid-template-columns:repeat(2,1fr);max-width:580px;}}
+    .hub-toggle{display:flex;gap:var(--sp-3);margin-bottom:var(--sp-7);width:100%;max-width:480px;}
+    .hub-toggle-btn{flex:1;background:var(--clr-surface);border:2px solid var(--clr-border);border-radius:var(--radius);padding:var(--sp-4);color:var(--clr-text-muted);font-family:var(--font);font-size:var(--text-base);font-weight:700;cursor:pointer;transition:border-color var(--dur-fast),color var(--dur-fast),background var(--dur-fast);}
+    .hub-toggle-btn:hover{border-color:var(--clr-primary);}
+    .hub-toggle-btn.active{border-color:var(--clr-primary);background:rgba(124,58,237,.12);color:var(--clr-text);}
     .top-nav{position:fixed;top:var(--sp-4);left:var(--sp-4);right:var(--sp-4);display:flex;justify-content:space-between;align-items:center;z-index:10;}
     .back-platform{font-size:var(--text-xs);color:var(--clr-text-subtle);text-decoration:none;transition:color var(--dur-fast);}
     .back-platform:hover{color:var(--clr-text-muted);}
@@ -155,10 +159,22 @@
   </div>
   <header class="hub-header">
     <h1 class="hub-title"><span class="title-emoji">🤌</span> Morra</h1>
-    <p class="hub-subtitle">Mostre dedos · Adivinhe o total · Escolha o modo</p>
+    <p class="hub-subtitle">Como você mostra os dedos?</p>
   </header>
   <main>
-    <nav class="hub-cards" aria-label="Modos de jogo">
+    <div class="hub-toggle" role="tablist" aria-label="Como você mostra os dedos">
+      <button type="button" class="hub-toggle-btn active" id="toggle-camera" role="tab" aria-selected="true">📸 Com câmera</button>
+      <button type="button" class="hub-toggle-btn" id="toggle-click" role="tab" aria-selected="false">🖱️ Sem câmera</button>
+    </div>
+    <nav class="hub-cards" aria-label="Formatos com câmera" id="formats-camera">
+      <a href="/morra/pt/vs-cpu?cam=1" class="mode-card">
+        <span class="mode-card-icon" aria-hidden="true">🤖</span>
+        <span class="mode-card-title">vs CPU</span>
+        <p class="mode-card-desc">Aposte o total por clique e mostre seus dedos de verdade para a câmera. A CPU revela os dela na hora.</p>
+        <span class="mode-card-cta" aria-hidden="true">Jogar →</span>
+      </a>
+    </nav>
+    <nav class="hub-cards" aria-label="Formatos sem câmera" id="formats-click" style="display:none;">
       <a href="/morra/pt/local" class="mode-card">
         <span class="mode-card-icon" aria-hidden="true">👥</span>
         <span class="mode-card-title">2 Jogadores</span>
@@ -239,12 +255,12 @@
     <div style="display:flex;flex-wrap:wrap;gap:var(--sp-3);">
       <a href="/chopsticks/pt/" style="display:flex;align-items:center;gap:var(--sp-2);background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);text-decoration:none;color:var(--clr-text);font-size:var(--text-sm);font-weight:600;transition:border-color .15s;"><span aria-hidden="true">🖐</span> Pauzinhos</a>
       <a href="/odd-even/pt/" style="display:flex;align-items:center;gap:var(--sp-2);background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);text-decoration:none;color:var(--clr-text);font-size:var(--text-sm);font-weight:600;transition:border-color .15s;"><span aria-hidden="true">🎲</span> Par ou Ímpar</a>
-      <a href="/rps/pt/" style="display:flex;align-items:center;gap:var(--sp-2);background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);text-decoration:none;color:var(--clr-text);font-size:var(--text-sm);font-weight:600;transition:border-color .15s;"><span aria-hidden="true">✊</span> Pedra Papel Tesoura</a>
       <a href="/rpsls/pt/" style="display:flex;align-items:center;gap:var(--sp-2);background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);text-decoration:none;color:var(--clr-text);font-size:var(--text-sm);font-weight:600;transition:border-color .15s;"><span aria-hidden="true">🦎</span> Pedra Papel Tesoura Lagarto Spock</a>
     </div>
   </section>
 
   <footer class="hub-footer">Morra &mdash; Hand Games</footer>
   <script src="/js/analytics.js?v=2"></script>
+  <script src="/js/hub-toggle.js?v=1"></script>
 </body>
 </html>

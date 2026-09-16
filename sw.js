@@ -7,7 +7,7 @@
    caches.match uses ignoreSearch:true so versioned URLs are served
    from the precache. On deploy, bump CACHE_VERSION to clear old cache.
 ═══════════════════════════════════════════════════════════ */
-const CACHE_VERSION = 'hg-v7';
+const CACHE_VERSION = 'hg-v8';
 const CACHE_STATIC  = `${CACHE_VERSION}-static`;
 const CACHE_ML      = `${CACHE_VERSION}-ml-models`;
 
@@ -42,6 +42,7 @@ const PRECACHE = [
   '/js/ui-local.js',
   '/js/ui-battle.js',
   '/js/camera-gesture.js',
+  '/js/hub-toggle.js',
   '/assets/favicon.ico',
   '/assets/favicon-32.png',
   '/assets/apple-touch-icon.png',

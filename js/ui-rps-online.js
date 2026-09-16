@@ -415,4 +415,8 @@
   });
 
   window.addEventListener('beforeunload', stopPolling);
+
+  if (new URLSearchParams(location.search).get('cam') === '1') {
+    document.querySelectorAll('input[name="input-mode"][value="camera"]').forEach(r => { r.checked = true; });
+  }
 })();
