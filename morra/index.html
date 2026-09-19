@@ -209,32 +209,6 @@
       .hub-cards { grid-template-columns: repeat(2, 1fr); max-width: 580px; }
     }
 
-    .hub-toggle {
-      display: flex;
-      gap: var(--sp-3);
-      margin-bottom: var(--sp-7);
-      width: 100%;
-      max-width: 480px;
-    }
-    .hub-toggle-btn {
-      flex: 1;
-      background: var(--clr-surface);
-      border: 2px solid var(--clr-border);
-      border-radius: var(--radius);
-      padding: var(--sp-4);
-      color: var(--clr-text-muted);
-      font-family: var(--font);
-      font-size: var(--text-base);
-      font-weight: 700;
-      cursor: pointer;
-      transition: border-color var(--dur-fast), color var(--dur-fast), background var(--dur-fast);
-    }
-    .hub-toggle-btn:hover { border-color: var(--clr-primary); }
-    .hub-toggle-btn.active {
-      border-color: var(--clr-primary);
-      background: rgba(124,58,237,.12);
-      color: var(--clr-text);
-    }
 
     .top-nav {
       position: fixed;
@@ -347,54 +321,17 @@
     <h1 class="hub-title">
       <span class="title-emoji">🤌</span> Morra
     </h1>
-    <p class="hub-subtitle">¿Cómo elegís tus dedos?</p>
+    <p class="hub-subtitle">¿Cómo querés jugar?</p>
   </header>
 
   <main>
-    <div class="hub-toggle" role="tablist" aria-label="Cómo elegís tus dedos">
-      <button type="button" class="hub-toggle-btn active" id="toggle-camera" role="tab" aria-selected="true">📸 Con cámara</button>
-      <button type="button" class="hub-toggle-btn" id="toggle-click" role="tab" aria-selected="false">🖱️ Sin cámara</button>
-    </div>
-
-    <nav class="hub-cards" aria-label="Formatos con cámara" id="formats-camera">
-      <a href="/morra/vs-cpu?cam=1" class="mode-card">
-        <span class="mode-card-icon" aria-hidden="true">🤖</span>
-        <span class="mode-card-title">vs CPU</span>
-        <p class="mode-card-desc">
-          Apostá el total por click y mostrale tus dedos de
-          verdad a la cámara. La CPU revela los suyos al instante.
-        </p>
-        <span class="mode-card-cta" aria-hidden="true">Jugar →</span>
-      </a>
-    </nav>
-
-    <nav class="hub-cards" aria-label="Formatos sin cámara" id="formats-click" style="display:none;">
-      <a href="/morra/local" class="mode-card">
-        <span class="mode-card-icon" aria-hidden="true">👥</span>
-        <span class="mode-card-title">2 Jugadores</span>
-        <p class="mode-card-desc">
-          Dos personas, un mismo dispositivo.
-          Cada uno elige sus dedos y apuesta el total en secreto.
-        </p>
-        <span class="mode-card-cta" aria-hidden="true">Jugar →</span>
-      </a>
-
+    <nav class="hub-cards" aria-label="Modos de juego" style="grid-template-columns:1fr;max-width:320px;">
       <a href="/morra/vs-cpu" class="mode-card">
         <span class="mode-card-icon" aria-hidden="true">🤖</span>
         <span class="mode-card-title">vs CPU</span>
         <p class="mode-card-desc">
-          Tú eliges tus dedos y apuestas el total.
-          La CPU revela los suyos al instante. ¿Puedes adivinar la suma?
-        </p>
-        <span class="mode-card-cta" aria-hidden="true">Jugar →</span>
-      </a>
-
-      <a href="/morra/battle" class="mode-card">
-        <span class="mode-card-icon" aria-hidden="true">⚔️</span>
-        <span class="mode-card-title">Batalla</span>
-        <p class="mode-card-desc">
-          La CPU decide todo: dedos y apuestas para ambos.
-          Gana quien esté más cerca del total. ¡Pura suerte!
+          Apostá el total y elegí tus dedos con un click
+          o mostrándolos de verdad a la cámara.
         </p>
         <span class="mode-card-cta" aria-hidden="true">Jugar →</span>
       </a>
@@ -461,6 +398,14 @@
   </section>
 
   <section style="max-width:680px;margin:var(--sp-8) auto 0;border-top:1px solid var(--clr-border);padding-top:var(--sp-7);">
+    <p style="font-size:var(--text-xs);font-weight:700;color:var(--clr-text-subtle);text-transform:uppercase;letter-spacing:.6px;margin:0 0 var(--sp-4);">Otros modos</p>
+    <div style="display:flex;flex-wrap:wrap;gap:var(--sp-3);">
+      <a href="/morra/local" style="display:flex;align-items:center;gap:var(--sp-2);background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);text-decoration:none;color:var(--clr-text);font-size:var(--text-sm);font-weight:600;transition:border-color .15s;"><span aria-hidden="true">👥</span> 2 Jugadores</a>
+      <a href="/morra/battle" style="display:flex;align-items:center;gap:var(--sp-2);background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);text-decoration:none;color:var(--clr-text);font-size:var(--text-sm);font-weight:600;transition:border-color .15s;"><span aria-hidden="true">⚔️</span> Batalla</a>
+    </div>
+  </section>
+
+  <section style="max-width:680px;margin:var(--sp-8) auto 0;border-top:1px solid var(--clr-border);padding-top:var(--sp-7);">
     <p style="font-size:var(--text-xs);font-weight:700;color:var(--clr-text-subtle);text-transform:uppercase;letter-spacing:.6px;margin:0 0 var(--sp-4);">Otros juegos</p>
     <div style="display:flex;flex-wrap:wrap;gap:var(--sp-3);">
       <a href="/chopsticks/" style="display:flex;align-items:center;gap:var(--sp-2);background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);text-decoration:none;color:var(--clr-text);font-size:var(--text-sm);font-weight:600;transition:border-color .15s;"><span aria-hidden="true">🖐</span> Palillos</a>
@@ -474,6 +419,5 @@
   </footer>
 
   <script src="/js/analytics.js?v=2"></script>
-  <script src="/js/hub-toggle.js?v=1"></script>
 </body>
 </html>

@@ -239,32 +239,6 @@
       .hub-cards { grid-template-columns: repeat(2, 1fr); max-width: 580px; }
     }
 
-    .hub-toggle {
-      display: flex;
-      gap: var(--sp-3);
-      margin-bottom: var(--sp-7);
-      width: 100%;
-      max-width: 480px;
-    }
-    .hub-toggle-btn {
-      flex: 1;
-      background: var(--clr-surface);
-      border: 2px solid var(--clr-border);
-      border-radius: var(--radius);
-      padding: var(--sp-4);
-      color: var(--clr-text-muted);
-      font-family: var(--font);
-      font-size: var(--text-base);
-      font-weight: 700;
-      cursor: pointer;
-      transition: border-color var(--dur-fast), color var(--dur-fast), background var(--dur-fast);
-    }
-    .hub-toggle-btn:hover { border-color: var(--clr-primary); }
-    .hub-toggle-btn.active {
-      border-color: var(--clr-primary);
-      background: rgba(124,58,237,.12);
-      color: var(--clr-text);
-    }
 
     .top-nav {
       position: fixed;
@@ -333,54 +307,17 @@
     <h1 class="hub-title">
       <span class="title-emoji">✂️</span> Pedra · Papel · Tesoura
     </h1>
-    <p class="hub-subtitle">Como você escolhe sua jogada?</p>
+    <p class="hub-subtitle">Como você quer jogar?</p>
   </header>
 
   <main>
-    <div class="hub-toggle" role="tablist" aria-label="Como você escolhe sua jogada">
-      <button type="button" class="hub-toggle-btn active" id="toggle-camera" role="tab" aria-selected="true">📸 Com câmera</button>
-      <button type="button" class="hub-toggle-btn" id="toggle-click" role="tab" aria-selected="false">🖱️ Sem câmera</button>
-    </div>
-
-    <nav class="hub-cards" aria-label="Formatos com câmera" id="formats-camera">
-      <a href="/rps/pt/vs-cpu?cam=1" class="mode-card">
-        <span class="mode-card-icon" aria-hidden="true">🤖</span>
-        <span class="mode-card-title">vs CPU</span>
-        <p class="mode-card-desc">
-          Um jogador contra a máquina. Mostre sua mão de verdade
-          para a câmera e segure por 3 segundos.
-        </p>
-        <span class="mode-card-cta" aria-hidden="true">Jogar →</span>
-      </a>
-    </nav>
-
-    <nav class="hub-cards" aria-label="Formatos sem câmera" id="formats-click" style="display:none;">
-      <a href="/rps/pt/local" class="mode-card">
-        <span class="mode-card-icon" aria-hidden="true">👥</span>
-        <span class="mode-card-title">2 Jogadores</span>
-        <p class="mode-card-desc">
-          Dois jogadores, um dispositivo.
-          Tela de handoff para que ninguém veja a jogada do outro.
-        </p>
-        <span class="mode-card-cta" aria-hidden="true">Jogar →</span>
-      </a>
-
+    <nav class="hub-cards" aria-label="Modos de jogo" style="grid-template-columns:1fr;max-width:320px;">
       <a href="/rps/pt/vs-cpu" class="mode-card">
         <span class="mode-card-icon" aria-hidden="true">🤖</span>
         <span class="mode-card-title">vs CPU</span>
         <p class="mode-card-desc">
-          Um jogador contra a máquina.
-          Revelação dramática: a CPU mostra sua jogada na hora.
-        </p>
-        <span class="mode-card-cta" aria-hidden="true">Jogar →</span>
-      </a>
-
-      <a href="/rps/pt/battle" class="mode-card">
-        <span class="mode-card-icon" aria-hidden="true">⚔️</span>
-        <span class="mode-card-title">Batalha</span>
-        <p class="mode-card-desc">
-          Dois jogadores, mas a CPU escolhe para ambos.
-          Digite seus nomes e deixe a sorte decidir.
+          Um jogador contra a máquina. Jogue com um clique
+          ou mostre sua mão de verdade para a câmera.
         </p>
         <span class="mode-card-cta" aria-hidden="true">Jogar →</span>
       </a>
@@ -462,10 +399,17 @@
   </section>
 
   <section style="max-width:680px;margin:var(--sp-8) auto 0;border-top:1px solid var(--clr-border);padding-top:var(--sp-7);">
+    <p style="font-size:var(--text-xs);font-weight:700;color:var(--clr-text-subtle);text-transform:uppercase;letter-spacing:.6px;margin:0 0 var(--sp-4);">Outros modos</p>
+    <div style="display:flex;flex-wrap:wrap;gap:var(--sp-3);">
+      <a href="/rps/pt/local" style="display:flex;align-items:center;gap:var(--sp-2);background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);text-decoration:none;color:var(--clr-text);font-size:var(--text-sm);font-weight:600;transition:border-color .15s;"><span aria-hidden="true">👥</span> 2 Jogadores</a>
+      <a href="/rps/pt/battle" style="display:flex;align-items:center;gap:var(--sp-2);background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);text-decoration:none;color:var(--clr-text);font-size:var(--text-sm);font-weight:600;transition:border-color .15s;"><span aria-hidden="true">⚔️</span> Batalha</a>
+    </div>
+  </section>
+
+  <section style="max-width:680px;margin:var(--sp-8) auto 0;border-top:1px solid var(--clr-border);padding-top:var(--sp-7);">
     <p style="font-size:var(--text-xs);font-weight:700;color:var(--clr-text-subtle);text-transform:uppercase;letter-spacing:.6px;margin:0 0 var(--sp-4);">Outros jogos</p>
     <div style="display:flex;flex-wrap:wrap;gap:var(--sp-3);">
       <a href="/chopsticks/pt/" style="display:flex;align-items:center;gap:var(--sp-2);background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);text-decoration:none;color:var(--clr-text);font-size:var(--text-sm);font-weight:600;transition:border-color .15s;"><span aria-hidden="true">🖐</span> Pauzinhos</a>
-      <a href="/morra/pt/" style="display:flex;align-items:center;gap:var(--sp-2);background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);text-decoration:none;color:var(--clr-text);font-size:var(--text-sm);font-weight:600;transition:border-color .15s;"><span aria-hidden="true">🤚</span> Morra</a>
       <a href="/odd-even/pt/" style="display:flex;align-items:center;gap:var(--sp-2);background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);text-decoration:none;color:var(--clr-text);font-size:var(--text-sm);font-weight:600;transition:border-color .15s;"><span aria-hidden="true">🎲</span> Par ou Ímpar</a>
       <a href="/rpsls/pt/" style="display:flex;align-items:center;gap:var(--sp-2);background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-3) var(--sp-4);text-decoration:none;color:var(--clr-text);font-size:var(--text-sm);font-weight:600;transition:border-color .15s;"><span aria-hidden="true">🦎</span> Pedra Papel Tesoura Lagarto Spock</a>
     </div>
@@ -476,6 +420,5 @@
   </footer>
 
   <script src="/js/analytics.js?v=2"></script>
-  <script src="/js/hub-toggle.js?v=1"></script>
 </body>
 </html>

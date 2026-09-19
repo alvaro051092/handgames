@@ -613,9 +613,4 @@
     $('btn-mute').title = muted ? 'Activar audio' : 'Silenciar audio';
   });
 
-  if (new URLSearchParams(location.search).get('cam') === '1') {
-    const camRadio = document.querySelector('input[name="input-mode"][value="camera"]');
-    if (camRadio) camRadio.checked = true;
-  }
-
 })();
