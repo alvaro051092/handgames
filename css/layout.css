@@ -55,6 +55,13 @@ body {
 .screen.s-entering.dir-fwd  { animation: slideInRight  var(--dur-normal) var(--ease-out) forwards; }
 .screen.s-entering.dir-back { animation: slideInLeft   var(--dur-normal) var(--ease-out) forwards; }
 
+/* The exiting screen is later in the DOM than most incoming screens, so
+   without this it stays on top and steals clicks meant for the screen
+   sliding in underneath it for the whole ~300ms transition (e.g. tapping
+   a setup-screen option right after "Nueva partida" hits the still-visible
+   old result/gameover screen instead). */
+.screen.s-exiting { pointer-events: none; }
+
 /* ═══════════════════════════ FIXED OVERLAYS ═══════════════════════════ */
 #curtain {
   position: fixed;
