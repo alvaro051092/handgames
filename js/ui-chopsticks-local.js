@@ -305,7 +305,6 @@
   $('btn-new-series').addEventListener('click', () => {
     if (_transitioning) return;
     G.newGame();
-    $('name-p1').value = ''; $('name-p2').value = '';
     goTo('setup', 'back');
   });
 
@@ -324,7 +323,6 @@
     if (_transitioning) return;
     $('confetti-container').innerHTML = '';
     G.newGame();
-    $('name-p1').value = ''; $('name-p2').value = '';
     goTo('setup', 'back');
   });
 

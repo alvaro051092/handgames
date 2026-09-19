@@ -411,7 +411,6 @@
   $('btn-new-game-result').addEventListener('click', () => {
     if (transitioning) return;
     GameOOECPU.newGame();
-    $('name-player').value = '';
     goTo('setup', 'back');
   });
 
@@ -431,7 +430,6 @@
     $('confetti-container').innerHTML = '';
     $('session-stats').style.display  = 'none';
     GameOOECPU.newGame();
-    $('name-player').value = '';
     goTo('setup', 'back');
   });
 

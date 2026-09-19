@@ -310,8 +310,6 @@
   $('btn-new-game-result').addEventListener('click', () => {
     if (transitioning) return;
     GameMorraBattle.newGame();
-    $('name-p1').value = '';
-    $('name-p2').value = '';
     goTo('setup', 'back');
   });
 
@@ -329,8 +327,6 @@
     if (transitioning) return;
     $('confetti-container').innerHTML = '';
     GameMorraBattle.newGame();
-    $('name-p1').value = '';
-    $('name-p2').value = '';
     goTo('setup', 'back');
   });
 

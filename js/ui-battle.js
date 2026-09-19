@@ -341,8 +341,6 @@
     if (transitioning || revealing) return;
     $('confetti-container').innerHTML = '';
     GameBattle.newGame();
-    $('name-p1').value = '';
-    $('name-p2').value = '';
     goTo('setup', 'back');
   });
 
@@ -360,8 +358,6 @@
     if (transitioning) return;
     $('confetti-container').innerHTML = '';
     GameBattle.newGame();
-    $('name-p1').value = '';
-    $('name-p2').value = '';
     goTo('setup', 'back');
   });
 

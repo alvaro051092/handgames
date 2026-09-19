@@ -358,7 +358,6 @@
   $('btn-new-game-result').addEventListener('click', () => {
     if (transitioning) return;
     G.newGame();
-    $('name-player').value = '';
     goTo('setup', 'back');
   });
 
@@ -378,7 +377,6 @@
     $('confetti-container').innerHTML = '';
     $('session-stats').style.display = 'none';
     G.newGame();
-    $('name-player').value = '';
     goTo('setup', 'back');
   });
 

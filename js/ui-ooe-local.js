@@ -421,8 +421,6 @@
   $('btn-new-game-result').addEventListener('click', () => {
     if (transitioning) return;
     GameOOELocal.newGame();
-    $('name-p1').value = '';
-    $('name-p2').value = '';
     goTo('setup', 'back');
   });
 
@@ -441,8 +439,6 @@
     if (transitioning) return;
     $('confetti-container').innerHTML = '';
     GameOOELocal.newGame();
-    $('name-p1').value = '';
-    $('name-p2').value = '';
     goTo('setup', 'back');
   });
 

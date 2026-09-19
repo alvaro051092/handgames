@@ -576,7 +576,6 @@
     if (transitioning) return;
     if (inputMode === 'camera') { CameraGesture.stop(); stopCamUiLoop(); }
     GameMorraCPU.newGame();
-    $('name-player').value = '';
     $('setup-cam-status').textContent = '';
     $('setup-cam-status').classList.remove('err');
     goTo('setup', 'back');
@@ -599,7 +598,6 @@
     $('confetti-container').innerHTML = '';
     $('session-stats').style.display  = 'none';
     GameMorraCPU.newGame();
-    $('name-player').value = '';
     $('setup-cam-status').textContent = '';
     $('setup-cam-status').classList.remove('err');
     goTo('setup', 'back');

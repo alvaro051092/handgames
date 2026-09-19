@@ -527,7 +527,6 @@
     if (transitioning) return;
     if (inputMode === 'camera') { CameraGesture.stop(); stopCamUiLoop(); }
     GameCPU.newGame();
-    $('name-player').value = '';
     $('setup-cam-status').textContent = '';
     $('setup-cam-status').classList.remove('err');
     goTo('setup', 'back');
@@ -550,7 +549,6 @@
     $('confetti-container').innerHTML = '';
     $('session-stats').style.display  = 'none';
     GameCPU.newGame();
-    $('name-player').value = '';
     $('setup-cam-status').textContent = '';
     $('setup-cam-status').classList.remove('err');
     goTo('setup', 'back');

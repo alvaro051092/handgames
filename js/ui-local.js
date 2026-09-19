@@ -393,8 +393,6 @@
   $('btn-new-game-result').addEventListener('click', () => {
     if (transitioning) return;
     Game.newGame();
-    $('name-p1').value = '';
-    $('name-p2').value = '';
     goTo('setup', 'back');
   });
 
@@ -413,8 +411,6 @@
     if (transitioning) return;
     $('confetti-container').innerHTML = '';
     Game.newGame();
-    $('name-p1').value = '';
-    $('name-p2').value = '';
     goTo('setup', 'back');
   });
 

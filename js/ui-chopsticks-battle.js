@@ -292,7 +292,6 @@
     if (_transitioning) return;
     stopAuto();
     G.newGame();
-    $('name-p1').value = ''; $('name-p2').value = '';
     goTo('setup', 'back');
   });
 
@@ -313,7 +312,6 @@
     $('confetti-container').innerHTML = '';
     stopAuto();
     G.newGame();
-    $('name-p1').value = ''; $('name-p2').value = '';
     goTo('setup', 'back');
   });
 
