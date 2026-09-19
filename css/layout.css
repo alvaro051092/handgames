@@ -33,7 +33,11 @@ body {
   display: none;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* Top-aligned, not centered: centering a flex column whose content is
+     taller than the viewport pushes the top of the content above the
+     scrollable area, where it becomes permanently unreachable (no amount
+     of scrolling recovers it, since scrollTop can't go negative). */
+  justify-content: flex-start;
   gap: var(--sp-5);
   padding: var(--sp-8) var(--sp-4);
   padding-top: var(--sp-10);
