@@ -115,6 +115,66 @@ body {
   position: relative;
 }
 
+/* ── Setup: single player name field.
+   Some pages also define this locally (harmless duplicate); kept here so
+   every page gets it even if the local copy is missing (rps/online.html
+   and a few EN/PT vs-cpu pages shipped without it, leaving the label and
+   input crammed on one line). ── */
+.player-row-single {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-6);
+}
+
+.player-row-single label {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--clr-text-muted);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.player-row-single input {
+  background: var(--clr-surface-2);
+  border: 1.5px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  color: var(--clr-text);
+  font-family: var(--font);
+  font-size: var(--text-base);
+  padding: var(--sp-3) var(--sp-4);
+  outline: none;
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+  width: 100%;
+}
+
+.player-row-single input:focus {
+  border-color: var(--clr-primary);
+  box-shadow: 0 0 0 3px rgba(124,58,237,.25);
+}
+
+/* ── Back-to-hub link ("← Volver" / "← Cambiar modo" / "← Salir").
+   Same "some pages define it locally, several forgot to" situation as
+   .player-row-single above — kept here as the fallback. ── */
+.back-hub-link {
+  display: block;
+  text-align: center;
+  margin-top: var(--sp-4);
+  font-size: var(--text-sm);
+  color: var(--clr-text-subtle);
+  text-decoration: none;
+  transition: color var(--dur-fast);
+}
+.back-hub-link:hover { color: var(--clr-text-muted); }
+
+/* ── Centered "VS" column between two result pick-blocks ── */
+.result-center-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-1);
+}
+
 /* ═══════════════════════════ SCREEN HEADER ═══════════════════════════ */
 .screen-header {
   text-align: center;
