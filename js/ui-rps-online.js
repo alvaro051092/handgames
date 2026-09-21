@@ -400,7 +400,7 @@
     const btn = $('btn-next-round');
     btn.disabled = true;
     try {
-      const state = await GameRPSOnline.nextRound(code);
+      const state = await GameRPSOnline.nextRound(code, renderedResultRound);
       render(state);
     } catch (_) {}
     btn.disabled = false;

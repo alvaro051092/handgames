@@ -59,8 +59,12 @@ window.GameRPSOnline = (() => {
     return state;
   }
 
-  async function nextRound(code) {
-    const { state } = await request(`/${code}/next`, { method: 'POST' });
+  async function nextRound(code, round) {
+    const { state } = await request(`/${code}/next`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ round }),
+    });
     return state;
   }
 

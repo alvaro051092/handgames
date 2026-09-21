@@ -185,12 +185,21 @@ async function handleRoomsApi(request, env, url) {
     return jsonResponse({ state: buildStateResponse(doc, picks.p1, picks.p2) });
   }
 
-  // POST /api/rps-room/:code/next — advance to the next round (keeps scores)
+  // POST /api/rps-room/:code/next — advance to the next round (keeps scores).
+  // Both players see their own "Siguiente ronda" button and may both click
+  // it for the same round transition — only advance once per round (the
+  // caller's `round` must still match the room's current round), otherwise
+  // a double-click from both players skips a round number. `round` is
+  // optional so a stale cached client (sends no body) still works exactly
+  // as before rather than getting permanently stuck.
   if (action === 'next') {
     const doc = await getRoom(env, code);
     if (!doc) return jsonResponse({ error: 'room not found' }, 404);
-    doc.round++;
-    await saveRoom(env, code, doc);
+    const body = await safeJson(request);
+    if (body.round === undefined || doc.round === body.round) {
+      doc.round++;
+      await saveRoom(env, code, doc);
+    }
     return jsonResponse({ state: buildStateResponse(doc, null, null) });
   }
 
