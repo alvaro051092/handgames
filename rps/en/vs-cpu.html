@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" />
-  <title>Rock Paper Scissors vs Computer — Play Against CPU</title>
-  <meta name="description" content="Challenge the CPU at rock paper scissors. 3-2-1 countdown, session stats and best of 3. Can you beat the machine?" />
+  <title>Rock Paper Scissors Camera Game — Play vs the CPU</title>
+  <meta name="description" content="Play rock paper scissors with your camera: show your hand and hold the gesture for 3 seconds, or just click. Best of 3 against the CPU. Free, no sign-up." />
   <!-- Canonical + hreflang -->
   <!-- Performance: preconnect to analytics/clarity origins -->
   <!-- PWA -->
@@ -26,16 +26,16 @@
   <!-- Open Graph -->
   <meta property="og:type"             content="website" />
   <meta property="og:url"              content="https://handgames.app/rps/en/vs-cpu" />
-  <meta property="og:title"            content="Rock Paper Scissors vs Computer — Play Against CPU" />
-  <meta property="og:description"      content="Challenge the CPU at rock paper scissors. 3-2-1 countdown, session stats and best of 3." />
+  <meta property="og:title"            content="Rock Paper Scissors Camera Game — Play vs the CPU" />
+  <meta property="og:description"      content="Play rock paper scissors by showing your hand to the camera, or with a click. Best of 3 against the CPU." />
   <meta property="og:image"            content="https://handgames.app/assets/og-image.png" />
   <meta property="og:locale"           content="en_US" />
   <meta property="og:locale:alternate" content="es_ES" />
   <meta property="og:locale:alternate" content="pt_BR" />
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="Rock Paper Scissors vs Computer — Play Against CPU" />
-  <meta name="twitter:description" content="Challenge the CPU at rock paper scissors. 3-2-1 countdown, session stats and best of 3." />
+  <meta name="twitter:title"       content="Rock Paper Scissors Camera Game — Play vs the CPU" />
+  <meta name="twitter:description" content="Play rock paper scissors by showing your hand to the camera, or with a click. Best of 3 against the CPU." />
   <meta name="twitter:image"       content="https://handgames.app/assets/og-image.png" />
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -45,7 +45,7 @@
     "name": "Rock Paper Scissors vs CPU",
     "alternateName": ["Piedra Papel Tijeras vs CPU", "Pedra Papel Tesoura vs Computador"],
     "url": "https://handgames.app/rps/en/vs-cpu",
-    "description": "vs CPU mode with 3-2-1 countdown, session stats and best of 3.",
+    "description": "vs CPU mode with camera or click input, 3-2-1 countdown, session stats and best of 3.",
     "applicationCategory": "GameApplication",
     "operatingSystem": "Web",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -59,9 +59,10 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
   <link rel="apple-touch-icon"          href="/assets/apple-touch-icon.png" />
   <link rel="stylesheet" href="/css/tokens.css?v=3" />
-  <link rel="stylesheet" href="/css/layout.css?v=7" />
-  <link rel="stylesheet" href="/css/components.css?v=3" />
+  <link rel="stylesheet" href="/css/layout.css?v=20261024" />
+  <link rel="stylesheet" href="/css/components.css?v=20261024" />
   <link rel="stylesheet" href="/css/animations.css?v=3" />
+  <link rel="stylesheet" href="/css/camera.css?v=4" />
   <style>
     @keyframes cpuFlipOut {
       from { transform: rotateY(0deg) scale(1); }
@@ -285,7 +286,7 @@
               <span class="mode-icon">⚡</span>
               <span class="mode-text">
                 <strong>Medium</strong>
-                <small>CPU learns your patterns</small>
+                <small>Counters your most-used move (~1 in 3 rounds); otherwise random</small>
               </span>
             </span>
           </label>
@@ -295,14 +296,39 @@
               <span class="mode-icon">💀</span>
               <span class="mode-text">
                 <strong>Hard</strong>
-                <small>CPU analyses and counters you</small>
+                <small>Counters your most-used move (~2 in 3 rounds); otherwise random</small>
               </span>
             </span>
           </label>
         </fieldset>
 
 
+        <fieldset class="mode-group input-mode-group">
+          <legend>How do you choose your move?</legend>
+          <label class="mode-option">
+            <input type="radio" name="input-mode" value="click" checked />
+            <span class="mode-label">
+              <span class="mode-icon">🖱️</span>
+              <span class="mode-text">
+                <strong>Click</strong>
+                <small>Tap a button to choose</small>
+              </span>
+            </span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="input-mode" value="camera" />
+            <span class="mode-label">
+              <span class="mode-icon">📸</span>
+              <span class="mode-text">
+                <strong>Camera <em style="opacity:.7;font-style:normal;">(beta)</em></strong>
+                <small>Show your real hand to the camera</small>
+              </span>
+            </span>
+          </label>
+        </fieldset>
+
         <button id="btn-start" class="btn btn-primary btn-lg">Play!</button>
+        <p id="setup-cam-status" class="cam-status"></p>
       </div>
 
       <a href="/rps/en/" class="back-hub-link">← Change mode</a>
@@ -324,7 +350,7 @@
         </div>
       </div>
 
-      <div class="card pick-card">
+      <div class="card pick-card" id="pick-card-click">
         <p class="pick-hint" style="margin-top: var(--sp-2);">Choose your move</p>
         <div class="pick-buttons" id="pick-buttons">
           <button data-kbd-hint="1" class="btn btn-pick" data-pick="rock" aria-label="Choose Rock">
@@ -340,6 +366,17 @@
             <span class="pick-label">Scissors</span>
           </button>
         </div>
+      </div>
+
+      <div class="card pick-card" id="pick-card-camera" style="display:none;">
+        <div class="cam-stage" id="cam-stage" data-clarity-mask="True">
+          <video id="cam-video" autoplay playsinline muted data-clarity-mask="True"></video>
+          <canvas id="cam-overlay" class="cam-overlay"></canvas>
+          <div class="cam-guide"><div class="cam-guide-oval" id="cam-oval"></div></div>
+          <div class="cam-hint" id="cam-hint">Show your move and hold it steady for 3 seconds</div>
+          <div class="cam-countdown" id="cam-countdown"></div>
+        </div>
+        <p class="cam-status" id="cam-status">Looking for your hand…</p>
       </div>
     </section>
 
@@ -364,6 +401,7 @@
           <div class="result-pick-block" id="res-player-block">
             <span class="res-pname" id="res-player-name"></span>
             <span class="res-emoji" id="res-player-emoji"></span>
+            <img id="res-player-snap" class="snap-thumb" style="display:none;" alt="Your captured gesture"  data-clarity-mask="True"/>
             <span class="res-pick-label" id="res-player-label"></span>
           </div>
           <div class="result-center-col">
@@ -448,13 +486,14 @@
 
   </div><!-- #app -->
 
-  <script src="/js/analytics.js?v=2"></script>
-  <script src="/js/lang-nav.js?v=2"></script>
-  <script src="/js/share.js?v=2"></script>
+  <script src="/js/analytics.js?v=20261024"></script>
+  <script src="/js/lang-nav.js?v=20261025"></script>
+  <script src="/js/share.js?v=20261024"></script>
   <script src="/js/keyboard.js?v=2"></script>
-  <script src="/js/streak.js?v=2"></script>
-  <script src="/js/game-cpu.js?v=2"></script>
+  <script src="/js/streak.js?v=20261024"></script>
+  <script src="/js/game-cpu.js?v=20261024"></script>
   <script src="/js/audio.js?v=2"></script>
-  <script src="/js/ui-cpu.js?v=2"></script>
+  <script src="/js/camera-gesture.js?v=20261025"></script>
+  <script src="/js/ui-cpu.js?v=20261025"></script>
 </body>
 </html>

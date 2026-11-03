@@ -61,8 +61,8 @@
         } else if (data) {
           const pct = data.total > 0 ? Math.round((data.wins / data.total) * 100) : 0;
           const pctLabel = _lang === 'en' ? `${pct}% win rate`
-            : _lang === 'pt' ? `${pct}% de aproveitamento`
-            : `${pct}% de aciertos`;
+            : _lang === 'pt' ? `${pct}% de vitórias`
+            : `${pct}% de victorias`;
           extra = pctLabel;
         }
       }
@@ -86,8 +86,12 @@
       const text = buildShareText();
 
       /* Track the share event */
-      try { if (typeof HGA !== 'undefined') HGA.event('share', { game: gameKey, lang: _lang }); } catch (_) {}
-      try { if (typeof gtag === 'function') gtag('event', 'share', { game: gameKey, lang: _lang }); } catch (_) {}
+      /* HGA.event already forwards to gtag with game/mode/lang: a second
+         direct gtag('event','share') used to double-count every share. */
+      try {
+        if (typeof HGA !== 'undefined') HGA.event('share');
+        else if (typeof gtag === 'function') gtag('event', 'share', { game: gameKey, lang: _lang });
+      } catch (_) {}
 
       if (navigator.share) {
         try {

@@ -50,6 +50,8 @@ window.GameRPSLSCPU = (() => {
     roundWinner: null,   // 'player' | 'cpu' | 'draw'
     matchWinner: null,
     reason:      null,   // e.g. 'rock_scissors'
+    // Session stats + pick history — persist across revenge/newGame AND across
+    // page loads (localStorage 'hg_rpsls_session'); only clearSession() resets them.
     session: { matches: 0, wins: 0, losses: 0, draws: 0, pickFreq: { rock: 0, paper: 0, scissors: 0, lizard: 0, spock: 0 } },
   };
 
@@ -109,8 +111,11 @@ window.GameRPSLSCPU = (() => {
   }
 
   function playerPick(pick) {
-    state.session.pickFreq[pick] = (state.session.pickFreq[pick] || 0) + 1;
+    /* The CPU decides first, from the history of *previous* rounds only
+       (same order as game-cpu.js / game-ooe-cpu.js); only then is the
+       player's current pick added to the frequency table. */
     const cpu = cpuSmartPick();
+    state.session.pickFreq[pick] = (state.session.pickFreq[pick] || 0) + 1;
     state.picks.player = pick;
     state.picks.cpu    = cpu;
 

@@ -4,6 +4,62 @@
    Depends on: window.GameMorraBattle, window.GameAudio
 ═══════════════════════════════════════════════════════════ */
 (() => {
+  const _lang = (document.documentElement.lang || 'es').slice(0, 2);
+  /* Fallback for a stale cached analytics.js that predates HGA.i18n: without it
+     "Play!" would throw. Only the keys this file uses. */
+  const _L_FALLBACK = {
+    es: {
+      audioOff:   'Silenciar audio',
+      audioOn:    'Activar audio',
+      defP1:      'Jugador 1',
+      defP2:      'Jugador 2',
+      guessed:    'apostó:',
+      round:      n => `Ronda ${n}`,
+      single:     'Intento único',
+      winSuffix:  ' gana!',
+    },
+    en: {
+      audioOff:   'Mute audio',
+      audioOn:    'Turn audio on',
+      defP1:      'Player 1',
+      defP2:      'Player 2',
+      guessed:    'guessed:',
+      round:      n => `Round ${n}`,
+      single:     'Single round',
+      winSuffix:  ' wins!',
+    },
+    pt: {
+      audioOff:   'Silenciar áudio',
+      audioOn:    'Ativar áudio',
+      defP1:      'Jogador 1',
+      defP2:      'Jogador 2',
+      guessed:    'apostou:',
+      round:      n => `Rodada ${n}`,
+      single:     'Tentativa única',
+      winSuffix:  ' vence!',
+    },
+  };
+  const L = (window.HGA && HGA.i18n) || _L_FALLBACK[_lang] || _L_FALLBACK.es;   // shared ES/EN/PT strings (analytics.js)
+  /* Sentences specific to this screen */
+  const T = {
+    es: {
+      hit: (n, t) => `✅ ¡${n} acertó el total ${t}!`,
+      closer: (n, d, t) => `🎯 ¡${n} estuvo más cerca! (±${d} del total ${t})`,
+      goSub: n => `¡La suerte le sonrió! ${n} pedirá revancha.`,
+    },
+    en: {
+      hit: (n, t) => `✅ ${n} nailed the total ${t}!`,
+      closer: (n, d, t) => `🎯 ${n} was closer! (±${d} from the total ${t})`,
+      goSub: n => `Luck smiled on them! ${n} will ask for a rematch.`,
+    },
+    pt: {
+      hit: (n, t) => `✅ ${n} acertou o total ${t}!`,
+      closer: (n, d, t) => `🎯 ${n} chegou mais perto! (±${d} do total ${t})`,
+      goSub: n => `A sorte sorriu para ele! ${n} vai pedir revanche.`,
+    },
+  };
+  const i = T[_lang] || T.es;
+
   /* ──────────── State ──────────── */
   let transitioning = false;
   let revealing     = false;
@@ -143,7 +199,7 @@
     setScoreDigit($('roll-p1'), state.scores.p1);
     setScoreDigit($('roll-p2'), state.scores.p2);
     $('battle-round-badge').textContent =
-      state.mode === 'best-of-3' ? `Ronda ${state.round}` : 'Intento único';
+      state.mode === 'best-of-3' ? L.round(state.round) : L.single;
 
     // Reset fists
     const fist1 = $('battle-fist-p1');
@@ -169,15 +225,15 @@
     setScoreDigit($('res-roll-p1'), preP1);
     setScoreDigit($('res-roll-p2'), preP2);
     $('res-round-badge').textContent =
-      state.mode === 'best-of-3' ? `Ronda ${state.round}` : 'Intento único';
+      state.mode === 'best-of-3' ? L.round(state.round) : L.single;
 
     $('res-p1-name').textContent  = players.p1;
     $('res-p1-num').textContent   = picks.p1Fingers;
-    $('res-p1-guess').textContent = `apostó: ${picks.p1Guess}`;
+    $('res-p1-guess').textContent = `${L.guessed} ${picks.p1Guess}`;
 
     $('res-p2-name').textContent  = players.p2;
     $('res-p2-num').textContent   = picks.p2Fingers;
-    $('res-p2-guess').textContent = `apostó: ${picks.p2Guess}`;
+    $('res-p2-guess').textContent = `${L.guessed} ${picks.p2Guess}`;
 
     $('res-total-value').textContent = `${picks.p1Fingers} + ${picks.p2Fingers} = ${total}`;
 
@@ -199,12 +255,12 @@
       if (roundWinner === 'p2') animateScore($('res-roll-p2'), scores.p2);
 
       if (p1Correct && !p2Correct) {
-        banner.textContent = `✅ ¡${players.p1} acertó el total ${total}!`;
+        banner.textContent = i.hit(players.p1, total);
         banner.classList.add('banner-win', 'show');
         p2Block.classList.add('loser');
         GameAudio.playWin();
       } else if (p2Correct && !p1Correct) {
-        banner.textContent = `✅ ¡${players.p2} acertó el total ${total}!`;
+        banner.textContent = i.hit(players.p2, total);
         banner.classList.add('banner-win', 'show');
         p1Block.classList.add('loser');
         GameAudio.playWin();
@@ -214,7 +270,7 @@
         const winnerName = roundWinner === 'p1' ? players.p1 : players.p2;
         const loserBlock = roundWinner === 'p1' ? p2Block : p1Block;
         const diff = Math.min(d1, d2);
-        banner.textContent = `🎯 ¡${winnerName} estuvo más cerca! (±${diff} del total ${total})`;
+        banner.textContent = i.closer(winnerName, diff, total);
         banner.classList.add('banner-win', 'show');
         loserBlock.classList.add('loser');
         GameAudio.playWin();
@@ -242,8 +298,8 @@
     const winnerName = matchWinner === 'p1' ? players.p1 : players.p2;
     const loserName  = matchWinner === 'p1' ? players.p2 : players.p1;
     typewriter($('go-winner-name'), winnerName);
-    $('go-title-suffix').textContent = ' gana!';
-    $('go-subtitle').textContent     = `¡La suerte le sonrió! ${loserName} pedirá revancha.`;
+    $('go-title-suffix').textContent = L.winSuffix;
+    $('go-subtitle').textContent     = i.goSub(loserName);
     spawnConfetti();
     GameAudio.playFanfare();
 
@@ -256,8 +312,8 @@
   /* ──────────── Event Listeners ──────────── */
 
   $('btn-start').addEventListener('click', () => {
-    const p1   = $('name-p1').value.trim();
-    const p2   = $('name-p2').value.trim();
+    const p1   = $('name-p1').value.trim() || L.defP1;
+    const p2   = $('name-p2').value.trim() || L.defP2;
     const mode = document.querySelector('input[name="mode"]:checked').value;
     const state = GameMorraBattle.configure(p1, p2, mode);
     HGA.gameStart(mode);
@@ -334,8 +390,8 @@
     const muted = GameAudio.toggle();
     HGA.audioToggle(muted);
     $('btn-mute').textContent = muted ? '🔇' : '🔊';
-    $('btn-mute').setAttribute('aria-label', muted ? 'Activar audio' : 'Silenciar audio');
-    $('btn-mute').title = muted ? 'Activar audio' : 'Silenciar audio';
+    $('btn-mute').setAttribute('aria-label', muted ? L.audioOn : L.audioOff);
+    $('btn-mute').title = muted ? L.audioOn : L.audioOff;
   });
 
 })();

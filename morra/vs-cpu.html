@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" />
-  <title>Morra vs CPU — Juega contra la computadora</title>
-  <meta name="description" content="Enfréntate a la CPU en Morra. Elige tus dedos, apuesta el total y la CPU revela los suyos al instante. ¿Puedes adivinar la suma?" />
+  <title>Morra con Cámara contra la CPU — Muestra tus Dedos</title>
+  <meta name="description" content="Juega a la Morra contra la CPU: apuesta el total y muestra tus dedos a la cámara, o elige con clics. Mejor de 3, gratis y sin registro." />
   <!-- Canonical + hreflang -->
   <!-- Performance: preconnect to analytics/clarity origins -->
   <!-- PWA -->
@@ -26,16 +26,16 @@
   <!-- Open Graph -->
   <meta property="og:type"             content="website" />
   <meta property="og:url"              content="https://handgames.app/morra/vs-cpu" />
-  <meta property="og:title"            content="Morra vs CPU — Juega contra la computadora" />
-  <meta property="og:description"      content="Elige tus dedos, apuesta el total y la CPU revela los suyos. ¿Puedes adivinar la suma?" />
+  <meta property="og:title"            content="Morra con Cámara contra la CPU — Muestra tus Dedos" />
+  <meta property="og:description"      content="Apuesta el total y muestra tus dedos a la cámara (o elige con clics) contra la CPU en la Morra." />
   <meta property="og:image"            content="https://handgames.app/assets/og-image.png" />
   <meta property="og:locale"           content="es_ES" />
   <meta property="og:locale:alternate" content="en_US" />
   <meta property="og:locale:alternate" content="pt_BR" />
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="Morra vs CPU — Juega contra la computadora" />
-  <meta name="twitter:description" content="Elige tus dedos, apuesta el total y la CPU revela los suyos." />
+  <meta name="twitter:title"       content="Morra con Cámara contra la CPU — Muestra tus Dedos" />
+  <meta name="twitter:description" content="Apuesta el total y muestra tus dedos a la cámara (o elige con clics) contra la CPU en la Morra." />
   <meta name="twitter:image"       content="https://handgames.app/assets/og-image.png" />
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -45,7 +45,7 @@
     "name": "Morra vs CPU",
     "alternateName": ["Morra vs Computer", "Morra vs Computador"],
     "url": "https://handgames.app/morra/vs-cpu",
-    "description": "Modo vs CPU con conteo 3-2-1, estadísticas de sesión y mejor de 3.",
+    "description": "Modo vs CPU con cámara o clics, conteo 3-2-1, estadísticas de sesión y mejor de 3.",
     "applicationCategory": "GameApplication",
     "operatingSystem": "Web",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -59,8 +59,8 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
   <link rel="apple-touch-icon"          href="/assets/apple-touch-icon.png" />
   <link rel="stylesheet" href="/css/tokens.css?v=3" />
-  <link rel="stylesheet" href="/css/layout.css?v=7" />
-  <link rel="stylesheet" href="/css/components.css?v=3" />
+  <link rel="stylesheet" href="/css/layout.css?v=20261024" />
+  <link rel="stylesheet" href="/css/components.css?v=20261024" />
   <link rel="stylesheet" href="/css/animations.css?v=3" />
   <link rel="stylesheet" href="/css/camera.css?v=4" />
   <style>
@@ -416,7 +416,7 @@
               <span class="mode-icon">⚡</span>
               <span class="mode-text">
                 <strong>Medio</strong>
-                <small>CPU aprende tus patrones</small>
+                <small>También al azar: no aprende de tus jugadas</small>
               </span>
             </span>
           </label>
@@ -426,7 +426,7 @@
               <span class="mode-icon">💀</span>
               <span class="mode-text">
                 <strong>Difícil</strong>
-                <small>CPU te analiza y contraataca</small>
+                <small>También al azar: igual que Fácil y Medio</small>
               </span>
             </span>
           </label>
@@ -507,8 +507,8 @@
 
         <div id="finger-pick-camera" style="display:none;">
           <p class="pick-section-label">Tus dedos — mostralos a la cámara</p>
-          <div class="cam-stage" id="cam-stage">
-            <video id="cam-video" autoplay playsinline muted></video>
+          <div class="cam-stage" id="cam-stage" data-clarity-mask="True">
+            <video id="cam-video" autoplay playsinline muted data-clarity-mask="True"></video>
             <canvas id="cam-overlay" class="cam-overlay"></canvas>
             <div class="cam-guide"><div class="cam-guide-oval" id="cam-oval"></div></div>
             <div class="cam-hint" id="cam-hint">Mostrá tus dedos y mantenelos</div>
@@ -542,7 +542,7 @@
           <div class="result-pick-block" id="res-player-block">
             <span class="res-pname" id="res-player-name"></span>
             <span class="res-finger-num" id="res-player-num">0</span>
-            <img id="res-player-snap" class="snap-thumb" style="display:none;" alt="Tu gesto capturado" />
+            <img id="res-player-snap" class="snap-thumb" style="display:none;" alt="Tu gesto capturado"  data-clarity-mask="True"/>
             <span class="res-guess-badge" id="res-player-guess"></span>
           </div>
           <div class="result-center-col">
@@ -626,14 +626,14 @@
 
   </div><!-- #app -->
 
-  <script src="/js/analytics.js?v=2"></script>
-  <script src="/js/lang-nav.js?v=2"></script>
-  <script src="/js/share.js?v=2"></script>
+  <script src="/js/analytics.js?v=20261024"></script>
+  <script src="/js/lang-nav.js?v=20261025"></script>
+  <script src="/js/share.js?v=20261024"></script>
   <script src="/js/keyboard.js?v=2"></script>
-  <script src="/js/streak.js?v=2"></script>
-  <script src="/js/game-morra-cpu.js?v=2"></script>
+  <script src="/js/streak.js?v=20261024"></script>
+  <script src="/js/game-morra-cpu.js?v=20261024"></script>
   <script src="/js/audio.js?v=2"></script>
-  <script src="/js/camera-gesture.js?v=4"></script>
-  <script src="/js/ui-morra-cpu.js?v=4"></script>
+  <script src="/js/camera-gesture.js?v=20261025"></script>
+  <script src="/js/ui-morra-cpu.js?v=20261025"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" />
   <title>Hand Games — Jogos de mão grátis online</title>
-  <meta name="description" content="Jogos de mão grátis: Pedra Papel Tesoura, Morra, Pauzinhos e mais. Sem cadastro, sem downloads. Jogue em qualquer dispositivo." />
+  <meta name="description" content="Jogos de mão grátis online: Pedra, Papel e Tesoura com câmera, Morra, Pauzinhos e mais. Jogue com um amigo, sem cadastro e pelo celular." />
   <!-- Canonical + hreflang -->
   <!-- Performance: preconnect to analytics/clarity origins -->
   <!-- PWA -->
@@ -27,7 +27,7 @@
   <meta property="og:type"             content="website" />
   <meta property="og:url"              content="https://handgames.app/pt/" />
   <meta property="og:title"            content="Hand Games — Jogos de mão grátis online" />
-  <meta property="og:description"      content="Jogos de mão grátis: Pedra Papel Tesoura, Morra, Pauzinhos e mais. Sem cadastro, sem downloads." />
+  <meta property="og:description"      content="Jogos de mão grátis online: Pedra, Papel e Tesoura com câmera, Morra, Pauzinhos e mais. Sem cadastro, pelo celular." />
   <meta property="og:image"            content="https://handgames.app/assets/og-image.png" />
   <meta property="og:site_name"        content="Hand Games" />
   <meta property="og:locale"           content="pt_BR" />
@@ -36,7 +36,7 @@
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="Hand Games — Jogos de mão grátis online" />
-  <meta name="twitter:description" content="Jogos de mão grátis: Pedra Papel Tesoura, Morra, Pauzinhos e mais. Sem cadastro, sem downloads." />
+  <meta name="twitter:description" content="Jogos de mão grátis online: Pedra, Papel e Tesoura com câmera, Morra, Pauzinhos e mais. Sem cadastro, pelo celular." />
   <meta name="twitter:image"       content="https://handgames.app/assets/og-image.png" />
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -59,7 +59,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
   <link rel="apple-touch-icon"          href="/assets/apple-touch-icon.png" />
   <link rel="stylesheet" href="/css/tokens.css?v=3" />
-  <link rel="stylesheet" href="/css/layout.css?v=7" />
+  <link rel="stylesheet" href="/css/layout.css?v=20261024" />
   <link rel="stylesheet" href="/css/animations.css?v=3" />
   <style>
     .hub-page {
@@ -310,6 +310,16 @@
       letter-spacing: .2px;
     }
     .badge-meta span { opacity: .45; }
+
+    /* More games + guides (visible internal links) */
+    .hub-more { width:100%; max-width:700px; margin-top:var(--sp-8); text-align:center; }
+    .hub-more h2 { font-size:var(--text-base); font-weight:800; color:var(--clr-text); margin-bottom:var(--sp-2); }
+    .hub-more p { font-size:var(--text-sm); color:var(--clr-text-muted); line-height:1.6; margin-bottom:var(--sp-4); }
+    .hub-more-links { display:flex; flex-wrap:wrap; justify-content:center; gap:var(--sp-3); }
+    .hub-more-links a { display:inline-flex; align-items:center; gap:var(--sp-2); background:var(--clr-surface); border:1px solid var(--clr-border); border-radius:var(--radius-sm); padding:var(--sp-3) var(--sp-4); text-decoration:none; color:var(--clr-text); font-size:var(--text-sm); font-weight:600; transition:border-color var(--dur-fast); }
+    .hub-more-links a:hover { border-color:var(--clr-primary); }
+    .hub-guides-link { display:inline-block; margin-top:var(--sp-4); font-size:var(--text-sm); font-weight:700; color:var(--clr-primary-light); text-decoration:none; }
+    .hub-guides-link:hover { text-decoration:underline; }
   </style>
   <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
@@ -377,12 +387,23 @@
       </div>
 
     </nav>
+
+  <section class="hub-more" aria-labelledby="more-heading">
+    <h2 id="more-heading">Mais jogos de mão grátis online</h2>
+    <p>Hand Games é uma coleção gratuita de jogos de mão clássicos para jogar no navegador: contra a CPU, <a href="/rps/pt/#online" style="color:var(--clr-primary-light);">com um amigo online</a> ou <a href="/rps/pt/#camera" style="color:var(--clr-primary-light);">mostrando sua mão para a câmera</a>.</p>
+    <div class="hub-more-links">
+      <a href="/chopsticks/pt/"><span aria-hidden="true">🖖</span> Pauzinhos (Chopsticks) online</a>
+      <a href="/rpsls/pt/"><span aria-hidden="true">🦎</span> Pedra Papel Tesoura Lagarto Spock</a>
+      <a href="/odd-even/pt/"><span aria-hidden="true">🎲</span> Par ou Ímpar online</a>
+    </div>
+    <a href="/pt/blog/" class="hub-guides-link">📖 Guias: regras, história e estratégia →</a>
+  </section>
   </main>
 
   <footer class="hub-footer">
-    handgames.app &mdash; Jogos de mão grátis
+    <a href="/pt/blog/" style="color:inherit;">📖 Guias e estratégia</a> &middot; handgames.app &mdash; Jogos de mão grátis
   </footer>
 
-  <script src="/js/analytics.js?v=2"></script>
+  <script src="/js/analytics.js?v=20261024"></script>
 </body>
 </html>

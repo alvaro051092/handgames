@@ -7,6 +7,86 @@
 (() => {
   const $ = id => document.getElementById(id);
 
+  /* ── Language (ES root, /rps/en/online, /rps/pt/online) ──
+     Page language comes from <html lang>; shared strings (camera status,
+     GO!, pick labels, audio labels) come from HGA.i18n (analytics.js) with
+     the same stale-cache fallback the vs-CPU screens use. Sentences that
+     only exist on this screen live in T below. */
+  const _lang = (document.documentElement.lang || 'es').slice(0, 2).toLowerCase();
+  const LANG  = (_lang === 'en' || _lang === 'pt') ? _lang : 'es';
+  const _L_FALLBACK = {
+    es: {
+      audioOff: 'Silenciar audio', audioOn: 'Activar audio',
+      camAdjust: 'Mano detectada — ajustá el gesto',
+      camDenied: 'Permiso de cámara denegado — seguimos con el modo click.',
+      camDetected: l => `Detectando: ${l}`,
+      camFailed: 'No se pudo iniciar la cámara — seguimos con el modo click.',
+      camHolding: l => `Manteniendo ${l}…`,
+      camSearching: 'Detectando mano…', camStarting: 'Activando cámara…',
+      defName: 'Jugador', go: '¡YA!', round: n => `Ronda ${n}`,
+      pick: { rock: '🪨 Piedra', paper: '📄 Papel', scissors: '✂️ Tijeras' },
+      pickName: { rock: 'Piedra', paper: 'Papel', scissors: 'Tijeras' },
+    },
+    en: {
+      audioOff: 'Mute audio', audioOn: 'Turn audio on',
+      camAdjust: 'Hand detected — adjust your gesture',
+      camDenied: 'Camera permission denied — continuing in click mode.',
+      camDetected: l => `Detected: ${l}`,
+      camFailed: 'Could not start the camera — continuing in click mode.',
+      camHolding: l => `Holding ${l}…`,
+      camSearching: 'Looking for your hand…', camStarting: 'Starting camera…',
+      defName: 'Player', go: 'GO!', round: n => `Round ${n}`,
+      pick: { rock: '🪨 Rock', paper: '📄 Paper', scissors: '✂️ Scissors' },
+      pickName: { rock: 'Rock', paper: 'Paper', scissors: 'Scissors' },
+    },
+    pt: {
+      audioOff: 'Silenciar áudio', audioOn: 'Ativar áudio',
+      camAdjust: 'Mão detectada — ajuste o gesto',
+      camDenied: 'Permissão da câmera negada — seguimos no modo clique.',
+      camDetected: l => `Detectado: ${l}`,
+      camFailed: 'Não foi possível iniciar a câmera — seguimos no modo clique.',
+      camHolding: l => `Segurando ${l}…`,
+      camSearching: 'Procurando sua mão…', camStarting: 'Ativando a câmera…',
+      defName: 'Jogador', go: 'JÁ!', round: n => `Rodada ${n}`,
+      pick: { rock: '🪨 Pedra', paper: '📄 Papel', scissors: '✂️ Tesoura' },
+      pickName: { rock: 'Pedra', paper: 'Papel', scissors: 'Tesoura' },
+    },
+  };
+  const L = (window.HGA && HGA.i18n) || _L_FALLBACK[LANG];
+
+  const T = {
+    es: {
+      draw:       '🤝 ¡Empate!',
+      youWon:     '🎉 ¡Ganaste la ronda!',
+      rivalWon:   n => `😅 ¡Ganó ${n}!`,
+      roomGone:   'La sala expiró o no existe más.',
+      createFail: 'No se pudo crear la sala. Probá de nuevo.',
+      codeLen:    'El código tiene 5 caracteres.',
+      joinFail:   'No encontramos esa sala. Revisá el código.',
+      roomFull:   'Esa sala ya está completa: ya hay dos jugadores.',
+    },
+    en: {
+      draw:       '🤝 Draw!',
+      youWon:     '🎉 You won the round!',
+      rivalWon:   n => `😅 ${n} wins!`,
+      roomGone:   'This room has expired or no longer exists.',
+      createFail: 'Could not create the room. Please try again.',
+      codeLen:    'The room code has 5 characters.',
+      joinFail:   'We could not find that room. Check the code.',
+      roomFull:   'That room is already full: two players have joined.',
+    },
+    pt: {
+      draw:       '🤝 Empate!',
+      youWon:     '🎉 Você venceu a rodada!',
+      rivalWon:   n => `😅 ${n} venceu!`,
+      roomGone:   'A sala expirou ou não existe mais.',
+      createFail: 'Não foi possível criar a sala. Tente de novo.',
+      codeLen:    'O código tem 5 caracteres.',
+      joinFail:   'Não encontramos essa sala. Confira o código.',
+      roomFull:   'Essa sala já está cheia: já há dois jogadores.',
+    },
+  }[LANG];
+
   let code            = null;
   let playerId        = null; // 'p1' | 'p2'
   let pollTimer        = null;
@@ -15,6 +95,8 @@
   let renderedResultRound = 0;
   let inputMode = 'click'; // 'click' | 'camera'
   let lastSnapshot = null;
+  let rivalJoinedTracked = false;
+  let camStarting = false;   // a CameraGesture.init() is in flight
 
   // Camera "hold to confirm": arm on the first detected gesture, lock it
   // in after HOLD_MS as long as it stays steady (same pattern as vs-CPU).
@@ -25,11 +107,12 @@
   let armStartTime = null;
   let lastGoodTime = null;
   let capturing = false;
+  let pickLocked = false; // my pick for this round is already on the server (camera must not re-arm)
 
   const PICK_META = {
-    rock:     { emoji: '🪨', label: 'Piedra' },
-    paper:    { emoji: '📄', label: 'Papel' },
-    scissors: { emoji: '✂️', label: 'Tijeras' },
+    rock:     { emoji: '🪨', label: L.pickName.rock },
+    paper:    { emoji: '📄', label: L.pickName.paper },
+    scissors: { emoji: '✂️', label: L.pickName.scissors },
   };
 
   function screens() {
@@ -52,6 +135,54 @@
     return document.querySelector('.screen.active')?.id;
   }
 
+  /* ── Camera lifecycle ──
+     The stream is only ON while the pick screen is waiting for MY gesture.
+     It is switched OFF (tracks stopped, so the browser's camera indicator
+     goes out) in the lobby, once my pick is in, on the result screen, when
+     the room disappears, on any create/join error and when the page is left. */
+  function stopCamera() {
+    if (camUiRaf) cancelAnimationFrame(camUiRaf);
+    camUiRaf = null;
+    capturing = false;
+    resetCamArm();
+    try { CameraGesture.stop(); } catch (_) {}
+  }
+
+  /* (Re)starts the stream for the pick screen. Permission was already granted
+     at create/join, so this does not prompt again; the model is cached. */
+  async function ensureCamera() {
+    if (inputMode !== 'camera' || pickLocked || camStarting || CameraGesture.isReady()) return;
+    camStarting = true;
+    try {
+      await CameraGesture.init($('cam-video'), $('cam-overlay'));
+    } catch (err) {
+      console.error(err);
+      /* Camera lost (unplugged, revoked): carry on with the buttons. */
+      inputMode = 'click';
+      stopCamera();
+      $('pick-card-click').style.display  = '';
+      $('pick-card-camera').style.display = 'none';
+      updatePickWaitUI(pickLocked);
+    } finally {
+      camStarting = false;
+    }
+    /* The screen moved on while the camera was starting: switch it back off. */
+    if (activeScreenId() !== 'screen-pick' || pickLocked) stopCamera();
+  }
+
+  /* Back to a clean slate: room gone, new room, new join. Without this a
+     stale renderedPickRound made the next room skip populatePick() and left
+     the pick buttons disabled/selected. */
+  function resetSession() {
+    stopPolling();
+    stopCamera();
+    code = null; playerId = null;
+    renderedPickRound = 0; renderedResultRound = 0;
+    pickLocked = false; rivalJoinedTracked = false;
+    lastSnapshot = null;
+    pollInFlight = false;
+  }
+
   function setScoreDigit(el, value) {
     el.innerHTML = `<span class="score-digit">${value}</span>`;
   }
@@ -64,13 +195,13 @@
     $('sb-name-rival').textContent = rival.name;
     setScoreDigit($('roll-me'),    state.scores[playerId]);
     setScoreDigit($('roll-rival'), state.scores[rivalKey]);
-    $('pick-round-badge').textContent = `Ronda ${state.round}`;
+    $('pick-round-badge').textContent = L.round(state.round);
 
     $('res-name-me').textContent    = me.name;
     $('res-name-rival').textContent = rival.name;
     setScoreDigit($('res-roll-me'),    state.scores[playerId]);
     setScoreDigit($('res-roll-rival'), state.scores[rivalKey]);
-    $('res-round-badge').textContent = `Ronda ${state.round}`;
+    $('res-round-badge').textContent = L.round(state.round);
   }
 
   function populatePick() {
@@ -78,16 +209,19 @@
       b.disabled = false;
       b.classList.remove('selected');
     });
+    pickLocked = false;
     $('pick-card-click').style.display  = inputMode === 'click'  ? '' : 'none';
     $('pick-card-camera').style.display = inputMode === 'camera' ? '' : 'none';
     if (inputMode === 'camera') {
       resetCamArm();
       $('cam-countdown').textContent = '';
+      $('cam-status').textContent = L.camSearching;
       startCamUiLoop();
     }
   }
 
   function updatePickWaitUI(alreadyPicked) {
+    pickLocked = !!alreadyPicked;
     $('pick-buttons').style.display     = (inputMode === 'click'  && !alreadyPicked) ? '' : 'none';
     $('pick-wait').style.display        = (inputMode === 'click'  &&  alreadyPicked) ? 'flex' : 'none';
     $('cam-stage').style.display        = (inputMode === 'camera' && !alreadyPicked) ? '' : 'none';
@@ -108,7 +242,7 @@
     capturing = false;
 
     function tick() {
-      if (inputMode !== 'camera' || activeScreenId() !== 'screen-pick' || capturing || !CameraGesture.isReady()) {
+      if (inputMode !== 'camera' || activeScreenId() !== 'screen-pick' || capturing || pickLocked || !CameraGesture.isReady()) {
         camUiRaf = requestAnimationFrame(tick);
         return;
       }
@@ -129,19 +263,19 @@
       if (armGesture) {
         const elapsed = now - armStartTime;
         if (elapsed >= HOLD_MS) {
-          $('cam-countdown').textContent = '¡YA!';
-          $('cam-status').textContent = `Detectando: ${PICK_META[armGesture].emoji} ${PICK_META[armGesture].label}`;
+          $('cam-countdown').textContent = L.go;
+          $('cam-status').textContent = L.camDetected(L.pick[armGesture]);
           capturing = true;
           finalizeCameraPick(armGesture);
         } else {
           $('cam-countdown').textContent = String(Math.ceil((HOLD_MS - elapsed) / 1000));
-          $('cam-status').textContent = `Manteniendo ${PICK_META[armGesture].label}…`;
+          $('cam-status').textContent = L.camHolding(PICK_META[armGesture].label);
         }
       } else {
         $('cam-countdown').textContent = '';
         $('cam-status').textContent = CameraGesture.hasDetection()
-          ? 'Mano detectada — ajustá el gesto'
-          : 'Detectando mano…';
+          ? L.camAdjust
+          : L.camSearching;
       }
 
       camUiRaf = requestAnimationFrame(tick);
@@ -189,16 +323,16 @@
     const banner = $('result-banner');
     banner.className = 'result-banner show';
     if (state.roundWinner === 'draw') {
-      banner.textContent = '🤝 ¡Empate!';
+      banner.textContent = T.draw;
       banner.classList.add('banner-draw');
       GameAudio.playDraw();
     } else if (state.roundWinner === playerId) {
-      banner.textContent = '🎉 ¡Ganaste la ronda!';
+      banner.textContent = T.youWon;
       banner.classList.add('banner-win');
       $('res-rival-block').classList.add('loser');
       GameAudio.playWin();
     } else {
-      banner.textContent = `😅 ¡Ganó ${state[rivalKey].name}!`;
+      banner.textContent = T.rivalWon(state[rivalKey].name);
       banner.classList.add('banner-loss');
       $('res-me-block').classList.add('loser');
       GameAudio.playDraw();
@@ -214,13 +348,21 @@
 
     if (!rivalObj) {
       $('lobby-code').textContent = code;
+      stopCamera();                       // nothing to show to the camera while waiting
       goTo('lobby');
       return;
+    }
+
+    /* The creator's lobby turned into a match: the invite worked. */
+    if (!rivalJoinedTracked && playerId === 'p1') {
+      rivalJoinedTracked = true;
+      HGA.event('rps_online_rival_joined');
     }
 
     updateScoreboards(state, rivalKey);
 
     if (state.roundWinner) {
+      stopCamera();
       goTo('result');
       if (renderedResultRound !== state.round) {
         renderedResultRound = state.round;
@@ -233,6 +375,11 @@
       }
       updatePickWaitUI(!!state[playerId].pick);
       goTo('pick');
+      if (state[playerId].pick) stopCamera();        // my pick is in: camera off while waiting
+      else if (inputMode === 'camera') {
+        if (!camUiRaf) startCamUiLoop();
+        ensureCamera();
+      }
     }
   }
 
@@ -248,8 +395,8 @@
         render(state);
       } catch (err) {
         if (String(err.message).includes('not found')) {
-          stopPolling();
-          $('setup-err').textContent = 'La sala expiró o no existe más.';
+          resetSession();
+          $('setup-err').textContent = T.roomGone;
           goTo('setup');
         }
       } finally {
@@ -266,9 +413,11 @@
   /* ── Setup screen ── */
 
   function getName() {
-    return $('name-player').value.trim() || 'Jugador';
+    return $('name-player').value.trim() || L.defName;
   }
 
+  /* Asked AFTER the room was created/joined successfully, so a failed or
+     mistyped code never triggers a permission prompt. */
   async function initCameraIfWanted() {
     const camStatus = $('setup-cam-status');
     camStatus.classList.remove('err');
@@ -276,7 +425,7 @@
     const wantsCamera = document.querySelector('input[name="input-mode"]:checked')?.value === 'camera';
     if (!wantsCamera) { inputMode = 'click'; return; }
 
-    camStatus.textContent = 'Activando cámara…';
+    camStatus.textContent = L.camStarting;
     try {
       await CameraGesture.init($('cam-video'), $('cam-overlay'));
       inputMode = 'camera';
@@ -284,8 +433,8 @@
       console.error(err);
       camStatus.classList.add('err');
       camStatus.textContent = err.name === 'NotAllowedError'
-        ? 'Permiso de cámara denegado — seguimos con el modo click.'
-        : 'No se pudo iniciar la cámara — seguimos con el modo click.';
+        ? L.camDenied
+        : L.camFailed;
       inputMode = 'click';
       await new Promise(r => setTimeout(r, 1400));
     }
@@ -295,16 +444,19 @@
     const btn = $('btn-create');
     $('setup-err').textContent = '';
     btn.disabled = true;
-    await initCameraIfWanted();
+    resetSession();
     try {
       const { code: newCode, playerId: pid, state } = await GameRPSOnline.createRoom(getName());
       code = newCode; playerId = pid;
-      HGA.gameStart('online');
       HGA.event('rps_online_room_created');
+      await initCameraIfWanted();
+      if (code !== newCode) { btn.disabled = false; return; }   // room vanished while the permission prompt was open
+      HGA.gameStart('online');               // after the camera attempt so input_mode is accurate
       render(state);
       startPolling();
     } catch (err) {
-      $('setup-err').textContent = 'No se pudo crear la sala. Probá de nuevo.';
+      stopCamera();
+      $('setup-err').textContent = T.createFail;
     }
     btn.disabled = false;
   });
@@ -319,20 +471,23 @@
     const inputCode = $('input-code').value.trim().toUpperCase();
     $('setup-err').textContent = '';
     if (inputCode.length !== 5) {
-      $('setup-err').textContent = 'El código tiene 5 caracteres.';
+      $('setup-err').textContent = T.codeLen;
       return;
     }
     btn.disabled = true;
-    await initCameraIfWanted();
+    resetSession();
     try {
       const { playerId: pid, state } = await GameRPSOnline.joinRoom(inputCode, getName());
       code = inputCode; playerId = pid;
-      HGA.gameStart('online');
       HGA.event('rps_online_room_joined');
+      await initCameraIfWanted();
+      if (code !== inputCode) { btn.disabled = false; return; }
+      HGA.gameStart('online');
       render(state);
       startPolling();
     } catch (err) {
-      $('setup-err').textContent = 'No encontramos esa sala. Revisá el código.';
+      stopCamera();
+      $('setup-err').textContent = String(err && err.message).includes('room full') ? T.roomFull : T.joinFail;
     }
     btn.disabled = false;
   });
@@ -344,7 +499,7 @@
     if (e.key === 'Enter') $('btn-join').click();
   });
 
-  /* Prefill code from a shared link: /rps/online?room=ABCDE */
+  /* Prefill code from a shared link: /rps/online?room=ABCDE (or /rps/en/online, /rps/pt/online) */
   (function prefillFromUrl() {
     const room = new URLSearchParams(location.search).get('room');
     if (room) {
@@ -353,26 +508,86 @@
     }
   })();
 
-  /* ── Lobby: copy/share invite link ── */
+  /* ── Lobby: invite a friend (Web Share, clipboard fallback) ── */
 
-  $('btn-copy-link').addEventListener('click', async () => {
-    const url = `${location.origin}/rps/online?room=${code}`;
-    const shareData = { title: 'Hand Games', text: `Jugá Piedra Papel Tijeras conmigo — sala ${code}`, url };
-    if (navigator.share) {
-      try { await navigator.share(shareData); return; } catch (_) { /* cancelled, fall through */ }
-    }
+  const INVITE_T = {
+    es: {
+      btn:    '📨 Invitar a un amigo',
+      title:  'Piedra, Papel o Tijera con un amigo',
+      text:   c => `¡Juega Piedra, Papel o Tijera conmigo! Entra a la sala ${c}:`,
+      copied: '✅ ¡Enlace copiado! Pégalo en tu chat',
+      manual: 'Copia este enlace y envíaselo a tu amigo:',
+    },
+    en: {
+      btn:    '📨 Invite a friend',
+      title:  'Rock Paper Scissors with a friend',
+      text:   c => `Play Rock Paper Scissors with me! Join room ${c}:`,
+      copied: '✅ Link copied! Paste it in your chat',
+      manual: 'Copy this link and send it to your friend:',
+    },
+    pt: {
+      btn:    '📨 Convidar um amigo',
+      title:  'Pedra, Papel e Tesoura com um amigo',
+      text:   c => `Jogue Pedra, Papel e Tesoura comigo! Entre na sala ${c}:`,
+      copied: '✅ Link copiado! Cole no seu chat',
+      manual: 'Copie este link e envie ao seu amigo:',
+    },
+  };
+  const IT = INVITE_T[LANG];
+
+  /* Deep link understood by prefillFromUrl(). The invite keeps the language
+     of whoever sends it: /rps/online (ES), /rps/en/online, /rps/pt/online.
+     utm_* lets GA4 attribute the visits an invite brings. */
+  const ONLINE_PATH = { es: '/rps/online', en: '/rps/en/online', pt: '/rps/pt/online' }[LANG];
+  function inviteUrl() {
+    return `${location.origin}${ONLINE_PATH}?room=${encodeURIComponent(code)}&utm_source=invite&utm_medium=share&utm_campaign=rps_online`;
+  }
+
+  let inviting = false;
+  const inviteBtn = $('btn-copy-link');
+  inviteBtn.textContent = IT.btn;
+  inviteBtn.setAttribute('aria-live', 'polite');
+
+  inviteBtn.addEventListener('click', async () => {
+    if (inviting || !code) return;      // navigator.share() rejects when called twice
+    inviting = true;
+    const url = inviteUrl();
     try {
-      await navigator.clipboard.writeText(url);
-    } catch (_) {
-      const ta = document.createElement('textarea');
-      ta.value = url; document.body.appendChild(ta); ta.select();
-      try { document.execCommand('copy'); } catch (_) {}
-      ta.remove();
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: IT.title, text: IT.text(code), url });
+          HGA.event('invite_sent', { method: 'share' });
+          return;
+        } catch (err) {
+          if (err && err.name === 'AbortError') return;   // user closed the share sheet
+          /* any other failure: fall through to clipboard */
+        }
+      }
+      let copied = false;
+      try {
+        await navigator.clipboard.writeText(url);
+        copied = true;
+      } catch (_) {
+        const ta = document.createElement('textarea');
+        ta.value = url; ta.setAttribute('readonly', '');
+        ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0;';
+        document.body.appendChild(ta); ta.select();
+        try { copied = document.execCommand('copy'); } catch (_) {}
+        ta.remove();
+      }
+      if (copied) {
+        HGA.event('invite_sent', { method: 'copy' });
+        inviteBtn.textContent = IT.copied;
+        setTimeout(() => { inviteBtn.textContent = IT.btn; }, 2400);
+      } else {
+        /* Clipboard blocked (permissions / insecure context): last resort so
+           the player can still copy the link by hand. */
+        window.prompt(IT.manual, url);
+        HGA.event('invite_manual_shown');   // prompt() cannot tell us whether the link was really copied
+      }
+    } finally {
+      inviting = false;
     }
-    const btn = $('btn-copy-link');
-    const original = btn.textContent;
-    btn.textContent = '✅ ¡Copiado!';
-    setTimeout(() => { btn.textContent = original; }, 1800);
   });
 
   /* ── Pick screen ── */
@@ -410,9 +625,12 @@
     const muted = GameAudio.toggle();
     HGA.audioToggle(muted);
     $('btn-mute').textContent = muted ? '🔇' : '🔊';
-    $('btn-mute').setAttribute('aria-label', muted ? 'Activar audio' : 'Silenciar audio');
-    $('btn-mute').title = muted ? 'Activar audio' : 'Silenciar audio';
+    $('btn-mute').setAttribute('aria-label', muted ? L.audioOn : L.audioOff);
+    $('btn-mute').title = muted ? L.audioOn : L.audioOff;
   });
 
-  window.addEventListener('beforeunload', stopPolling);
+  /* Leaving the page (or bfcache / tab discard): stop polling and release the camera. */
+  function onLeave() { stopPolling(); stopCamera(); }
+  window.addEventListener('beforeunload', onLeave);
+  window.addEventListener('pagehide', onLeave);
 })();

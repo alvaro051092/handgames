@@ -36,7 +36,10 @@
     }
     const joined = '/' + segments.join('/');
     /* Preserve trailing slash for directory-style URLs */
-    return path.endsWith('/') && !joined.endsWith('/') ? joined + '/' : joined;
+    const out = path.endsWith('/') && !joined.endsWith('/') ? joined + '/' : joined;
+    /* Keep the query string (e.g. ?room=ABCDE on the online page) so switching
+       language does not drop the invite. */
+    return out + window.location.search;
   }
 
   const urls = { es: buildUrl('es'), en: buildUrl('en'), pt: buildUrl('pt') };

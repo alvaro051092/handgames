@@ -140,7 +140,8 @@ body {
   transition: border-color var(--transition), background var(--transition);
 }
 
-.mode-option input[type="radio"]:checked + .mode-label {
+.mode-option input[type="radio"]:checked + .mode-label,
+.mode-option.is-selected .mode-label {
   border-color: var(--clr-primary);
   background: rgba(124,58,237,0.12);
 }

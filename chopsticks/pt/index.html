@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" />
-  <title>Pauzinhos Online — Jogue Grátis</title>
-  <meta name="description" content="Jogue Pauzinhos (Chopsticks): vs CPU, 2 jogadores ou modo Batalha. Acumule dedos nas mãos do oponente para eliminá-lo." />
+  <title>Pauzinhos (Chopsticks): Jogo de Dedos Online Grátis</title>
+  <meta name="description" content="Jogue Pauzinhos (Chopsticks) online grátis: some dedos e elimine as mãos do adversário. Contra a CPU, 2 jogadores ou Batalha. Sem cadastro." />
   <!-- Performance: preconnect to analytics/clarity origins -->
   <!-- PWA -->
   <link rel="manifest" href="/manifest.json" />
@@ -24,21 +24,21 @@
   <link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/" />
   <meta property="og:type"   content="website" />
   <meta property="og:url"    content="https://handgames.app/chopsticks/pt/" />
-  <meta property="og:title"  content="Pauzinhos Online — Jogue Grátis" />
-  <meta property="og:description" content="Escolha como jogar Pauzinhos: vs CPU, 2 jogadores ou modo Batalha." />
+  <meta property="og:title"  content="Pauzinhos (Chopsticks): Jogo de Dedos Online Grátis" />
+  <meta property="og:description" content="Jogue Pauzinhos (Chopsticks) online grátis: some dedos e elimine as mãos do adversário. Contra a CPU ou 2 jogadores." />
   <meta property="og:image"  content="https://handgames.app/assets/og-image.png" />
   <meta property="og:site_name"  content="Hand Games" />
   <meta property="og:locale" content="pt_BR" />
   <meta name="twitter:card"  content="summary_large_image" />
-  <meta name="twitter:title" content="Pauzinhos Online — Jogue Grátis" />
-  <meta name="twitter:description" content="Acumule dedos nas mãos do oponente para eliminá-lo. Estratégia pura." />
+  <meta name="twitter:title" content="Pauzinhos (Chopsticks): Jogo de Dedos Online Grátis" />
+  <meta name="twitter:description" content="Some dedos e elimine as mãos do adversário. Pauzinhos online grátis, sem cadastro." />
   <meta name="twitter:image" content="https://handgames.app/assets/og-image.png" />
   <link rel="icon" type="image/x-icon"  href="/assets/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
   <link rel="stylesheet" href="/css/tokens.css?v=3" />
-  <link rel="stylesheet" href="/css/layout.css?v=7" />
+  <link rel="stylesheet" href="/css/layout.css?v=20261024" />
   <link rel="stylesheet" href="/css/animations.css?v=3" />
   <style>
     .mode-hub{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:var(--sp-8) var(--sp-4);}
@@ -87,9 +87,9 @@
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Pauzinhos",
-    "alternateName": ["Chopsticks", "Palillos"],
+    "alternateName": ["Chopsticks", "Jogo de Pauzinhos", "Palillos"],
     "url": "https://handgames.app/chopsticks/pt/",
-    "description": "Jogo dos Pauzinhos online. Some dedos para eliminar as mãos do adversário. Três modos: vs CPU, 2 jogadores e Batalha.",
+    "description": "Jogo de Pauzinhos (Chopsticks) online: o jogo de dedos. Some dedos para eliminar as mãos do adversário. Jogue contra a IA, 2 jogadores ou Batalha, grátis.",
     "applicationCategory": "GameApplication",
     "operatingSystem": "Web",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -107,7 +107,15 @@
         "name": "Como se joga Pauzinhos (Chopsticks)?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Cada jogador começa com 1 dedo em cada mão. Na sua vez, toque uma das suas mãos na mão do adversário — os dedos se somam. Uma mão que chegar a 5 dedos é eliminada. Elimine as duas mãos do adversário para vencer."
+          "text": "Cada jogador começa com 1 dedo em cada mão. Na sua vez, toque uma das suas mãos na mão do adversário: os dedos se somam. Uma mão com 5 ou mais dedos é eliminada. Elimine as duas mãos do adversário para vencer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Dá para jogar Pauzinhos online contra o computador?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sim. Escolha o modo vs CPU para jogar Pauzinhos contra a IA nas dificuldades fácil, média ou difícil, em partida única ou melhor de 3. Também é possível jogar em dois no mesmo dispositivo ou ver a CPU jogar pelos dois lados no modo Batalha. É grátis e sem cadastro."
         }
       },
       {
@@ -115,7 +123,7 @@
         "name": "O que é a divisão em Pauzinhos?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Em vez de atacar, você pode redistribuir os dedos entre suas próprias mãos. A distribuição deve ser diferente da atual — não é permitido passar a vez retornando ao mesmo estado."
+          "text": "Em muitas versões você pode usar o turno para redistribuir os dedos entre as suas duas mãos, desde que o resultado seja diferente do atual. O jogo online desta página usa as regras básicas de apenas toques, então não há divisão; explicamos a divisão no nosso guia completo de Pauzinhos."
         }
       },
       {
@@ -123,7 +131,15 @@
         "name": "Como se vence em Pauzinhos?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Force as duas mãos do adversário a chegar exatamente a 5 dedos para eliminá-las. Uma mão com 5 dedos vale 0. Elimine ambas as mãos para vencer."
+          "text": "Force as duas mãos do adversário a chegar a 5 ou mais dedos. Uma mão que chega a 5 é eliminada e vale 0. Elimine ambas as mãos para vencer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Existe uma estratégia vencedora em Pauzinhos?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Com as regras de apenas toques desta página (as duas mãos começam com 1 dedo e 5 ou mais elimina), quem joga em segundo lugar sempre consegue forçar a vitória em no máximo 8 turnos no total, então o primeiro jogador precisa que o rival erre. Na prática: procure primeiro as eliminações, proteja as mãos com 4 dedos e evite entregar ao rival uma mão capaz de eliminar a sua."
         }
       },
       {
@@ -147,6 +163,7 @@
 
   <nav class="top-nav">
     <a href="/pt/" class="back-link">← Hand Games</a>
+    <a href="/pt/blog/" class="back-link">📖 Guias</a>
     <div class="lang-nav">
       <a href="/chopsticks/" class="lang-link">ES</a>
       <a href="/chopsticks/en/" class="lang-link">EN</a>
@@ -156,8 +173,8 @@
 
   <header class="mode-header">
     <span class="mode-logo" aria-hidden="true">🖖</span>
-    <h1 class="mode-title">Pauzinhos</h1>
-    <p class="mode-subtitle">Acumule dedos · Elimine mãos · Estratégia pura</p>
+    <h1 class="mode-title">Pauzinhos (Chopsticks) online</h1>
+    <p class="mode-subtitle">O jogo de dedos · Acumule dedos · Elimine mãos · Jogue contra a IA grátis</p>
   </header>
 
   <main>
@@ -195,35 +212,46 @@
 
   <section class="rules-section" aria-labelledby="rules-heading">
     <h2 id="rules-heading">Como jogar Pauzinhos (Chopsticks)</h2>
+    <p>Pauzinhos (<em>Chopsticks</em> em inglês) é um jogo de dedos para dois jogadores, popular nos pátios de escola do mundo todo e também chamado de <em>sticks</em> ou <em>xadrez de dedos</em>. Cada jogador tem duas mãos que começam com um dedo levantado e, a cada turno, você toca uma das suas mãos em uma do adversário para somar dedos a ela. Aqui você pode jogar Pauzinhos online e grátis contra a IA (fácil, médio ou difícil), com um amigo no mesmo dispositivo ou assistir à CPU jogando pelos dois lados, sem cadastro.</p>
     <h3>Como funciona</h3>
     <ul class="rules-list">
       <li>Cada jogador começa com 1 dedo em cada mão</li>
-      <li>Na sua vez, toque uma de suas mãos na mão do adversário</li>
-      <li>Some seus dedos aos dele — se chegar a 5, aquela mão é eliminada</li>
+      <li>Na sua vez, toque uma das suas mãos em uma mão do adversário</li>
+      <li>Seus dedos são somados aos dele — uma mão que chega a 5 ou mais é eliminada (vale 0)</li>
       <li>Elimine as duas mãos do adversário para vencer</li>
     </ul>
-    <h3>A divisão</h3>
-    <p>Em vez de atacar, você pode redistribuir os dedos entre suas próprias mãos. A distribuição deve ser diferente da atual — não é permitido passar a vez.</p>
-    <h3>Objetivo e estratégia</h3>
-    <p>Force as mãos do adversário a chegar exatamente a 5 dedos para eliminá-las. Planeje com antecedência: use a divisão para resetar uma mão de 4 para 2 e manter ambas vivas por mais tempo.</p>
+    <h3>A divisão (regra clássica)</h3>
+    <p>Muitas versões também permitem usar o turno para redistribuir os dedos entre as suas duas mãos, desde que o resultado seja diferente do atual. O jogo online desta página usa as regras básicas de apenas toques, sem divisão, então cada turno é um toque: fácil de aprender e rápido de jogar. Quer as regras completas com a divisão e quando usá-la? Leia nosso <a href="/pt/blog/como-jogar-pauzinhos/" style="color:var(--clr-primary-light);font-weight:700;">guia completo de Pauzinhos: regras, estratégia e variantes</a>.</p>
+    <h3>Objetivo</h3>
+    <p>Force as duas mãos do adversário a chegar a 5 ou mais dedos. Uma mão que chega a 5 é eliminada e vale 0; quando as duas estão eliminadas, você vence. Jogue uma partida única ou melhor de 3.</p>
+    <h3>Dicas de estratégia</h3>
+    <ul class="rules-list">
+      <li><strong>Confira a cada turno se há eliminação.</strong> Antes de cada toque, veja se alguma das suas mãos somada a uma do adversário dá 5 ou mais e a que o movimento deixa você exposto.</li>
+      <li><strong>Cuidado com suas mãos de 4.</strong> Uma mão com 4 dedos cai assim que qualquer mão adversária a toca. A mão com 1 dedo é a mais segura: só um 4 consegue eliminá-la.</li>
+      <li><strong>Não alimente a mão grande dele.</strong> Ao tocar, seus dedos se somam à mão dele, e isso pode deixá-la forte o bastante para eliminar uma das suas no próximo turno. Veja o total que você entrega antes de tocar.</li>
+      <li><strong>Uma mão a menos, metade das ameaças.</strong> Quando uma mão é eliminada, o adversário só pode atacar com a outra, e os próximos movimentos dele ficam fáceis de prever.</li>
+    </ul>
+    <h3>Jogando Pauzinhos contra a IA</h3>
+    <p>No Fácil a CPU joga ao acaso; no Médio e no Difícil ela elimina uma das suas mãos sempre que pode e, caso contrário, joga ao acaso. Uma curiosidade: com essas regras de apenas toques o jogo é resolvido — quem joga em segundo lugar sempre consegue forçar a vitória em no máximo 8 turnos no total. Como contra a IA você começa, precisa que ela erre: mantenha suas mãos fora de alcance e puna cada erro.</p>
   </section>
 
   <section style="max-width:680px;margin:var(--sp-10) auto 0;border-top:1px solid var(--clr-border);padding-top:var(--sp-7);">
-    <p style="font-size:var(--text-xs);font-weight:700;color:var(--clr-text-subtle);text-transform:uppercase;letter-spacing:.6px;margin:0 0 var(--sp-4);">Artigos relacionados</p>
+    <h2 style="font-size:var(--text-xs);font-weight:700;color:var(--clr-text-subtle);text-transform:uppercase;letter-spacing:.6px;margin:0 0 var(--sp-4);line-height:1.4;">Artigos relacionados</h2>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:var(--sp-3);">
       <a href="/pt/blog/como-jogar-pauzinhos/" style="display:block;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-4);text-decoration:none;color:var(--clr-text-muted);font-size:var(--text-sm);">
-        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">Guia completo de Pauzinhos</strong>
-        Regras, estratégia, variantes — tudo o que você precisa saber
+        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">Como jogar Pauzinhos: regras e estratégia</strong>
+        O jogo de dedos explicado: regras, divisão e táticas para vencer
       </a>
-      <a href="/pt/blog/historia-pedra-papel-tesoura/" style="display:block;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-4);text-decoration:none;color:var(--clr-text-muted);font-size:var(--text-sm);">
-        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">História do Pedra Papel Tesoura</strong>
-        2.000 anos do jogo de mãos mais famoso do mundo
+      <a href="/pt/blog/par-ou-impar-regras/" style="display:block;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-4);text-decoration:none;color:var(--clr-text-muted);font-size:var(--text-sm);">
+        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">Par ou Ímpar: regras e como ganhar</strong>
+        Regras, história desde Roma e estratégia do clássico jogo de dedos
       </a>
       <a href="/pt/blog/morra-historia-regras/" style="display:block;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-4);text-decoration:none;color:var(--clr-text-muted);font-size:var(--text-sm);">
-        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">Morra: história e regras</strong>
-        O jogo de mãos mais antigo do mundo
+        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">Como jogar Morra: regras e história</strong>
+        O jogo de mãos mais antigo do mundo e por que foi proibido
       </a>
     </div>
+    <a href="/pt/blog/" style="display:inline-block;margin-top:var(--sp-4);font-size:var(--text-sm);font-weight:700;color:var(--clr-primary-light);text-decoration:none;">Ver todos os guias →</a>
   </section>
 
 
@@ -231,15 +259,23 @@
     <h2 id="faq-heading">Perguntas frequentes</h2>
     <details class="faq-item">
       <summary>Como se joga Pauzinhos (Chopsticks)?</summary>
-      <p>Cada jogador começa com 1 dedo em cada mão. Na sua vez, toque uma das suas mãos na mão do adversário — os dedos se somam. Uma mão que chegar a 5 dedos é eliminada. Elimine as duas mãos do adversário para vencer.</p>
+      <p>Cada jogador começa com 1 dedo em cada mão. Na sua vez, toque uma das suas mãos na mão do adversário: os dedos se somam. Uma mão com 5 ou mais dedos é eliminada. Elimine as duas mãos do adversário para vencer.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Dá para jogar Pauzinhos online contra o computador?</summary>
+      <p>Sim. Escolha o modo vs CPU para jogar Pauzinhos contra a IA nas dificuldades fácil, média ou difícil, em partida única ou melhor de 3. Também é possível jogar em dois no mesmo dispositivo ou ver a CPU jogar pelos dois lados no modo Batalha. É grátis e sem cadastro.</p>
     </details>
     <details class="faq-item">
       <summary>O que é a divisão em Pauzinhos?</summary>
-      <p>Em vez de atacar, você pode redistribuir os dedos entre suas próprias mãos. A distribuição deve ser diferente da atual — não é permitido passar a vez retornando ao mesmo estado.</p>
+      <p>Em muitas versões você pode usar o turno para redistribuir os dedos entre as suas duas mãos, desde que o resultado seja diferente do atual. O jogo online desta página usa as regras básicas de apenas toques, então não há divisão; explicamos a divisão no nosso guia completo de Pauzinhos.</p>
     </details>
     <details class="faq-item">
       <summary>Como se vence em Pauzinhos?</summary>
-      <p>Force as duas mãos do adversário a chegar exatamente a 5 dedos para eliminá-las. Uma mão com 5 dedos vale 0. Elimine ambas as mãos para vencer.</p>
+      <p>Force as duas mãos do adversário a chegar a 5 ou mais dedos. Uma mão que chega a 5 é eliminada e vale 0. Elimine ambas as mãos para vencer.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Existe uma estratégia vencedora em Pauzinhos?</summary>
+      <p>Com as regras de apenas toques desta página (as duas mãos começam com 1 dedo e 5 ou mais elimina), quem joga em segundo lugar sempre consegue forçar a vitória em no máximo 8 turnos no total, então o primeiro jogador precisa que o rival erre. Na prática: procure primeiro as eliminações, proteja as mãos com 4 dedos e evite entregar ao rival uma mão capaz de eliminar a sua.</p>
     </details>
     <details class="faq-item">
       <summary>É grátis jogar Pauzinhos online?</summary>
@@ -261,6 +297,6 @@
     handgames.app &mdash; Pauzinhos grátis
   </footer>
 
-  <script src="/js/analytics.js?v=2"></script>
+  <script src="/js/analytics.js?v=20261024"></script>
 </body>
 </html>

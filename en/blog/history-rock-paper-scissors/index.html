@@ -35,7 +35,7 @@
     "author": { "@type": "Organization", "name": "Hand Games", "url": "https://handgames.app/" },
     "publisher": { "@type": "Organization", "name": "Hand Games", "url": "https://handgames.app/" },
     "datePublished": "2026-06-10",
-    "dateModified": "2026-06-10"
+    "dateModified": "2026-10-25"
   }
   </script>
   <script type="application/ld+json">
@@ -48,7 +48,7 @@
         "name": "Where did Rock Paper Scissors originate?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Rock Paper Scissors most likely originated in China during the Han Dynasty (206 BC – 220 AD). The earliest documented version is called Shoushiling, a hand game with three gestures in a circular dominance system. It reached Japan by the 17th century, where it became known as jan-ken-pō, and spread to the West in the late 19th and early 20th centuries."
+          "text": "Rock Paper Scissors most likely originated in China, where a hand game called Shoushiling is attributed to the Han Dynasty (206 BC – 220 AD). It reached Japan by the 17th century, where it became known as jan-ken-pō, and spread to the West in the early 20th century."
         }
       },
       {
@@ -64,7 +64,15 @@
         "name": "Is Rock Paper Scissors truly random?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Against a computer that chooses randomly, yes. Against humans, no. Research shows players have predictable biases: winners tend to repeat the winning gesture, losers shift in the direction the rules suggest (after losing to scissors, players often switch to rock). Beginners also throw rock more often than the other gestures, and men throw rock more than women on average."
+          "text": "Against a computer that chooses randomly, yes. Against humans, no. A study of repeated games (Zhejiang University, 2014) found that players tend to repeat a winning gesture (win-stay) and to change gesture after a loss (lose-shift)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Rock Paper Scissors a game of strategy or pure luck?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Against a CPU that chooses at random it is pure luck: no gesture has an advantage. In our game, on Medium and Hard the CPU sometimes counters your most-used gesture, so always throwing the same thing works against you. Against humans there is real strategy: people tend to repeat a winning gesture and to change after losing. Spotting those tendencies can give you an edge."
         }
       },
       {
@@ -72,7 +80,7 @@
         "name": "When did Rock Paper Scissors become popular in the West?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "RPS was introduced to the West primarily through Japanese influence in the early 20th century. The first English-language description of the game appeared in 1924. It became widespread in Western countries throughout the mid-20th century, and by the 1990s was fully mainstream. The World RPS Society was established in 2002."
+          "text": "RPS was introduced to the West primarily through Japanese influence in the early 20th century. One of the earliest English-language descriptions appeared in 1924. It became widespread in Western countries throughout the 20th century."
         }
       }
     ]
@@ -108,7 +116,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
   <link rel="stylesheet" href="/css/tokens.css?v=3" />
-  <link rel="stylesheet" href="/css/layout.css?v=7" />
+  <link rel="stylesheet" href="/css/layout.css?v=20261024" />
   <style>
     body { font-family: var(--font); background: var(--clr-bg); color: var(--clr-text); margin: 0; padding: 0; }
     .article-wrap { max-width: 720px; margin: 0 auto; padding: var(--sp-8) var(--sp-4) var(--sp-12); }
@@ -154,6 +162,8 @@
     .faq-item summary::after{content:'+';float:right;color:var(--clr-primary-light);font-weight:900;}
     .faq-item[open] summary::after{content:'\2212';}
     .faq-item p{margin-top:var(--sp-2);font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.6;}
+      .info-box { background: var(--clr-surface); border: 1px solid var(--clr-border); border-left: 3px solid var(--clr-primary); border-radius: var(--radius-sm); padding: var(--sp-4) var(--sp-5); margin: var(--sp-5) 0; }
+    .info-box p { margin: 0; font-size: var(--text-sm); }
   </style>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XM1YK1TG5W');</script>
@@ -181,8 +191,16 @@
   <article class="article-body">
 
     <h2>Origins in Han Dynasty China</h2>
-    <p>The earliest documented ancestor of Rock Paper Scissors is a Chinese hand game called <strong>Shoushiling</strong> (手勢令), described in texts from the Han Dynasty period (206 BC – 220 AD). The game used three elements — frog, slug, and snake — in a circular dominance relationship: the frog eats the slug, the slug poisons the snake, the snake eats the frog. This is structurally identical to Rock Paper Scissors: three options, each defeating one and losing to another.</p>
-    <p>Another documented version from the same era used different animals: the tiger, tree, and chief (a village elder). The tiger fears the chief, the chief fears a tree, the tree fears the tiger. Same logic, different symbols.</p>
+    <p>Rock Paper Scissors is traditionally traced back to a Chinese hand game called <strong>Shoushiling</strong> (手勢令), attributed to the Han Dynasty period (206 BC – 220 AD). It is regarded as the most distant ancestor of the game we play today.</p>
+    <p>The structure it shares with Rock Paper Scissors is a three-way cycle: A beats B, B beats C and C beats A. That cycle is the mathematical core that makes the game work.</p>
+
+    <div class="info-box">
+      <p><strong>Fun fact:</strong> A Japanese ancestor of the game, <em>mushi-ken</em> (Edo period), used three animals instead of rock, paper and scissors: the frog beats the slug, the slug beats the snake, and the snake beats the frog.</p>
+    </div>
+
+    <div class="info-box">
+      <p><strong>Want to play while you read?</strong> Try <a href="/rps/en/">Rock Paper Scissors online</a> — against the CPU, <a href="/rps/en/#online">with a friend online</a> or <a href="/rps/en/#camera">with your camera</a>.</p>
+    </div>
 
     <h2>Japan: Jan-ken-pō and formalization</h2>
     <p>The game reached Japan some time during the 17th century, likely through trade routes. By the Edo period (1603–1868) it was well documented under the name <strong>jan-ken-pō</strong> (じゃんけんぽん). The Japanese version standardized the three gestures that persist today:</p>
@@ -191,17 +209,16 @@
       <li><strong>Choki (チョキ)</strong> — index and middle fingers extended, Scissors</li>
       <li><strong>Paa (パー)</strong> — open hand, Paper</li>
     </ul>
-    <p>Japan is also responsible for standardizing the chant — "jan, ken, pō" — which signals the simultaneous reveal. This ritual element (counting down together before the reveal) is arguably one of the reasons the game spread so effectively: it's self-regulating and requires no referee.</p>
+    <p>Japan is also associated with the chant — "jan, ken, pō" — which signals the simultaneous reveal. Counting down together before the reveal makes the game self-regulating: it needs no referee.</p>
 
     <h2>Arrival in the West</h2>
-    <p>RPS first appeared in Western print in 1924, in an article about Japanese children's games published in London. It was noted as a curiosity, an unusual foreign game. In the following decades it spread through schools in the United Kingdom and United States, often under names like "Paper Stone Scissors" or "Scissors Paper Stone."</p>
-    <p>By the 1950s, it was mainstream in English-speaking countries. By the 1980s, it had spread throughout Europe, Australia, and Latin America. Today, almost every culture on earth has a version of the game.</p>
+    <p>One of the earliest English-language descriptions dates from 1924, in an article about Japanese children's games published in London, where it was presented as a curiosity. Over the 20th century it spread through schools in the United Kingdom and United States, often under names like "Paper Stone Scissors" or "Scissors Paper Stone."</p>
 
     <h2>Timeline: 2,000 years at a glance</h2>
     <div class="timeline">
       <div class="timeline-event">
         <span class="timeline-year">~200 BC</span>
-        <p>Han Dynasty China: Shoushiling and similar 3-gesture games documented in Chinese texts.</p>
+        <p>Han Dynasty China: Shoushiling, the distant ancestor of the game, is attributed to this period.</p>
       </div>
       <div class="timeline-event">
         <span class="timeline-year">17th century</span>
@@ -209,55 +226,53 @@
       </div>
       <div class="timeline-event">
         <span class="timeline-year">1924</span>
-        <p>First English-language description of the game appears in print in Britain.</p>
+        <p>One of the earliest English-language descriptions of the game appears in print in London.</p>
       </div>
       <div class="timeline-event">
-        <span class="timeline-year">1950s–70s</span>
-        <p>Spreads through Western schools. Adopted as a universal tiebreaker across cultures.</p>
+        <span class="timeline-year">20th century</span>
+        <p>Spreads through Western schools and becomes a familiar tiebreaker.</p>
       </div>
       <div class="timeline-event">
         <span class="timeline-year">2002</span>
-        <p>World RPS Society holds its first official World Championship in Toronto, Canada.</p>
+        <p>First World RPS Championship held in Toronto, Canada.</p>
       </div>
       <div class="timeline-event">
         <span class="timeline-year">2005</span>
-        <p>Christie's auction house uses RPS to decide which firm gets a $20M art sale commission. Paper wins.</p>
+        <p>Christie's and Sotheby's settle who handles a Japanese company's art collection with a game of RPS. Christie's wins with Scissors.</p>
       </div>
       <div class="timeline-event">
-        <span class="timeline-year">2011</span>
-        <p><a href="/en/blog/rpsls-rules/">Rock Paper Scissors Lizard Spock</a> goes viral following its appearance on The Big Bang Theory, introducing millions to the 5-gesture variant.</p>
+        <span class="timeline-year">2008</span>
+        <p><a href="/en/blog/rpsls-rules/">Rock Paper Scissors Lizard Spock</a> appears on The Big Bang Theory and gains worldwide attention.</p>
       </div>
     </div>
 
     <h2>Why humans are predictable at RPS</h2>
-    <p>Against a computer choosing randomly, RPS is a 33/33/33% coin flip with no optimal strategy. Against humans, it's a different game entirely. Research from Zhejiang University (2014) involving 360 players in repeated RPS games found consistent patterns:</p>
+    <p>Against a computer choosing randomly, RPS is a 33/33/33% coin flip with no optimal strategy. Against humans, it's a different game. A study from Zhejiang University (2014) involving 360 players in repeated RPS games found that, overall, each gesture was played about a third of the time, but individual players showed consistent patterns:</p>
     <ul>
       <li><strong>Win-stay tendency:</strong> Players who win a round tend to repeat the winning gesture more often than chance would predict.</li>
-      <li><strong>Lose-shift tendency:</strong> Players who lose tend to shift to the next gesture in the sequence Rock → Paper → Scissors → Rock.</li>
-      <li><strong>Rock bias:</strong> Among first-time or novice players, rock is thrown more frequently than the other two. It may be associated with strength or a default fist posture.</li>
-      <li><strong>Gender differences:</strong> Men throw rock more than women on average; women use scissors slightly more.</li>
+      <li><strong>Lose-shift tendency:</strong> Players who lose tend to change their gesture.</li>
     </ul>
-    <p>Expert players exploit these patterns. The best competitive RPS players essentially play a meta-game of psychology: what does my opponent think I will throw, and what gesture beats the thing they'll throw to beat that?</p>
+    <p>Experienced players exploit these tendencies. Competitive play is largely a psychological meta-game: what does my opponent think I will throw, and what gesture beats the thing they'll throw to beat that?</p>
 
     <h2>RPS in competitive sport</h2>
-    <p>The World RPS Society, founded in Canada in 2002, established official tournament rules and has run annual World Championships. Participants from dozens of countries compete in bracket-style tournaments, and the mental game is taken seriously. Players study opponent tendencies, use deliberate tells, and attempt to manipulate behavior through eye contact and posture.</p>
-    <p>Japan has its own national competitions with enormous prize pools relative to most hand games. In 2006, a Japanese variety show created a competition where players competed for over $100,000 in prizes. The audience's role in such shows — shouting gestures at their screens to "help" their favorite — shows how deeply embedded the game is in Japanese culture.</p>
+    <p>The World RPS Society held its first World Championship in Toronto in 2002 under formal tournament rules. In competitive play, players study opponent tendencies and try to influence behavior through eye contact and posture.</p>
 
     <h2>RPS in popular culture and legal decisions</h2>
-    <p>Beyond sport, RPS has been used in surprisingly official contexts. In 2005, when Christie's and Sotheby's — two rival auction houses — both bid for the right to handle a $20 million art collection, the client asked them to settle it with a single game of Rock Paper Scissors. Christie's won with Paper over Rock. Sotheby's had chosen Rock on the advice of their client's 11-year-old daughter.</p>
-    <p>In 2006, a US federal judge ordered two opposing parties in a lawsuit to resolve a procedural dispute via RPS. The judge's order — citing the parties' inability to cooperate on minor scheduling — is one of the only known instances of a court-ordered hand game.</p>
-    <p>Want to experience the psychology yourself? <a href="/rps/en/">Play Rock Paper Scissors</a> against our AI and see if you can beat the pattern-detection algorithm.</p>
+    <p>Beyond sport, RPS has been used in surprisingly official contexts. In 2005, a Japanese company had to choose between two rival auction houses, Christie's and Sotheby's, to sell an art collection reported to be worth around $20 million. It asked them to settle it with a single game of Rock Paper Scissors. Christie's chose Scissors, Sotheby's chose Paper, and Christie's won.</p>
+    <p>In 2006, a US federal judge ordered opposing lawyers to settle a dispute over where to hold a deposition with a game of Rock Paper Scissors.</p>
+    <p>Want to experience the psychology yourself? <a href="/rps/en/">Play Rock Paper Scissors</a> against our AI: on Medium and Hard it learns your favorite move, so see if you can outplay it.</p>
 
     <a href="/rps/en/vs-cpu" class="play-cta" style="display:inline-flex;margin-top:var(--sp-4);">✂️ Play RPS free →</a>
 
-  </article>
+  
+</article>
 
 
   <section class="faq-section" aria-labelledby="faq-heading">
     <h2 id="faq-heading">Frequently Asked Questions</h2>
     <details class="faq-item">
       <summary>Where did Rock Paper Scissors originate?</summary>
-      <p>Rock Paper Scissors most likely originated in China during the Han Dynasty (206 BC – 220 AD). The earliest documented version is called Shoushiling, a hand game with three gestures in a circular dominance system. It reached Japan by the 17th century, where it became known as jan-ken-pō, and spread to the West in the late 19th and early 20th centuries.</p>
+      <p>Rock Paper Scissors most likely originated in China, where a hand game called Shoushiling is attributed to the Han Dynasty (206 BC – 220 AD). It reached Japan by the 17th century, where it became known as jan-ken-pō, and spread to the West in the early 20th century.</p>
     </details>
     <details class="faq-item">
       <summary>What does jan-ken-pō mean?</summary>
@@ -265,11 +280,15 @@
     </details>
     <details class="faq-item">
       <summary>Is Rock Paper Scissors truly random?</summary>
-      <p>Against a computer that chooses randomly, yes. Against humans, no. Research shows players have predictable biases: winners tend to repeat the winning gesture, losers shift in the direction the rules suggest (after losing to scissors, players often switch to rock). Beginners also throw rock more often than the other gestures, and men throw rock more than women on average.</p>
+      <p>Against a computer that chooses randomly, yes. Against humans, no. A study of repeated games (Zhejiang University, 2014) found that players tend to repeat a winning gesture (win-stay) and to change gesture after a loss (lose-shift).</p>
+    </details>
+    <details class="faq-item">
+      <summary>Is Rock Paper Scissors a game of strategy or pure luck?</summary>
+      <p>Against a CPU that chooses at random it is pure luck: no gesture has an advantage. In our game, on Medium and Hard the CPU sometimes counters your most-used gesture, so always throwing the same thing works against you. Against humans there is real strategy: people tend to repeat a winning gesture and to change after losing. Spotting those tendencies can give you an edge.</p>
     </details>
     <details class="faq-item">
       <summary>When did Rock Paper Scissors become popular in the West?</summary>
-      <p>RPS was introduced to the West primarily through Japanese influence in the early 20th century. The first English-language description of the game appeared in 1924. It became widespread in Western countries throughout the mid-20th century, and by the 1990s was fully mainstream. The World RPS Society was established in 2002.</p>
+      <p>RPS was introduced to the West primarily through Japanese influence in the early 20th century. One of the earliest English-language descriptions appeared in 1924. It became widespread in Western countries throughout the 20th century.</p>
     </details>
   </section>
 
@@ -301,6 +320,6 @@
     <a href="/en/" style="color:var(--clr-text-subtle);text-decoration:none;">handgames.app</a>
   </footer>
 </div>
-<script src="/js/analytics.js?v=2"></script>
+<script src="/js/analytics.js?v=20261024"></script>
 </body>
 </html>

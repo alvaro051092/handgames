@@ -3,6 +3,65 @@
    Depends on: window.GameMorraLocal, window.GameAudio
 ═══════════════════════════════════════════════════════════ */
 (() => {
+  const _lang = (document.documentElement.lang || 'es').slice(0, 2);
+  /* Fallback for a stale cached analytics.js that predates HGA.i18n: without it
+     "Play!" would throw. Only the keys this file uses. */
+  const _L_FALLBACK = {
+    es: {
+      audioOff:   'Silenciar audio',
+      audioOn:    'Activar audio',
+      defP1:      'Jugador 1',
+      defP2:      'Jugador 2',
+      guessed:    'apostó:',
+      round:      n => `Ronda ${n}`,
+      single:     'Intento único',
+      winSuffix:  ' gana!',
+    },
+    en: {
+      audioOff:   'Mute audio',
+      audioOn:    'Turn audio on',
+      defP1:      'Player 1',
+      defP2:      'Player 2',
+      guessed:    'guessed:',
+      round:      n => `Round ${n}`,
+      single:     'Single round',
+      winSuffix:  ' wins!',
+    },
+    pt: {
+      audioOff:   'Silenciar áudio',
+      audioOn:    'Ativar áudio',
+      defP1:      'Jogador 1',
+      defP2:      'Jogador 2',
+      guessed:    'apostou:',
+      round:      n => `Rodada ${n}`,
+      single:     'Tentativa única',
+      winSuffix:  ' vence!',
+    },
+  };
+  const L = (window.HGA && HGA.i18n) || _L_FALLBACK[_lang] || _L_FALLBACK.es;   // shared ES/EN/PT strings (analytics.js)
+  /* Sentences specific to this screen */
+  const T = {
+    es: {
+      hit: (n, t) => `✅ ¡${n} acertó! La suma era ${t}`,
+      drawBoth: t => `🤝 ¡Empate! Los dos acertaron — suma ${t}`,
+      drawNone: t => `🤝 ¡Empate! Nadie acertó — suma ${t}`,
+      goSub: n => `¡Dedos certeros! ${n} tendrá su revancha.`,
+    },
+    en: {
+      hit: (n, t) => `✅ ${n} got it! The total was ${t}`,
+      drawBoth: t => `🤝 Draw! Both guessed right — total ${t}`,
+      drawNone: t => `🤝 Draw! Nobody guessed — total ${t}`,
+      goSub: n => `Sharp fingers! ${n} will want a rematch.`,
+    },
+    pt: {
+      hit: (n, t) => `✅ ${n} acertou! A soma era ${t}`,
+      drawBoth: t => `🤝 Empate! Os dois acertaram — soma ${t}`,
+      drawNone: t => `🤝 Empate! Ninguém acertou — soma ${t}`,
+      goSub: n => `Dedos certeiros! ${n} vai querer a revanche.`,
+    },
+  };
+  const i = T[_lang] || T.es;
+
   /* ──────────── State ──────────── */
   let transitioning  = false;
   let pendingFingers = null;
@@ -160,7 +219,7 @@
     setScoreDigit($('roll-p1'), state.scores.p1);
     setScoreDigit($('roll-p2'), state.scores.p2);
     $('pick-round-badge').textContent =
-      state.mode === 'best-of-3' ? `Ronda ${state.round}` : 'Intento único';
+      state.mode === 'best-of-3' ? L.round(state.round) : L.single;
     resetPickSelections();
   }
 
@@ -182,21 +241,21 @@
     setScoreDigit($('res-roll-p1'), preP1);
     setScoreDigit($('res-roll-p2'), preP2);
     $('res-round-badge').textContent =
-      mode === 'best-of-3' ? `Ronda ${round}` : 'Intento único';
+      mode === 'best-of-3' ? L.round(round) : L.single;
 
     // P1 block
     const p1Block = $('res-p1-block');
     p1Block.classList.remove('enter-left', 'loser');
     $('res-p1-name').textContent  = players.p1;
     $('res-p1-num').textContent   = picks.p1Fingers;
-    $('res-p1-guess').textContent = `apostó: ${picks.p1Guess}`;
+    $('res-p1-guess').textContent = `${L.guessed} ${picks.p1Guess}`;
 
     // P2 block
     const p2Block = $('res-p2-block');
     p2Block.classList.remove('enter-right', 'loser');
     $('res-p2-name').textContent  = players.p2;
     $('res-p2-num').textContent   = picks.p2Fingers;
-    $('res-p2-guess').textContent = `apostó: ${picks.p2Guess}`;
+    $('res-p2-guess').textContent = `${L.guessed} ${picks.p2Guess}`;
 
     // Total
     $('res-total-value').textContent = `${picks.p1Fingers} + ${picks.p2Fingers} = ${state.total}`;
@@ -224,21 +283,21 @@
 
       const banner = $('result-banner');
       if (roundWinner === 'p1') {
-        banner.textContent = `✅ ¡${state.players.p1} acertó! La suma era ${total}`;
+        banner.textContent = i.hit(state.players.p1, total);
         banner.classList.add('banner-win', 'show');
         GameAudio.playWin();
         p2Block.classList.add('loser');
       } else if (roundWinner === 'p2') {
-        banner.textContent = `✅ ¡${state.players.p2} acertó! La suma era ${total}`;
+        banner.textContent = i.hit(state.players.p2, total);
         banner.classList.add('banner-win', 'show');
         GameAudio.playWin();
         p1Block.classList.add('loser');
       } else if (picks.p1Guess === total && picks.p2Guess === total) {
-        banner.textContent = `🤝 ¡Empate! Los dos acertaron — suma ${total}`;
+        banner.textContent = i.drawBoth(total);
         banner.classList.add('banner-draw', 'show');
         GameAudio.playDraw();
       } else {
-        banner.textContent = `🤝 ¡Empate! Nadie acertó — suma ${total}`;
+        banner.textContent = i.drawNone(total);
         banner.classList.add('banner-draw', 'show');
         GameAudio.playDraw();
       }
@@ -261,15 +320,15 @@
     if (matchWinner === 'p1') {
       $('go-trophy').textContent     = '🏆';
       typewriter($('go-winner-name'), players.p1);
-      $('go-title-suffix').textContent = ' gana!';
-      $('go-subtitle').textContent     = `¡Dedos certeros! ${players.p2} tendrá su revancha.`;
+      $('go-title-suffix').textContent = L.winSuffix;
+      $('go-subtitle').textContent     = i.goSub(players.p2);
       spawnConfetti();
       GameAudio.playFanfare();
     } else if (matchWinner === 'p2') {
       $('go-trophy').textContent     = '🏆';
       typewriter($('go-winner-name'), players.p2);
-      $('go-title-suffix').textContent = ' gana!';
-      $('go-subtitle').textContent     = `¡Dedos certeros! ${players.p1} tendrá su revancha.`;
+      $('go-title-suffix').textContent = L.winSuffix;
+      $('go-subtitle').textContent     = i.goSub(players.p1);
       spawnConfetti();
       GameAudio.playFanfare();
     }
@@ -283,8 +342,8 @@
   /* ──────────── Event Listeners ──────────── */
 
   $('btn-start').addEventListener('click', () => {
-    const p1 = $('name-p1').value.trim();
-    const p2 = $('name-p2').value.trim();
+    const p1 = $('name-p1').value.trim() || L.defP1;
+    const p2 = $('name-p2').value.trim() || L.defP2;
     const mode = document.querySelector('input[name="mode"]:checked').value;
     const state = GameMorraLocal.configure(p1, p2, mode);
     HGA.gameStart(mode);
@@ -398,8 +457,8 @@
     const muted = GameAudio.toggle();
     HGA.audioToggle(muted);
     $('btn-mute').textContent = muted ? '🔇' : '🔊';
-    $('btn-mute').setAttribute('aria-label', muted ? 'Activar audio' : 'Silenciar audio');
-    $('btn-mute').title = muted ? 'Activar audio' : 'Silenciar audio';
+    $('btn-mute').setAttribute('aria-label', muted ? L.audioOn : L.audioOff);
+    $('btn-mute').title = muted ? L.audioOn : L.audioOff;
   });
 
 })();

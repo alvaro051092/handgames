@@ -15,6 +15,10 @@ const SECURITY_HEADERS = {
 };
 
 function getCacheHeader(pathname) {
+  // The service worker script must always revalidate: with a 1-year immutable
+  // header a browser could keep an old sw.js (and therefore an old CACHE_VERSION
+  // and precache list) long after a deploy.
+  if (pathname === '/sw.js') return 'no-cache, must-revalidate';
   // Versioned static assets — safe to cache for 1 year
   if (/\.(css|js|woff2?|ttf|otf|png|jpg|jpeg|gif|svg|ico|webp)(\?|$)/.test(pathname)) {
     return 'public, max-age=31536000, immutable';
@@ -141,9 +145,25 @@ async function handleRoomsApi(request, env, url) {
     const doc = await getRoom(env, code);
     if (!doc) return jsonResponse({ error: 'room not found' }, 404);
     const body = await safeJson(request);
+    /* Seat 2 is first-come. `clientId` is a random id the client generates per
+       page load: the same client retrying (double click, lost response) gets
+       its seat back, anybody else gets 409. A room created before this field
+       existed has no p2.clientId, so a retry there is also refused (it only
+       matters for rooms already full at deploy time). */
+    const joinerId = typeof body.clientId === 'string' ? body.clientId.slice(0, 64) : '';
+    if (doc.p2 && (!joinerId || doc.p2.clientId !== joinerId)) {
+      return jsonResponse({ error: 'room full' }, 409);
+    }
     if (!doc.p2) {
-      doc.p2 = { name: clampName(body.name) || 'Jugador 2' };
+      doc.p2 = { name: clampName(body.name) || 'Jugador 2', clientId: joinerId };
       await saveRoom(env, code, doc);
+      /* KV has no compare-and-swap: two joiners can both read "no p2" and both
+         write. Re-read after writing; whoever's clientId did not survive loses.
+         Narrows the race (cannot close it without Durable Objects). */
+      const check = await getRoom(env, code);
+      if (check && check.p2 && check.p2.clientId !== joinerId) {
+        return jsonResponse({ error: 'room full' }, 409);
+      }
     }
     const [p1Pick, p2Pick] = await Promise.all([
       getPick(env, code, doc.round, 'p1'),
@@ -161,6 +181,16 @@ async function handleRoomsApi(request, env, url) {
     const otherId  = playerId === 'p1' ? 'p2' : 'p1';
     if (!VALID_PICKS.has(body.pick)) return jsonResponse({ error: 'invalid pick' }, 400);
     if (!doc[playerId]) return jsonResponse({ error: 'player not in room' }, 400);
+
+    /* Round already resolved (score committed): a late or repeated pick must not
+       overwrite the picks that decided it. Answer with the current state. */
+    if (doc.resolvedRound === doc.round) {
+      const [r1, r2] = await Promise.all([
+        getPick(env, code, doc.round, 'p1'),
+        getPick(env, code, doc.round, 'p2'),
+      ]);
+      return jsonResponse({ state: buildStateResponse(doc, r1, r2) });
+    }
 
     await savePick(env, code, doc.round, playerId, body.pick);
     const otherPick = await getPick(env, code, doc.round, otherId);

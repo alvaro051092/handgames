@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" />
-  <title>Morra vs CPU — Play Against the Computer</title>
-  <meta name="description" content="Play Morra against the CPU. Pick your fingers, guess the total, and the CPU reveals its move instantly. Best of 3." />
+  <title>Morra with Camera vs the CPU — Show Your Fingers</title>
+  <meta name="description" content="Play Morra against the CPU: guess the total and show your fingers to the camera, or just click. Best of 3, free, no sign-up." />
   <!-- Performance: preconnect to analytics/clarity origins -->
   <!-- PWA -->
   <link rel="manifest" href="/manifest.json" />
@@ -24,22 +24,23 @@
   <link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/vs-cpu" />
   <meta property="og:type"  content="website" />
   <meta property="og:url"   content="https://handgames.app/morra/en/vs-cpu" />
-  <meta property="og:title" content="Morra vs CPU — Play Against the Computer" />
-  <meta property="og:description" content="Pick your fingers, guess the total, and the CPU reveals its move instantly." />
+  <meta property="og:title" content="Morra with Camera vs the CPU — Show Your Fingers" />
+  <meta property="og:description" content="Guess the total and show your fingers to the camera (or click) against the CPU in Morra." />
   <meta property="og:image" content="https://handgames.app/assets/og-image.png" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card"  content="summary_large_image" />
-  <meta name="twitter:title" content="Morra vs CPU — Play Against the Computer" />
-  <meta name="twitter:description" content="Pick your fingers, guess the total, and the CPU reveals its move instantly." />
+  <meta name="twitter:title" content="Morra with Camera vs the CPU — Show Your Fingers" />
+  <meta name="twitter:description" content="Guess the total and show your fingers to the camera (or click) against the CPU in Morra." />
   <meta name="twitter:image" content="https://handgames.app/assets/og-image.png" />
   <link rel="icon" type="image/x-icon"  href="/assets/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
   <link rel="stylesheet" href="/css/tokens.css?v=3" />
-  <link rel="stylesheet" href="/css/layout.css?v=7" />
-  <link rel="stylesheet" href="/css/components.css?v=3" />
+  <link rel="stylesheet" href="/css/layout.css?v=20261024" />
+  <link rel="stylesheet" href="/css/components.css?v=20261024" />
   <link rel="stylesheet" href="/css/animations.css?v=3" />
+  <link rel="stylesheet" href="/css/camera.css?v=4" />
   <style>
     @keyframes cpuFlipOut{from{transform:rotateY(0deg) scale(1);}to{transform:rotateY(90deg) scale(0.8);}}
     @keyframes cpuFlipIn{from{transform:rotateY(-90deg) scale(0.8);}to{transform:rotateY(0deg) scale(1);}}
@@ -172,7 +173,7 @@
               <span class="mode-icon">⚡</span>
               <span class="mode-text">
                 <strong>Medium</strong>
-                <small>CPU learns your patterns</small>
+                <small>Also random: it doesn't learn from your moves</small>
               </span>
             </span>
           </label>
@@ -182,13 +183,38 @@
               <span class="mode-icon">💀</span>
               <span class="mode-text">
                 <strong>Hard</strong>
-                <small>CPU analyses and counters you</small>
+                <small>Also random: same as Easy and Medium</small>
+              </span>
+            </span>
+          </label>
+        </fieldset>
+
+        <fieldset class="mode-group input-mode-group">
+          <legend>How do you show your fingers?</legend>
+          <label class="mode-option">
+            <input type="radio" name="input-mode" value="click" checked />
+            <span class="mode-label">
+              <span class="mode-icon">🖱️</span>
+              <span class="mode-text">
+                <strong>Click</strong>
+                <small>Pick your fingers with the buttons</small>
+              </span>
+            </span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="input-mode" value="camera" />
+            <span class="mode-label">
+              <span class="mode-icon">📸</span>
+              <span class="mode-text">
+                <strong>Camera <em style="opacity:.7;font-style:normal;">(beta)</em></strong>
+                <small>Show your real hand to the camera</small>
               </span>
             </span>
           </label>
         </fieldset>
 
         <button id="btn-start" class="btn btn-primary btn-lg">Play!</button>
+        <p id="setup-cam-status" class="cam-status"></p>
         <button class="htp-link" id="btn-htp">How to play ℹ️</button>
       </div>
       <a href="/morra/en/" class="back-hub-link">← Change mode</a>
@@ -213,13 +239,27 @@
           <button class="btn-guess" data-g="9"  aria-label="Bet 9">9</button>
           <button class="btn-guess" data-g="10" aria-label="Bet 10">10</button>
         </div>
-        <p class="pick-section-label">Your fingers (1-5)</p>
-        <div class="finger-buttons" id="finger-buttons">
-          <button class="btn-finger" data-f="1" aria-label="1 finger">1</button>
-          <button class="btn-finger" data-f="2" aria-label="2 fingers">2</button>
-          <button class="btn-finger" data-f="3" aria-label="3 fingers">3</button>
-          <button class="btn-finger" data-f="4" aria-label="4 fingers">4</button>
-          <button class="btn-finger" data-f="5" aria-label="5 fingers">5</button>
+        <div id="finger-pick-click">
+          <p class="pick-section-label">Your fingers (1-5)</p>
+          <div class="finger-buttons" id="finger-buttons">
+            <button class="btn-finger" data-f="1" aria-label="1 finger">1</button>
+            <button class="btn-finger" data-f="2" aria-label="2 fingers">2</button>
+            <button class="btn-finger" data-f="3" aria-label="3 fingers">3</button>
+            <button class="btn-finger" data-f="4" aria-label="4 fingers">4</button>
+            <button class="btn-finger" data-f="5" aria-label="5 fingers">5</button>
+          </div>
+        </div>
+
+        <div id="finger-pick-camera" style="display:none;">
+          <p class="pick-section-label">Your fingers — show them to the camera</p>
+          <div class="cam-stage" id="cam-stage" data-clarity-mask="True">
+            <video id="cam-video" autoplay playsinline muted data-clarity-mask="True"></video>
+            <canvas id="cam-overlay" class="cam-overlay"></canvas>
+            <div class="cam-guide"><div class="cam-guide-oval" id="cam-oval"></div></div>
+            <div class="cam-hint" id="cam-hint">Show your fingers and hold them steady for 3 seconds</div>
+            <div class="cam-countdown" id="cam-countdown"></div>
+          </div>
+          <p class="cam-status" id="cam-status">Choose your bet first</p>
         </div>
         <button id="btn-confirm" class="btn btn-primary btn-lg" disabled>Reveal!</button>
       </div>
@@ -236,6 +276,7 @@
           <div class="result-pick-block" id="res-player-block">
             <span class="res-pname" id="res-player-name"></span>
             <span class="res-finger-num" id="res-player-num">0</span>
+            <img id="res-player-snap" class="snap-thumb" style="display:none;" alt="Your captured gesture"  data-clarity-mask="True"/>
             <span class="res-guess-badge" id="res-player-guess"></span>
           </div>
           <div class="result-center-col">
@@ -289,13 +330,14 @@
     </section>
 
   </div>
-  <script src="/js/analytics.js?v=2"></script>
-  <script src="/js/lang-nav.js?v=2"></script>
-  <script src="/js/share.js?v=2"></script>
+  <script src="/js/analytics.js?v=20261024"></script>
+  <script src="/js/lang-nav.js?v=20261025"></script>
+  <script src="/js/share.js?v=20261024"></script>
   <script src="/js/keyboard.js?v=2"></script>
-  <script src="/js/streak.js?v=2"></script>
-  <script src="/js/game-morra-cpu.js?v=2"></script>
+  <script src="/js/streak.js?v=20261024"></script>
+  <script src="/js/game-morra-cpu.js?v=20261024"></script>
   <script src="/js/audio.js?v=2"></script>
-  <script src="/js/ui-morra-cpu.js?v=2"></script>
+  <script src="/js/camera-gesture.js?v=20261025"></script>
+  <script src="/js/ui-morra-cpu.js?v=20261025"></script>
 </body>
 </html>

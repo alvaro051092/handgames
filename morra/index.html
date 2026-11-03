@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" />
-  <title>Morra Online — Juega Gratis</title>
-  <meta name="description" content="Juega Morra online gratis. Elige entre modo 2 jugadores, vs CPU o modo Batalla. Muestra dedos y adivina el total. Sin registro, sin descargas." />
+  <title>Morra Online: el Juego de Dedos Italiano, Gratis</title>
+  <meta name="description" content="Juega a la Morra online gratis: muestra tus dedos y adivina el total antes que tu rival. Contra la CPU, con clics o con la cámara. Sin registro." />
   <!-- Canonical + hreflang -->
   <!-- Performance: preconnect to analytics/clarity origins -->
   <!-- PWA -->
@@ -26,8 +26,8 @@
   <!-- Open Graph -->
   <meta property="og:type"             content="website" />
   <meta property="og:url"              content="https://handgames.app/morra/" />
-  <meta property="og:title"            content="Morra Online — Juega Gratis" />
-  <meta property="og:description"      content="Juega Morra online gratis. Muestra dedos y adivina el total antes que tu rival." />
+  <meta property="og:title"            content="Morra Online: el Juego de Dedos Italiano, Gratis" />
+  <meta property="og:description"      content="Juega a la Morra online gratis: muestra tus dedos y adivina el total antes que tu rival. Sin registro." />
   <meta property="og:image"            content="https://handgames.app/assets/og-image.png" />
   <meta property="og:site_name"        content="Hand Games" />
   <meta property="og:locale"           content="es_ES" />
@@ -35,8 +35,8 @@
   <meta property="og:locale:alternate" content="pt_BR" />
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="Morra Online — Juega Gratis" />
-  <meta name="twitter:description" content="Juega Morra online gratis. Muestra dedos y adivina el total antes que tu rival." />
+  <meta name="twitter:title"       content="Morra Online: el Juego de Dedos Italiano, Gratis" />
+  <meta name="twitter:description" content="Juega a la Morra online gratis: muestra tus dedos y adivina el total antes que tu rival. Sin registro." />
   <meta name="twitter:image"       content="https://handgames.app/assets/og-image.png" />
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -90,6 +90,22 @@
           "@type": "Answer",
           "text": "Sí, completamente gratis. Sin registro ni descargas. Juega directamente en el navegador."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Se puede jugar a la Morra con la cámara?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. En el modo vs CPU activa Cámara (beta), elige tu apuesta y muestra de 1 a 5 dedos con una mano; mantén la misma cantidad 3 segundos para confirmarla. El pulgar cuenta y el puño cerrado no es válido. Sin cámara, puedes jugar con clics."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Se envía mi vídeo a algún servidor al jugar a la Morra con la cámara?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No se envía vídeo a nuestros servidores: los dedos se reconocen en tu navegador (el modelo de reconocimiento se descarga desde una CDN pública al activar la cámara)."
+        }
       }
     ]
   }
@@ -100,7 +116,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
   <link rel="apple-touch-icon"          href="/assets/apple-touch-icon.png" />
   <link rel="stylesheet" href="/css/tokens.css?v=3" />
-  <link rel="stylesheet" href="/css/layout.css?v=7" />
+  <link rel="stylesheet" href="/css/layout.css?v=20261024" />
   <link rel="stylesheet" href="/css/animations.css?v=3" />
   <style>
     .hub-page {
@@ -310,6 +326,7 @@
 
   <div class="top-nav">
     <a href="/" class="back-platform">← Hand Games</a>
+    <a href="/blog/" class="back-platform">📖 Guías</a>
     <nav class="lang-nav" aria-label="Idioma">
       <span class="lang-link active">ES</span>
       <a href="/morra/en/" class="lang-link">EN</a>
@@ -319,7 +336,7 @@
 
   <header class="hub-header">
     <h1 class="hub-title">
-      <span class="title-emoji">🤌</span> Morra
+      <span class="title-emoji">🤌</span> Morra online
     </h1>
     <p class="hub-subtitle">¿Cómo querés jugar?</p>
   </header>
@@ -340,7 +357,7 @@
 
   <section class="rules-section" aria-labelledby="rules-heading">
     <h2 id="rules-heading">Cómo jugar Morra</h2>
-    <p>La Morra es uno de los juegos de mano más antiguos del mundo, documentado en el Antiguo Egipto y practicado durante siglos en Italia, España, Grecia y América Latina. Combina velocidad, psicología y predicción.</p>
+    <p>La Morra es uno de los juegos de mano más antiguos del mundo, documentado en el Antiguo Egipto y practicado durante siglos en Italia, España, Grecia y América Latina. Combina velocidad, psicología y predicción. Aquí puedes jugar a la Morra online y gratis contra la CPU (con un clic o <a href="#camera" style="color:var(--clr-primary-light);font-weight:700;">con la cámara</a>) o por turnos con un amigo en el mismo dispositivo.</p>
 
     <h3>Cómo se juega</h3>
     <ul class="rules-list">
@@ -357,22 +374,29 @@
     <p>Observa los patrones de tu rival: ¿tiende a mostrar muchos dedos o pocos? Ajusta tu apuesta en consecuencia. También puedes intentar engañarle mostrando muchos dedos cuando apuestas bajo, y viceversa.</p>
   </section>
 
+  <section class="rules-section" aria-labelledby="camera">
+    <h2 id="camera" style="scroll-margin-top:4.5rem;">Morra con cámara: muestra tus dedos</h2>
+    <p>En el modo cámara de la Morra no tocas los dedos en pantalla: los muestras a la cámara. Primero elige tu apuesta (el total, de 2 a 10) con los botones; después enseña de 1 a 5 dedos con una sola mano y mantén la misma cantidad durante 3 segundos para confirmarla. El pulgar cuenta como un dedo más, y un puño cerrado no es válido, porque en la Morra siempre se muestra al menos un dedo.</p>
+    <p>Activa «Cámara (beta)» al configurar la <a href="/morra/vs-cpu" style="color:var(--clr-primary-light);font-weight:700;">partida de Morra contra la CPU</a>. Usa buena luz y separa bien los dedos; si no hay cámara o rechazas el permiso, el juego continúa con clics. El reconocimiento se hace en tu navegador y el vídeo no se envía a nuestros servidores.</p>
+  </section>
+
   <section style="max-width:680px;margin:var(--sp-10) auto 0;border-top:1px solid var(--clr-border);padding-top:var(--sp-7);">
-    <p style="font-size:var(--text-xs);font-weight:700;color:var(--clr-text-subtle);text-transform:uppercase;letter-spacing:.6px;margin:0 0 var(--sp-4);">Artículos relacionados</p>
+    <h2 style="font-size:var(--text-xs);font-weight:700;color:var(--clr-text-subtle);text-transform:uppercase;letter-spacing:.6px;margin:0 0 var(--sp-4);line-height:1.4;">Artículos relacionados</h2>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:var(--sp-3);">
       <a href="/blog/morra-historia-reglas/" style="display:block;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-4);text-decoration:none;color:var(--clr-text-muted);font-size:var(--text-sm);">
-        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">Morra: historia y reglas completas</strong>
-        5.000 años de historia y por qué fue prohibida
-      </a>
-      <a href="/blog/como-jugar-palillos/" style="display:block;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-4);text-decoration:none;color:var(--clr-text-muted);font-size:var(--text-sm);">
-        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">Cómo jugar Palillos</strong>
-        El juego de dedos más estratégico
+        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">Morra: historia, reglas y estrategia</strong>
+        El juego de mano más antiguo del mundo y por qué fue prohibido
       </a>
       <a href="/blog/par-o-impar-reglas/" style="display:block;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-4);text-decoration:none;color:var(--clr-text-muted);font-size:var(--text-sm);">
-        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">Par o Impar: reglas e historia</strong>
-        El juego romano que sobrevivió dos mil años
+        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">Par o Impar: reglas y cómo ganar</strong>
+        Reglas, historia desde Roma y estrategia del clásico juego de dedos
+      </a>
+      <a href="/blog/como-jugar-palillos/" style="display:block;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-4);text-decoration:none;color:var(--clr-text-muted);font-size:var(--text-sm);">
+        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">Cómo jugar Palillos: reglas y estrategia</strong>
+        Guía completa del juego de dedos: reglas, la división y variantes
       </a>
     </div>
+    <a href="/blog/" style="display:inline-block;margin-top:var(--sp-4);font-size:var(--text-sm);font-weight:700;color:var(--clr-primary-light);text-decoration:none;">Ver todas las guías →</a>
   </section>
 
 
@@ -394,6 +418,14 @@
     <details class="faq-item">
       <summary>¿Es gratis jugar la Morra online?</summary>
       <p>Sí, completamente gratis. Sin registro ni descargas. Juega directamente en el navegador.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Se puede jugar a la Morra con la cámara?</summary>
+      <p>Sí. En el modo vs CPU activa Cámara (beta), elige tu apuesta y muestra de 1 a 5 dedos con una mano; mantén la misma cantidad 3 segundos para confirmarla. El pulgar cuenta y el puño cerrado no es válido. Sin cámara, puedes jugar con clics.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Se envía mi vídeo a algún servidor al jugar a la Morra con la cámara?</summary>
+      <p>No se envía vídeo a nuestros servidores: los dedos se reconocen en tu navegador (el modelo de reconocimiento se descarga desde una CDN pública al activar la cámara).</p>
     </details>
   </section>
 
@@ -418,6 +450,6 @@
     Morra &mdash; Hand Games
   </footer>
 
-  <script src="/js/analytics.js?v=2"></script>
+  <script src="/js/analytics.js?v=20261024"></script>
 </body>
 </html>

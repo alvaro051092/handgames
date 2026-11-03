@@ -6,6 +6,12 @@
      HGStreak.recordResult(game, isWin)
        → updates localStorage, injects/refreshes streak banner
           inside .gameover-card if present in the DOM.
+     HGStreak.recordDraw(game)
+       → counts the game but leaves the current streak untouched.
+
+   Data format (hg_streak_<game>): { current, best, wins, losses,
+   draws, total, last }. hg-ux.js reads the same keys to draw the hub
+   stats strip, so keep the shape backward compatible.
 
    Load order: after analytics.js, before ui-*.js
 ═══════════════════════════════════════════════════════════ */
@@ -28,14 +34,15 @@ window.HGStreak = (() => {
   }
 
   function defaults() {
-    return { current: 0, best: 0, wins: 0, losses: 0, total: 0 };
+    return { current: 0, best: 0, wins: 0, losses: 0, draws: 0, total: 0, last: 0 };
   }
 
   /* ── Core logic ── */
   function recordResult(game, isWin) {
-    const d = load(game) || defaults();
+    const d = Object.assign(defaults(), load(game) || {});
 
     d.total += 1;
+    d.last = Date.now();
     if (isWin) {
       d.wins += 1;
       d.current += 1;
@@ -47,6 +54,18 @@ window.HGStreak = (() => {
 
     save(game, d);
     _render(game, d, isWin);
+    return d;
+  }
+
+  /* A drawn match is neutral: it counts as played but never breaks
+     (or extends) the current win streak. */
+  function recordDraw(game) {
+    const d = Object.assign(defaults(), load(game) || {});
+    d.total += 1;
+    d.draws += 1;
+    d.last = Date.now();
+    save(game, d);
+    _render(game, d, null);
     return d;
   }
 
@@ -84,7 +103,10 @@ window.HGStreak = (() => {
     banner.innerHTML = `
       <div class="hg-streak-inner">
         <div class="hg-streak-row hg-streak-main">
-          ${isWin && d.current > 1
+          ${isWin === null
+            ? `<span class="hg-streak-fire">🤝</span>
+               <span class="hg-streak-label">${d.current > 0 ? T.draw : T.drawNeutral}</span>`
+            : isWin && d.current > 1
             ? `<span class="hg-streak-fire">${fireLevel}</span>
                <span class="hg-streak-label">${T.streak} <strong>${d.current}</strong></span>
                ${newBest ? `<span class="hg-streak-badge">${T.newRecord}</span>` : ''}`
@@ -96,9 +118,11 @@ window.HGStreak = (() => {
           }
         </div>
         <div class="hg-streak-row hg-streak-stats">
-          <span class="hg-stat"><strong>${d.wins}</strong> ${T.wins}</span>
+          <span class="hg-stat"><strong>${d.wins}</strong> ${d.wins === 1 ? T.win1 : T.wins}</span>
           <span class="hg-sep">·</span>
-          <span class="hg-stat"><strong>${d.losses}</strong> ${T.losses}</span>
+          <span class="hg-stat"><strong>${d.losses}</strong> ${d.losses === 1 ? T.loss1 : T.losses}</span>
+          ${d.draws > 0 ? `<span class="hg-sep">·</span>
+          <span class="hg-stat"><strong>${d.draws}</strong> ${d.draws === 1 ? T.draw1 : T.draws}</span>` : ''}
           <span class="hg-sep">·</span>
           <span class="hg-stat"><strong>${winPct}%</strong> ${T.winRate}</span>
           ${d.best > 1 ? `<span class="hg-sep">·</span><span class="hg-stat">🔥 <strong>${d.best}</strong> ${T.best}</span>` : ''}
@@ -108,8 +132,9 @@ window.HGStreak = (() => {
 
     /* Kick a brief entrance animation */
     banner.classList.remove('hg-streak-in');
-    void banner.offsetWidth; /* reflow */
-    banner.classList.add('hg-streak-in');
+    /* Re-add on the next frame instead of forcing a synchronous reflow
+       (void offsetWidth) — same visual restart, no layout thrash. */
+    requestAnimationFrame(() => requestAnimationFrame(() => banner.classList.add('hg-streak-in')));
   }
 
   function _labels(lang) {
@@ -119,8 +144,14 @@ window.HGStreak = (() => {
         newRecord: '🏅 New record!',
         firstWin: 'First win — keep it up!',
         keepGoing: 'Keep going, you\'ll get there!',
+        draw: 'Draw — your streak is safe!',
+        drawNeutral: 'Draw — no winner this time.',
+        draw1: 'draw',
+        draws: 'draws',
         wins: 'wins',
+        win1: 'win',
         losses: 'losses',
+        loss1: 'loss',
         winRate: 'win rate',
         best: 'best streak',
       },
@@ -129,9 +160,15 @@ window.HGStreak = (() => {
         newRecord: '🏅 Novo recorde!',
         firstWin: 'Primeira vitória — continue assim!',
         keepGoing: 'Continue tentando!',
+        draw: 'Empate — sua sequência continua!',
+        drawNeutral: 'Empate — sem vencedor desta vez.',
+        draw1: 'empate',
+        draws: 'empates',
         wins: 'vitórias',
+        win1: 'vitória',
         losses: 'derrotas',
-        winRate: 'aproveitamento',
+        loss1: 'derrota',
+        winRate: 'de vitórias',
         best: 'melhor sequência',
       },
     };
@@ -140,12 +177,18 @@ window.HGStreak = (() => {
       newRecord: '🏅 ¡Nuevo récord!',
       firstWin: '¡Primera victoria — sigue así!',
       keepGoing: '¡Sigue intentándolo!',
+      draw: 'Empate — ¡tu racha sigue intacta!',
+      drawNeutral: 'Empate — sin ganador esta vez.',
+      draw1: 'empate',
+      draws: 'empates',
       wins: 'victorias',
+      win1: 'victoria',
       losses: 'derrotas',
-      winRate: 'aciertos',
+      loss1: 'derrota',
+      winRate: 'de victorias',
       best: 'mejor racha',
     };
   }
 
-  return { recordResult };
+  return { recordResult, recordDraw };
 })();

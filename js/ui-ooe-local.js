@@ -3,6 +3,74 @@
    Depends on: window.GameOOELocal, window.GameAudio
 ═══════════════════════════════════════════════════════════ */
 (() => {
+  const _lang = (document.documentElement.lang || 'es').slice(0, 2);
+  /* Fallback for a stale cached analytics.js that predates HGA.i18n: without it
+     "Play!" would throw. Only the keys this file uses. */
+  const _L_FALLBACK = {
+    es: {
+      audioOff:   'Silenciar audio',
+      audioOn:    'Activar audio',
+      defP1:      'Jugador 1',
+      defP2:      'Jugador 2',
+      even: 'Par',
+      guessed:    'apostó:',
+      odd: 'Impar',
+      round:      n => `Ronda ${n}`,
+      single:     'Intento único',
+      winSuffix:  ' gana!',
+    },
+    en: {
+      audioOff:   'Mute audio',
+      audioOn:    'Turn audio on',
+      defP1:      'Player 1',
+      defP2:      'Player 2',
+      even: 'Even',
+      guessed:    'guessed:',
+      odd: 'Odd',
+      round:      n => `Round ${n}`,
+      single:     'Single round',
+      winSuffix:  ' wins!',
+    },
+    pt: {
+      audioOff:   'Silenciar áudio',
+      audioOn:    'Ativar áudio',
+      defP1:      'Jogador 1',
+      defP2:      'Jogador 2',
+      even: 'Par',
+      guessed:    'apostou:',
+      odd: 'Ímpar',
+      round:      n => `Rodada ${n}`,
+      single:     'Tentativa única',
+      winSuffix:  ' vence!',
+    },
+  };
+  const L = (window.HGA && HGA.i18n) || _L_FALLBACK[_lang] || _L_FALLBACK.es;   // shared ES/EN/PT strings (analytics.js)
+  /* Sentences specific to this screen */
+  const T = {
+    es: {
+      hit: (n, s, p) => `✅ ¡${n} acertó! La suma fue ${s} (${p})`,
+      win: (n, s, p) => `🎉 ¡${n} gana! La suma fue ${s} (${p})`,
+      hintP1: 'Elige tu apuesta y tus dedos',
+      hintP2: 'Elige cuántos dedos levantas',
+      goLoss: n => `${n} tendrá que mejorar su instinto. ¿Revancha?`,
+    },
+    en: {
+      hit: (n, s, p) => `✅ ${n} got it! The sum was ${s} (${p})`,
+      win: (n, s, p) => `🎉 ${n} wins! The sum was ${s} (${p})`,
+      hintP1: 'Choose your bet and your fingers',
+      hintP2: 'Choose how many fingers to raise',
+      goLoss: n => `${n} will have to improve their instinct. Rematch?`,
+    },
+    pt: {
+      hit: (n, s, p) => `✅ ${n} acertou! A soma foi ${s} (${p})`,
+      win: (n, s, p) => `🎉 ${n} vence! A soma foi ${s} (${p})`,
+      hintP1: 'Escolha sua aposta e seus dedos',
+      hintP2: 'Escolha quantos dedos levantar',
+      goLoss: n => `${n} vai ter que melhorar o instinto. Revanche?`,
+    },
+  };
+  const i = T[_lang] || T.es;
+
   /* ──────────── State ──────────── */
   let transitioning  = false;
   let pickingPlayer  = 'p1';
@@ -175,7 +243,7 @@
     setScoreDigit($('roll-p1'), state.scores.p1);
     setScoreDigit($('roll-p2'), state.scores.p2);
     $('pick-round-badge').textContent =
-      state.mode === 'best-of-3' ? `Ronda ${state.round}` : 'Intento único';
+      state.mode === 'best-of-3' ? L.round(state.round) : L.single;
 
     $('turn-name').textContent   = player;
     $('turn-avatar').textContent = player.substring(0, 2).toUpperCase();
@@ -188,11 +256,11 @@
     if (isP1) {
       betSection.style.display = '';
       if (confirmBtn) confirmBtn.style.display = 'flex';
-      $('pick-hint').textContent = 'Elige tu apuesta y tus dedos';
+      $('pick-hint').textContent = i.hintP1;
     } else {
       betSection.style.display = 'none';
       if (confirmBtn) confirmBtn.style.display = 'none';
-      $('pick-hint').textContent = 'Elige cuántos dedos levantas';
+      $('pick-hint').textContent = i.hintP2;
     }
 
     resetPickSelections();
@@ -215,7 +283,7 @@
     setScoreDigit($('res-roll-p1'), preP1);
     setScoreDigit($('res-roll-p2'), preP2);
     $('res-round-badge').textContent =
-      mode === 'best-of-3' ? `Ronda ${round}` : 'Intento único';
+      mode === 'best-of-3' ? L.round(round) : L.single;
 
     ['res-p1-block', 'res-p2-block'].forEach(id => {
       const el = $(id);
@@ -225,8 +293,8 @@
 
     $('res-p1-name').textContent  = players.p1;
     $('res-p1-num').textContent   = picks.p1;
-    const betLabel = bet === 'par' ? 'PAR' : 'IMPAR';
-    $('res-p1-bet').textContent   = `apostó: ${betLabel}`;
+    const betLabel = (bet === 'par' ? L.even : L.odd).toUpperCase();
+    $('res-p1-bet').textContent   = `${L.guessed} ${betLabel}`;
     $('res-p1-bet').className     = `res-bet-badge bet-${bet}`;
 
     $('res-p2-name').textContent  = players.p2;
@@ -265,7 +333,7 @@
     const sumEl    = $('res-sum');
     const parityEl = $('res-sum-parity');
     $('res-sum-value').textContent  = `${picks.p1} + ${picks.p2} = ${sum}`;
-    parityEl.textContent            = sumParity === 'par' ? 'PAR' : 'IMPAR';
+    parityEl.textContent            = (sumParity === 'par' ? L.even : L.odd).toUpperCase();
     parityEl.className              = `res-sum-parity ${sumParity}`;
     sumEl.style.transition          = 'opacity 0.3s';
     sumEl.style.opacity             = '1';
@@ -279,11 +347,11 @@
     // 5. Banner
     const banner = $('result-banner');
     if (roundWinner === 'p1') {
-      banner.textContent = `✅ ¡${players.p1} acertó! La suma fue ${sum} (${sumParity === 'par' ? 'par' : 'impar'})`;
+      banner.textContent = i.hit(players.p1, sum, (sumParity === 'par' ? L.even : L.odd).toLowerCase());
       banner.classList.add('banner-win', 'show');
       GameAudio.playWin();
     } else {
-      banner.textContent = `🎉 ¡${players.p2} gana! La suma fue ${sum} (${sumParity === 'par' ? 'par' : 'impar'})`;
+      banner.textContent = i.win(players.p2, sum, (sumParity === 'par' ? L.even : L.odd).toLowerCase());
       banner.classList.add('banner-win', 'show');
       GameAudio.playWin();
     }
@@ -311,8 +379,8 @@
     $('go-trophy').style.animation   = '';
     typewriter($('go-winner-name'), players[matchWinner]);
     const loser = matchWinner === 'p1' ? players.p2 : players.p1;
-    $('go-title-suffix').textContent = ' gana!';
-    $('go-subtitle').textContent     = `${loser} tendrá que mejorar su instinto. ¿Revancha?`;
+    $('go-title-suffix').textContent = L.winSuffix;
+    $('go-subtitle').textContent     = i.goLoss(loser);
     spawnConfetti();
     GameAudio.playFanfare();
 
@@ -325,8 +393,8 @@
   /* ──────────── Event Listeners ──────────── */
 
   $('btn-start').addEventListener('click', () => {
-    const p1   = $('name-p1').value.trim();
-    const p2   = $('name-p2').value.trim();
+    const p1   = $('name-p1').value.trim() || L.defP1;
+    const p2   = $('name-p2').value.trim() || L.defP2;
     const mode = document.querySelector('input[name="mode"]:checked').value;
     const state = GameOOELocal.configure(p1, p2, mode);
     HGA.gameStart(mode);
@@ -446,8 +514,8 @@
     const muted = GameAudio.toggle();
     HGA.audioToggle(muted);
     $('btn-mute').textContent = muted ? '🔇' : '🔊';
-    $('btn-mute').setAttribute('aria-label', muted ? 'Activar audio' : 'Silenciar audio');
-    $('btn-mute').title = muted ? 'Activar audio' : 'Silenciar audio';
+    $('btn-mute').setAttribute('aria-label', muted ? L.audioOn : L.audioOff);
+    $('btn-mute').title = muted ? L.audioOn : L.audioOff;
   });
 
 })();

@@ -5,7 +5,12 @@
 ═══════════════════════════════════════════════════════════ */
 window.GameRPSOnline = (() => {
   const BASE = '/api/rps-room';
-  const LS_KEY = 'hg_rps_online_seat';
+  /* Random id for this page load. /join sends it so the server can tell a
+     retry from the same player (idempotent) from a third person trying to
+     take the second seat of an already full room. */
+  const clientId = (window.crypto && crypto.randomUUID)
+    ? crypto.randomUUID()
+    : 'c' + Math.random().toString(36).slice(2) + Date.now().toString(36);
 
   async function request(path, options) {
     const res = await fetch(BASE + path, options);
@@ -15,23 +20,12 @@ window.GameRPSOnline = (() => {
     return body;
   }
 
-  function saveSeat(code, playerId, name) {
-    try { sessionStorage.setItem(LS_KEY, JSON.stringify({ code, playerId, name })); } catch (_) {}
-  }
-  function loadSeat() {
-    try { return JSON.parse(sessionStorage.getItem(LS_KEY) || 'null'); } catch (_) { return null; }
-  }
-  function clearSeat() {
-    try { sessionStorage.removeItem(LS_KEY); } catch (_) {}
-  }
-
   async function createRoom(name) {
     const { code, playerId, state } = await request('', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name }),
     });
-    saveSeat(code, playerId, name);
     return { code, playerId, state };
   }
 
@@ -39,9 +33,8 @@ window.GameRPSOnline = (() => {
     const { playerId, state } = await request(`/${code}/join`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name }),
+      body: JSON.stringify({ name, clientId }),
     });
-    saveSeat(code, playerId, name);
     return { playerId, state };
   }
 
@@ -68,5 +61,5 @@ window.GameRPSOnline = (() => {
     return state;
   }
 
-  return { createRoom, joinRoom, getState, submitPick, nextRound, saveSeat, loadSeat, clearSeat };
+  return { createRoom, joinRoom, getState, submitPick, nextRound };
 })();

@@ -7,7 +7,7 @@
    caches.match uses ignoreSearch:true so versioned URLs are served
    from the precache. On deploy, bump CACHE_VERSION to clear old cache.
 ═══════════════════════════════════════════════════════════ */
-const CACHE_VERSION = 'hg-v14';
+const CACHE_VERSION = 'hg-v19';
 const CACHE_STATIC  = `${CACHE_VERSION}-static`;
 const CACHE_ML      = `${CACHE_VERSION}-ml-models`;
 
@@ -29,6 +29,7 @@ const PRECACHE = [
   '/css/animations.css',
   '/css/camera.css',
   '/js/analytics.js',
+  '/js/hg-ux.js',
   '/js/audio.js',
   '/js/streak.js',
   '/js/lang-nav.js',
@@ -37,7 +38,6 @@ const PRECACHE = [
   '/js/game-cpu.js',
   '/js/game-local.js',
   '/js/game-battle.js',
-  '/js/ui.js',
   '/js/ui-cpu.js',
   '/js/ui-local.js',
   '/js/ui-battle.js',
@@ -45,6 +45,7 @@ const PRECACHE = [
   '/assets/favicon.ico',
   '/assets/favicon-32.png',
   '/assets/apple-touch-icon.png',
+  '/assets/icon-192.png',
   '/manifest.json',
 ];
 
@@ -54,7 +55,10 @@ self.addEventListener('install', event => {
     caches.open(CACHE_STATIC).then(cache =>
       Promise.allSettled(
         PRECACHE.map(url =>
-          cache.add(url).catch(err => {
+          /* cache:'reload' bypasses the browser HTTP cache. worker.js serves
+             css/js as immutable (1 year), so without this a new CACHE_VERSION
+             could re-precache the *old* bytes from the HTTP cache. */
+          cache.add(new Request(url, { cache: 'reload' })).catch(err => {
             console.warn('[SW] precache miss:', url, err);
           })
         )

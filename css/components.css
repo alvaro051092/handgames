@@ -185,7 +185,11 @@
     background   var(--dur-fast),
     transform    var(--dur-fast);
 }
-.mode-option input[type="radio"]:checked + .mode-label {
+/* Selected state: native :checked plus the `.is-selected` class that
+   js/hg-ux.js mirrors onto the label. The class makes every option click
+   change the DOM (Clarity reported the CSS-only version as dead clicks). */
+.mode-option input[type="radio"]:checked + .mode-label,
+.mode-option.is-selected .mode-label {
   border-color: var(--clr-primary);
   background: rgba(124,58,237,.1);
 }
@@ -193,6 +197,15 @@
   box-shadow: 0 0 0 3px rgba(124,58,237,.3);
 }
 .mode-option:hover .mode-label { transform: translateX(3px); }
+/* Tap feedback (also on the already-selected option). Class added/removed
+   by hg-ux.js. */
+.mode-option { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.mode-option.is-tapped .mode-label { animation: hgTap .28s var(--ease-out); }
+@keyframes hgTap {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(.985); }
+  100% { transform: scale(1); }
+}
 
 .mode-icon { font-size: var(--text-2xl); }
 .mode-text strong { display: block; font-size: var(--text-sm); }
@@ -529,3 +542,117 @@
 }
 
 /* --clr-draw is now defined in tokens.css */
+
+/* ═══════════════════════════ HG-UX: PLAY NOW ═══════════════════════════ */
+/* Injected at the top of the setup card by js/hg-ux.js */
+.hg-play-now-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-5);
+  padding-bottom: var(--sp-4);
+  border-bottom: 1px solid var(--clr-border);
+}
+.hg-play-now { box-shadow: var(--shadow-primary); }
+.hg-play-now-sub {
+  min-height: 1em;
+  font-size: var(--text-xs);
+  color: var(--clr-text-muted);
+  text-align: center;
+}
+.hg-play-now-sub:empty { display: none; }
+.hg-play-now-or {
+  font-size: var(--text-xs);
+  color: var(--clr-text-subtle);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+/* ═══════════════════════════ HG-UX: NOT-USABLE FEEDBACK ═══════════════════════════ */
+/* Decorative counters/labels are not controls: say so with the cursor. */
+.scoreboard, .score-block, .round-badge, .last-move-text,
+.chop-section-label, .hint-text, .pick-hint { cursor: default; }
+.chop-hand { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+
+/* Tapped a chopsticks hand that cannot be used yet (hg-ux.js) */
+.chop-board .chop-hand.hg-nudge { animation: hgShake .4s ease-in-out; }
+.chop-board .chop-hand.selectable.hg-nudge-hint { animation: hgHint .65s ease-in-out; }
+@keyframes hgShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+@keyframes hgHint {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(168,85,247,0); }
+  35%      { box-shadow: 0 0 0 6px rgba(168,85,247,.45); }
+}
+
+/* ═══════════════════════════ HG-UX: INSTALL NOTICE ═══════════════════════════ */
+.hg-install {
+  position: fixed;
+  left: 50%;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+  z-index: 650;
+  width: min(440px, calc(100% - 24px));
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-3) var(--sp-3) var(--sp-4);
+  background: var(--clr-surface-2);
+  border: 1px solid var(--clr-border-light);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  transform: translate(-50%, 16px);
+  transition: opacity var(--dur-normal) var(--ease-out), transform var(--dur-normal) var(--ease-out);
+}
+.hg-install.is-in { opacity: 1; transform: translate(-50%, 0); }
+.hg-install-icon { width: 40px; height: 40px; border-radius: 10px; flex: none; }
+.hg-install-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; text-align: left; }
+.hg-install-text strong { font-size: var(--text-sm); color: var(--clr-text); }
+.hg-install-text span { font-size: var(--text-xs); color: var(--clr-text-muted); line-height: 1.35; }
+.hg-install-share { display: inline-flex; align-items: center; gap: 3px; color: var(--clr-secondary); font-weight: 700; }
+.hg-install-share svg { vertical-align: -2px; }
+.hg-install-cta,
+.hg-install-close {
+  font-family: var(--font);
+  cursor: pointer;
+  border: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.hg-install-cta {
+  flex: none;
+  min-height: 40px;
+  padding: 0 var(--sp-4);
+  border-radius: var(--radius-sm);
+  background: var(--clr-primary);
+  color: #fff;
+  font-weight: 700;
+  font-size: var(--text-sm);
+}
+.hg-install-cta:hover { background: var(--clr-primary-hover); }
+.hg-install-cta:disabled { opacity: .55; cursor: not-allowed; }
+.hg-install-close {
+  flex: none;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--clr-text-subtle);
+  font-size: var(--text-base);
+}
+.hg-install-close:hover { background: var(--clr-surface-3); color: var(--clr-text); }
+.hg-install-cta:focus-visible,
+.hg-install-close:focus-visible { outline: 3px solid var(--clr-primary-light); outline-offset: 2px; }
+/* Keep the game-over actions reachable above the notice */
+body.hg-install-open .screen.active { padding-bottom: 110px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mode-option.is-tapped .mode-label,
+  .chop-board .chop-hand.hg-nudge,
+  .chop-board .chop-hand.selectable.hg-nudge-hint { animation: none; }
+  .hg-install { transition: opacity var(--dur-fast); transform: translate(-50%, 0); }
+}

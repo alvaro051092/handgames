@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" />
   <title>Rock Paper Scissors Online — Free, No Sign-Up | Hand Games</title>
-  <meta name="description" content="Play Rock Paper Scissors online free — 3 modes: vs CPU, 2 players or Battle. No sign-up, no download. Instant play on any device." />
+  <meta name="description" content="Play Rock Paper Scissors online free: vs the CPU, with a friend in your own room, or with your camera. No sign-up, no download, works on any device." />
   <!-- Canonical + hreflang -->
   <!-- Performance: preconnect to analytics/clarity origins -->
   <!-- PWA -->
@@ -27,7 +27,7 @@
   <meta property="og:type"             content="website" />
   <meta property="og:url"              content="https://handgames.app/rps/en/" />
   <meta property="og:title"            content="Rock Paper Scissors Online — Free, No Sign-Up | Hand Games" />
-  <meta property="og:description"      content="Play rock paper scissors online for free. Choose from 2-player mode, vs Computer, or Battle mode. No sign-up required." />
+  <meta property="og:description"      content="Play rock paper scissors online for free: vs the CPU, with a friend online, or with your camera. No sign-up required." />
   <meta property="og:image"            content="https://handgames.app/assets/og-image.png" />
   <meta property="og:site_name"        content="Hand Games" />
   <meta property="og:locale"           content="en_US" />
@@ -36,7 +36,7 @@
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="Rock Paper Scissors Online — Free, No Sign-Up | Hand Games" />
-  <meta name="twitter:description" content="Play rock paper scissors online for free. Choose from 2-player mode, vs Computer, or Battle mode. No sign-up required." />
+  <meta name="twitter:description" content="Play rock paper scissors online for free: vs the CPU, with a friend online, or with your camera. No sign-up required." />
   <meta name="twitter:image"       content="https://handgames.app/assets/og-image.png" />
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -46,7 +46,7 @@
     "name": "Rock Paper Scissors",
     "alternateName": ["Piedra Papel Tijeras", "Pedra Papel Tesoura"],
     "url": "https://handgames.app/rps/en/",
-    "description": "Rock paper scissors online game. Three modes: 2 players, vs CPU and Battle.",
+    "description": "Rock paper scissors online game. Modes: vs CPU, online room with a friend, 2 players and Battle; with clicks or with your camera.",
     "applicationCategory": "GameApplication",
     "operatingSystem": "Web",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -80,7 +80,7 @@
         "name": "What game modes are available?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Three modes: 2 Players (two people, one device), vs CPU (you against the computer), and Battle (CPU picks for both players — pure luck)."
+          "text": "Four modes: vs CPU (you against the computer), online room (play a friend from anywhere), 2 Players (two people, one device), and Battle (CPU picks for both players — pure luck). In vs CPU and online rooms you can choose with clicks or with your camera."
         }
       },
       {
@@ -88,7 +88,7 @@
         "name": "What is the best strategy for Rock Paper Scissors?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No gesture dominates — every choice beats one and loses to one. Watch your opponent's patterns: many players repeat their favorite gesture or unconsciously echo the winning one. Beginners throw Rock most often, so starting with Paper gives a statistical edge."
+          "text": "No gesture dominates — every choice beats one and loses to one. Watch your opponent's patterns: many players repeat their favorite gesture or unconsciously echo the winning one. No strategy guarantees a win, but reading your opponent helps."
         }
       },
       {
@@ -96,7 +96,7 @@
         "name": "Where did Rock Paper Scissors originate?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Rock Paper Scissors originated in China during the Han Dynasty (206 BC – 220 AD) as a game called 'shoushiling'. It spread to Japan in the 17th century as 'jan-ken', and reached Western countries in the early 20th century."
+          "text": "Its exact origin is uncertain. Secondary sources trace its ancestry to a Chinese hand game called 'shoushiling', linked to the Han Dynasty (206 BC – 220 AD). It is believed to have reached Japan in the 17th century as 'jan-ken' and spread to Western countries in the early 20th century."
         }
       },
       {
@@ -105,6 +105,30 @@
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Rock Paper Scissors Lizard Spock is an expanded version with 5 gestures: Rock, Paper, Scissors, Lizard, and Spock. Each gesture beats two others and loses to two others, reducing the chance of a tie. Popularized by The Big Bang Theory."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you play Rock Paper Scissors with a friend online without signing up?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Create a room, send your friend the invite link or the 5-character code and play in real time. There is no account and nothing to install, and the room expires after about an hour without activity."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you play Rock Paper Scissors with your camera?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Choose Camera (beta) in vs CPU mode or in an online room, allow camera access and show a closed fist for Rock, an open hand for Paper, or your index and middle fingers for Scissors. Hold the gesture for 3 seconds to confirm it. If the camera is unavailable you can keep playing with clicks."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my camera video sent to a server when I play?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No video is sent to our servers. Your hand is recognized in your browser (the recognition model is downloaded from a public CDN when you turn the camera on). In online rooms, only your name, the room code and the name of your move (rock, paper or scissors) reach our server."
         }
       }
     ]
@@ -116,7 +140,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
   <link rel="apple-touch-icon"          href="/assets/apple-touch-icon.png" />
   <link rel="stylesheet" href="/css/tokens.css?v=3" />
-  <link rel="stylesheet" href="/css/layout.css?v=7" />
+  <link rel="stylesheet" href="/css/layout.css?v=20261024" />
   <link rel="stylesheet" href="/css/animations.css?v=3" />
   <style>
     .hub-page {
@@ -298,6 +322,7 @@
 
   <div class="top-nav">
     <a href="/en/" class="back-platform">← Hand Games</a>
+    <a href="/en/blog/" class="back-platform">📖 Guides</a>
     <nav class="lang-nav" aria-label="Language">
       <a href="/rps/" class="lang-link">ES</a>
       <span class="lang-link active">EN</span>
@@ -313,13 +338,23 @@
   </header>
 
   <main>
-    <nav class="hub-cards" aria-label="Game modes" style="grid-template-columns:1fr;max-width:320px;">
+    <nav class="hub-cards" aria-label="Game modes" style="grid-template-columns:repeat(2,1fr);max-width:580px;">
       <a href="/rps/en/vs-cpu" class="mode-card">
         <span class="mode-card-icon" aria-hidden="true">🤖</span>
         <span class="mode-card-title">vs CPU</span>
         <p class="mode-card-desc">
           One player vs the machine. Play with a click
           or show your real hand to the camera.
+        </p>
+        <span class="mode-card-cta" aria-hidden="true">Play →</span>
+      </a>
+
+      <a href="/rps/en/online" class="mode-card">
+        <span class="mode-card-icon" aria-hidden="true">🌐</span>
+        <span class="mode-card-title">Create a room <em style="opacity:.7;font-style:normal;font-size:.7em;">(beta)</em></span>
+        <p class="mode-card-desc">
+          With a friend, from anywhere. Create a room, share the link
+          and play with a click or with your camera.
         </p>
         <span class="mode-card-cta" aria-hidden="true">Play →</span>
       </a>
@@ -341,34 +376,61 @@
       <li>📄 Paper covers 🪨 Rock</li>
     </ul>
     <h3>Objective</h3>
-    <p>Both players reveal their gesture simultaneously. The winning gesture earns one point. First to reach the target score (or best of 3) wins the match.</p>
+    <p>Both players reveal their gesture simultaneously. The winning gesture earns one point. In best of 3, the first to win 2 rounds takes the match and tied rounds score nothing; in a single game, a tie ends the match.</p>
     <h3>Strategy</h3>
     <p>Each gesture beats one and loses to one — pure reads and psychology. No dominant option exists: every choice is a calculated risk.</p>
-    <p>A few proven patterns to exploit: beginners throw Rock most often, so opening with Paper gives you a statistical edge. Winners tend to repeat the gesture that just won — throw what beats it. Losers tend to switch — predict the switch. If both players have repeated the same gesture twice, neither wants to throw it a third time.</p>
+    <p>A few common patterns to look for: winners tend to repeat the gesture that just won — throw what beats it. Losers tend to switch — predict the switch. If both players have repeated the same gesture twice, neither wants to throw it a third time.</p>
 
     <h3>History</h3>
-    <p>Rock Paper Scissors traces back to China's Han Dynasty (206 BC – 220 AD), where it was played as <em>shoushiling</em>. The game spread to Japan in the 17th century under the name <em>jan-ken</em>, and reached the West in the early 20th century. Today it's one of the most recognized hand games on the planet — used to settle disputes, break ties, and fill waiting rooms.</p>
+    <p>Its exact origin is uncertain: secondary sources trace its ancestry to a Chinese hand game called <em>shoushiling</em>, linked to the Han Dynasty (206 BC – 220 AD). It is believed to have reached Japan in the 17th century under the name <em>jan-ken</em>, and the West in the early 20th century. Today it's one of the most recognized hand games on the planet — used to settle disputes, break ties, and fill waiting rooms.</p>
 
     <h3>Variants</h3>
     <p>The most popular expansion is <strong>Rock Paper Scissors Lizard Spock</strong> — adds Lizard and Spock to create 10 possible outcomes per round, cutting tie probability nearly in half. Popularized by The Big Bang Theory. <a href="/rpsls/en/" style="color:var(--clr-primary-light);text-decoration:none;font-weight:700;">Play RPSLS →</a></p>
   </section>
 
+  <section class="rules-section" aria-labelledby="online">
+    <h2 id="online" style="scroll-margin-top:4.5rem;">Play Rock Paper Scissors with a friend online</h2>
+    <p>Is your friend far away? Skip the video call and the installs: <a href="/rps/en/online" style="color:var(--clr-primary-light);font-weight:700;">play Rock Paper Scissors with a friend online</a> in a private room, each on your own phone or computer and with no account.</p>
+    <ul class="rules-list" style="grid-template-columns:1fr;">
+      <li><strong>1. Create a room.</strong> Enter your name and tap “Create new room” to get a 5-character code.</li>
+      <li><strong>2. Invite your friend.</strong> Send the link with the “Invite a friend” button, or share the code so they can use “Join with a code”.</li>
+      <li><strong>3. Pick and reveal.</strong> Each of you chooses in secret; once you have both picked, the round is revealed. A tie scores nothing, so you simply play another round.</li>
+    </ul>
+    <p>The score keeps adding up and there is no round limit, so play as long as you like. Each of you can choose with a tap or with your camera (see camera mode below). Rooms are for two players and expire after about an hour without activity, so share the code only with your friend.</p>
+  </section>
+
+  <section class="rules-section" aria-labelledby="camera">
+    <h2 id="camera" style="scroll-margin-top:4.5rem;">Camera mode: Rock Paper Scissors with your real hand</h2>
+    <p>In camera mode you don't press any buttons: you show your hand to the camera and the game reads the gesture. Choose “Camera (beta)” when you set up a game <a href="/rps/en/vs-cpu" style="color:var(--clr-primary-light);font-weight:700;">against the CPU</a> or in an <a href="/rps/en/online" style="color:var(--clr-primary-light);font-weight:700;">online room with a friend</a>.</p>
+    <ul class="rules-list" style="grid-template-columns:1fr;">
+      <li><strong>Allow the camera.</strong> Your browser asks for permission. If you refuse, or there is no camera, the game falls back to clicks.</li>
+      <li><strong>Show a gesture.</strong> Rock is a closed fist; Paper, an open hand with four fingers extended; Scissors, index and middle fingers extended with the others folded. Only one hand is read.</li>
+      <li><strong>Hold it for 3 seconds.</strong> A 3-2-1 countdown confirms your move. If you change gesture, it starts over.</li>
+    </ul>
+    <p>For best results use good lighting, a plain background and keep your whole hand inside the guide oval. On phones the game asks for the rear camera by default; on a computer it uses your webcam. The first time, the hand-recognition model takes a few seconds to load. Recognition runs in your browser: the video is not sent to our servers, and in online rooms your friend only receives the name of your move.</p>
+  </section>
+
   <section style="max-width:680px;margin:var(--sp-10) auto 0;border-top:1px solid var(--clr-border);padding-top:var(--sp-7);">
-    <p style="font-size:var(--text-xs);font-weight:700;color:var(--clr-text-subtle);text-transform:uppercase;letter-spacing:.6px;margin:0 0 var(--sp-4);">Related articles</p>
+    <h2 style="font-size:var(--text-xs);font-weight:700;color:var(--clr-text-subtle);text-transform:uppercase;letter-spacing:.6px;margin:0 0 var(--sp-4);line-height:1.4;">Related articles</h2>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:var(--sp-3);">
       <a href="/en/blog/history-rock-paper-scissors/" style="display:block;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-4);text-decoration:none;color:var(--clr-text-muted);font-size:var(--text-sm);">
         <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">History of Rock Paper Scissors</strong>
         2,000 years of the world's most famous hand game
       </a>
       <a href="/en/blog/rpsls-rules/" style="display:block;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-4);text-decoration:none;color:var(--clr-text-muted);font-size:var(--text-sm);">
-        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">RPSLS Rules Explained</strong>
-        The 5-gesture upgrade that cuts ties in half
+        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">Rock Paper Scissors Lizard Spock: the 10 rules</strong>
+        The 5 gestures, all 10 outcomes and how to win more
+      </a>
+      <a href="/en/blog/odds-and-evens-rules/" style="display:block;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-4);text-decoration:none;color:var(--clr-text-muted);font-size:var(--text-sm);">
+        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">Odds and Evens: rules &amp; how to win</strong>
+        Rules, history from ancient Rome and strategy for the classic finger game
       </a>
       <a href="/en/blog/how-to-play-chopsticks/" style="display:block;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-4);text-decoration:none;color:var(--clr-text-muted);font-size:var(--text-sm);">
-        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">How to play Chopsticks</strong>
-        The most strategic finger game
+        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">How to play Chopsticks: rules &amp; strategy</strong>
+        The finger game explained: rules, splitting and winning tactics
       </a>
     </div>
+    <a href="/en/blog/" style="display:inline-block;margin-top:var(--sp-4);font-size:var(--text-sm);font-weight:700;color:var(--clr-primary-light);text-decoration:none;">See all guides →</a>
   </section>
 
 
@@ -385,19 +447,31 @@
     </details>
     <details class="faq-item">
       <summary>What game modes are available?</summary>
-      <p>Three modes: 2 Players (two people, one device), vs CPU (you against the computer), and Battle (CPU picks for both players — pure luck).</p>
+      <p>Four modes: vs CPU (you against the computer), online room (play a friend from anywhere), 2 Players (two people, one device), and Battle (CPU picks for both players — pure luck). In vs CPU and online rooms you can choose with clicks or with your camera.</p>
     </details>
     <details class="faq-item">
       <summary>What is the best strategy for Rock Paper Scissors?</summary>
-      <p>No gesture dominates — every choice beats one and loses to one. Watch your opponent's patterns: many players repeat their favorite gesture or unconsciously echo the winning one. Beginners throw Rock most often, so starting with Paper gives a statistical edge.</p>
+      <p>No gesture dominates — every choice beats one and loses to one. Watch your opponent's patterns: many players repeat their favorite gesture or unconsciously echo the winning one. No strategy guarantees a win, but reading your opponent helps.</p>
     </details>
     <details class="faq-item">
       <summary>Where did Rock Paper Scissors originate?</summary>
-      <p>Rock Paper Scissors originated in China during the Han Dynasty (206 BC – 220 AD) as a game called 'shoushiling'. It spread to Japan in the 17th century as 'jan-ken', and reached Western countries in the early 20th century.</p>
+      <p>Its exact origin is uncertain. Secondary sources trace its ancestry to a Chinese hand game called 'shoushiling', linked to the Han Dynasty (206 BC – 220 AD). It is believed to have reached Japan in the 17th century as 'jan-ken' and spread to Western countries in the early 20th century.</p>
     </details>
     <details class="faq-item">
       <summary>What is Rock Paper Scissors Lizard Spock?</summary>
       <p>Rock Paper Scissors Lizard Spock is an expanded version with 5 gestures: Rock, Paper, Scissors, Lizard, and Spock. Each gesture beats two others and loses to two others, reducing the chance of a tie. Popularized by The Big Bang Theory.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Can you play Rock Paper Scissors with a friend online without signing up?</summary>
+      <p>Yes. Create a room, send your friend the invite link or the 5-character code and play in real time. There is no account and nothing to install, and the room expires after about an hour without activity.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Can you play Rock Paper Scissors with your camera?</summary>
+      <p>Yes. Choose Camera (beta) in vs CPU mode or in an online room, allow camera access and show a closed fist for Rock, an open hand for Paper, or your index and middle fingers for Scissors. Hold the gesture for 3 seconds to confirm it. If the camera is unavailable you can keep playing with clicks.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Is my camera video sent to a server when I play?</summary>
+      <p>No video is sent to our servers. Your hand is recognized in your browser (the recognition model is downloaded from a public CDN when you turn the camera on). In online rooms, only your name, the room code and the name of your move (rock, paper or scissors) reach our server.</p>
     </details>
   </section>
 
@@ -422,6 +496,6 @@
     Rock · Paper · Scissors &mdash; v3
   </footer>
 
-  <script src="/js/analytics.js?v=2"></script>
+  <script src="/js/analytics.js?v=20261024"></script>
 </body>
 </html>

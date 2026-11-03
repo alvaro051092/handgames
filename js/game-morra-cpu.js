@@ -32,7 +32,7 @@ window.GameMorraCPU = (() => {
     roundWinner: null,   // 'player' | 'cpu' | 'draw'
     matchWinner: null,   // 'player' | 'cpu' | null
 
-    // Session stats — persist across revenge/newGame, cleared only on page reload
+    // Session stats — persist across revenge/newGame, persist across page loads too (localStorage 'hg_morra_session'); only clearSession() resets them
     session: {
       matches: 0,
       wins:    0,

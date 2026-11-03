@@ -4,7 +4,98 @@
 ═══════════════════════════════════════════════════════════ */
 (() => {
   /* ──────────── State ──────────── */
-  const _lang = document.documentElement.lang || 'es';
+  const _lang = (document.documentElement.lang || 'es').slice(0, 2);
+  /* Fallback for a stale cached analytics.js that predates HGA.i18n: without it
+     "Play!" would throw. Only the keys this file uses. */
+  const _L_FALLBACK = {
+    es: {
+      audioOff:   'Silenciar audio',
+      audioOn:    'Activar audio',
+      camDenied:  'Permiso de cámara denegado — seguimos con el modo click.',
+      camDetected: l => `Detectando: ${l}`,
+      camFailed:  'No se pudo iniciar la cámara — seguimos con el modo click.',
+      camHolding:  l => `Manteniendo ${l}…`,
+      camPickBetFirst:'Elegí tu apuesta primero',
+      camSearching:'Detectando mano…',
+      camShowFingers: 'Mano detectada — mostrá tus dedos',
+      camStarting:'Activando cámara…',
+      defName:    'Jugador',
+      finger:     n => `${n} ${n === 1 ? 'dedo' : 'dedos'}`,
+      go:         '¡YA!',
+      guessed:    'apostó:',
+      round:      n => `Ronda ${n}`,
+      single:     'Intento único',
+      winSuffix:  ' gana!',
+    },
+    en: {
+      audioOff:   'Mute audio',
+      audioOn:    'Turn audio on',
+      camDenied:  'Camera permission denied — continuing in click mode.',
+      camDetected: l => `Detected: ${l}`,
+      camFailed:  'Could not start the camera — continuing in click mode.',
+      camHolding:  l => `Holding ${l}…`,
+      camPickBetFirst:'Choose your bet first',
+      camSearching:'Looking for your hand…',
+      camShowFingers: 'Hand detected — show your fingers',
+      camStarting:'Starting camera…',
+      defName:    'Player',
+      finger:     n => `${n} ${n === 1 ? 'finger' : 'fingers'}`,
+      go:         'GO!',
+      guessed:    'guessed:',
+      round:      n => `Round ${n}`,
+      single:     'Single round',
+      winSuffix:  ' wins!',
+    },
+    pt: {
+      audioOff:   'Silenciar áudio',
+      audioOn:    'Ativar áudio',
+      camDenied:  'Permissão da câmera negada — seguimos no modo clique.',
+      camDetected: l => `Detectado: ${l}`,
+      camFailed:  'Não foi possível iniciar a câmera — seguimos no modo clique.',
+      camHolding:  l => `Segurando ${l}…`,
+      camPickBetFirst:'Escolha sua aposta primeiro',
+      camSearching:'Procurando sua mão…',
+      camShowFingers: 'Mão detectada — mostre seus dedos',
+      camStarting:'Ativando a câmera…',
+      defName:    'Jogador',
+      finger:     n => `${n} ${n === 1 ? 'dedo' : 'dedos'}`,
+      go:         'JÁ!',
+      guessed:    'apostou:',
+      round:      n => `Rodada ${n}`,
+      single:     'Tentativa única',
+      winSuffix:  ' vence!',
+    },
+  };
+  const L = (window.HGA && HGA.i18n) || _L_FALLBACK[_lang] || _L_FALLBACK.es;   // shared ES/EN/PT strings (analytics.js)
+  /* Sentences specific to this screen */
+  const T = {
+    es: {
+      youHit: t => `✅ ¡Acertaste! La suma era ${t}`,
+      cpuHit: t => `❌ ¡La CPU acertó! La suma era ${t}`,
+      drawBoth: t => `🤝 ¡Empate! Los dos acertaron — suma ${t}`,
+      drawNone: t => `🤝 ¡Empate! Nadie acertó — suma ${t}`,
+      goWin: '¡Tus dedos no mienten! La CPU no pudo con tu instinto.',
+      goLoss: n => `${n} tendrá que mejorar su Morra. ¿Revancha?`,
+    },
+    en: {
+      youHit: t => `✅ You got it! The total was ${t}`,
+      cpuHit: t => `❌ The CPU got it! The total was ${t}`,
+      drawBoth: t => `🤝 Draw! Both guessed right — total ${t}`,
+      drawNone: t => `🤝 Draw! Nobody guessed — total ${t}`,
+      goWin: 'Your fingers never lie! The CPU could not beat your instinct.',
+      goLoss: n => `${n} will have to improve their Morra. Rematch?`,
+    },
+    pt: {
+      youHit: t => `✅ Acertou! A soma era ${t}`,
+      cpuHit: t => `❌ A CPU acertou! A soma era ${t}`,
+      drawBoth: t => `🤝 Empate! Os dois acertaram — soma ${t}`,
+      drawNone: t => `🤝 Empate! Ninguém acertou — soma ${t}`,
+      goWin: 'Seus dedos não mentem! A CPU não resistiu ao seu instinto.',
+      goLoss: n => `${n} vai ter que melhorar na Morra. Revanche?`,
+    },
+  };
+  const i = T[_lang] || T.es;
+
   let transitioning    = false;
   let pendingFingers   = null;   // 1-5
   let pendingGuess     = null;   // 2-10
@@ -26,6 +117,13 @@
   /* ──────────── Utilities ──────────── */
 
   const $ = id => document.getElementById(id);
+
+  /* Camera-only elements. All six RPS/Morra vs-CPU pages (ES/EN/PT) now carry
+     the camera markup, but $cam() stays tolerant: if a stale or trimmed page
+     lacks one of these ids (#setup-cam-status, the click/camera pick cards,
+     the snapshot <img>), a detached stand-in keeps the reads/writes harmless
+     instead of throwing before the game starts. */
+  const $cam = id => document.getElementById(id) || document.createElement('div');
 
   function onceAnim(el, timeout = 500) {
     return new Promise(resolve => {
@@ -173,14 +271,14 @@
     setScoreDigit($('roll-player'), state.scores.player);
     setScoreDigit($('roll-cpu'),    state.scores.cpu);
     $('pick-round-badge').textContent =
-      state.mode === 'best-of-3' ? `Ronda ${state.round}` : 'Intento único';
+      state.mode === 'best-of-3' ? L.round(state.round) : L.single;
     resetPickSelections();
 
-    $('finger-pick-click').style.display  = inputMode === 'click'  ? '' : 'none';
-    $('finger-pick-camera').style.display = inputMode === 'camera' ? '' : 'none';
+    $cam('finger-pick-click').style.display  = inputMode === 'click'  ? '' : 'none';
+    $cam('finger-pick-camera').style.display = inputMode === 'camera' ? '' : 'none';
     $('btn-confirm').style.display        = inputMode === 'camera' ? 'none' : '';
     if (inputMode === 'camera') {
-      $('cam-status').textContent = 'Elegí tu apuesta primero';
+      $('cam-status').textContent = L.camPickBetFirst;
       $('cam-countdown').textContent = '';
       startCamUiLoop();
     }
@@ -209,7 +307,7 @@
         resetCamArm();
         $('cam-oval').classList.remove('detected');
         $('cam-countdown').textContent = '';
-        $('cam-status').textContent = 'Elegí tu apuesta primero';
+        $('cam-status').textContent = L.camPickBetFirst;
         camUiRaf = requestAnimationFrame(tick);
         return;
       }
@@ -231,19 +329,19 @@
       if (armCount) {
         const elapsed = now - armStartTime;
         if (elapsed >= HOLD_MS) {
-          $('cam-countdown').textContent = '¡YA!';
-          $('cam-status').textContent = `Detectando: ${armCount} dedo${armCount === 1 ? '' : 's'}`;
+          $('cam-countdown').textContent = L.go;
+          $('cam-status').textContent = L.camDetected(L.finger(armCount));
           capturing = true;
           finalizeCameraPick(armCount);
         } else {
           $('cam-countdown').textContent = String(Math.ceil((HOLD_MS - elapsed) / 1000));
-          $('cam-status').textContent = `Manteniendo ${armCount} dedo${armCount === 1 ? '' : 's'}…`;
+          $('cam-status').textContent = L.camHolding(L.finger(armCount));
         }
       } else {
         $('cam-countdown').textContent = '';
         $('cam-status').textContent = CameraGesture.hasDetection()
-          ? 'Mano detectada — mostrá tus dedos'
-          : 'Detectando mano…';
+          ? L.camShowFingers
+          : L.camSearching;
       }
 
       camUiRaf = requestAnimationFrame(tick);
@@ -283,7 +381,7 @@
     setScoreDigit($('res-roll-player'), prePlayer);
     setScoreDigit($('res-roll-cpu'),    preCpu);
     $('res-round-badge').textContent =
-      mode === 'best-of-3' ? `Ronda ${round}` : 'Intento único';
+      mode === 'best-of-3' ? L.round(round) : L.single;
 
     // Player block — hidden initially
     const playerBlock = $('res-player-block');
@@ -291,8 +389,8 @@
     playerBlock.style.opacity = '0';
     $('res-player-name').textContent  = player.name;
     $('res-player-num').textContent   = picks.playerFingers;
-    $('res-player-guess').textContent = `apostó: ${picks.playerGuess}`;
-    const snapImg = $('res-player-snap');
+    $('res-player-guess').textContent = `${L.guessed} ${picks.playerGuess}`;
+    const snapImg = $cam('res-player-snap');
     if (inputMode === 'camera' && lastSnapshot) {
       snapImg.src = lastSnapshot;
       snapImg.style.display = '';
@@ -356,7 +454,7 @@
     }
 
     // ¡YA!
-    countdown.textContent = '¡YA!';
+    countdown.textContent = L.go;
     countdown.classList.remove('countdown-pop');
     reflow(countdown);
     countdown.classList.add('countdown-pop');
@@ -367,7 +465,7 @@
     await new Promise(r => setTimeout(r, 150));
     cpuNum.classList.remove('cpu-flip-out');
     cpuNum.textContent = picks.cpuFingers;
-    $('res-cpu-guess').textContent = `apostó: ${picks.cpuGuess}`;
+    $('res-cpu-guess').textContent = `${L.guessed} ${picks.cpuGuess}`;
     reflow(cpuNum);
     cpuNum.classList.add('cpu-flip-in');
     await new Promise(r => setTimeout(r, 150));
@@ -391,19 +489,19 @@
     // 7. Banner
     const banner = $('result-banner');
     if (roundWinner === 'player') {
-      banner.textContent = `✅ ¡Acertaste! La suma era ${total}`;
+      banner.textContent = i.youHit(total);
       banner.classList.add('banner-win', 'show');
       GameAudio.playWin();
     } else if (roundWinner === 'cpu') {
-      banner.textContent = `❌ ¡La CPU acertó! La suma era ${total}`;
+      banner.textContent = i.cpuHit(total);
       banner.classList.add('banner-loss', 'show');
       GameAudio.playDraw();
     } else if (picks.playerGuess === total && picks.cpuGuess === total) {
-      banner.textContent = `🤝 ¡Empate! Los dos acertaron — suma ${total}`;
+      banner.textContent = i.drawBoth(total);
       banner.classList.add('banner-draw', 'show');
       GameAudio.playDraw();
     } else {
-      banner.textContent = `🤝 ¡Empate! Nadie acertó — suma ${total}`;
+      banner.textContent = i.drawNone(total);
       banner.classList.add('banner-draw', 'show');
       GameAudio.playDraw();
     }
@@ -431,16 +529,16 @@
       $('go-trophy').textContent     = '🏆';
       $('go-trophy').style.animation = '';
       typewriter($('go-winner-name'), player.name);
-      $('go-title-suffix').textContent = ' gana!';
-      $('go-subtitle').textContent     = '¡Tus dedos no mienten! La CPU no pudo con tu instinto.';
+      $('go-title-suffix').textContent = L.winSuffix;
+      $('go-subtitle').textContent     = i.goWin;
       spawnConfetti();
       GameAudio.playFanfare();
     } else {
       $('go-trophy').textContent     = '🤖';
       $('go-trophy').style.animation = '';
       typewriter($('go-winner-name'), 'CPU');
-      $('go-title-suffix').textContent = ' gana!';
-      $('go-subtitle').textContent     = `${player.name} tendrá que mejorar su Morra. ¿Revancha?`;
+      $('go-title-suffix').textContent = L.winSuffix;
+      $('go-subtitle').textContent     = i.goLoss(player.name);
       GameAudio.playGameDraw();
     }
 
@@ -469,18 +567,18 @@
   /* ──────────── Event Listeners ──────────── */
 
   $('btn-start').addEventListener('click', async () => {
-    const name = $('name-player').value.trim() || (_lang==='en'?'Player':_lang==='pt'?'Jogador':'Jugador');
+    const name = $('name-player').value.trim() || L.defName;
     const difficulty = document.querySelector('input[name=\"difficulty\"]:checked')?.value || 'medium';
     const mode = document.querySelector('input[name="mode"]:checked').value;
     const wantsCamera = document.querySelector('input[name="input-mode"]:checked')?.value === 'camera';
     const startBtn = $('btn-start');
-    const camStatus = $('setup-cam-status');
+    const camStatus = $cam('setup-cam-status');
     camStatus.classList.remove('err');
     camStatus.textContent = '';
 
     if (wantsCamera) {
       startBtn.disabled = true;
-      camStatus.textContent = 'Activando cámara…';
+      camStatus.textContent = L.camStarting;
       try {
         await CameraGesture.init($('cam-video'), $('cam-overlay'));
         inputMode = 'camera';
@@ -488,8 +586,8 @@
         console.error(err);
         camStatus.classList.add('err');
         camStatus.textContent = err.name === 'NotAllowedError'
-          ? 'Permiso de cámara denegado — seguimos con el modo click.'
-          : 'No se pudo iniciar la cámara — seguimos con el modo click.';
+          ? L.camDenied
+          : L.camFailed;
         inputMode = 'click';
         await new Promise(r => setTimeout(r, 1400));
       }
@@ -576,8 +674,8 @@
     if (transitioning) return;
     if (inputMode === 'camera') { CameraGesture.stop(); stopCamUiLoop(); }
     GameMorraCPU.newGame();
-    $('setup-cam-status').textContent = '';
-    $('setup-cam-status').classList.remove('err');
+    $cam('setup-cam-status').textContent = '';
+    $cam('setup-cam-status').classList.remove('err');
     goTo('setup', 'back');
   });
 
@@ -598,8 +696,8 @@
     $('confetti-container').innerHTML = '';
     $('session-stats').style.display  = 'none';
     GameMorraCPU.newGame();
-    $('setup-cam-status').textContent = '';
-    $('setup-cam-status').classList.remove('err');
+    $cam('setup-cam-status').textContent = '';
+    $cam('setup-cam-status').classList.remove('err');
     goTo('setup', 'back');
   });
 
@@ -607,8 +705,8 @@
     const muted = GameAudio.toggle();
     HGA.audioToggle(muted);
     $('btn-mute').textContent = muted ? '🔇' : '🔊';
-    $('btn-mute').setAttribute('aria-label', muted ? 'Activar audio' : 'Silenciar audio');
-    $('btn-mute').title = muted ? 'Activar audio' : 'Silenciar audio';
+    $('btn-mute').setAttribute('aria-label', muted ? L.audioOn : L.audioOff);
+    $('btn-mute').title = muted ? L.audioOn : L.audioOff;
   });
 
 })();

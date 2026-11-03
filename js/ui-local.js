@@ -3,6 +3,68 @@
    Depends on: window.Game, window.GameAudio
 ═══════════════════════════════════════════════════════════ */
 (() => {
+  const _lang = (document.documentElement.lang || 'es').slice(0, 2);
+  /* Fallback for a stale cached analytics.js that predates HGA.i18n: without it
+     "Play!" would throw. Only the keys this file uses. */
+  const _L_FALLBACK = {
+    es: {
+      audioOff:   'Silenciar audio',
+      audioOn:    'Activar audio',
+      defP1:      'Jugador 1',
+      defP2:      'Jugador 2',
+      drawRound:  '🤝 ¡Empate! Nadie anota punto.',
+      drawTitle:  '¡Empate!',
+      pickName: { rock: 'Piedra', paper: 'Papel', scissors: 'Tijeras' },
+      round:      n => `Ronda ${n}`,
+      single:     'Intento único',
+      winRound:   name => `🎉 ¡${name} gana la ronda!`,
+      winSuffix:  ' gana!',
+    },
+    en: {
+      audioOff:   'Mute audio',
+      audioOn:    'Turn audio on',
+      defP1:      'Player 1',
+      defP2:      'Player 2',
+      drawRound:  '🤝 Draw! Nobody scores.',
+      drawTitle:  'Draw!',
+      pickName: { rock: 'Rock', paper: 'Paper', scissors: 'Scissors' },
+      round:      n => `Round ${n}`,
+      single:     'Single round',
+      winRound:   name => `🎉 ${name} wins the round!`,
+      winSuffix:  ' wins!',
+    },
+    pt: {
+      audioOff:   'Silenciar áudio',
+      audioOn:    'Ativar áudio',
+      defP1:      'Jogador 1',
+      defP2:      'Jogador 2',
+      drawRound:  '🤝 Empate! Ninguém pontua.',
+      drawTitle:  'Empate!',
+      pickName: { rock: 'Pedra', paper: 'Papel', scissors: 'Tesoura' },
+      round:      n => `Rodada ${n}`,
+      single:     'Tentativa única',
+      winRound:   name => `🎉 ${name} vence a rodada!`,
+      winSuffix:  ' vence!',
+    },
+  };
+  const L = (window.HGA && HGA.i18n) || _L_FALLBACK[_lang] || _L_FALLBACK.es;   // shared ES/EN/PT strings (analytics.js)
+  /* Sentences specific to this screen */
+  const T = {
+    es: {
+      drawSub: 'Ningún jugador pudo imponerse.',
+      winSub: loser => `${loser} tendrá que practicar más. ¿Revancha?`,
+    },
+    en: {
+      drawSub: 'Neither player could get the upper hand.',
+      winSub: loser => `${loser} will have to practise more. Rematch?`,
+    },
+    pt: {
+      drawSub: 'Nenhum jogador conseguiu se impor.',
+      winSub: loser => `${loser} vai ter que treinar mais. Revanche?`,
+    },
+  };
+  const i = T[_lang] || T.es;
+
   /* ──────────── State ──────────── */
   let transitioning = false;
   let pickingPlayer = 'p1';
@@ -190,7 +252,7 @@
     setScoreDigit($('roll-p1'), state.scores.p1);
     setScoreDigit($('roll-p2'), state.scores.p2);
     $('pick-round-badge').textContent =
-      state.mode === 'best-of-3' ? `Ronda ${state.round}` : 'Intento único';
+      state.mode === 'best-of-3' ? L.round(state.round) : L.single;
 
     $('turn-name').textContent   = player;
     $('turn-avatar').textContent = player.substring(0, 2).toUpperCase();
@@ -221,7 +283,7 @@
     setScoreDigit($('res-roll-p1'), preP1);
     setScoreDigit($('res-roll-p2'), preP2);
     $('res-round-badge').textContent =
-      mode === 'best-of-3' ? `Ronda ${round}` : 'Intento único';
+      mode === 'best-of-3' ? L.round(round) : L.single;
 
     // Picks — hidden initially; animated in by animateResult
     ['res-p1-block', 'res-p2-block'].forEach(id => {
@@ -232,10 +294,10 @@
 
     $('res-p1-name').textContent  = players.p1;
     $('res-p1-emoji').textContent = meta[picks.p1].emoji;
-    $('res-p1-label').textContent = meta[picks.p1].label;
+    $('res-p1-label').textContent = L.pickName[picks.p1];
     $('res-p2-name').textContent  = players.p2;
     $('res-p2-emoji').textContent = meta[picks.p2].emoji;
-    $('res-p2-label').textContent = meta[picks.p2].label;
+    $('res-p2-label').textContent = L.pickName[picks.p2];
 
     // Banner — hidden initially
     const banner = $('result-banner');
@@ -268,11 +330,11 @@
     // 4. Banner reveal
     const banner = $('result-banner');
     if (roundWinner === 'draw') {
-      banner.textContent = '🤝 ¡Empate! Nadie anota punto.';
+      banner.textContent = L.drawRound;
       banner.classList.add('banner-draw', 'show');
       GameAudio.playDraw();
     } else {
-      banner.textContent = `🎉 ¡${players[roundWinner]} gana la ronda!`;
+      banner.textContent = L.winRound(players[roundWinner]);
       banner.classList.add('banner-win', 'show');
       GameAudio.playWin();
     }
@@ -297,17 +359,17 @@
     if (matchWinner === 'draw') {
       $('go-trophy').textContent       = '🤝';
       $('go-trophy').style.animation   = 'shakeX 0.6s ease-in-out';
-      typewriter($('go-winner-name'), '¡Empate!');
+      typewriter($('go-winner-name'), L.drawTitle);
       $('go-title-suffix').textContent = '';
-      $('go-subtitle').textContent     = 'Ningún jugador pudo imponerse.';
+      $('go-subtitle').textContent     = i.drawSub;
       GameAudio.playGameDraw();
     } else {
       $('go-trophy').textContent       = '🏆';
       $('go-trophy').style.animation   = '';
       typewriter($('go-winner-name'), players[matchWinner]);
       const loser = matchWinner === 'p1' ? players.p2 : players.p1;
-      $('go-title-suffix').textContent = ' gana!';
-      $('go-subtitle').textContent     = `${loser} tendrá que practicar más. ¿Revancha?`;
+      $('go-title-suffix').textContent = L.winSuffix;
+      $('go-subtitle').textContent     = i.winSub(loser);
       spawnConfetti();
       GameAudio.playFanfare();
     }
@@ -321,8 +383,8 @@
   /* ──────────── Event Listeners ──────────── */
 
   $('btn-start').addEventListener('click', () => {
-    const p1   = $('name-p1').value.trim();
-    const p2   = $('name-p2').value.trim();
+    const p1   = $('name-p1').value.trim() || L.defP1;
+    const p2   = $('name-p2').value.trim() || L.defP2;
     const mode = document.querySelector('input[name="mode"]:checked').value;
     const state = Game.configure(p1, p2, mode);
     HGA.gameStart(mode);
@@ -418,8 +480,8 @@
     const muted = GameAudio.toggle();
     HGA.audioToggle(muted);
     $('btn-mute').textContent = muted ? '🔇' : '🔊';
-    $('btn-mute').setAttribute('aria-label', muted ? 'Activar audio' : 'Silenciar audio');
-    $('btn-mute').title = muted ? 'Activar audio' : 'Silenciar audio';
+    $('btn-mute').setAttribute('aria-label', muted ? L.audioOn : L.audioOff);
+    $('btn-mute').title = muted ? L.audioOn : L.audioOff;
   });
 
 })();

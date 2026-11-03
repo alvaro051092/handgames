@@ -19,6 +19,11 @@ window.CameraGesture = (() => {
   let octx           = null;
   let latestLandmarks = null;
   let ready          = false;
+  /* Every init()/stop() bumps this. An init() that finds the number changed
+     after an await was cancelled by stop() (or superseded by a newer init()):
+     it releases whatever it opened and returns without marking itself ready. */
+  let generation     = 0;
+  let cancelWait     = null;   // resolves the "waiting for video metadata" promise early
 
   /* ── Landmark geometry ── */
 
@@ -65,27 +70,44 @@ window.CameraGesture = (() => {
   /* ── Camera + model lifecycle ── */
 
   async function init(video, overlayCanvas) {
+    const gen = ++generation;
+    if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }   // never leave an older stream running
     videoEl   = video;
     overlayEl = overlayCanvas;
     octx      = overlayCanvas.getContext('2d');
 
-    stream = await navigator.mediaDevices.getUserMedia({
+    const s = await navigator.mediaDevices.getUserMedia({
       video: { facingMode: 'environment', width: { ideal: 640 }, height: { ideal: 480 } },
       audio: false,
     });
-    video.srcObject = stream;
-    await new Promise(resolve => { video.onloadedmetadata = resolve; });
-    overlayCanvas.width  = video.videoWidth;
-    overlayCanvas.height = video.videoHeight;
+    const release = () => { s.getTracks().forEach(t => t.stop()); if (stream === s) stream = null; };
 
-    if (!handLandmarker) {
-      const { HandLandmarker, FilesetResolver } = await import(VISION_PKG);
-      const vision = await FilesetResolver.forVisionTasks(VISION_WASM);
-      handLandmarker = await HandLandmarker.createFromOptions(vision, {
-        baseOptions: { modelAssetPath: MODEL_URL, delegate: 'GPU' },
-        runningMode: 'VIDEO',
-        numHands: 1,
-      });
+    /* From here the camera is ON. Any failure (metadata, model import, wasm,
+       WebGL delegate) or a cancel must switch it OFF again before returning
+       or throwing, otherwise the browser's camera indicator stays lit. */
+    try {
+      if (gen !== generation) { release(); return; }
+      stream = s;
+      video.srcObject = s;
+      await new Promise(resolve => { cancelWait = resolve; video.onloadedmetadata = resolve; });
+      cancelWait = null;
+      if (gen !== generation) { release(); return; }
+      overlayCanvas.width  = video.videoWidth;
+      overlayCanvas.height = video.videoHeight;
+
+      if (!handLandmarker) {
+        const { HandLandmarker, FilesetResolver } = await import(VISION_PKG);
+        const vision = await FilesetResolver.forVisionTasks(VISION_WASM);
+        handLandmarker = await HandLandmarker.createFromOptions(vision, {
+          baseOptions: { modelAssetPath: MODEL_URL, delegate: 'GPU' },
+          runningMode: 'VIDEO',
+          numHands: 1,
+        });
+        if (gen !== generation) { release(); return; }
+      }
+    } catch (err) {
+      release();
+      throw err;
     }
 
     ready = true;
@@ -104,11 +126,22 @@ window.CameraGesture = (() => {
     }
   }
 
-  function loop() {
+  /* detectForVideo() runs the model synchronously on the main thread
+     (~10-30 ms on phones). Doing that on every display frame (60-120 Hz)
+     starves click handlers and hurts INP; ~20 detections/s is plenty for a
+     gesture that has to be held steady for 3 s. */
+  const DETECT_INTERVAL_MS = 50;
+  let lastDetectAt = 0;
+
+  function loop(now) {
+    const t = typeof now === 'number' ? now : performance.now();
     if (videoEl && videoEl.readyState >= 2 && handLandmarker) {
-      const res = handLandmarker.detectForVideo(videoEl, performance.now());
-      latestLandmarks = (res.landmarks && res.landmarks[0]) || null;
-      drawSkeleton(latestLandmarks && !!classifyRPS(latestLandmarks));
+      if (t - lastDetectAt >= DETECT_INTERVAL_MS) {
+        lastDetectAt = t;
+        const res = handLandmarker.detectForVideo(videoEl, performance.now());
+        latestLandmarks = (res.landmarks && res.landmarks[0]) || null;
+        drawSkeleton(latestLandmarks && !!classifyRPS(latestLandmarks));
+      }
     } else {
       latestLandmarks = null;
     }
@@ -116,6 +149,8 @@ window.CameraGesture = (() => {
   }
 
   function stop() {
+    generation++;                       // cancels an init() that is still awaiting
+    if (cancelWait) { cancelWait(); cancelWait = null; }
     if (rafId) cancelAnimationFrame(rafId);
     rafId = null;
     if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
@@ -154,6 +189,7 @@ window.CameraGesture = (() => {
     countFingersCurrent,
     snapshotSquare,
     isReady:        () => ready,
+    isActive:       () => !!(stream && stream.active),
     hasDetection:   () => !!latestLandmarks,
   };
 })();

@@ -296,3 +296,33 @@ body {
   font-weight: 800;
   opacity: 1;
 }
+
+/* ═══════════════════════════ HG-UX: SHARED (every page) ═══════════════════════════ */
+/* No 300 ms tap delay / double-tap zoom on interactive elements (INP). */
+a, button, label, summary, [role="button"] { touch-action: manipulation; }
+
+/* Main-hub game cards: the whole card follows its call-to-action link
+   (js/hg-ux.js adds the class only to cards that contain a link). */
+.game-card.hg-card-link { cursor: pointer; }
+
+/* Local stats strip on the hubs (js/hg-ux.js; only rendered when there is data) */
+.hg-stats-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-2);
+  width: 100%;
+  max-width: 580px;
+  margin: 0 auto var(--sp-5);
+  padding: 0 var(--sp-4);
+}
+.hg-stats-chip {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--clr-text-muted);
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-full);
+  padding: var(--sp-1) var(--sp-3);
+  white-space: nowrap;
+}

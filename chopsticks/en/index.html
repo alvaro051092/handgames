@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" />
-  <title>Chopsticks Finger Game Online — Free, No Sign-Up | Hand Games</title>
-  <meta name="description" content="Play Chopsticks online free — the finger counting hand game. Add fingers to eliminate your opponent's hands. 3 modes: vs CPU, 2 players, Battle. No sign-up." />
+  <title>Chopsticks Game Online — Free Finger Game vs AI</title>
+  <meta name="description" content="Play Chopsticks, the finger hand game, online for free. Tap to add fingers and eliminate your opponent's hands — vs AI, 2 players or Battle. No sign-up." />
   <!-- Performance: preconnect to analytics/clarity origins -->
   <!-- PWA -->
   <link rel="manifest" href="/manifest.json" />
@@ -24,21 +24,21 @@
   <link rel="alternate" hreflang="x-default" href="https://handgames.app/chopsticks/" />
   <meta property="og:type"   content="website" />
   <meta property="og:url"    content="https://handgames.app/chopsticks/en/" />
-  <meta property="og:title"  content="Chopsticks Finger Game Online — Free, No Sign-Up | Hand Games" />
-  <meta property="og:description" content="Play Chopsticks online free. Add fingers to eliminate your opponent's hands. 3 modes: vs CPU, 2 players, Battle. No sign-up." />
+  <meta property="og:title"  content="Chopsticks Game Online — Free Finger Game vs AI" />
+  <meta property="og:description" content="Play Chopsticks online free. Add fingers to eliminate your opponent's hands — vs AI, 2 players or Battle. No sign-up." />
   <meta property="og:image"  content="https://handgames.app/assets/og-image.png" />
   <meta property="og:site_name"  content="Hand Games" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card"  content="summary_large_image" />
-  <meta name="twitter:title" content="Chopsticks Finger Game Online — Free, No Sign-Up | Hand Games" />
-  <meta name="twitter:description" content="Play Chopsticks online free. Add fingers to eliminate your opponent's hands. No sign-up." />
+  <meta name="twitter:title" content="Chopsticks Game Online — Free Finger Game vs AI" />
+  <meta name="twitter:description" content="Play Chopsticks online free vs AI. Add fingers, eliminate hands. No sign-up." />
   <meta name="twitter:image" content="https://handgames.app/assets/og-image.png" />
   <link rel="icon" type="image/x-icon"  href="/assets/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
   <link rel="stylesheet" href="/css/tokens.css?v=3" />
-  <link rel="stylesheet" href="/css/layout.css?v=7" />
+  <link rel="stylesheet" href="/css/layout.css?v=20261024" />
   <link rel="stylesheet" href="/css/animations.css?v=3" />
   <style>
     .mode-hub{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:var(--sp-8) var(--sp-4);}
@@ -87,9 +87,9 @@
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Chopsticks",
-    "alternateName": ["Chopsticks Finger Game", "Palillos", "Pauzinhos"],
+    "alternateName": ["Chopsticks Game", "Chopsticks Finger Game", "Chopsticks Hand Game", "Palillos", "Pauzinhos"],
     "url": "https://handgames.app/chopsticks/en/",
-    "description": "Chopsticks online game. Add fingers to eliminate your opponent's hands. Three modes: vs CPU, 2 players and Battle.",
+    "description": "Chopsticks game online: the finger hand game. Add fingers to eliminate your opponent's hands. Play vs AI, 2 players or Battle, free.",
     "applicationCategory": "GameApplication",
     "operatingSystem": "Web",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -107,7 +107,15 @@
         "name": "How do you play Chopsticks?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Each player starts with 1 finger on each hand. On your turn, tap one of your hands against an opponent's hand to add your fingers to theirs. A hand that reaches exactly 5 fingers is eliminated. Eliminate both of your opponent's hands to win."
+          "text": "Each player starts with 1 finger on each hand. On your turn, tap one of your hands against an opponent's hand to add your fingers to theirs. A hand that reaches 5 or more fingers is eliminated. Eliminate both of your opponent's hands to win."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you play Chopsticks online against the computer?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Choose vs CPU to play Chopsticks against the AI at easy, medium or hard difficulty, in a single game or best of 3. You can also play two players on one device, or watch the CPU play both sides in Battle mode. It is free and needs no sign-up."
         }
       },
       {
@@ -115,7 +123,7 @@
         "name": "What is the split in Chopsticks?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Instead of attacking, you can redistribute fingers between your own two hands. The new distribution must differ from the current one — you cannot skip your turn by splitting back to the same state."
+          "text": "In many versions you can use your turn to redistribute fingers between your own two hands, as long as the new arrangement differs from the current one. The online game here uses the basic tap-only rules, so there is no split; the split is explained in our complete Chopsticks guide."
         }
       },
       {
@@ -123,7 +131,15 @@
         "name": "How do you win at Chopsticks?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Force both of your opponent's hands to reach exactly 5 fingers. A hand at 5 is eliminated (counts as 0). Eliminate both hands to win the game."
+          "text": "Force both of your opponent's hands to reach 5 or more fingers. A hand that reaches 5 is eliminated and counts as 0. Eliminate both hands to win the game."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there a winning strategy in Chopsticks?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "With the tap-only rules used here (both hands start at 1 finger and 5 or more eliminates a hand), the player who moves second can always force a win within 8 turns in total, so the first player needs the opponent to make a mistake. In practice: look for eliminations first, protect hands with 4 fingers, and avoid giving the opponent a hand that can take out yours."
         }
       },
       {
@@ -147,6 +163,7 @@
 
   <nav class="top-nav">
     <a href="/en/" class="back-link">← Hand Games</a>
+    <a href="/en/blog/" class="back-link">📖 Guides</a>
     <div class="lang-nav">
       <a href="/chopsticks/" class="lang-link">ES</a>
       <span class="lang-link active">EN</span>
@@ -156,8 +173,8 @@
 
   <header class="mode-header">
     <span class="mode-logo" aria-hidden="true">🖖</span>
-    <h1 class="mode-title">Chopsticks</h1>
-    <p class="mode-subtitle">Add fingers · Eliminate hands · Pure strategy</p>
+    <h1 class="mode-title">Chopsticks Game Online</h1>
+    <p class="mode-subtitle">The finger hand game · Add fingers · Eliminate hands · Play vs AI free</p>
   </header>
 
   <main>
@@ -194,43 +211,49 @@
   </main>
 
   <section class="rules-section" aria-labelledby="rules-heading">
-    <h2 id="rules-heading">How to play Chopsticks</h2>
+    <h2 id="rules-heading">How to play Chopsticks (the finger hand game)</h2>
+    <p>Chopsticks is a two-player finger game, also known as <em>Sticks</em> or <em>finger chess</em>. Each player has two hands that start with one finger up, and on every turn you tap one of your hands against one of your opponent's to add fingers to it. Here you can play Chopsticks online for free against the AI (easy, medium or hard), against a friend on the same device, or watch the CPU play both sides — no sign-up needed.</p>
     <h3>How it works</h3>
     <ul class="rules-list">
       <li>Each player starts with 1 finger on each hand</li>
-      <li>On your turn, tap one of your hands against your opponent's</li>
-      <li>Add your fingers to theirs — if it reaches 5, that hand is out</li>
-      <li>Eliminate both hands to win</li>
+      <li>On your turn, tap one of your hands against one of your opponent's hands</li>
+      <li>Your fingers are added to theirs — a hand that reaches 5 or more is out (it counts as 0)</li>
+      <li>Eliminate both of your opponent's hands to win</li>
     </ul>
-    <h3>The split</h3>
-    <p>Instead of attacking, you can redistribute fingers between your own two hands. The new distribution must differ from the current one — you can't skip your turn.</p>
+    <h3>The split (classic rule)</h3>
+    <p>Many versions also let you spend a turn redistributing fingers between your own two hands, as long as the new arrangement is different. The online game here uses the basic tap-only rules, with no split, so every turn is a tap — quick to learn and quick to play. Want the full split rules and when to use them? Read our <a href="/en/blog/how-to-play-chopsticks/" style="color:var(--clr-primary-light);font-weight:700;">complete Chopsticks guide: rules, strategy and variants</a>.</p>
     <h3>Objective</h3>
-    <p>Force your opponent's hands to exactly 5 to eliminate them. A hand at 5 is out and counts as 0. Eliminate both hands to win.</p>
-
-    <h3>Strategy</h3>
-    <p>The split is the key to advanced play. If your hand has 4 fingers and your opponent is about to tap it, split 4+1 into 2+3 — you survive with both hands active. Also watch for parity traps: keep your hands on odd numbers so your opponent can't reach 5 in one tap from an even number.</p>
-    <p>Common beginner mistake: ignoring the split entirely and just attacking. Intermediate players use splits defensively; advanced players use them offensively to create unavoidable eliminations.</p>
-
+    <p>Force both of your opponent's hands to 5 or more fingers. A hand that reaches 5 is out and counts as 0; when both are out, you win. Play a single game or best of 3.</p>
+    <h3>Strategy tips</h3>
+    <ul class="rules-list">
+      <li><strong>Check for a kill every turn.</strong> Before every tap, see whether any of your hands plus any of theirs makes 5 or more, then check what the move leaves you exposed to.</li>
+      <li><strong>Watch your 4s.</strong> A hand with 4 fingers is out as soon as any opposing hand taps it. A hand with 1 finger is the safest: only a 4 can finish it.</li>
+      <li><strong>Don't feed their big hand.</strong> Tapping adds your fingers to their hand, which can make it strong enough to eliminate one of yours next turn. Check the total you hand over before you tap.</li>
+      <li><strong>One hand down, half the threats.</strong> Once a hand is eliminated your opponent can only attack with the other one, which makes their next moves easy to predict.</li>
+    </ul>
+    <h3>Playing Chopsticks vs the AI</h3>
+    <p>On Easy the CPU plays random moves; on Medium and Hard it eliminates one of your hands whenever it can and otherwise plays at random. A fun fact: with these tap-only rules the game is solved — the player who moves second can always force a win in at most 8 turns in total. Since you move first against the AI, you need it to slip, so keep your hands out of reach and punish every mistake.</p>
     <h3>About the game</h3>
-    <p>Chopsticks (also called <em>finger chess</em>, <em>split</em>, or <em>sticks</em>) is a hand game played worldwide in schoolyards and playgrounds. Unlike Rock Paper Scissors, it's a pure strategy game — no luck involved. Both players have complete information at all times, making it similar in depth to Nim or Connect Four.</p>
+    <p>Chopsticks (also called <em>finger chess</em> or <em>sticks</em>) is a hand game played worldwide in schoolyards and playgrounds. Unlike Rock Paper Scissors, it's a pure strategy game — no luck involved. Both players have complete information at all times.</p>
   </section>
 
   <section style="max-width:680px;margin:var(--sp-10) auto 0;border-top:1px solid var(--clr-border);padding-top:var(--sp-7);">
-    <p style="font-size:var(--text-xs);font-weight:700;color:var(--clr-text-subtle);text-transform:uppercase;letter-spacing:.6px;margin:0 0 var(--sp-4);">Related articles</p>
+    <h2 style="font-size:var(--text-xs);font-weight:700;color:var(--clr-text-subtle);text-transform:uppercase;letter-spacing:.6px;margin:0 0 var(--sp-4);line-height:1.4;">Related articles</h2>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:var(--sp-3);">
       <a href="/en/blog/how-to-play-chopsticks/" style="display:block;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-4);text-decoration:none;color:var(--clr-text-muted);font-size:var(--text-sm);">
-        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">Full Chopsticks Guide</strong>
-        Rules, strategy, variants — everything you need to know
+        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">How to play Chopsticks: rules &amp; strategy</strong>
+        The finger game explained: rules, splitting and winning tactics
       </a>
-      <a href="/en/blog/history-rock-paper-scissors/" style="display:block;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-4);text-decoration:none;color:var(--clr-text-muted);font-size:var(--text-sm);">
-        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">History of Rock Paper Scissors</strong>
-        2,000 years of the world's most famous hand game
+      <a href="/en/blog/odds-and-evens-rules/" style="display:block;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-4);text-decoration:none;color:var(--clr-text-muted);font-size:var(--text-sm);">
+        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">Odds and Evens: rules &amp; how to win</strong>
+        Rules, history from ancient Rome and strategy for the classic finger game
       </a>
       <a href="/en/blog/how-to-play-morra/" style="display:block;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-4);text-decoration:none;color:var(--clr-text-muted);font-size:var(--text-sm);">
-        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">How to play Morra</strong>
-        The world's oldest hand game
+        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">How to play Morra: rules &amp; history</strong>
+        The world's oldest hand game, and why it was banned
       </a>
     </div>
+    <a href="/en/blog/" style="display:inline-block;margin-top:var(--sp-4);font-size:var(--text-sm);font-weight:700;color:var(--clr-primary-light);text-decoration:none;">See all guides →</a>
   </section>
 
 
@@ -239,15 +262,23 @@
     <h2 id="faq-heading">Frequently Asked Questions</h2>
     <details class="faq-item">
       <summary>How do you play Chopsticks?</summary>
-      <p>Each player starts with 1 finger on each hand. On your turn, tap one of your hands against an opponent's hand to add your fingers to theirs. A hand that reaches exactly 5 fingers is eliminated. Eliminate both of your opponent's hands to win.</p>
+      <p>Each player starts with 1 finger on each hand. On your turn, tap one of your hands against an opponent's hand to add your fingers to theirs. A hand that reaches 5 or more fingers is eliminated. Eliminate both of your opponent's hands to win.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Can you play Chopsticks online against the computer?</summary>
+      <p>Yes. Choose vs CPU to play Chopsticks against the AI at easy, medium or hard difficulty, in a single game or best of 3. You can also play two players on one device, or watch the CPU play both sides in Battle mode. It is free and needs no sign-up.</p>
     </details>
     <details class="faq-item">
       <summary>What is the split in Chopsticks?</summary>
-      <p>Instead of attacking, you can redistribute fingers between your own two hands. The new distribution must differ from the current one — you cannot skip your turn by splitting back to the same state.</p>
+      <p>In many versions you can use your turn to redistribute fingers between your own two hands, as long as the new arrangement differs from the current one. The online game here uses the basic tap-only rules, so there is no split; the split is explained in our complete Chopsticks guide.</p>
     </details>
     <details class="faq-item">
       <summary>How do you win at Chopsticks?</summary>
-      <p>Force both of your opponent's hands to reach exactly 5 fingers. A hand at 5 is eliminated (counts as 0). Eliminate both hands to win the game.</p>
+      <p>Force both of your opponent's hands to reach 5 or more fingers. A hand that reaches 5 is eliminated and counts as 0. Eliminate both hands to win the game.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Is there a winning strategy in Chopsticks?</summary>
+      <p>With the tap-only rules used here (both hands start at 1 finger and 5 or more eliminates a hand), the player who moves second can always force a win within 8 turns in total, so the first player needs the opponent to make a mistake. In practice: look for eliminations first, protect hands with 4 fingers, and avoid giving the opponent a hand that can take out yours.</p>
     </details>
     <details class="faq-item">
       <summary>Is Chopsticks free to play online?</summary>
@@ -269,6 +300,6 @@
     handgames.app &mdash; Free Chopsticks
   </footer>
 
-  <script src="/js/analytics.js?v=2"></script>
+  <script src="/js/analytics.js?v=20261024"></script>
 </body>
 </html>

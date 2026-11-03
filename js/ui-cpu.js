@@ -4,7 +4,98 @@
 ═══════════════════════════════════════════════════════════ */
 (() => {
   /* ──────────── State ──────────── */
-  const _lang = document.documentElement.lang || 'es';
+  const _lang = (document.documentElement.lang || 'es').slice(0, 2);
+  /* Fallback for a stale cached analytics.js that predates HGA.i18n: without it
+     "Play!" would throw. Only the keys this file uses. */
+  const _L_FALLBACK = {
+    es: {
+      audioOff:   'Silenciar audio',
+      audioOn:    'Activar audio',
+      camAdjust:  'Mano detectada — ajustá el gesto',
+      camDenied:  'Permiso de cámara denegado — seguimos con el modo click.',
+      camDetected: l => `Detectando: ${l}`,
+      camFailed:  'No se pudo iniciar la cámara — seguimos con el modo click.',
+      camHolding:  l => `Manteniendo ${l}…`,
+      camSearching:'Detectando mano…',
+      camStarting:'Activando cámara…',
+      cpuWinRound:'🤖 ¡CPU gana la ronda!',
+      defName:    'Jugador',
+      drawRound:  '🤝 ¡Empate! Nadie anota punto.',
+      drawTitle:  '¡Empate!',
+      go:         '¡YA!',
+      pick: { rock: '🪨 Piedra', paper: '📄 Papel', scissors: '✂️ Tijeras' },
+      pickName: { rock: 'Piedra', paper: 'Papel', scissors: 'Tijeras' },
+      round:      n => `Ronda ${n}`,
+      single:     'Intento único',
+      winRound:   name => `🎉 ¡${name} gana la ronda!`,
+      winSuffix:  ' gana!',
+    },
+    en: {
+      audioOff:   'Mute audio',
+      audioOn:    'Turn audio on',
+      camAdjust:  'Hand detected — adjust your gesture',
+      camDenied:  'Camera permission denied — continuing in click mode.',
+      camDetected: l => `Detected: ${l}`,
+      camFailed:  'Could not start the camera — continuing in click mode.',
+      camHolding:  l => `Holding ${l}…`,
+      camSearching:'Looking for your hand…',
+      camStarting:'Starting camera…',
+      cpuWinRound:'🤖 CPU wins the round!',
+      defName:    'Player',
+      drawRound:  '🤝 Draw! Nobody scores.',
+      drawTitle:  'Draw!',
+      go:         'GO!',
+      pick: { rock: '🪨 Rock', paper: '📄 Paper', scissors: '✂️ Scissors' },
+      pickName: { rock: 'Rock', paper: 'Paper', scissors: 'Scissors' },
+      round:      n => `Round ${n}`,
+      single:     'Single round',
+      winRound:   name => `🎉 ${name} wins the round!`,
+      winSuffix:  ' wins!',
+    },
+    pt: {
+      audioOff:   'Silenciar áudio',
+      audioOn:    'Ativar áudio',
+      camAdjust:  'Mão detectada — ajuste o gesto',
+      camDenied:  'Permissão da câmera negada — seguimos no modo clique.',
+      camDetected: l => `Detectado: ${l}`,
+      camFailed:  'Não foi possível iniciar a câmera — seguimos no modo clique.',
+      camHolding:  l => `Segurando ${l}…`,
+      camSearching:'Procurando sua mão…',
+      camStarting:'Ativando a câmera…',
+      cpuWinRound:'🤖 A CPU vence a rodada!',
+      defName:    'Jogador',
+      drawRound:  '🤝 Empate! Ninguém pontua.',
+      drawTitle:  'Empate!',
+      go:         'JÁ!',
+      pick: { rock: '🪨 Pedra', paper: '📄 Papel', scissors: '✂️ Tesoura' },
+      pickName: { rock: 'Pedra', paper: 'Papel', scissors: 'Tesoura' },
+      round:      n => `Rodada ${n}`,
+      single:     'Tentativa única',
+      winRound:   name => `🎉 ${name} vence a rodada!`,
+      winSuffix:  ' vence!',
+    },
+  };
+  const L = (window.HGA && HGA.i18n) || _L_FALLBACK[_lang] || _L_FALLBACK.es;   // shared ES/EN/PT strings (analytics.js)
+
+  /* Sentences specific to this screen */
+  const T = {
+    es: {
+      draw:    'Nadie pudo imponerse esta vez.',
+      win:     '¡Bien jugado! La CPU no tuvo oportunidad.',
+      loss:    n => `${n} tendrá que practicar más. ¿Revancha?`,
+    },
+    en: {
+      draw:    'Nobody could get the upper hand this time.',
+      win:     'Well played! The CPU never stood a chance.',
+      loss:    n => `${n} will have to practise more. Rematch?`,
+    },
+    pt: {
+      draw:    'Ninguém conseguiu se impor desta vez.',
+      win:     'Muito bem! A CPU não teve chance.',
+      loss:    n => `${n} vai ter que treinar mais. Revanche?`,
+    },
+  };
+  const i = T[_lang] || T.es;
   let transitioning = false;
   let inputMode = 'click'; // 'click' | 'camera'
   let camUiRaf = null;
@@ -23,6 +114,13 @@
   /* ──────────── Utilities ──────────── */
 
   const $ = id => document.getElementById(id);
+
+  /* Camera-only elements. All six RPS/Morra vs-CPU pages (ES/EN/PT) now carry
+     the camera markup, but $cam() stays tolerant: if a stale or trimmed page
+     lacks one of these ids (#setup-cam-status, the click/camera pick cards,
+     the snapshot <img>), a detached stand-in keeps the reads/writes harmless
+     instead of throwing before the game starts. */
+  const $cam = id => document.getElementById(id) || document.createElement('div');
 
   function onceAnim(el, timeout = 500) {
     return new Promise(resolve => {
@@ -161,17 +259,17 @@
     setScoreDigit($('roll-player'), state.scores.player);
     setScoreDigit($('roll-cpu'),    state.scores.cpu);
     $('pick-round-badge').textContent =
-      state.mode === 'best-of-3' ? `Ronda ${state.round}` : 'Intento único';
+      state.mode === 'best-of-3' ? L.round(state.round) : L.single;
 
     $('pick-buttons').querySelectorAll('.btn-pick').forEach(b => {
       b.disabled = false;
       b.classList.remove('selected', 'bouncing');
     });
 
-    $('pick-card-click').style.display  = inputMode === 'click'  ? '' : 'none';
-    $('pick-card-camera').style.display = inputMode === 'camera' ? '' : 'none';
+    $cam('pick-card-click').style.display  = inputMode === 'click'  ? '' : 'none';
+    $cam('pick-card-camera').style.display = inputMode === 'camera' ? '' : 'none';
     if (inputMode === 'camera') {
-      $('cam-status').textContent = 'Detectando mano…';
+      $('cam-status').textContent = L.camSearching;
       $('cam-countdown').textContent = '';
       startCamUiLoop();
     }
@@ -212,19 +310,19 @@
       if (armGesture) {
         const elapsed = now - armStartTime;
         if (elapsed >= HOLD_MS) {
-          $('cam-countdown').textContent = '¡YA!';
-          $('cam-status').textContent = `Detectando: ${pickLabel(armGesture)}`;
+          $('cam-countdown').textContent = L.go;
+          $('cam-status').textContent = L.camDetected(pickLabel(armGesture));
           capturing = true;
           finalizeCameraPick(armGesture);
         } else {
           $('cam-countdown').textContent = String(Math.ceil((HOLD_MS - elapsed) / 1000));
-          $('cam-status').textContent = `Manteniendo ${pickLabel(armGesture)}…`;
+          $('cam-status').textContent = L.camHolding(pickLabel(armGesture));
         }
       } else {
         $('cam-countdown').textContent = '';
         $('cam-status').textContent = CameraGesture.hasDetection()
-          ? 'Mano detectada — ajustá el gesto'
-          : 'Detectando mano…';
+          ? L.camAdjust
+          : L.camSearching;
       }
 
       camUiRaf = requestAnimationFrame(tick);
@@ -238,7 +336,7 @@
   }
 
   function pickLabel(g) {
-    return g === 'rock' ? '🪨 Piedra' : g === 'paper' ? '📄 Papel' : '✌️ Tijeras';
+    return L.pick[g] || g;
   }
 
   async function finalizeCameraPick(pick) {
@@ -267,7 +365,7 @@
     setScoreDigit($('res-roll-player'), prePlayer);
     setScoreDigit($('res-roll-cpu'),    preCpu);
     $('res-round-badge').textContent =
-      mode === 'best-of-3' ? `Ronda ${round}` : 'Intento único';
+      mode === 'best-of-3' ? L.round(round) : L.single;
 
     // Player block — hidden; animated in by animateCPUReveal
     const playerBlock = $('res-player-block');
@@ -275,8 +373,8 @@
     playerBlock.style.opacity = '0';
     $('res-player-name').textContent  = player.name;
     $('res-player-emoji').textContent = meta[picks.player].emoji;
-    $('res-player-label').textContent = meta[picks.player].label;
-    const snapImg = $('res-player-snap');
+    $('res-player-label').textContent = L.pickName[picks.player];
+    const snapImg = $cam('res-player-snap');
     if (inputMode === 'camera' && lastSnapshot) {
       snapImg.src = lastSnapshot;
       snapImg.style.display = '';
@@ -334,7 +432,7 @@
     }
 
     // ¡YA!
-    countdown.textContent = '¡YA!';
+    countdown.textContent = L.go;
     countdown.classList.remove('countdown-pop');
     reflow(countdown);
     countdown.classList.add('countdown-pop');
@@ -345,7 +443,7 @@
     await new Promise(r => setTimeout(r, 150));
     cpuEmoji.classList.remove('cpu-flip-out');
     cpuEmoji.textContent = meta[state.picks.cpu].emoji;
-    $('res-cpu-label').textContent = meta[state.picks.cpu].label;
+    $('res-cpu-label').textContent = L.pickName[state.picks.cpu];
     reflow(cpuEmoji);
     cpuEmoji.classList.add('cpu-flip-in');
     await new Promise(r => setTimeout(r, 150));
@@ -361,15 +459,15 @@
     // 6. Banner reveal
     const banner = $('result-banner');
     if (state.roundWinner === 'draw') {
-      banner.textContent = '🤝 ¡Empate! Nadie anota punto.';
+      banner.textContent = L.drawRound;
       banner.classList.add('banner-draw', 'show');
       GameAudio.playDraw();
     } else if (state.roundWinner === 'player') {
-      banner.textContent = `🎉 ¡${state.player.name} gana la ronda!`;
+      banner.textContent = L.winRound(state.player.name);
       banner.classList.add('banner-win', 'show');
       GameAudio.playWin();
     } else {
-      banner.textContent = '🤖 ¡CPU gana la ronda!';
+      banner.textContent = L.cpuWinRound;
       banner.classList.add('banner-loss', 'show');
       GameAudio.playDraw();
     }
@@ -394,24 +492,24 @@
     if (matchWinner === 'draw') {
       $('go-trophy').textContent     = '🤝';
       $('go-trophy').style.animation = 'shakeX 0.6s ease-in-out';
-      typewriter($('go-winner-name'), '¡Empate!');
+      typewriter($('go-winner-name'), L.drawTitle);
       $('go-title-suffix').textContent = '';
-      $('go-subtitle').textContent     = 'Nadie pudo imponerse esta vez.';
+      $('go-subtitle').textContent     = i.draw;
       GameAudio.playGameDraw();
     } else if (matchWinner === 'player') {
       $('go-trophy').textContent     = '🏆';
       $('go-trophy').style.animation = '';
       typewriter($('go-winner-name'), player.name);
-      $('go-title-suffix').textContent = ' gana!';
-      $('go-subtitle').textContent     = '¡Bien jugado! La CPU no tuvo oportunidad.';
+      $('go-title-suffix').textContent = L.winSuffix;
+      $('go-subtitle').textContent     = i.win;
       spawnConfetti();
       GameAudio.playFanfare();
     } else {
       $('go-trophy').textContent     = '🤖';
       $('go-trophy').style.animation = '';
       typewriter($('go-winner-name'), 'CPU');
-      $('go-title-suffix').textContent = ' gana!';
-      $('go-subtitle').textContent     = `${player.name} tendrá que practicar más. ¿Revancha?`;
+      $('go-title-suffix').textContent = L.winSuffix;
+      $('go-subtitle').textContent     = i.loss(player.name);
       GameAudio.playGameDraw();
     }
 
@@ -422,7 +520,7 @@
 
     // Session statistics
     const PICKS     = ['rock', 'paper', 'scissors'];
-    const PICK_LABELS = { rock: '🪨 Piedra', paper: '📄 Papel', scissors: '✂️ Tijeras' };
+    const PICK_LABELS = L.pick;
     const fav = PICKS.reduce((a, b) =>
       session.pickFreq[a] >= session.pickFreq[b] ? a : b
     );
@@ -447,18 +545,18 @@
   /* ──────────── Event Listeners ──────────── */
 
   $('btn-start').addEventListener('click', async () => {
-    const name = $('name-player').value.trim() || (_lang==='en'?'Player':_lang==='pt'?'Jogador':'Jugador');
+    const name = $('name-player').value.trim() || L.defName;
     const difficulty = document.querySelector('input[name=\"difficulty\"]:checked')?.value || 'medium';
     const mode = document.querySelector('input[name="mode"]:checked').value;
     const wantsCamera = document.querySelector('input[name="input-mode"]:checked')?.value === 'camera';
     const startBtn = $('btn-start');
-    const camStatus = $('setup-cam-status');
+    const camStatus = $cam('setup-cam-status');
     camStatus.classList.remove('err');
     camStatus.textContent = '';
 
     if (wantsCamera) {
       startBtn.disabled = true;
-      camStatus.textContent = 'Activando cámara…';
+      camStatus.textContent = L.camStarting;
       try {
         await CameraGesture.init($('cam-video'), $('cam-overlay'));
         inputMode = 'camera';
@@ -466,8 +564,8 @@
         console.error(err);
         camStatus.classList.add('err');
         camStatus.textContent = err.name === 'NotAllowedError'
-          ? 'Permiso de cámara denegado — seguimos con el modo click.'
-          : 'No se pudo iniciar la cámara — seguimos con el modo click.';
+          ? L.camDenied
+          : L.camFailed;
         inputMode = 'click';
         await new Promise(r => setTimeout(r, 1400));
       }
@@ -527,8 +625,8 @@
     if (transitioning) return;
     if (inputMode === 'camera') { CameraGesture.stop(); stopCamUiLoop(); }
     GameCPU.newGame();
-    $('setup-cam-status').textContent = '';
-    $('setup-cam-status').classList.remove('err');
+    $cam('setup-cam-status').textContent = '';
+    $cam('setup-cam-status').classList.remove('err');
     goTo('setup', 'back');
   });
 
@@ -549,8 +647,8 @@
     $('confetti-container').innerHTML = '';
     $('session-stats').style.display  = 'none';
     GameCPU.newGame();
-    $('setup-cam-status').textContent = '';
-    $('setup-cam-status').classList.remove('err');
+    $cam('setup-cam-status').textContent = '';
+    $cam('setup-cam-status').classList.remove('err');
     goTo('setup', 'back');
   });
 
@@ -558,8 +656,8 @@
     const muted = GameAudio.toggle();
     HGA.audioToggle(muted);
     $('btn-mute').textContent = muted ? '🔇' : '🔊';
-    $('btn-mute').setAttribute('aria-label', muted ? 'Activar audio' : 'Silenciar audio');
-    $('btn-mute').title = muted ? 'Activar audio' : 'Silenciar audio';
+    $('btn-mute').setAttribute('aria-label', muted ? L.audioOn : L.audioOff);
+    $('btn-mute').title = muted ? L.audioOn : L.audioOff;
   });
 
 })();

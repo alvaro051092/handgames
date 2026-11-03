@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" />
-  <title>Hand Games — Free Hand Games Online</title>
-  <meta name="description" content="Free hand games online: Rock Paper Scissors, Morra, Chopsticks and more. No sign-up, no downloads. Play on any device." />
+  <title>Hand Games Online — Play Free Hand Games, No Sign-Up</title>
+  <meta name="description" content="Play free hand games online: Rock Paper Scissors with your camera, Morra, Chopsticks vs AI and more. Play a friend, no sign-up, works on mobile." />
   <!-- Canonical + hreflang -->
   <!-- Performance: preconnect to analytics/clarity origins -->
   <!-- PWA -->
@@ -26,8 +26,8 @@
   <!-- Open Graph -->
   <meta property="og:type"             content="website" />
   <meta property="og:url"              content="https://handgames.app/en/" />
-  <meta property="og:title"            content="Hand Games — Free Hand Games Online" />
-  <meta property="og:description"      content="Free hand games online: Rock Paper Scissors, Morra, Chopsticks and more. No sign-up, no downloads." />
+  <meta property="og:title"            content="Hand Games Online — Play Free Hand Games, No Sign-Up" />
+  <meta property="og:description"      content="Play free hand games online: Rock Paper Scissors with your camera, Morra, Chopsticks vs AI and more. No sign-up, works on mobile." />
   <meta property="og:image"            content="https://handgames.app/assets/og-image.png" />
   <meta property="og:site_name"        content="Hand Games" />
   <meta property="og:locale"           content="en_US" />
@@ -35,8 +35,8 @@
   <meta property="og:locale:alternate" content="pt_BR" />
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="Hand Games — Free Hand Games Online" />
-  <meta name="twitter:description" content="Free hand games online: Rock Paper Scissors, Morra, Chopsticks and more. No sign-up, no downloads." />
+  <meta name="twitter:title"       content="Hand Games Online — Play Free Hand Games, No Sign-Up" />
+  <meta name="twitter:description" content="Play free hand games online: Rock Paper Scissors with your camera, Morra, Chopsticks vs AI and more. No sign-up, works on mobile." />
   <meta name="twitter:image"       content="https://handgames.app/assets/og-image.png" />
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -59,7 +59,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
   <link rel="apple-touch-icon"          href="/assets/apple-touch-icon.png" />
   <link rel="stylesheet" href="/css/tokens.css?v=3" />
-  <link rel="stylesheet" href="/css/layout.css?v=7" />
+  <link rel="stylesheet" href="/css/layout.css?v=20261024" />
   <link rel="stylesheet" href="/css/animations.css?v=3" />
   <style>
     .hub-page {
@@ -310,6 +310,16 @@
       letter-spacing: .2px;
     }
     .badge-meta span { opacity: .45; }
+
+    /* More games + guides (visible internal links) */
+    .hub-more { width:100%; max-width:700px; margin-top:var(--sp-8); text-align:center; }
+    .hub-more h2 { font-size:var(--text-base); font-weight:800; color:var(--clr-text); margin-bottom:var(--sp-2); }
+    .hub-more p { font-size:var(--text-sm); color:var(--clr-text-muted); line-height:1.6; margin-bottom:var(--sp-4); }
+    .hub-more-links { display:flex; flex-wrap:wrap; justify-content:center; gap:var(--sp-3); }
+    .hub-more-links a { display:inline-flex; align-items:center; gap:var(--sp-2); background:var(--clr-surface); border:1px solid var(--clr-border); border-radius:var(--radius-sm); padding:var(--sp-3) var(--sp-4); text-decoration:none; color:var(--clr-text); font-size:var(--text-sm); font-weight:600; transition:border-color var(--dur-fast); }
+    .hub-more-links a:hover { border-color:var(--clr-primary); }
+    .hub-guides-link { display:inline-block; margin-top:var(--sp-4); font-size:var(--text-sm); font-weight:700; color:var(--clr-primary-light); text-decoration:none; }
+    .hub-guides-link:hover { text-decoration:underline; }
   </style>
   <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
@@ -328,7 +338,7 @@
   <header class="hub-header">
     <span class="hub-logo" aria-hidden="true">✋</span>
     <h1 class="hub-title">Hand Games</h1>
-    <p class="hub-subtitle">Quick hand games · No sign-up · Free</p>
+    <p class="hub-subtitle">Free hand games online · No sign-up · Play on any device</p>
   </header>
 
   <main>
@@ -377,12 +387,23 @@
       </div>
 
     </nav>
+
+  <section class="hub-more" aria-labelledby="more-heading">
+    <h2 id="more-heading">More free hand games online</h2>
+    <p>Hand Games is a free collection of classic hand games you can play online in your browser: play vs the computer, <a href="/rps/en/#online" style="color:var(--clr-primary-light);">with a friend online</a>, or <a href="/rps/en/#camera" style="color:var(--clr-primary-light);">show your hand to the camera</a>.</p>
+    <div class="hub-more-links">
+      <a href="/chopsticks/en/"><span aria-hidden="true">🖖</span> Chopsticks game online (vs AI)</a>
+      <a href="/rpsls/en/"><span aria-hidden="true">🦎</span> Rock Paper Scissors Lizard Spock</a>
+      <a href="/odd-even/en/"><span aria-hidden="true">🎲</span> Odd or Even game</a>
+    </div>
+    <a href="/en/blog/" class="hub-guides-link">📖 Guides: rules, history and strategy →</a>
+  </section>
   </main>
 
   <footer class="hub-footer">
     <a href="/en/blog/" style="color:inherit;">📖 Guides &amp; strategy</a> &middot; handgames.app &mdash; Free hand games
   </footer>
 
-  <script src="/js/analytics.js?v=2"></script>
+  <script src="/js/analytics.js?v=20261024"></script>
 </body>
 </html>

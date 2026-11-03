@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" />
-  <title>Pedra Papel Tesoura vs Computador — Jogue contra a CPU</title>
-  <meta name="description" content="Desafie a CPU no pedra papel tesoura. Contagem 3-2-1, estatísticas de sessão e melhor de 3. Você consegue vencer a máquina?" />
+  <title>Pedra Papel Tesoura com Câmera — Jogue contra a CPU</title>
+  <meta name="description" content="Jogue pedra papel tesoura com a câmera: mostre a mão e mantenha o gesto por 3 segundos, ou jogue com um clique. Melhor de 3 contra a CPU. Grátis." />
   <!-- Canonical + hreflang -->
   <!-- Performance: preconnect to analytics/clarity origins -->
   <!-- PWA -->
@@ -26,16 +26,16 @@
   <!-- Open Graph -->
   <meta property="og:type"             content="website" />
   <meta property="og:url"              content="https://handgames.app/rps/pt/vs-cpu" />
-  <meta property="og:title"            content="Pedra Papel Tesoura vs Computador — Jogue contra a CPU" />
-  <meta property="og:description"      content="Desafie a CPU no pedra papel tesoura. Contagem 3-2-1, estatísticas de sessão e melhor de 3." />
+  <meta property="og:title"            content="Pedra Papel Tesoura com Câmera — Jogue contra a CPU" />
+  <meta property="og:description"      content="Jogue pedra papel tesoura mostrando a mão para a câmera, ou com um clique. Melhor de 3 contra a CPU." />
   <meta property="og:image"            content="https://handgames.app/assets/og-image.png" />
   <meta property="og:locale"           content="pt_BR" />
   <meta property="og:locale:alternate" content="es_ES" />
   <meta property="og:locale:alternate" content="en_US" />
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="Pedra Papel Tesoura vs Computador — Jogue contra a CPU" />
-  <meta name="twitter:description" content="Desafie a CPU no pedra papel tesoura. Contagem 3-2-1, estatísticas de sessão e melhor de 3." />
+  <meta name="twitter:title"       content="Pedra Papel Tesoura com Câmera — Jogue contra a CPU" />
+  <meta name="twitter:description" content="Jogue pedra papel tesoura mostrando a mão para a câmera, ou com um clique. Melhor de 3 contra a CPU." />
   <meta name="twitter:image"       content="https://handgames.app/assets/og-image.png" />
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -45,7 +45,7 @@
     "name": "Pedra Papel Tesoura vs CPU",
     "alternateName": ["Rock Paper Scissors vs Computer", "Piedra Papel Tijeras vs CPU"],
     "url": "https://handgames.app/rps/pt/vs-cpu",
-    "description": "Modo vs CPU com contagem 3-2-1, estatísticas de sessão e melhor de 3.",
+    "description": "Modo vs CPU com câmera ou cliques, contagem 3-2-1, estatísticas de sessão e melhor de 3.",
     "applicationCategory": "GameApplication",
     "operatingSystem": "Web",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -59,9 +59,10 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
   <link rel="apple-touch-icon"          href="/assets/apple-touch-icon.png" />
   <link rel="stylesheet" href="/css/tokens.css?v=3" />
-  <link rel="stylesheet" href="/css/layout.css?v=7" />
-  <link rel="stylesheet" href="/css/components.css?v=3" />
+  <link rel="stylesheet" href="/css/layout.css?v=20261024" />
+  <link rel="stylesheet" href="/css/components.css?v=20261024" />
   <link rel="stylesheet" href="/css/animations.css?v=3" />
+  <link rel="stylesheet" href="/css/camera.css?v=4" />
   <style>
     @keyframes cpuFlipOut {
       from { transform: rotateY(0deg) scale(1); }
@@ -215,7 +216,7 @@
               <span class="mode-icon">⚡</span>
               <span class="mode-text">
                 <strong>Médio</strong>
-                <small>CPU aprende seus padrões</small>
+                <small>Contra-ataca sua jogada mais usada (~1 a cada 3 rodadas); senão, aleatório</small>
               </span>
             </span>
           </label>
@@ -225,14 +226,39 @@
               <span class="mode-icon">💀</span>
               <span class="mode-text">
                 <strong>Difícil</strong>
-                <small>CPU analisa e contra-ataca</small>
+                <small>Contra-ataca sua jogada mais usada (~2 a cada 3 rodadas); senão, aleatório</small>
               </span>
             </span>
           </label>
         </fieldset>
 
 
+        <fieldset class="mode-group input-mode-group">
+          <legend>Como você escolhe sua jogada?</legend>
+          <label class="mode-option">
+            <input type="radio" name="input-mode" value="click" checked />
+            <span class="mode-label">
+              <span class="mode-icon">🖱️</span>
+              <span class="mode-text">
+                <strong>Clique</strong>
+                <small>Toque em um botão para escolher</small>
+              </span>
+            </span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="input-mode" value="camera" />
+            <span class="mode-label">
+              <span class="mode-icon">📸</span>
+              <span class="mode-text">
+                <strong>Câmera <em style="opacity:.7;font-style:normal;">(beta)</em></strong>
+                <small>Mostre sua mão de verdade para a câmera</small>
+              </span>
+            </span>
+          </label>
+        </fieldset>
+
         <button id="btn-start" class="btn btn-primary btn-lg">Jogar!</button>
+        <p id="setup-cam-status" class="cam-status"></p>
       </div>
 
       <a href="/rps/pt/" class="back-hub-link">← Mudar modo</a>
@@ -254,7 +280,7 @@
         </div>
       </div>
 
-      <div class="card pick-card">
+      <div class="card pick-card" id="pick-card-click">
         <p class="pick-hint" style="margin-top: var(--sp-2);">Escolha sua jogada</p>
         <div class="pick-buttons" id="pick-buttons">
           <button data-kbd-hint="1" class="btn btn-pick" data-pick="rock" aria-label="Escolher Pedra">
@@ -270,6 +296,17 @@
             <span class="pick-label">Tesoura</span>
           </button>
         </div>
+      </div>
+
+      <div class="card pick-card" id="pick-card-camera" style="display:none;">
+        <div class="cam-stage" id="cam-stage" data-clarity-mask="True">
+          <video id="cam-video" autoplay playsinline muted data-clarity-mask="True"></video>
+          <canvas id="cam-overlay" class="cam-overlay"></canvas>
+          <div class="cam-guide"><div class="cam-guide-oval" id="cam-oval"></div></div>
+          <div class="cam-hint" id="cam-hint">Mostre sua jogada e mantenha firme por 3 segundos</div>
+          <div class="cam-countdown" id="cam-countdown"></div>
+        </div>
+        <p class="cam-status" id="cam-status">Procurando sua mão…</p>
       </div>
     </section>
 
@@ -294,6 +331,7 @@
           <div class="result-pick-block" id="res-player-block">
             <span class="res-pname" id="res-player-name"></span>
             <span class="res-emoji" id="res-player-emoji"></span>
+            <img id="res-player-snap" class="snap-thumb" style="display:none;" alt="Seu gesto capturado"  data-clarity-mask="True"/>
             <span class="res-pick-label" id="res-player-label"></span>
           </div>
           <div class="result-center-col">
@@ -378,13 +416,14 @@
 
   </div><!-- #app -->
 
-  <script src="/js/analytics.js?v=2"></script>
-  <script src="/js/lang-nav.js?v=2"></script>
-  <script src="/js/share.js?v=2"></script>
+  <script src="/js/analytics.js?v=20261024"></script>
+  <script src="/js/lang-nav.js?v=20261025"></script>
+  <script src="/js/share.js?v=20261024"></script>
   <script src="/js/keyboard.js?v=2"></script>
-  <script src="/js/streak.js?v=2"></script>
-  <script src="/js/game-cpu.js?v=2"></script>
+  <script src="/js/streak.js?v=20261024"></script>
+  <script src="/js/game-cpu.js?v=20261024"></script>
   <script src="/js/audio.js?v=2"></script>
-  <script src="/js/ui-cpu.js?v=2"></script>
+  <script src="/js/camera-gesture.js?v=20261025"></script>
+  <script src="/js/ui-cpu.js?v=20261025"></script>
 </body>
 </html>

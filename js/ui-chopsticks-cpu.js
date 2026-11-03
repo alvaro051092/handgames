@@ -281,8 +281,13 @@
           hitEl2.classList.add('chop-hit');
           setTimeout(() => hitEl2.classList.remove('chop-hit'), 400);
           GameAudio.playTick();
-          renderBoard(after);
+          /* Clear the flag BEFORE rendering: renderBoard() -> _applyInteractivity()
+             only highlights the player's hands and sets the "select your hand"
+             hint when the CPU is no longer thinking. Doing it after left every
+             turn but the first with no highlight and no hint (and made the
+             hands look inert -> dead clicks). */
           _cpuThinking = false;
+          renderBoard(after);
           if (after.phase === 'gameover') {
             setTimeout(() => { populateGameover(after); goTo('gameover'); }, 900);
           } else if (after.phase === 'round-over') {

@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" />
-  <title>Morra vs CPU — Jogue contra o Computador</title>
-  <meta name="description" content="Jogue Morra contra a CPU. Escolha seus dedos, aposte o total e a CPU revela os dela na hora. Melhor de 3." />
+  <title>Morra com Câmera contra a CPU — Mostre os Dedos</title>
+  <meta name="description" content="Jogue Morra contra a CPU: aposte o total e mostre os dedos para a câmera, ou jogue com cliques. Melhor de 3, grátis e sem cadastro." />
   <!-- Performance: preconnect to analytics/clarity origins -->
   <!-- PWA -->
   <link rel="manifest" href="/manifest.json" />
@@ -24,22 +24,23 @@
   <link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/vs-cpu" />
   <meta property="og:type"  content="website" />
   <meta property="og:url"   content="https://handgames.app/morra/pt/vs-cpu" />
-  <meta property="og:title" content="Morra vs CPU — Jogue contra o Computador" />
-  <meta property="og:description" content="Escolha seus dedos, aposte o total e a CPU revela os dela na hora." />
+  <meta property="og:title" content="Morra com Câmera contra a CPU — Mostre os Dedos" />
+  <meta property="og:description" content="Aposte o total e mostre os dedos para a câmera (ou jogue com cliques) contra a CPU na Morra." />
   <meta property="og:image" content="https://handgames.app/assets/og-image.png" />
   <meta property="og:locale" content="pt_BR" />
   <meta name="twitter:card"  content="summary_large_image" />
-  <meta name="twitter:title" content="Morra vs CPU — Jogue contra o Computador" />
-  <meta name="twitter:description" content="Escolha seus dedos, aposte o total e a CPU revela os dela na hora." />
+  <meta name="twitter:title" content="Morra com Câmera contra a CPU — Mostre os Dedos" />
+  <meta name="twitter:description" content="Aposte o total e mostre os dedos para a câmera (ou jogue com cliques) contra a CPU na Morra." />
   <meta name="twitter:image" content="https://handgames.app/assets/og-image.png" />
   <link rel="icon" type="image/x-icon"  href="/assets/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
   <link rel="stylesheet" href="/css/tokens.css?v=3" />
-  <link rel="stylesheet" href="/css/layout.css?v=7" />
-  <link rel="stylesheet" href="/css/components.css?v=3" />
+  <link rel="stylesheet" href="/css/layout.css?v=20261024" />
+  <link rel="stylesheet" href="/css/components.css?v=20261024" />
   <link rel="stylesheet" href="/css/animations.css?v=3" />
+  <link rel="stylesheet" href="/css/camera.css?v=4" />
   <style>
     @keyframes cpuFlipOut{from{transform:rotateY(0deg) scale(1);}to{transform:rotateY(90deg) scale(0.8);}}
     @keyframes cpuFlipIn{from{transform:rotateY(-90deg) scale(0.8);}to{transform:rotateY(0deg) scale(1);}}
@@ -166,7 +167,7 @@
               <span class="mode-icon">⚡</span>
               <span class="mode-text">
                 <strong>Médio</strong>
-                <small>CPU aprende seus padrões</small>
+                <small>Também aleatório: não aprende com suas jogadas</small>
               </span>
             </span>
           </label>
@@ -176,13 +177,38 @@
               <span class="mode-icon">💀</span>
               <span class="mode-text">
                 <strong>Difícil</strong>
-                <small>CPU analisa e contra-ataca</small>
+                <small>Também aleatório: igual ao Fácil e ao Médio</small>
+              </span>
+            </span>
+          </label>
+        </fieldset>
+
+        <fieldset class="mode-group input-mode-group">
+          <legend>Como você mostra os dedos?</legend>
+          <label class="mode-option">
+            <input type="radio" name="input-mode" value="click" checked />
+            <span class="mode-label">
+              <span class="mode-icon">🖱️</span>
+              <span class="mode-text">
+                <strong>Clique</strong>
+                <small>Escolha os dedos pelos botões</small>
+              </span>
+            </span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="input-mode" value="camera" />
+            <span class="mode-label">
+              <span class="mode-icon">📸</span>
+              <span class="mode-text">
+                <strong>Câmera <em style="opacity:.7;font-style:normal;">(beta)</em></strong>
+                <small>Mostre sua mão de verdade para a câmera</small>
               </span>
             </span>
           </label>
         </fieldset>
 
         <button id="btn-start" class="btn btn-primary btn-lg">Jogar!</button>
+        <p id="setup-cam-status" class="cam-status"></p>
         <button class="htp-link" id="btn-htp">Como jogar ℹ️</button>
       </div>
       <a href="/morra/pt/" class="back-hub-link">← Mudar modo</a>
@@ -201,10 +227,24 @@
           <button class="btn-guess" data-g="5"  aria-label="Apostar 5">5</button><button class="btn-guess" data-g="6"  aria-label="Apostar 6">6</button><button class="btn-guess" data-g="7"  aria-label="Apostar 7">7</button>
           <button class="btn-guess" data-g="8"  aria-label="Apostar 8">8</button><button class="btn-guess" data-g="9"  aria-label="Apostar 9">9</button><button class="btn-guess" data-g="10"  aria-label="Apostar 10">10</button>
         </div>
-        <p class="pick-section-label">Seus dedos (1-5)</p>
-        <div class="finger-buttons" id="finger-buttons">
-          <button class="btn-finger" data-f="1" aria-label="1 dedo">1</button><button class="btn-finger" data-f="2" aria-label="2 dedos">2</button><button class="btn-finger" data-f="3" aria-label="3 dedos">3</button>
-          <button class="btn-finger" data-f="4" aria-label="4 dedos">4</button><button class="btn-finger" data-f="5" aria-label="5 dedos">5</button>
+        <div id="finger-pick-click">
+          <p class="pick-section-label">Seus dedos (1-5)</p>
+          <div class="finger-buttons" id="finger-buttons">
+            <button class="btn-finger" data-f="1" aria-label="1 dedo">1</button><button class="btn-finger" data-f="2" aria-label="2 dedos">2</button><button class="btn-finger" data-f="3" aria-label="3 dedos">3</button>
+            <button class="btn-finger" data-f="4" aria-label="4 dedos">4</button><button class="btn-finger" data-f="5" aria-label="5 dedos">5</button>
+          </div>
+        </div>
+
+        <div id="finger-pick-camera" style="display:none;">
+          <p class="pick-section-label">Seus dedos — mostre para a câmera</p>
+          <div class="cam-stage" id="cam-stage" data-clarity-mask="True">
+            <video id="cam-video" autoplay playsinline muted data-clarity-mask="True"></video>
+            <canvas id="cam-overlay" class="cam-overlay"></canvas>
+            <div class="cam-guide"><div class="cam-guide-oval" id="cam-oval"></div></div>
+            <div class="cam-hint" id="cam-hint">Mostre seus dedos e mantenha-os firmes por 3 segundos</div>
+            <div class="cam-countdown" id="cam-countdown"></div>
+          </div>
+          <p class="cam-status" id="cam-status">Escolha sua aposta primeiro</p>
         </div>
         <button id="btn-confirm" class="btn btn-primary btn-lg" disabled>Revelar!</button>
       </div>
@@ -221,6 +261,7 @@
           <div class="result-pick-block" id="res-player-block">
             <span class="res-pname" id="res-player-name"></span>
             <span class="res-finger-num" id="res-player-num">0</span>
+            <img id="res-player-snap" class="snap-thumb" style="display:none;" alt="Seu gesto capturado"  data-clarity-mask="True"/>
             <span class="res-guess-badge" id="res-player-guess"></span>
           </div>
           <div class="result-center-col">
@@ -274,13 +315,14 @@
     </section>
 
   </div>
-  <script src="/js/analytics.js?v=2"></script>
-  <script src="/js/lang-nav.js?v=2"></script>
-  <script src="/js/share.js?v=2"></script>
+  <script src="/js/analytics.js?v=20261024"></script>
+  <script src="/js/lang-nav.js?v=20261025"></script>
+  <script src="/js/share.js?v=20261024"></script>
   <script src="/js/keyboard.js?v=2"></script>
-  <script src="/js/streak.js?v=2"></script>
-  <script src="/js/game-morra-cpu.js?v=2"></script>
+  <script src="/js/streak.js?v=20261024"></script>
+  <script src="/js/game-morra-cpu.js?v=20261024"></script>
   <script src="/js/audio.js?v=2"></script>
-  <script src="/js/ui-morra-cpu.js?v=2"></script>
+  <script src="/js/camera-gesture.js?v=20261025"></script>
+  <script src="/js/ui-morra-cpu.js?v=20261025"></script>
 </body>
 </html>

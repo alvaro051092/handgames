@@ -24,7 +24,7 @@ window.GameChopsticksCPU = (() => {
     winner:      null,      // final match winner
     lastMove:    null,      // { by, from, to }
 
-    // Session — persists across revenge/newGame, reset on page reload
+    // Session — persists across revenge/newGame, persists across page loads too (localStorage 'hg_chopsticks_session'); only clearSession() resets it
     session: { matches: 0, wins: 0, losses: 0 },
   };
 
@@ -57,7 +57,13 @@ window.GameChopsticksCPU = (() => {
 
   /** CPU pick based on difficulty.
    *  Easy: fully random.
-   *  Medium/Hard: prefers killing moves. Hard also avoids exposing hands to player kills. */
+   *  Medium/Hard: take a killing move when one exists, otherwise random.
+   *  NOTE: Hard currently plays exactly like Medium. The "risky" filter below
+   *  was meant to avoid exposing hands, but `risky` does not depend on the
+   *  candidate move (cpuCopy is never changed by the tap), so it is the same
+   *  for every move: either all moves are "safe" or none is, and the result
+   *  is a uniform random pick. Left as-is on purpose (product decision
+   *  pending: make Hard smarter or relabel it in the UI). */
   function _cpuPick() {
     const mine = ['left', 'right'].filter(h => state.cpu[h] > 0);
     const tgts = ['left', 'right'].filter(h => state.player[h] > 0);
@@ -77,11 +83,10 @@ window.GameChopsticksCPU = (() => {
     }
 
     if (state.difficulty === 'hard') {
-      // Hard: avoid moves that let player kill us next turn
+      // Hard (intended): avoid moves that let player kill us next turn — see NOTE above, no effect today
       const safe = [];
       for (const m of mine) {
         for (const t of tgts) {
-          const newVal = state.cpu[m] + state.player[t];  // what player's hand becomes? No — this is CPU attacking.
           // After this tap, check if any player hand could kill any cpu hand
           const cpuCopy = { ...state.cpu };
           // actually check if no player hand is 1 away from killing cpu hand

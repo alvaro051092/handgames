@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" />
-  <title>Morra Online — Jogue Grátis</title>
-  <meta name="description" content="Jogue Morra online grátis. Escolha entre 2 jogadores, vs CPU ou modo Batalha. Mostre dedos e adivinhe o total. Sem cadastro." />
+  <title>Morra Online: o Jogo de Dedos Italiano, Grátis</title>
+  <meta name="description" content="Jogue Morra online grátis: mostre os dedos e adivinhe o total antes do rival. Contra a CPU, com cliques ou com a câmera. Sem cadastro." />
   <!-- Performance: preconnect to analytics/clarity origins -->
   <!-- PWA -->
   <link rel="manifest" href="/manifest.json" />
@@ -24,21 +24,21 @@
   <link rel="alternate" hreflang="x-default" href="https://handgames.app/morra/" />
   <meta property="og:type"  content="website" />
   <meta property="og:url"   content="https://handgames.app/morra/pt/" />
-  <meta property="og:title" content="Morra Online — Jogue Grátis" />
-  <meta property="og:description" content="Jogue Morra online grátis. Mostre dedos e adivinhe o total antes do seu rival." />
+  <meta property="og:title" content="Morra Online: o Jogo de Dedos Italiano, Grátis" />
+  <meta property="og:description" content="Jogue Morra online grátis: mostre os dedos e adivinhe o total antes do seu rival. Sem cadastro." />
   <meta property="og:image" content="https://handgames.app/assets/og-image.png" />
   <meta property="og:site_name" content="Hand Games" />
   <meta property="og:locale" content="pt_BR" />
   <meta name="twitter:card"  content="summary_large_image" />
-  <meta name="twitter:title" content="Morra Online — Jogue Grátis" />
-  <meta name="twitter:description" content="Jogue Morra online grátis. Mostre dedos e adivinhe o total antes do seu rival." />
+  <meta name="twitter:title" content="Morra Online: o Jogo de Dedos Italiano, Grátis" />
+  <meta name="twitter:description" content="Jogue Morra online grátis: mostre os dedos e adivinhe o total antes do seu rival. Sem cadastro." />
   <meta name="twitter:image" content="https://handgames.app/assets/og-image.png" />
   <link rel="icon" type="image/x-icon"  href="/assets/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
   <link rel="stylesheet" href="/css/tokens.css?v=3" />
-  <link rel="stylesheet" href="/css/layout.css?v=7" />
+  <link rel="stylesheet" href="/css/layout.css?v=20261024" />
   <link rel="stylesheet" href="/css/animations.css?v=3" />
   <style>
     .hub-page{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:var(--sp-8) var(--sp-4);}
@@ -108,7 +108,7 @@
         "name": "Como se joga Morra?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Cada jogador mostra de 0 a 5 dedos simultaneamente e aposta o total combinado (0 a 10). Quem adivinhar o total exato vence a rodada. Se os dois ou nenhum acertar, é empate."
+          "text": "Cada jogador mostra de 1 a 5 dedos simultaneamente e aposta o total combinado (2 a 10). Quem adivinhar o total exato vence a rodada. Se os dois ou nenhum acertar, é empate."
         }
       },
       {
@@ -124,7 +124,7 @@
         "name": "Qual é a faixa de aposta na Morra?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Como cada jogador mostra de 0 a 5 dedos, o total combinado varia de 0 a 10. Você deve confirmar sua aposta antes de ver a mão do adversário."
+          "text": "Como cada jogador mostra de 1 a 5 dedos, o total combinado varia de 2 a 10. Você deve confirmar sua aposta antes de ver a mão do adversário."
         }
       },
       {
@@ -133,6 +133,22 @@
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Sim, completamente grátis. Sem cadastro ou download. Jogue direto no navegador."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Dá para jogar Morra com a câmera?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sim. No modo vs CPU ative Câmera (beta), escolha seu palpite e mostre de 1 a 5 dedos com uma mão; mantenha a mesma quantidade por 3 segundos para confirmar. O polegar conta e o punho fechado não vale. Sem câmera, você pode jogar com cliques."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Meu vídeo é enviado para algum servidor quando jogo Morra com a câmera?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nenhum vídeo é enviado aos nossos servidores: seus dedos são reconhecidos no seu navegador (o modelo de reconhecimento é baixado de uma CDN pública quando você ativa a câmera)."
         }
       }
     ]
@@ -147,6 +163,7 @@
 <body class="hub-page">
   <div class="top-nav">
     <a href="/pt/" class="back-platform">← Hand Games</a>
+    <a href="/pt/blog/" class="back-platform">📖 Guias</a>
     <nav class="lang-nav" aria-label="Idioma">
       <a href="/morra/" class="lang-link">ES</a>
       <a href="/morra/en/" class="lang-link">EN</a>
@@ -154,7 +171,7 @@
     </nav>
   </div>
   <header class="hub-header">
-    <h1 class="hub-title"><span class="title-emoji">🤌</span> Morra</h1>
+    <h1 class="hub-title"><span class="title-emoji">🤌</span> Morra online</h1>
     <p class="hub-subtitle">Como você quer jogar?</p>
   </header>
   <main>
@@ -169,35 +186,43 @@
   </main>
   <section class="rules-section" aria-labelledby="rules-heading">
     <h2 id="rules-heading">Como jogar Morra</h2>
+    <p>A Morra é um jogo de adivinhação com os dedos para dois jogadores, praticado na Itália desde a época romana. A cada rodada você mostra de 1 a 5 dedos e palpita o total combinado — quem acertar a soma exata ganha o ponto. Jogue Morra online e grátis contra a CPU (com um clique ou com a câmera) ou em turnos com um amigo no mesmo dispositivo.</p>
     <h3>Como funciona</h3>
     <ul class="rules-list">
-      <li>Cada jogador mostra de 0 a 5 dedos simultaneamente</li>
+      <li>Cada jogador mostra de 1 a 5 dedos simultaneamente</li>
       <li>Cada jogador aposta o total combinado dos dois</li>
-      <li>O total pode variar de 0 a 10</li>
+      <li>O total pode variar de 2 a 10</li>
       <li>Quem adivinhar o total exato vence a rodada</li>
     </ul>
     <h3>Faixa de aposta</h3>
-    <p>Como cada jogador mostra de 0 a 5 dedos, o total combinado varia de 0 a 10. Você deve confirmar sua aposta antes de ver a mão do adversário.</p>
+    <p>Como cada jogador mostra de 1 a 5 dedos, o total combinado varia de 2 a 10. Você deve confirmar sua aposta antes de ver a mão do adversário.</p>
     <h3>Estratégia</h3>
     <p>Leia as tendências do adversário e varie suas escolhas para ser imprevisível. Se os dois ou nenhum acertar, é empate — nenhum ponto é concedido.</p>
   </section>
 
-  <section style="max-width:680px;margin:var(--sp-8) auto 0;border-top:1px solid var(--clr-border);padding-top:var(--sp-7);">
-    <p style="font-size:var(--text-xs);font-weight:700;color:var(--clr-text-subtle);text-transform:uppercase;letter-spacing:.6px;margin:0 0 var(--sp-4);">Artigos relacionados</p>
+  <section class="rules-section" aria-labelledby="camera">
+    <h2 id="camera" style="scroll-margin-top:4.5rem;">Morra com câmera: mostre seus dedos</h2>
+    <p>No modo câmera da Morra você não toca os dedos na tela: você os mostra para a câmera. Primeiro escolha seu palpite (o total, de 2 a 10) com os botões; depois mostre de 1 a 5 dedos com uma só mão e mantenha a mesma quantidade por 3 segundos para confirmar. O polegar conta como um dedo, e o punho fechado não vale, porque na Morra sempre se mostra pelo menos um dedo.</p>
+    <p>Ative «Câmera (beta)» ao configurar a <a href="/morra/pt/vs-cpu" style="color:var(--clr-primary-light);font-weight:700;">partida de Morra contra a CPU</a>. Use boa luz e separe bem os dedos; se não houver câmera ou você recusar a permissão, o jogo continua com cliques. O reconhecimento acontece no seu navegador e o vídeo não é enviado aos nossos servidores.</p>
+  </section>
+
+  <section style="max-width:680px;margin:var(--sp-10) auto 0;border-top:1px solid var(--clr-border);padding-top:var(--sp-7);">
+    <h2 style="font-size:var(--text-xs);font-weight:700;color:var(--clr-text-subtle);text-transform:uppercase;letter-spacing:.6px;margin:0 0 var(--sp-4);line-height:1.4;">Artigos relacionados</h2>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:var(--sp-3);">
-      <a href="/pt/blog/morra-historia-regras/" style="display:block;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-4);text-decoration:none;color:var(--clr-text-muted);font-size:var(--text-sm);transition:border-color .15s;">
-        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">Morra: história e regras completas</strong>
-        5.000 anos de história e por que foi proibida
+      <a href="/pt/blog/morra-historia-regras/" style="display:block;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-4);text-decoration:none;color:var(--clr-text-muted);font-size:var(--text-sm);">
+        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">Como jogar Morra: regras e história</strong>
+        O jogo de mãos mais antigo do mundo e por que foi proibido
       </a>
-      <a href="/pt/blog/como-jogar-pauzinhos/" style="display:block;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-4);text-decoration:none;color:var(--clr-text-muted);font-size:var(--text-sm);transition:border-color .15s;">
-        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">Como jogar Pauzinhos</strong>
-        O jogo de dedos mais estratégico
+      <a href="/pt/blog/par-ou-impar-regras/" style="display:block;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-4);text-decoration:none;color:var(--clr-text-muted);font-size:var(--text-sm);">
+        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">Par ou Ímpar: regras e como ganhar</strong>
+        Regras, história desde Roma e estratégia do clássico jogo de dedos
       </a>
-      <a href="/pt/blog/par-ou-impar-regras/" style="display:block;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-4);text-decoration:none;color:var(--clr-text-muted);font-size:var(--text-sm);transition:border-color .15s;">
-        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">Par ou Ímpar: regras e história</strong>
-        O jogo romano que sobreviveu dois mil anos
+      <a href="/pt/blog/como-jogar-pauzinhos/" style="display:block;background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:var(--sp-4);text-decoration:none;color:var(--clr-text-muted);font-size:var(--text-sm);">
+        <strong style="display:block;color:var(--clr-text);font-weight:700;margin-bottom:4px;">Como jogar Pauzinhos: regras e estratégia</strong>
+        O jogo de dedos explicado: regras, divisão e táticas para vencer
       </a>
     </div>
+    <a href="/pt/blog/" style="display:inline-block;margin-top:var(--sp-4);font-size:var(--text-sm);font-weight:700;color:var(--clr-primary-light);text-decoration:none;">Ver todos os guias →</a>
   </section>
 
 
@@ -206,7 +231,7 @@
     <h2 id="faq-heading">Perguntas frequentes</h2>
     <details class="faq-item">
       <summary>Como se joga Morra?</summary>
-      <p>Cada jogador mostra de 0 a 5 dedos simultaneamente e aposta o total combinado (0 a 10). Quem adivinhar o total exato vence a rodada. Se os dois ou nenhum acertar, é empate.</p>
+      <p>Cada jogador mostra de 1 a 5 dedos simultaneamente e aposta o total combinado (2 a 10). Quem adivinhar o total exato vence a rodada. Se os dois ou nenhum acertar, é empate.</p>
     </details>
     <details class="faq-item">
       <summary>O que é Morra?</summary>
@@ -214,11 +239,19 @@
     </details>
     <details class="faq-item">
       <summary>Qual é a faixa de aposta na Morra?</summary>
-      <p>Como cada jogador mostra de 0 a 5 dedos, o total combinado varia de 0 a 10. Você deve confirmar sua aposta antes de ver a mão do adversário.</p>
+      <p>Como cada jogador mostra de 1 a 5 dedos, o total combinado varia de 2 a 10. Você deve confirmar sua aposta antes de ver a mão do adversário.</p>
     </details>
     <details class="faq-item">
       <summary>É grátis jogar Morra online?</summary>
       <p>Sim, completamente grátis. Sem cadastro ou download. Jogue direto no navegador.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Dá para jogar Morra com a câmera?</summary>
+      <p>Sim. No modo vs CPU ative Câmera (beta), escolha seu palpite e mostre de 1 a 5 dedos com uma mão; mantenha a mesma quantidade por 3 segundos para confirmar. O polegar conta e o punho fechado não vale. Sem câmera, você pode jogar com cliques.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Meu vídeo é enviado para algum servidor quando jogo Morra com a câmera?</summary>
+      <p>Nenhum vídeo é enviado aos nossos servidores: seus dedos são reconhecidos no seu navegador (o modelo de reconhecimento é baixado de uma CDN pública quando você ativa a câmera).</p>
     </details>
   </section>
 
@@ -240,6 +273,6 @@
   </section>
 
   <footer class="hub-footer">Morra &mdash; Hand Games</footer>
-  <script src="/js/analytics.js?v=2"></script>
+  <script src="/js/analytics.js?v=20261024"></script>
 </body>
 </html>
