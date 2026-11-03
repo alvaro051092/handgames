@@ -64,6 +64,7 @@
       codeLen:    'El código tiene 5 caracteres.',
       joinFail:   'No encontramos esa sala. Revisá el código.',
       roomFull:   'Esa sala ya está completa: ya hay dos jugadores.',
+      busy:       'El servicio está saturado. Reintenta en un momento.',
     },
     en: {
       draw:       '🤝 Draw!',
@@ -74,6 +75,7 @@
       codeLen:    'The room code has 5 characters.',
       joinFail:   'We could not find that room. Check the code.',
       roomFull:   'That room is already full: two players have joined.',
+      busy:       'The service is busy right now. Please try again in a moment.',
     },
     pt: {
       draw:       '🤝 Empate!',
@@ -84,6 +86,7 @@
       codeLen:    'O código tem 5 caracteres.',
       joinFail:   'Não encontramos essa sala. Confira o código.',
       roomFull:   'Essa sala já está cheia: já há dois jogadores.',
+      busy:       'O serviço está sobrecarregado. Tente novamente em instantes.',
     },
   }[LANG];
 
@@ -373,9 +376,10 @@
         renderedPickRound = state.round;
         populatePick();
       }
-      updatePickWaitUI(!!state[playerId].pick);
+      const iPicked = !!(state[playerId].picked || state[playerId].pick);   // `picked` is the flag; `pick` stays for older servers
+      updatePickWaitUI(iPicked);
       goTo('pick');
-      if (state[playerId].pick) stopCamera();        // my pick is in: camera off while waiting
+      if (iPicked) stopCamera();        // my pick is in: camera off while waiting
       else if (inputMode === 'camera') {
         if (!camUiRaf) startCamUiLoop();
         ensureCamera();
@@ -383,32 +387,79 @@
     }
   }
 
-  /* ── Polling ── */
+  /* ── Polling ──
+     Every poll costs the server KV reads (the free tier allows 100k/day), so
+     the cadence follows what the player is doing instead of a fixed 1.2 s:
+       lobby (waiting for the friend)  3 s
+       pick / waiting for the rival    2 s
+       result (waiting for "next")     2.5 s
+     It stops while the tab is hidden and polls once, immediately, when the
+     tab comes back. After a failed poll (network, 503) it backs off. */
+  const POLL_LOBBY_MS  = 3000;
+  const POLL_PICK_MS   = 2000;
+  const POLL_RESULT_MS = 2500;
+  const POLL_MAX_MS    = 12000;
+  let pollEnabled = false;
+  let pollFailures = 0;
+
+  function pollDelay() {
+    const id = activeScreenId();
+    const base = id === 'screen-lobby' ? POLL_LOBBY_MS : id === 'screen-result' ? POLL_RESULT_MS : POLL_PICK_MS;
+    return pollFailures ? Math.min(base * 2 ** pollFailures, POLL_MAX_MS) : base;
+  }
+
+  function scheduleNextPoll() {
+    if (pollTimer) clearTimeout(pollTimer);
+    pollTimer = null;
+    if (!pollEnabled || !code || document.hidden) return;   // visibilitychange resumes
+    pollTimer = setTimeout(pollOnce, pollDelay());
+  }
+
+  async function pollOnce() {
+    pollTimer = null;
+    if (!pollEnabled || !code || pollInFlight || document.hidden) return;
+    pollInFlight = true;
+    try {
+      const state = await GameRPSOnline.getState(code);
+      pollFailures = 0;
+      render(state);
+    } catch (err) {
+      if (String(err.message).includes('not found')) {
+        resetSession();                       // also stops polling and the camera
+        $('setup-err').textContent = T.roomGone;
+        goTo('setup');
+      } else {
+        pollFailures = Math.min(pollFailures + 1, 4);   // keep trying, slower
+      }
+    } finally {
+      pollInFlight = false;
+      scheduleNextPoll();
+    }
+  }
 
   function startPolling() {
-    stopPolling();
-    pollTimer = setInterval(async () => {
-      if (pollInFlight || !code) return;
-      pollInFlight = true;
-      try {
-        const state = await GameRPSOnline.getState(code);
-        render(state);
-      } catch (err) {
-        if (String(err.message).includes('not found')) {
-          resetSession();
-          $('setup-err').textContent = T.roomGone;
-          goTo('setup');
-        }
-      } finally {
-        pollInFlight = false;
-      }
-    }, 1200);
+    pollEnabled = true;
+    pollFailures = 0;
+    scheduleNextPoll();
   }
 
   function stopPolling() {
-    if (pollTimer) clearInterval(pollTimer);
+    pollEnabled = false;
+    if (pollTimer) clearTimeout(pollTimer);
     pollTimer = null;
   }
+
+  document.addEventListener('visibilitychange', () => {
+    if (!pollEnabled || !code) return;
+    if (document.hidden) {
+      if (pollTimer) clearTimeout(pollTimer);
+      pollTimer = null;
+    } else {
+      pollFailures = 0;
+      if (pollTimer) clearTimeout(pollTimer);
+      pollOnce();                              // catch up right away
+    }
+  });
 
   /* ── Setup screen ── */
 
@@ -456,7 +507,7 @@
       startPolling();
     } catch (err) {
       stopCamera();
-      $('setup-err').textContent = T.createFail;
+      $('setup-err').textContent = String(err && err.message).includes('unavailable') ? T.busy : T.createFail;
     }
     btn.disabled = false;
   });
@@ -487,7 +538,8 @@
       startPolling();
     } catch (err) {
       stopCamera();
-      $('setup-err').textContent = String(err && err.message).includes('room full') ? T.roomFull : T.joinFail;
+      const m = String(err && err.message);
+      $('setup-err').textContent = m.includes('room full') ? T.roomFull : m.includes('unavailable') ? T.busy : T.joinFail;
     }
     btn.disabled = false;
   });

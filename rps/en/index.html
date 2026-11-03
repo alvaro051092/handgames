@@ -112,7 +112,7 @@
         "name": "Can you play Rock Paper Scissors with a friend online without signing up?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. Create a room, send your friend the invite link or the 5-character code and play in real time. There is no account and nothing to install, and the room expires after about an hour without activity."
+          "text": "Yes. Create a room, send your friend the invite link or the 5-character code and play in near real time. There is no account and nothing to install, and the room expires after about an hour without activity."
         }
       },
       {
@@ -128,7 +128,7 @@
         "name": "Is my camera video sent to a server when I play?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No video is sent to our servers. Your hand is recognized in your browser (the recognition model is downloaded from a public CDN when you turn the camera on). In online rooms, only your name, the room code and the name of your move (rock, paper or scissors) reach our server."
+          "text": "No video is sent to our servers. Your hand is recognized in your browser (the recognition model is downloaded from a public CDN when you turn the camera on). In online rooms, our server only receives your name, a random session identifier, the room code and your move (rock, paper or scissors); the video and the photo of your gesture are never sent."
         }
       }
     ]
@@ -311,6 +311,18 @@
     .faq-item summary::after{content:'+';float:right;color:var(--clr-primary-light);font-weight:900;}
     .faq-item[open] summary::after{content:'\2212';}
     .faq-item p{margin-top:var(--sp-2);font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.6;}
+  
+    /* Top bar: no overlap with the page title on small screens */
+    .top-nav { gap: var(--sp-2); }
+    .hub-page, .mode-hub { justify-content: flex-start; }
+    .top-nav a { white-space: nowrap; }
+    @media (max-width: 600px) {
+      .hub-page, .mode-hub { padding-top: calc(var(--sp-4) + 2.75rem); }
+    }
+    @media (max-width: 400px) {
+      .top-nav a { font-size: var(--text-xs); }
+      .top-nav .lang-link { padding: var(--sp-1); }
+    }
   </style>
   <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
@@ -363,6 +375,8 @@
 
   <section class="rules-section" aria-labelledby="rules-heading">
     <h2 id="rules-heading">How to play Rock Paper Scissors</h2>
+    <p>Rock Paper Scissors (known as <em>Jan-Ken-Pō</em> in Japan) is one of the most popular hand games in the world. Here you can play online for free against the CPU, <a href="#online" style="color:var(--clr-primary-light);font-weight:700;">with a friend online</a> or <a href="#camera" style="color:var(--clr-primary-light);font-weight:700;">with your phone's camera</a>. Two players pick one of three gestures at the same time: the one that beats the other wins the round.</p>
+
     <h3>The 3 gestures</h3>
     <ul class="rules-list">
       <li>🪨 <strong>Rock</strong> — closed fist</li>
@@ -463,7 +477,7 @@
     </details>
     <details class="faq-item">
       <summary>Can you play Rock Paper Scissors with a friend online without signing up?</summary>
-      <p>Yes. Create a room, send your friend the invite link or the 5-character code and play in real time. There is no account and nothing to install, and the room expires after about an hour without activity.</p>
+      <p>Yes. Create a room, send your friend the invite link or the 5-character code and play in near real time. There is no account and nothing to install, and the room expires after about an hour without activity.</p>
     </details>
     <details class="faq-item">
       <summary>Can you play Rock Paper Scissors with your camera?</summary>
@@ -471,7 +485,7 @@
     </details>
     <details class="faq-item">
       <summary>Is my camera video sent to a server when I play?</summary>
-      <p>No video is sent to our servers. Your hand is recognized in your browser (the recognition model is downloaded from a public CDN when you turn the camera on). In online rooms, only your name, the room code and the name of your move (rock, paper or scissors) reach our server.</p>
+      <p>No video is sent to our servers. Your hand is recognized in your browser (the recognition model is downloaded from a public CDN when you turn the camera on). In online rooms, our server only receives your name, a random session identifier, the room code and your move (rock, paper or scissors); the video and the photo of your gesture are never sent.</p>
     </details>
   </section>
 

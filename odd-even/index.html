@@ -246,6 +246,18 @@
     .faq-item summary::after{content:'+';float:right;color:var(--clr-primary-light);font-weight:900;}
     .faq-item[open] summary::after{content:'\2212';}
     .faq-item p{margin-top:var(--sp-2);font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.6;}
+  
+    /* Top bar: no overlap with the page title on small screens */
+    .top-nav { gap: var(--sp-2); }
+    .hub-page, .mode-hub { justify-content: flex-start; }
+    .top-nav a { white-space: nowrap; }
+    @media (max-width: 600px) {
+      .hub-page, .mode-hub { padding-top: calc(var(--sp-4) + 2.75rem); }
+    }
+    @media (max-width: 400px) {
+      .top-nav a { font-size: var(--text-xs); }
+      .top-nav .lang-link { padding: var(--sp-1); }
+    }
   </style>
   <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>

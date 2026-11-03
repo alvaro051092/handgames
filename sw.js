@@ -3,11 +3,13 @@
    Strategy: Cache-first for static assets, network-first for HTML.
    Version bump CACHE_VERSION to force update on deploy.
 
-   PRECACHE lists canonical paths without ?v= query strings.
-   caches.match uses ignoreSearch:true so versioned URLs are served
-   from the precache. On deploy, bump CACHE_VERSION to clear old cache.
+   PRECACHE lists canonical paths without ?v= query strings. Static assets
+   are matched on their exact URL (?v= included); the unversioned precache
+   entries (ignoreSearch) are only the OFFLINE fallback, so a new ?v= is
+   never answered with older cached bytes while the network is up.
+   On deploy, bump CACHE_VERSION to clear old caches.
 ═══════════════════════════════════════════════════════════ */
-const CACHE_VERSION = 'hg-v19';
+const CACHE_VERSION = 'hg-v20';
 const CACHE_STATIC  = `${CACHE_VERSION}-static`;
 const CACHE_ML      = `${CACHE_VERSION}-ml-models`;
 
@@ -122,10 +124,15 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  /* CSS, JS, images, fonts: cache-first.
-     ignoreSearch:true lets versioned (?v=N) requests hit the precache. */
+  /* CSS, JS, images, fonts: cache-first on the EXACT url (query included).
+     Versioned urls (?v=N) therefore only hit an entry stored for that same
+     version; a new ?v= goes to the network instead of being answered with the
+     bytes cached for an older ?v= (what ignoreSearch used to do).
+     ignoreSearch is kept only as an offline fallback: with the network down,
+     an older copy of the file (or the unversioned precache entry) beats a
+     broken page. */
   event.respondWith(
-    caches.match(request, { ignoreSearch: true }).then(cached => {
+    caches.match(request).then(cached => {
       if (cached) return cached;
       return fetch(request).then(res => {
         if (res.ok) {
@@ -133,7 +140,9 @@ self.addEventListener('fetch', event => {
           caches.open(CACHE_STATIC).then(c => c.put(request, clone));
         }
         return res;
-      });
+      }).catch(() =>
+        caches.match(request, { ignoreSearch: true }).then(fallback => fallback || Response.error())
+      );
     })
   );
 });

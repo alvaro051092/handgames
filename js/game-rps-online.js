@@ -5,12 +5,23 @@
 ═══════════════════════════════════════════════════════════ */
 window.GameRPSOnline = (() => {
   const BASE = '/api/rps-room';
-  /* Random id for this page load. /join sends it so the server can tell a
-     retry from the same player (idempotent) from a third person trying to
-     take the second seat of an already full room. */
-  const clientId = (window.crypto && crypto.randomUUID)
+  /* Random id for this browser tab. It is what the server uses to recognise a
+     seat: /join sends it so a retry or a reload of the same player gets the same
+     seat back (idempotent) while a third person gets 409 "room full"; GET sends
+     it as a header so the server may return the player's OWN pick (rival picks
+     stay hidden until the round is resolved). Kept in sessionStorage so a
+     reload keeps it; per tab, so two tabs are two players. */
+  const CID_KEY = 'hg_rps_cid';
+  const genId = () => (window.crypto && crypto.randomUUID)
     ? crypto.randomUUID()
     : 'c' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+  const clientId = (() => {
+    try {
+      let v = sessionStorage.getItem(CID_KEY);
+      if (!v) { v = genId(); sessionStorage.setItem(CID_KEY, v); }
+      return v;
+    } catch (_) { return genId(); }     // storage blocked: still unique for this page load
+  })();
 
   async function request(path, options) {
     const res = await fetch(BASE + path, options);
@@ -24,7 +35,7 @@ window.GameRPSOnline = (() => {
     const { code, playerId, state } = await request('', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name }),
+      body: JSON.stringify({ name, clientId }),
     });
     return { code, playerId, state };
   }
@@ -39,7 +50,7 @@ window.GameRPSOnline = (() => {
   }
 
   async function getState(code) {
-    const { state } = await request(`/${code}`);
+    const { state } = await request(`/${code}`, { headers: { 'X-HG-Client': clientId } });
     return state;
   }
 

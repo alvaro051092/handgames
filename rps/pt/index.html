@@ -112,7 +112,7 @@
         "name": "Dá para jogar Pedra Papel Tesoura com um amigo online sem cadastro?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Sim. Crie uma sala, envie ao seu amigo o link de convite ou o código de 5 caracteres e joguem em tempo real. Não precisa de conta nem de instalar nada, e a sala expira após cerca de uma hora sem atividade."
+          "text": "Sim. Crie uma sala, envie ao seu amigo o link de convite ou o código de 5 caracteres e joguem quase em tempo real. Não precisa de conta nem de instalar nada, e a sala expira após cerca de uma hora sem atividade."
         }
       },
       {
@@ -128,7 +128,7 @@
         "name": "Meu vídeo é enviado para algum servidor quando jogo com a câmera?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Nenhum vídeo é enviado aos nossos servidores. A mão é reconhecida no seu navegador (o modelo de reconhecimento é baixado de uma CDN pública quando você ativa a câmera). Nas salas online, só chegam ao nosso servidor seu nome, o código da sala e o nome da sua jogada (pedra, papel ou tesoura)."
+          "text": "Nenhum vídeo é enviado aos nossos servidores. A mão é reconhecida no seu navegador (o modelo de reconhecimento é baixado de uma CDN pública quando você ativa a câmera). Nas salas online, nosso servidor só recebe seu nome, um identificador aleatório de sessão, o código da sala e a sua jogada (pedra, papel ou tesoura); o vídeo e a foto do seu gesto nunca são enviados."
         }
       }
     ]
@@ -309,6 +309,18 @@
     .faq-item summary::after{content:'+';float:right;color:var(--clr-primary-light);font-weight:900;}
     .faq-item[open] summary::after{content:'\2212';}
     .faq-item p{margin-top:var(--sp-2);font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.6;}
+  
+    /* Top bar: no overlap with the page title on small screens */
+    .top-nav { gap: var(--sp-2); }
+    .hub-page, .mode-hub { justify-content: flex-start; }
+    .top-nav a { white-space: nowrap; }
+    @media (max-width: 600px) {
+      .hub-page, .mode-hub { padding-top: calc(var(--sp-4) + 2.75rem); }
+    }
+    @media (max-width: 400px) {
+      .top-nav a { font-size: var(--text-xs); }
+      .top-nav .lang-link { padding: var(--sp-1); }
+    }
   </style>
   <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
@@ -361,6 +373,8 @@
 
   <section class="rules-section" aria-labelledby="rules-heading">
     <h2 id="rules-heading">Como jogar Pedra Papel Tesoura</h2>
+    <p>Pedra Papel Tesoura (conhecido como <em>Jan-Ken-Pô</em> no Japão) é um dos jogos de mão mais populares do mundo. Aqui você pode jogar online e grátis contra a CPU, <a href="#online" style="color:var(--clr-primary-light);font-weight:700;">com um amigo à distância</a> ou <a href="#camera" style="color:var(--clr-primary-light);font-weight:700;">com a câmera do celular</a>. Dois jogadores escolhem ao mesmo tempo um de três gestos: o que vencer o outro ganha a rodada.</p>
+
     <h3>Os 3 gestos</h3>
     <ul class="rules-list">
       <li>🪨 <strong>Pedra</strong> — punho fechado</li>
@@ -460,7 +474,7 @@
     </details>
     <details class="faq-item">
       <summary>Dá para jogar Pedra Papel Tesoura com um amigo online sem cadastro?</summary>
-      <p>Sim. Crie uma sala, envie ao seu amigo o link de convite ou o código de 5 caracteres e joguem em tempo real. Não precisa de conta nem de instalar nada, e a sala expira após cerca de uma hora sem atividade.</p>
+      <p>Sim. Crie uma sala, envie ao seu amigo o link de convite ou o código de 5 caracteres e joguem quase em tempo real. Não precisa de conta nem de instalar nada, e a sala expira após cerca de uma hora sem atividade.</p>
     </details>
     <details class="faq-item">
       <summary>Dá para jogar Pedra Papel Tesoura com a câmera?</summary>
@@ -468,7 +482,7 @@
     </details>
     <details class="faq-item">
       <summary>Meu vídeo é enviado para algum servidor quando jogo com a câmera?</summary>
-      <p>Nenhum vídeo é enviado aos nossos servidores. A mão é reconhecida no seu navegador (o modelo de reconhecimento é baixado de uma CDN pública quando você ativa a câmera). Nas salas online, só chegam ao nosso servidor seu nome, o código da sala e o nome da sua jogada (pedra, papel ou tesoura).</p>
+      <p>Nenhum vídeo é enviado aos nossos servidores. A mão é reconhecida no seu navegador (o modelo de reconhecimento é baixado de uma CDN pública quando você ativa a câmera). Nas salas online, nosso servidor só recebe seu nome, um identificador aleatório de sessão, o código da sala e a sua jogada (pedra, papel ou tesoura); o vídeo e a foto do seu gesto nunca são enviados.</p>
     </details>
   </section>
 

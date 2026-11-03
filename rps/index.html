@@ -112,7 +112,7 @@
         "name": "¿Se puede jugar a Piedra, Papel o Tijera con un amigo online sin registrarse?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Sí. Crea una sala, envía a tu amigo el enlace de invitación o el código de 5 caracteres y jueguen en tiempo real. No hace falta cuenta ni instalar nada, y la sala caduca tras aproximadamente una hora sin actividad."
+          "text": "Sí. Crea una sala, envía a tu amigo el enlace de invitación o el código de 5 caracteres y jueguen casi en tiempo real. No hace falta cuenta ni instalar nada, y la sala caduca tras aproximadamente una hora sin actividad."
         }
       },
       {
@@ -128,7 +128,7 @@
         "name": "¿Se envía mi vídeo a algún servidor al jugar con la cámara?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No se envía vídeo a nuestros servidores. La mano se reconoce en tu navegador (el modelo de reconocimiento se descarga desde una CDN pública al activar la cámara). En las salas online, a nuestro servidor solo llegan tu nombre, el código de sala y el nombre de tu jugada (piedra, papel o tijera)."
+          "text": "No se envía vídeo a nuestros servidores. La mano se reconoce en tu navegador (el modelo de reconocimiento se descarga desde una CDN pública al activar la cámara). En las salas online, nuestro servidor solo recibe tu nombre, un identificador aleatorio de sesión, el código de sala y tu jugada (piedra, papel o tijera); el vídeo y la foto de tu gesto nunca se envían."
         }
       }
     ]
@@ -362,6 +362,18 @@
     .faq-item summary::after{content:'+';float:right;color:var(--clr-primary-light);font-weight:900;}
     .faq-item[open] summary::after{content:'\2212';}
     .faq-item p{margin-top:var(--sp-2);font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.6;}
+  
+    /* Top bar: no overlap with the page title on small screens */
+    .top-nav { gap: var(--sp-2); }
+    .hub-page, .mode-hub { justify-content: flex-start; }
+    .top-nav a { white-space: nowrap; }
+    @media (max-width: 600px) {
+      .hub-page, .mode-hub { padding-top: calc(var(--sp-4) + 2.75rem); }
+    }
+    @media (max-width: 400px) {
+      .top-nav a { font-size: var(--text-xs); }
+      .top-nav .lang-link { padding: var(--sp-1); }
+    }
   </style>
   <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM1YK1TG5W"></script>
@@ -519,7 +531,7 @@
     </details>
     <details class="faq-item">
       <summary>¿Se puede jugar a Piedra, Papel o Tijera con un amigo online sin registrarse?</summary>
-      <p>Sí. Crea una sala, envía a tu amigo el enlace de invitación o el código de 5 caracteres y jueguen en tiempo real. No hace falta cuenta ni instalar nada, y la sala caduca tras aproximadamente una hora sin actividad.</p>
+      <p>Sí. Crea una sala, envía a tu amigo el enlace de invitación o el código de 5 caracteres y jueguen casi en tiempo real. No hace falta cuenta ni instalar nada, y la sala caduca tras aproximadamente una hora sin actividad.</p>
     </details>
     <details class="faq-item">
       <summary>¿Se puede jugar a Piedra, Papel o Tijera con la cámara?</summary>
@@ -527,7 +539,7 @@
     </details>
     <details class="faq-item">
       <summary>¿Se envía mi vídeo a algún servidor al jugar con la cámara?</summary>
-      <p>No se envía vídeo a nuestros servidores. La mano se reconoce en tu navegador (el modelo de reconocimiento se descarga desde una CDN pública al activar la cámara). En las salas online, a nuestro servidor solo llegan tu nombre, el código de sala y el nombre de tu jugada (piedra, papel o tijera).</p>
+      <p>No se envía vídeo a nuestros servidores. La mano se reconoce en tu navegador (el modelo de reconocimiento se descarga desde una CDN pública al activar la cámara). En las salas online, nuestro servidor solo recibe tu nombre, un identificador aleatorio de sesión, el código de sala y tu jugada (piedra, papel o tijera); el vídeo y la foto de tu gesto nunca se envían.</p>
     </details>
   </section>
 

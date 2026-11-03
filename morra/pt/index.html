@@ -82,6 +82,18 @@
     .faq-item summary::after{content:'+';float:right;color:var(--clr-primary-light);font-weight:900;}
     .faq-item[open] summary::after{content:'\2212';}
     .faq-item p{margin-top:var(--sp-2);font-size:var(--text-sm);color:var(--clr-text-muted);line-height:1.6;}
+  
+    /* Top bar: no overlap with the page title on small screens */
+    .top-nav { gap: var(--sp-2); }
+    .hub-page, .mode-hub { justify-content: flex-start; }
+    .top-nav a { white-space: nowrap; }
+    @media (max-width: 600px) {
+      .hub-page, .mode-hub { padding-top: calc(var(--sp-4) + 2.75rem); }
+    }
+    @media (max-width: 400px) {
+      .top-nav a { font-size: var(--text-xs); }
+      .top-nav .lang-link { padding: var(--sp-1); }
+    }
   </style>
   <script type="application/ld+json">
   {
@@ -186,7 +198,7 @@
   </main>
   <section class="rules-section" aria-labelledby="rules-heading">
     <h2 id="rules-heading">Como jogar Morra</h2>
-    <p>A Morra é um jogo de adivinhação com os dedos para dois jogadores, praticado na Itália desde a época romana. A cada rodada você mostra de 1 a 5 dedos e palpita o total combinado — quem acertar a soma exata ganha o ponto. Jogue Morra online e grátis contra a CPU (com um clique ou com a câmera) ou em turnos com um amigo no mesmo dispositivo.</p>
+    <p>A Morra é um jogo de adivinhação com os dedos para dois jogadores, praticado na Itália desde a época romana. A cada rodada você mostra de 1 a 5 dedos e palpita o total combinado — quem acertar a soma exata ganha o ponto. Jogue Morra online e grátis contra a CPU (com um clique ou <a href="#camera" style="color:var(--clr-primary-light);font-weight:700;">com a câmera</a>) ou em turnos com um amigo no mesmo dispositivo.</p>
     <h3>Como funciona</h3>
     <ul class="rules-list">
       <li>Cada jogador mostra de 1 a 5 dedos simultaneamente</li>
