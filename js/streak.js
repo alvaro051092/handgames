@@ -21,11 +21,26 @@ window.HGStreak = (() => {
   /* ── Storage helpers ── */
   const KEY = g => `hg_streak_${g}`;
 
+  /* localStorage is user-editable (and other scripts/extensions can write to
+     it), and these values end up inside an innerHTML template in _render(). So
+     every field is coerced to a bounded non-negative integer on the way in:
+     whatever was stored, the banner can only ever contain digits. */
+  const MAX_COUNT = 1e9;
+  const num = v => (typeof v === 'number' && Number.isFinite(v) && v > 0) ? Math.min(Math.floor(v), MAX_COUNT) : 0;
+  function sanitize(d) {
+    if (!d || typeof d !== 'object' || Array.isArray(d)) return null;
+    return {
+      current: num(d.current), best: num(d.best), wins: num(d.wins), losses: num(d.losses),
+      draws: num(d.draws), total: num(d.total),
+      last: (typeof d.last === 'number' && Number.isFinite(d.last) && d.last > 0) ? Math.floor(d.last) : 0,
+    };
+  }
+
   function load(game) {
     try {
       const raw = localStorage.getItem(KEY(game));
       if (!raw) return null;
-      return JSON.parse(raw);
+      return sanitize(JSON.parse(raw));
     } catch (_) { return null; }
   }
 

@@ -65,6 +65,8 @@
       joinFail:   'No encontramos esa sala. Revisá el código.',
       roomFull:   'Esa sala ya está completa: ya hay dos jugadores.',
       busy:       'El servicio está saturado. Reintenta en un momento.',
+      outdated:   'Hay una versión nueva del juego. Recarga la página para seguir jugando.',
+      seatLost:   'Ya no tienes tu lugar en esta sala. Vuelve a entrar con el código.',
     },
     en: {
       draw:       '🤝 Draw!',
@@ -76,6 +78,8 @@
       joinFail:   'We could not find that room. Check the code.',
       roomFull:   'That room is already full: two players have joined.',
       busy:       'The service is busy right now. Please try again in a moment.',
+      outdated:   'There is a new version of the game. Reload the page to keep playing.',
+      seatLost:   'You no longer hold your seat in this room. Join again with the code.',
     },
     pt: {
       draw:       '🤝 Empate!',
@@ -87,6 +91,8 @@
       joinFail:   'Não encontramos essa sala. Confira o código.',
       roomFull:   'Essa sala já está cheia: já há dois jogadores.',
       busy:       'O serviço está sobrecarregado. Tente novamente em instantes.',
+      outdated:   'Há uma nova versão do jogo. Recarregue a página para continuar jogando.',
+      seatLost:   'Você não tem mais seu lugar nesta sala. Entre de novo com o código.',
     },
   }[LANG];
 
@@ -184,6 +190,33 @@
     pickLocked = false; rivalJoinedTracked = false;
     lastSnapshot = null;
     pollInFlight = false;
+  }
+
+  /* A pick/next the server refused: decide what the player sees.
+       already picked / stale round / round not resolved -> the room is simply ahead
+         of this screen (retry, double click, delayed request): sync from the server;
+       client_outdated -> this page is an old version: tell the player to reload;
+       forbidden       -> this tab no longer holds its seat (storage cleared). */
+  function handleActionError(err) {
+    const m = String(err && err.message);
+    if (m.includes('client_outdated') || (err && err.status === 426)) {
+      resetSession();
+      $('setup-err').textContent = T.outdated;
+      goTo('setup');
+      return true;
+    }
+    if (m === 'forbidden') {
+      resetSession();
+      $('setup-err').textContent = T.seatLost;
+      goTo('setup');
+      return true;
+    }
+    if (m.includes('already picked') || m.includes('stale round') || m.includes('round not resolved')) {
+      if (pollTimer) clearTimeout(pollTimer);
+      pollOnce();                       // adopt the server's version of the round
+      return true;
+    }
+    return false;
   }
 
   function setScoreDigit(el, value) {
@@ -290,11 +323,12 @@
     lastSnapshot = CameraGesture.snapshotSquare();
     resetCamArm();
     try {
-      const state = await GameRPSOnline.submitPick(code, playerId, pick);
+      const state = await GameRPSOnline.submitPick(code, playerId, pick, renderedPickRound);
       HGA.pickMade({ pick, round: state.round, input_mode: 'camera' });
       render(state);
-    } catch (_) {
+    } catch (err) {
       // transient network hiccup — capturing reset below lets the loop re-arm
+      handleActionError(err);
     }
     capturing = false;
   }
@@ -507,7 +541,8 @@
       startPolling();
     } catch (err) {
       stopCamera();
-      $('setup-err').textContent = String(err && err.message).includes('unavailable') ? T.busy : T.createFail;
+      const m = String(err && err.message);
+      $('setup-err').textContent = m.includes('unavailable') ? T.busy : (m.includes('client_outdated') || (err && err.status === 426)) ? T.outdated : T.createFail;
     }
     btn.disabled = false;
   });
@@ -539,13 +574,13 @@
     } catch (err) {
       stopCamera();
       const m = String(err && err.message);
-      $('setup-err').textContent = m.includes('room full') ? T.roomFull : m.includes('unavailable') ? T.busy : T.joinFail;
+      $('setup-err').textContent = m.includes('room full') ? T.roomFull : m.includes('unavailable') ? T.busy : (m.includes('client_outdated') || (err && err.status === 426)) ? T.outdated : T.joinFail;
     }
     btn.disabled = false;
   });
 
   $('input-code').addEventListener('input', e => {
-    e.target.value = e.target.value.toUpperCase().slice(0, 5);
+    e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 5);
   });
   $('input-code').addEventListener('keydown', e => {
     if (e.key === 'Enter') $('btn-join').click();
@@ -555,7 +590,7 @@
   (function prefillFromUrl() {
     const room = new URLSearchParams(location.search).get('room');
     if (room) {
-      $('input-code').value = room.toUpperCase().slice(0, 5);
+      $('input-code').value = room.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 5);
       $('join-row').classList.add('show');
     }
   })();
@@ -653,11 +688,13 @@
     btn.classList.add('selected');
     GameAudio.playTick();
     try {
-      const state = await GameRPSOnline.submitPick(code, playerId, pick);
+      const state = await GameRPSOnline.submitPick(code, playerId, pick, renderedPickRound);
       HGA.pickMade({ pick, round: state.round, input_mode: 'online' });
       render(state);
-    } catch (_) {
-      $('pick-buttons').querySelectorAll('.btn-pick').forEach(b => b.disabled = false);
+    } catch (err) {
+      if (!handleActionError(err)) {
+        $('pick-buttons').querySelectorAll('.btn-pick').forEach(b => b.disabled = false);
+      }
     }
   });
 
@@ -669,7 +706,7 @@
     try {
       const state = await GameRPSOnline.nextRound(code, renderedResultRound);
       render(state);
-    } catch (_) {}
+    } catch (err) { handleActionError(err); }
     btn.disabled = false;
   });
 

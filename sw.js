@@ -9,7 +9,7 @@
    never answered with older cached bytes while the network is up.
    On deploy, bump CACHE_VERSION to clear old caches.
 ═══════════════════════════════════════════════════════════ */
-const CACHE_VERSION = 'hg-v20';
+const CACHE_VERSION = 'hg-v21';
 const CACHE_STATIC  = `${CACHE_VERSION}-static`;
 const CACHE_ML      = `${CACHE_VERSION}-ml-models`;
 
@@ -115,8 +115,12 @@ self.addEventListener('fetch', event => {
     event.respondWith(
       fetch(request)
         .then(res => {
-          const clone = res.clone();
-          caches.open(CACHE_STATIC).then(c => c.put(request, clone));
+          /* Only successful pages are stored: a 404/500 kept here would be what
+             the user sees offline (or after a failed fetch) instead of the page. */
+          if (res.ok) {
+            const clone = res.clone();
+            caches.open(CACHE_STATIC).then(c => c.put(request, clone));
+          }
           return res;
         })
         .catch(() => caches.match(request))

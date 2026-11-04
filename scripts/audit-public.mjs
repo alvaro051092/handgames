@@ -28,7 +28,10 @@
 //     per line), not ignored by .assetsignore, carries the expected security
 //     headers, does not set a script/default/connect/img/style/frame CSP
 //     (third-party scripts must keep loading) and does not set Cache-Control;
-//   - SECURITY_HEADERS in worker.js equals the /* rule of _headers;
+//   - SECURITY_HEADERS in worker.js equals the /* rule of _headers; the Worker's 404 is
+//     no-store (never immutable); worker.js has no Math.random; sw.js ignores /api/ and
+//     stores HTML only when res.ok;
+//   - there are no symlinks in the asset set (wrangler follows them: FAIL);
 //   - wrangler.jsonc: workers_dev === false, preview_urls === false, no
 //     "routes"/"route" (they would replace the dashboard-managed ones);
 //   - every internal link/script/icon referenced by HTML, JS, manifest.json,
@@ -104,7 +107,9 @@ function isIgnored(rel, isDir, pats) {
   return false;
 }
 
-// Walk without following symlinks (wrangler skips them too); never descend into ignored directories.
+// Walk WITHOUT following symlinks and report them: wrangler (verified with 4.157) DOES follow
+// symlinks when it collects assets, so a link to a file outside the repo (or to a file that
+// .assetsignore excludes) would publish the target. Never descend into ignored directories.
 function walk(pats, builtin) {
   const files = [], links = [];
   (function rec(dir, base) {
@@ -184,7 +189,7 @@ if (LOCAL) {
 
   const { files, links } = walk(userPats, builtinPats);
   row('INFO', `assets that would be published: ${files.length} files`, summarize(files));
-  row(links.length ? 'WARN' : 'OK', 'no symlinks among the assets (wrangler skips them)', links.join(', '));
+  row(links.length ? 'FAIL' : 'OK', 'no symlinks among the assets (wrangler follows them and would publish the target, even outside the repo)', links.join(', '));
 
   // _headers must not be ignored by the user's patterns (the built-in rule hides it from the public, which is what we want).
   const hdrIgnored = isIgnored('_headers', false, userPats);
@@ -266,6 +271,10 @@ if (LOCAL) {
         row(/X-XSS-Protection/i.test(block[1]) ? 'FAIL' : 'OK', 'worker.js SECURITY_HEADERS no longer sets the obsolete X-XSS-Protection');
       }
       row(/isBlockedPath[\s\S]{0,700}worker\\\.js/.test(w) ? 'OK' : 'FAIL', 'worker.js isBlockedPath covers /worker.js');
+      // The Worker's own 404 must never be cacheable: with getCacheHeader() a missing /x.js came out as "public, max-age=31536000, immutable".
+      const nf = /async function notFoundResponse[\s\S]*?\n\}/.exec(w);
+      row(nf && /headers\.set\('Cache-Control', 'no-store'\)/.test(nf[0]) && !/getCacheHeader/.test(nf[0]) ? 'OK' : 'FAIL', 'worker.js notFoundResponse sends Cache-Control: no-store (no immutable 404s)');
+      row(/Math\.random/.test(w) ? 'FAIL' : 'OK', 'worker.js does not use Math.random (room codes come from crypto.getRandomValues)');
     } catch (e) { row('FAIL', 'worker.js readable', e.message); }
   }
 
@@ -330,6 +339,9 @@ if (LOCAL) {
   // sw.js precache list
   if (set.has('sw.js')) {
     const sw = rd('sw.js');
+    row(/startsWith\('\/api\/'\)\)\s*return;/.test(sw) ? 'OK' : 'FAIL', 'sw.js lets /api/ requests through without caching them');
+    const htmlBranch = /Accept'\)\?\.includes\('text\/html'\)[\s\S]*?\.catch\(/.exec(sw);
+    row(htmlBranch && /if \(res\.ok\)/.test(htmlBranch[0]) ? 'OK' : 'FAIL', 'sw.js stores HTML responses only when res.ok');
     const pre = /const PRECACHE = \[([\s\S]*?)\];/.exec(sw);
     if (pre) for (const m of pre[1].matchAll(/'([^']+)'/g)) { checked++; if (!resolves(m[1])) broken.push(`sw.js PRECACHE -> ${m[1]}`); }
   }
@@ -467,6 +479,8 @@ if (LIVE) {
       row(r.status === 404 ? 'OK' : 'FAIL', 'GET non-existent path -> 404 (Worker-generated)', String(r.status));
       const miss = headerProblems(r);
       row(miss.length ? 'FAIL' : 'OK', 'non-existent path (Worker 404) carries the security headers', miss.length ? 'missing/different: ' + miss.join(', ') : '');
+      const cc = String(r.headers['cache-control'] || '');
+      row(/no-store/i.test(cc) && !/immutable/i.test(cc) ? 'OK' : 'FAIL', 'non-existent path (Worker 404) is not cacheable (no-store, never immutable)', cc);
       continue;
     }
     if (r.error) { pageFails.push(`GET ${p}: ${r.error}`); continue; }
@@ -479,6 +493,13 @@ if (LIVE) {
   row(okPages === nPages ? 'OK' : 'FAIL', `${okPages}/${nPages} public pages answer 200 text/html with the expected security headers (${exp.map(([k]) => k).join(', ')})`);
   pageFails.slice(0, 5).forEach((f) => row('FAIL', f));
   if (pageFails.length > 5) row('FAIL', `... and ${pageFails.length - 5} more pages failing the same check`);
+
+  // A 404 for a path that LOOKS like a versioned asset must not be cached for a year either.
+  try {
+    const r = await rawRequest(BASE, '/js/hg-audit-missing.js', { follow: 0 });
+    const cc = String(r.headers['cache-control'] || '');
+    row(r.status === 404 && /no-store/i.test(cc) && !/immutable/i.test(cc) ? 'OK' : 'FAIL', 'GET missing /js/*.js -> 404 with no-store (not immutable)', `${r.status} ${cc}`);
+  } catch (e) { row('FAIL', 'GET missing /js/*.js', e.message); }
 
   for (const p of ['/sw.js', '/manifest.json', '/robots.txt', '/sitemap.xml']) {
     try {
