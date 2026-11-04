@@ -3,15 +3,18 @@
    - HTTP → HTTPS redirect
    - Cache-Control: immutable for versioned static assets (CSS/JS/fonts)
    - Cache-Control: no-cache for HTML (always fresh)
-   - Security headers on every response
+   - Security headers on every response this Worker generates (404 page, API).
+     Static files are served by the assets layer without running this code, so
+     their headers live in _headers: keep SECURITY_HEADERS and _headers in sync.
 ═══════════════════════════════════════════════════════════ */
 
 const SECURITY_HEADERS = {
   'X-Content-Type-Options': 'nosniff',
   'X-Frame-Options': 'DENY',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
-  'Permissions-Policy': 'camera=(self), microphone=(), geolocation=()',
-  'X-XSS-Protection': '1; mode=block',
+  'Permissions-Policy': 'camera=(self), microphone=(), geolocation=(), payment=(), usb=(), serial=(), hid=(), bluetooth=()',
+  'Content-Security-Policy': "base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'",
+  'Strict-Transport-Security': 'max-age=31536000',
 };
 
 function getCacheHeader(pathname) {
@@ -32,7 +35,7 @@ function getCacheHeader(pathname) {
 function isBlockedPath(pathname) {
   if (/(^|\/)\.[^/]+/.test(pathname)) return true;
   if (/\.command$/.test(pathname)) return true;
-  if (/^\/(docker-compose\.yml|wrangler\.jsonc|nginx(\/|$))/.test(pathname)) return true;
+  if (/^\/(docker-compose\.yml|wrangler\.jsonc|worker\.js|nginx(\/|$)|scripts(\/|$))/.test(pathname)) return true;
   return false;
 }
 
@@ -55,7 +58,7 @@ function genRoomCode() {
 function jsonResponse(data, status = 200, extraHeaders) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', ...extraHeaders },
+    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', ...SECURITY_HEADERS, ...extraHeaders },
   });
 }
 

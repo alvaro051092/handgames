@@ -1,0 +1,16 @@
+# Response headers for static assets (served directly by the assets layer;
+# worker.js only runs for non-asset routes, so it keeps a matching copy in
+# SECURITY_HEADERS). Keep both lists in sync.
+# https://developers.cloudflare.com/workers/static-assets/headers/
+#
+# Deliberately NOT set here: Cache-Control (assets keep the platform default
+# until their URLs are fingerprinted) and any script-src/default-src/connect-src
+# CSP (third-party analytics/tag scripts and the camera model CDN must keep
+# loading). camera=(self) stays allowed: gesture mode uses getUserMedia.
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(self), microphone=(), geolocation=(), payment=(), usb=(), serial=(), hid=(), bluetooth=()
+  Content-Security-Policy: base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'
+  Strict-Transport-Security: max-age=31536000

@@ -13,12 +13,21 @@ node_modules
 .env*
 .dev.vars*
 
+# Worker source (bundled via "main" in wrangler.jsonc, never a public asset)
+/worker.js
+
 # Dev-only scripts and configs — not needed by visitors
 *.command
 docker-compose.yml
 wrangler.jsonc
 nginx
+/scripts
+test
+tests
+package.json
+package-lock.json
+*.log
+*.map
 
-# Internal SEO/content planning docs
-content-strategy.md
-estrategia-contenido.md
+# Internal SEO/content planning docs (and any other markdown)
+*.md
